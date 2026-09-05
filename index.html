@@ -1423,7 +1423,14 @@ $("finish2").addEventListener("click",finish);
 $("doneActions").addEventListener("click",function(e){
   var b=e.target.closest("button[data-go]"); if(!b) return;
   if(b.dataset.go==="me"){ paintMe(); show("me"); }
-  else goHome();
+  } else {
+    // goHome(); 대신 아래 코드로 교체합니다.
+    state.picked = []; // 뽑았던 구절 초기화
+    state.grades = {}; // 채점 기록 초기화
+    setSync("");
+    show("setup");     // 구절 뽑기 화면으로 이동
+    render();          // 화면 버튼 상태 업데이트
+  }
 });
 
 $("toRankFromHome").addEventListener("click",function(){
