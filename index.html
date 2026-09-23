@@ -42,6 +42,7 @@
   --g-seed:#A79079; --g-sprout:#6FAF3E; --g-leaf:#2F8F66;
   --g-flower:#C9718F; --g-fruit:#C25F31; --g-none:#DCEDE5;
   --g-gold:#C49A12; --g-silver:#8391A0; --g-bronze:#B26A35;
+  --f-bud:#6FAF3E; --f-ear:#9AA92F; --f-grain:#C99A1B; --f-harvest:#C2662B;
   --hi:#FFFFFF;
   color-scheme:light;
 }
@@ -55,6 +56,7 @@
     --g-seed:#C9B096; --g-sprout:#B6E58E; --g-leaf:#79D5AA;
     --g-flower:#F0A6BE; --g-fruit:#F0925F; --g-none:#2C4B40;
     --g-gold:#EDC955; --g-silver:#C3CDD8; --g-bronze:#E0A071;
+    --f-bud:#A6DE72; --f-ear:#CBD861; --f-grain:#EDC955; --f-harvest:#F0925F;
     --hi:#12241E;
     color-scheme:dark;
   }
@@ -68,6 +70,7 @@
   --g-seed:#C9B096; --g-sprout:#B6E58E; --g-leaf:#79D5AA;
   --g-flower:#F0A6BE; --g-fruit:#F0925F; --g-none:#2C4B40;
   --g-gold:#EDC955; --g-silver:#C3CDD8; --g-bronze:#E0A071;
+  --f-bud:#A6DE72; --f-ear:#CBD861; --f-grain:#EDC955; --f-harvest:#F0925F;
   --hi:#12241E;
   color-scheme:dark;
 }
@@ -412,6 +415,107 @@ li:not(.open) .growgrid{display:none}
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gcell.none span{color:var(--ink-soft)}
 
+/* ── 카카오 ── */
+.go.kakao{background:#FEE500;color:#181600;margin-top:9px}
+.go.kakao:hover{background:#F5DC00}
+.provider{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;
+  font-size:10.5px;font-weight:700;background:var(--tint);color:var(--brand);vertical-align:2px}
+
+/* ── 타이핑 ── */
+.tlsort{display:flex;gap:7px;margin:0 0 12px}
+.tlsort button{flex:1;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;
+  padding:8px 10px;font:inherit;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+.tlsort button[aria-pressed="true"]{background:var(--secondary);border-color:var(--secondary);color:#1F3D18}
+ul.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+ul.tl>li{background:var(--bg);border-radius:12px}
+.tlrow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;
+  border:0;padding:12px 13px;font:inherit;color:inherit;cursor:pointer}
+.tlmain{flex:1 1 auto;min-width:0}
+.tladdr{display:block;font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.tlsub{display:block;font-size:11.5px;color:var(--ink-soft);margin-top:1px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tlacc{flex:0 0 auto;font-size:12.5px;font-weight:700;color:var(--brand);
+  font-variant-numeric:tabular-nums;text-align:right;line-height:1.3}
+.tlacc em{display:block;font-style:normal;font-size:10.5px;font-weight:400;color:var(--ink-soft)}
+.tlacc.new{color:var(--ink-soft);font-weight:400}
+
+.tyin{width:100%;min-height:150px;padding:14px;font:inherit;font-size:16.5px;line-height:1.8;
+  border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);
+  resize:vertical}
+.tyin:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:transparent}
+.tyhintline{margin:0 0 10px;padding:10px 12px;background:var(--tint);border-radius:10px;
+  font-size:15px;line-height:1.7;color:var(--ink)}
+.tyhintline b{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--brand);
+  margin-right:7px;vertical-align:1px}
+.tystat{margin:9px 2px 0;font-size:12px;color:var(--ink-soft);display:flex;
+  justify-content:space-between;gap:10px}
+.tyscore{display:flex;align-items:baseline;gap:9px;margin:0 0 12px}
+.tyscore b{font-family:"Gowun Batang",Georgia,serif;font-size:34px;font-weight:700;
+  line-height:1;color:var(--brand);font-variant-numeric:tabular-nums}
+.tyscore span{font-size:13px;color:var(--ink-soft)}
+.tytopicline{margin:0 0 13px;padding:10px 12px;border-radius:10px;background:var(--bg);
+  font-size:13.5px;line-height:1.6;color:var(--ink)}
+.tytopicline b{font-weight:700}
+.tytopicline .o{color:var(--brand);font-weight:700;margin-right:6px}
+.tytopicline .x{color:var(--accent-ink);font-weight:700;margin-right:6px}
+.tydiff{margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-soft)}
+.tybox{background:var(--bg);border-radius:11px;padding:13px 14px;font-size:16px;line-height:2;
+  margin:0 0 13px;word-break:keep-all}
+.tybox w,.tyleg w{display:inline-block;padding:0 3px;border-radius:5px}
+.tybox w.bad,.tyleg w.bad{background:var(--accent);color:#5C3413;font-weight:600}
+.tybox w.miss,.tyleg w.miss{border:1.5px dashed var(--g-fruit);color:var(--g-fruit)}
+.tybox w.extra,.tyleg w.extra{color:var(--g-fruit);text-decoration:line-through}
+.tybox w.space,.tyleg w.space{background:var(--tint)}
+.tyleg{display:flex;flex-wrap:wrap;gap:7px;margin:-7px 2px 14px;font-size:11.5px;
+  color:var(--ink-soft)}
+.tyleg w{font-size:11.5px}
+.tygrade{margin-top:4px}
+.tygrade .grades{margin-top:8px}
+
+/* ── FSRS 암송 ── */
+.fhead{display:flex;align-items:baseline;gap:10px;margin:0 0 12px}
+.fbig{font-family:"Gowun Batang",Georgia,serif;font-size:38px;font-weight:700;line-height:1;
+  color:var(--brand);font-variant-numeric:tabular-nums}
+.fsub{font-size:13px;color:var(--ink-soft)}
+.fstage{display:flex;gap:7px;margin:12px 0 0;flex-wrap:wrap}
+.fstage i{font-style:normal;display:inline-flex;align-items:center;gap:4px;font-size:12.5px;
+  font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.fstage i svg{width:19px;height:19px;color:var(--gc)}
+.fstage i.zero{font-weight:400;opacity:.45}
+.fdays{display:flex;align-items:flex-end;gap:5px;height:66px;margin:10px 0 6px}
+.fdays div{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.fdays i{display:block;width:100%;border-radius:4px 4px 0 0;background:var(--core);min-height:3px}
+.fdays b{font-size:10.5px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.fdaylabel{display:flex;gap:5px;margin:0 0 4px}
+.fdaylabel span{flex:1 1 0;text-align:center;font-size:10.5px;color:var(--ink-soft)}
+
+.fq{padding:6px 0 0;text-align:center}
+.fqlabel{margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink-soft)}
+.fqbig{font-family:"Gowun Batang",Georgia,serif;font-size:29px;font-weight:700;line-height:1.35;
+  color:var(--ink);margin:0;word-break:keep-all;letter-spacing:-.02em}
+.fqsub{margin:8px 0 0;font-size:12.5px;color:var(--ink-soft)}
+.fabox{background:var(--bg);border-radius:13px;padding:16px;margin:16px 0 0;text-align:left}
+.fabig{font-family:"Gowun Batang",Georgia,serif;font-size:23px;font-weight:700;color:var(--brand);
+  margin:0 0 6px;line-height:1.4;word-break:keep-all}
+.fatext{margin:0;font-size:16.5px;line-height:1.85;color:var(--ink);word-break:keep-all}
+.faalso{margin:9px 0 0;font-size:12.5px;color:var(--ink-soft)}
+.frates{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:16px}
+.fbtn{border:1.5px solid var(--line-soft);background:var(--surface);border-radius:12px;
+  padding:11px 2px 9px;font:inherit;cursor:pointer;display:flex;flex-direction:column;
+  align-items:center;gap:3px}
+.fbtn svg{width:28px;height:28px;color:var(--gc)}
+.fbtn b{font-size:12.5px;font-weight:700;color:var(--ink)}
+.fbtn em{font-style:normal;font-size:10.5px;color:var(--ink-soft)}
+.fbtn span{font-size:10.5px;color:var(--brand);font-weight:700;font-variant-numeric:tabular-nums}
+.fbtn:hover{border-color:var(--gc)}
+.fprog{display:flex;align-items:center;gap:9px;margin:0 0 4px;font-size:12px;color:var(--ink-soft)}
+.fprog .bar{flex:1 1 auto}
+.fopened{margin:12px 0 0;padding:10px 12px;background:var(--tint);border-radius:10px;
+  font-size:12.5px;color:var(--ink)}
+.flink{display:block;width:100%;margin:12px 0 0;background:none;border:0;font:inherit;
+  font-size:12.5px;font-weight:600;color:var(--brand);cursor:pointer;text-decoration:underline;
+  text-underline-offset:3px}
+
 /* ── 다시 보기 단계 선택 ── */
 .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
 
@@ -618,7 +722,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
       <p class="fixednote" id="stagenote"></p>
     </div>
 
-    <div class="panel">
+    <div class="panel" id="countPanel">
       <p class="eyebrow">뽑을 구절 수</p>
       <div class="counts" id="counts"></div>
       <p class="fixednote" id="countnote"></p>
@@ -716,7 +820,8 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
       <p class="eyebrow">개인 기록</p>
       <p class="rmeta" style="margin:0 0 18px">암송한 구절이 하나씩 쌓입니다. 어떤 구절이 씨앗이고 어떤 구절이 열매인지, 자라는 과정을 그대로 볼 수 있어요. 기록은 <b>이 기기가 아니라 서버에</b> 남으니 폰을 바꾸거나 앱을 닫았다 열어도 그대로 이어집니다.</p>
       <button type="button" class="go" id="signin">구글 계정으로 시작하기</button>
-      <p class="note" id="signinnote">기록은 구글 계정에 묶이고, 본인만 읽고 쓸 수 있습니다.</p>
+      <button type="button" class="go kakao" id="signinKakao">카카오 계정으로 시작하기</button>
+      <p class="note" id="signinnote">기록은 로그인한 계정에 묶이고, 본인만 읽고 쓸 수 있습니다.</p>
     </div>
 
     <div id="mePanels" hidden>
@@ -743,6 +848,144 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
         <p class="eyebrow">파트별 자라는 정도 · 눌러서 펼치기</p>
         <div id="grow"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ===== FSRS 암송 · 오늘 ===== -->
+  <div id="fsrs" hidden>
+
+    <div class="panel" id="fsigninPanel" hidden>
+      <p class="eyebrow">FSRS 암송</p>
+      <p class="rmeta" style="margin:0 0 18px">잊을 때쯤 다시 물어봐서 오래 남게 외웁니다. 어디까지 외웠는지 서버에 쌓이기 때문에 <b>로그인이 필요합니다.</b> 며칠 못 들어와도 밀린 것부터 이어서 나옵니다.</p>
+      <button type="button" class="go" id="fsignin">로그인하러 가기</button>
+    </div>
+
+    <div id="fPanels" hidden>
+      <div class="panel">
+        <p class="eyebrow">오늘</p>
+        <p class="fhead"><span class="fbig" id="ftoday">0</span><span class="fsub" id="ftodaysub"></span></p>
+        <button type="button" class="go" id="fstart">시작하기</button>
+        <p class="note" id="fnote"></p>
+        <p class="live" id="flive" style="margin:14px 0 0"></p>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">어디까지 왔나</p>
+        <div class="overall" id="fbar"></div>
+        <p class="fstage" id="fstagerow"></p>
+        <p class="donecount" id="fcount"></p>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">앞으로 이레</p>
+        <div class="fdays" id="fdays"></div>
+        <div class="fdaylabel" id="fdaylabel"></div>
+      </div>
+
+      <div class="panel">
+        <p class="eyebrow">설정</p>
+        <div class="field">
+          <label>외울 파트 <span class="opt" id="fpartsnow"></span></label>
+          <button type="button" class="textlink" id="fpartsbtn" style="margin-top:2px">파트 고르기</button>
+        </div>
+        <div class="field">
+          <label>하루에 새로 여는 구절</label>
+          <div class="counts" id="fnew"></div>
+        </div>
+        <div class="field">
+          <label>하루 복습 상한</label>
+          <div class="counts" id="fmax"></div>
+        </div>
+        <div class="field">
+          <label>제목만 보고 암송하는 카드</label>
+          <div class="counts" id="ftitle"></div>
+          <p class="fixednote">1단계 제목·주소, 2단계 주소 → 암송을 잘하면 열립니다. 끄면 두 단계까지만 합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FSRS 암송 · 복습 ===== -->
+  <div id="fcard" hidden>
+    <div class="fprog"><span id="fpos"></span><span class="bar"><i id="fpbar"></i></span><span id="fkind"></span></div>
+
+    <div class="panel">
+      <div class="fq">
+        <p class="fqlabel" id="fqlabel"></p>
+        <p class="fqbig" id="fqbig"></p>
+        <p class="fqsub" id="fqsub"></p>
+      </div>
+      <div id="fanswer" hidden>
+        <div class="fabox">
+          <p class="fabig" id="fabig"></p>
+          <p class="fatext" id="fatext"></p>
+          <p class="faalso" id="faalso"></p>
+        </div>
+        <div class="frates" id="frates"></div>
+        <button type="button" class="flink" id="ftype" hidden>타이핑으로 확인해 보기</button>
+      </div>
+      <div class="actions" id="fshowrow">
+        <button type="button" id="fshow" class="primary">답 보기</button>
+      </div>
+      <p class="fopened" id="fopened" hidden></p>
+    </div>
+  </div>
+
+  <!-- ===== 타이핑 · 구절 고르기 ===== -->
+  <div id="tlist" hidden>
+    <div class="panel">
+      <p class="eyebrow">타이핑할 구절</p>
+      <div class="tlsort" id="tlsort">
+        <button type="button" data-sort="part" aria-pressed="true">파트 순</button>
+        <button type="button" data-sort="weak" aria-pressed="false">약한 것부터</button>
+      </div>
+      <ul class="tl" id="tlul"></ul>
+      <p class="note" id="tlnote" style="text-align:left"></p>
+    </div>
+  </div>
+
+  <!-- ===== 타이핑 ===== -->
+  <div id="type" hidden>
+    <div class="rhead">
+      <p style="margin:0 0 8px"><span class="tag personal">타이핑</span></p>
+      <h2 class="rname" id="tyaddr"></h2>
+      <p class="rmeta" id="tymeta"></p>
+    </div>
+
+    <div class="panel" id="tyinput">
+      <div class="vertoggle" id="tyver" role="group" aria-label="성경 역본">
+        <button type="button" data-ver="gae" aria-pressed="true">개역개정</button>
+        <button type="button" data-ver="han" aria-pressed="false">개역한글</button>
+      </div>
+      <div class="field" style="margin-bottom:13px">
+        <label for="tytopic">구절 제목 <span class="opt">(생각나면 함께 써 보세요)</span></label>
+        <input type="text" id="tytopic" placeholder="예: 중심되신 그리스도" autocomplete="off"
+               autocapitalize="off" spellcheck="false">
+      </div>
+      <p class="tyhintline" id="tyhint" hidden></p>
+      <textarea id="tyin" class="tyin" rows="6" placeholder="외운 대로 쳐 보세요. 띄어쓰기와 문장부호는 달라도 괜찮습니다."
+        autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
+      <p class="tystat"><span id="tycount"></span><span id="tyhints"></span></p>
+      <div class="actions">
+        <button type="button" id="tyhintbtn">힌트</button>
+        <button type="button" id="tycheck" class="primary">채점</button>
+      </div>
+    </div>
+
+    <div class="panel" id="tyresult" hidden>
+      <p class="tyscore"><b id="tyacc"></b><span id="tysum"></span></p>
+      <p class="tytopicline" id="tytopicline"></p>
+      <p class="tydiff">원문 · 틀린 자리</p>
+      <div class="tybox" id="tyref"></div>
+      <p class="tyleg"><w class="bad">틀림</w><w class="miss">빠짐</w><w class="extra">덧붙임</w><w class="space">띄어쓰기만 다름 · 맞은 것</w></p>
+      <p class="tydiff">내가 친 것</p>
+      <div class="tybox" id="tymine"></div>
+      <div class="tygrade" id="tygrade"></div>
+      <div class="actions">
+        <button type="button" id="tyagain">다시 치기</button>
+        <button type="button" id="tynext" class="primary">다음 구절</button>
+      </div>
+      <p class="note" id="tynote" style="text-align:left"></p>
     </div>
   </div>
 
@@ -906,6 +1149,52 @@ var ICON = {
     '<circle cx="12" cy="15.2" r="4.7" fill="none" style="stroke:var(--hi)" stroke-width="1" opacity=".45"/>'+
     '<circle cx="12" cy="15.2" r="2.1" style="fill:var(--hi)" opacity=".85"/>',
 
+  /* 싹 — 막 돋은 어린 싹 */
+  bud:
+    '<path d="M12 21.2v-7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'+
+    '<path d="M12 14.2c-3.3 0-5.6-2-5.9-5.2 3.3-.5 5.7 1.4 5.9 5.2z"/>'+
+    '<path d="M12 13.4c.2-3.9 2.6-6.1 6-5.6-.4 3.4-2.8 5.4-6 5.6z" opacity=".78"/>'+
+    '<path d="M8.6 10.6c1.2.5 2.2 1.3 2.9 2.4" fill="none" style="stroke:var(--hi)" stroke-width="1" stroke-linecap="round" opacity=".5"/>',
+
+  /* 이삭 — 낟알이 달린 이삭 */
+  ear:
+    '<path d="M12 21.8V9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'+
+    '<ellipse cx="12" cy="5.4" rx="1.55" ry="2.7"/>'+
+    '<ellipse cx="9.3" cy="9.1" rx="1.5" ry="2.5" transform="rotate(-36 9.3 9.1)"/>'+
+    '<ellipse cx="14.7" cy="9.1" rx="1.5" ry="2.5" transform="rotate(36 14.7 9.1)"/>'+
+    '<ellipse cx="9.5" cy="13.4" rx="1.45" ry="2.4" transform="rotate(-36 9.5 13.4)" opacity=".8"/>'+
+    '<ellipse cx="14.5" cy="13.4" rx="1.45" ry="2.4" transform="rotate(36 14.5 13.4)" opacity=".8"/>'+
+    '<path d="M12 4.2v2.4" fill="none" style="stroke:var(--hi)" stroke-width=".9" stroke-linecap="round" opacity=".5"/>',
+
+  /* 곡식 — 거둔 낟알 더미 */
+  grain:
+    '<ellipse cx="12" cy="6.6" rx="2.5" ry="3.4"/>'+
+    '<ellipse cx="7.6" cy="12.6" rx="2.5" ry="3.4" transform="rotate(-24 7.6 12.6)" opacity=".85"/>'+
+    '<ellipse cx="16.4" cy="12.6" rx="2.5" ry="3.4" transform="rotate(24 16.4 12.6)" opacity=".85"/>'+
+    '<path d="M4.3 21.2c1.6-2.6 4.3-3.9 7.7-3.9s6.1 1.3 7.7 3.9z" opacity=".55"/>'+
+    '<path d="M12 4.6v3.4M7 11.4l-1 2.6M17 11.4l1 2.6" fill="none" style="stroke:var(--hi)" stroke-width=".9" stroke-linecap="round" opacity=".45"/>',
+
+  /* 추수 — 묶어 세운 볏단 */
+  harvest:
+    '<path d="M12 2.6c1.1 1.7 1.7 3.4 1.7 5.1 0 1.4-.4 2.8-1.2 4.2h-1c-.8-1.4-1.2-2.8-1.2-4.2 0-1.7.6-3.4 1.7-5.1z"/>'+
+    '<path d="M6.5 5.2c1.6 1.2 2.7 2.6 3.2 4.2.4 1.3.4 2.7 0 4.2l-.9.3C7.5 12.6 6.6 11.4 6.1 9.9c-.5-1.6-.4-3.2.4-4.7z" opacity=".85"/>'+
+    '<path d="M17.5 5.2c-1.6 1.2-2.7 2.6-3.2 4.2-.4 1.3-.4 2.7 0 4.2l.9.3c1.3-1.3 2.2-2.5 2.7-4 .5-1.6.4-3.2-.4-4.7z" opacity=".85"/>'+
+    '<path d="M8.4 12.4h7.2l2.6 8.8H5.8z" opacity=".5"/>'+
+    '<rect x="6.7" y="14.6" width="10.6" height="2.5" rx="1.25"/>'+
+    '<path d="M9.6 15.2h4.8" fill="none" style="stroke:var(--hi)" stroke-width=".9" stroke-linecap="round" opacity=".5"/>',
+
+  /* 타이핑 — 자판 */
+  type:
+    '<rect x="2.2" y="5.6" width="19.6" height="12.8" rx="3.4"/>'+
+    '<rect x="5" y="8.4" width="2.3" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".85"/>'+
+    '<rect x="8.4" y="8.4" width="2.3" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".85"/>'+
+    '<rect x="11.8" y="8.4" width="2.3" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".85"/>'+
+    '<rect x="15.2" y="8.4" width="3.8" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".85"/>'+
+    '<rect x="5" y="11.6" width="3.8" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".6"/>'+
+    '<rect x="9.9" y="11.6" width="2.3" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".6"/>'+
+    '<rect x="13.3" y="11.6" width="5.7" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".6"/>'+
+    '<rect x="7.3" y="14.8" width="9.4" height="2.1" rx="1" style="fill:var(--hi)"/>',
+
   none:'<circle cx="12" cy="12" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3.4"/>',
   back:'<path d="M10.4 4.2 3 11.6a.56.56 0 0 0 0 .8l7.4 7.4 1.55-1.55-4.8-4.75h14.2v-2.2H7.15l4.8-4.75z"/>'
 };
@@ -922,6 +1211,28 @@ var IS_DEMO=Q.has("demo");
    로그인용이라 대회코드로 읽지 않습니다.) */
 var URL_CODE=normCode(Q.get("c")||"");
 var BASE_URL=location.href.split("#")[0].split("?")[0];
+
+/* 로그인에서 돌아올 때 오류가 붙어 오는 경우가 있습니다(제공자가 꺼져 있거나
+   돌아올 주소가 등록되지 않았을 때). 그대로 읽어 두었다가 알려 줍니다. */
+var AUTH_ERR=(function(){
+  function pick(q){
+    if(!q) return "";
+    try{
+      var m=new URLSearchParams(q), d=m.get("error_description")||m.get("error");
+      return d?String(d):"";
+    }catch(e){ return ""; }
+  }
+  return pick(location.search.slice(1)) || pick(location.hash.slice(1));
+})();
+function authErrText(){
+  if(!AUTH_ERR) return "";
+  var hint=/not enabled|unsupported provider/i.test(AUTH_ERR)
+    ? " → Supabase → Authentication → Sign In / Providers 에서 그 계정을 켜 주세요."
+    : /redirect/i.test(AUTH_ERR)
+      ? " → Supabase → Authentication → URL Configuration 의 Redirect URLs 에 이 주소를 넣어 주세요."
+      : "";
+  return "로그인이 되지 않았습니다 · "+AUTH_ERR+hint;
+}
 
 /* 대회코드는 영문 대문자·숫자만. 헷갈리는 I·O·0·1 은 만들 때 쓰지 않습니다. */
 function normCode(v){ return String(v||"").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,12); }
@@ -1165,6 +1476,9 @@ var state={
   pscale:"grow",        /* 연습용 채점 방식 */
   newScale:"grow", newN:10,
   newStart:"now",       /* 새 대회 시작: now(바로) | at(시각 정하기) */
+  typing:null,          /* 지금 치는 구절 {a,pn,ver,hints,...} */
+  f:{cards:{},set:null,queue:[],qi:0,total:0,opened:"",loaded:false},   /* FSRS 암송 */
+  f:{cards:{},set:null,queue:[],qi:0,total:0,opened:"",loaded:false},   /* FSRS 암송 */
   entryId:null          /* 지금 채점 중인 대회 참가 기록 id */
 };
 var $=function(id){ return document.getElementById(id); };
@@ -1176,7 +1490,9 @@ var COUNT_OPTS=[3,5,10,20,0];
 var MODES=[
   {k:"practice",icon:"practice",n:"연습용",d:"이름 없이 가볍게. 뽑고 스스로 확인합니다."},
   {k:"contest", icon:"contest", n:"대회용",d:"대회를 만들거나 대회코드로 들어가 겨룹니다."},
-  {k:"personal",icon:"person",  n:"개인용",d:"구글 계정으로 기록을 쌓고 자라는 과정을 봅니다."}
+  {k:"personal",icon:"person",  n:"개인용",d:"구글·카카오 계정으로 기록을 쌓고 자라는 과정을 봅니다."},
+  {k:"typing",  icon:"type",    n:"타이핑",d:"외워서 쳐 보고, 어디가 틀렸는지 바로 확인합니다."},
+  {k:"fsrs",    icon:"harvest", n:"FSRS 암송",d:"잊을 때쯤 다시 물어봐서 오래 남게 외웁니다."}
 ];
 
 /* 알림 한 줄. 잘 된 소식은 잠시 뒤 스스로 사라지고, 오류는 남습니다. */
@@ -1244,11 +1560,11 @@ function setLive(el,text,ok){
   e.textContent=text;
 }
 document.addEventListener("visibilitychange",function(){
-  if(document.hidden){ flushSave(); return; }
+  if(document.hidden){ flushSave(); fFlush(); return; }
   if(poll.job) poll.job(true);
   if(state.mode==="contest" && screenNow==="setup") syncServerClock();
 });
-window.addEventListener("pagehide",function(){ flushSave(); });
+window.addEventListener("pagehide",function(){ flushSave(); fFlush(); });
 window.addEventListener("focus",function(){ if(poll.job) poll.job(true); });
 
 /* ═══ 집계 ═══ */
@@ -1406,11 +1722,13 @@ function within(p,ms){
    본인 기록만 읽고 씁니다(owner = "g:사용자ID").                        */
 
 function setMe(u){
-  var meta=u.user_metadata||{};
+  var meta=u.user_metadata||{}, app=u.app_metadata||{};
   state.me={
-    owner:"g:"+u.id,
-    name:meta.full_name||meta.name||(u.email||"").split("@")[0],
-    email:u.email||"", avatar:meta.avatar_url||""
+    owner:"g:"+u.id,          /* 계정마다 다른 값입니다(구글·카카오 따로) */
+    provider:app.provider||"google",
+    name:meta.full_name||meta.name||meta.preferred_username||meta.user_name||
+         (u.email||"").split("@")[0]||"나",
+    email:u.email||"", avatar:meta.avatar_url||meta.picture||""
   };
 }
 
@@ -1594,6 +1912,7 @@ function setMode(m){
   $("whoPanel").hidden   = (m!=="contest");
   $("numfield").hidden   = (m!=="contest");
   $("stagePanel").hidden = true;
+  $("countPanel").hidden = (m==="typing"||m==="fsrs");
   $("partPanel").hidden  = false;
   $("nameopt").textContent = needName()?"":"(안 적어도 됩니다)";
   buildCounts();
@@ -1650,6 +1969,26 @@ function render(){
     ? "후보가 "+want2+"개보다 적어서 "+total+"구절 전체가 나옵니다." : "";
   var ok = !!sel.length;
 
+  if(!drawArmed) $("go").textContent =
+    (state.mode==="typing") ? "구절 고르기" : (state.mode==="fsrs") ? "이 파트로 정하기" : "구절 뽑기";
+  if(state.mode==="fsrs"){
+    $("summary").innerHTML = sel.length
+      ? "고른 파트 <strong>"+sel.length+"개</strong> · 구절 <strong>"+total+"개</strong>"
+      : "FSRS 암송에 넣을 파트를 골라 주세요.";
+    $("note").textContent="고른 파트의 구절이 하루에 정한 개수만큼 열립니다. 나중에 바꿔도 기록은 남습니다.";
+    $("note").className="note";
+    $("go").disabled=!sel.length;
+    return;
+  }
+  if(state.mode==="typing"){
+    $("summary").innerHTML = sel.length
+      ? "선택한 파트 <strong>"+sel.length+"개</strong> · 칠 수 있는 구절 <strong>"+total+"개</strong>"
+      : "타이핑할 파트를 하나 이상 골라 주세요.";
+    $("note").textContent="한 구절씩 골라서 외운 대로 쳐 봅니다.";
+    $("note").className="note";
+    $("go").disabled=!sel.length;
+    return;
+  }
   if(state.mode==="contest"){
     /* 이미 뽑은 사람은 파트를 안 골라도 이름만으로 불러올 수 있습니다. */
     ok = !!name && !drawBusy;
@@ -1741,6 +2080,14 @@ function refreshRow(li){
 /* ═══ 뽑기 ═══ */
 function run(){
   var name=$("name").value.trim(), num=$("num").value.trim();
+  if(state.mode==="typing"){ openTypeList(); return; }
+  if(state.mode==="fsrs"){
+    state.f.set.parts=selectedParts().map(function(p){ return p.name; });
+    saveFsrsSet();
+    fPaintHome();
+    goBack();
+    return;
+  }
   if(needName() && !name) return;
   if(state.mode==="contest"){ runContest(name,num); return; }
 
@@ -2258,14 +2605,16 @@ function paintMe(){
   $("signinPanel").hidden=signed;
   $("mePanels").hidden=!signed;
   if(!signed){
-    $("signinnote").textContent = online()
-      ? "기록은 구글 계정에 묶이고, 본인만 읽고 쓸 수 있습니다."
-      : DB_MSG;
+    $("signinnote").textContent = !online() ? DB_MSG
+      : (authErrText() ||
+         "기록은 로그인한 계정에 묶입니다. 구글과 카카오는 서로 다른 계정이라 기록도 따로 쌓입니다.");
+    $("signinnote").className = "note"+(authErrText()?" errline":"");
     return;
   }
   var me=state.me, nm=me.name||"나";
-  $("mename").textContent=nm;
-  $("memail").textContent=me.email||"";
+  $("mename").innerHTML=esc(nm)+
+    '<span class="provider">'+esc(PROVIDER_KO[me.provider]||me.provider||"")+'</span>';
+  $("memail").textContent=me.email||((PROVIDER_KO[me.provider]||"")+" 계정으로 들어왔습니다");
   $("meavatar").innerHTML = me.avatar
     ? '<img src="'+esc(me.avatar)+'" alt="">'
     : esc(nm.slice(0,1));
@@ -2317,18 +2666,644 @@ function paintMe(){
   $("grow").innerHTML=html;
 }
 
+/* ═══ 타이핑 ═══
+   구절을 외워서 쳐 보고, 어디가 틀렸는지 어절 단위로 봅니다.
+   문장부호는 무시하고, 띄어쓰기만 다른 것은 틀린 것으로 보지 않습니다.  */
+var TY_PUNCT=/[.,·;:!?"'`´‘’“”~^\-–—…()\[\]{}「」『』《》〈〉〔〕\/\\|*＊]/g;
+function tyNorm(w){ return String(w||"").normalize("NFC").replace(TY_PUNCT,""); }
+function tyWords(t){
+  return String(t||"").normalize("NFC").replace(/\s+/g," ").trim().split(" ")
+    .filter(function(x){ return tyNorm(x).length; });
+}
+/* 원문과 내가 친 것을 어절 단위로 맞춰 봅니다.
+   parts: {t:"ok"|"space"|"bad"|"miss"|"extra", r:원문, u:내가 친 것, n:어절 수} */
+function typeDiff(refText,usrText){
+  var Rr=tyWords(refText), Ur=tyWords(usrText);
+  var R=Rr.map(tyNorm), U=Ur.map(tyNorm);
+  var n=R.length, m=U.length, i, j;
+  var L=[], row;
+  for(i=0;i<=n;i++){ row=[]; for(j=0;j<=m;j++) row.push(0); L.push(row); }
+  for(i=n-1;i>=0;i--) for(j=m-1;j>=0;j--)
+    L[i][j]= (R[i]===U[j]) ? L[i+1][j+1]+1 : Math.max(L[i+1][j],L[i][j+1]);
+  var parts=[], gapR=[], gapU=[];
+  function flushGap(){
+    if(!gapR.length && !gapU.length) return;
+    var cr=gapR.map(tyNorm).join(""), cu=gapU.map(tyNorm).join(""), k, both;
+    if(cr && cr===cu){
+      /* 띄어쓰기만 다릅니다 — 틀린 것으로 세지 않습니다 */
+      parts.push({t:"space", r:gapR.join(" "), u:gapU.join(" "), n:gapR.length});
+    } else {
+      both=Math.min(gapR.length,gapU.length);
+      for(k=0;k<both;k++)         parts.push({t:"bad",  r:gapR[k], u:gapU[k], n:1});
+      for(k=both;k<gapR.length;k++) parts.push({t:"miss", r:gapR[k], u:"",     n:1});
+      for(k=both;k<gapU.length;k++) parts.push({t:"extra",r:"",     u:gapU[k], n:1});
+    }
+    gapR=[]; gapU=[];
+  }
+  i=0; j=0;
+  while(i<n && j<m){
+    if(R[i]===U[j]){ flushGap(); parts.push({t:"ok", r:Rr[i], u:Ur[j], n:1}); i++; j++; }
+    else if(L[i+1][j]>=L[i][j+1]){ gapR.push(Rr[i]); i++; }
+    else { gapU.push(Ur[j]); j++; }
+  }
+  while(i<n){ gapR.push(Rr[i]); i++; }
+  while(j<m){ gapU.push(Ur[j]); j++; }
+  flushGap();
+  var ok=0, wrong=0, extra=0;
+  parts.forEach(function(p){
+    if(p.t==="ok"||p.t==="space") ok+=p.n;
+    else { wrong+=p.n; if(p.t==="extra") extra+=p.n; }
+  });
+  /* 정확도는 「맞힌 어절 ÷ (원문 어절 + 덧붙인 어절)」. 없는 말을 더해도 깎입니다. */
+  var base=n+extra;
+  return {parts:parts, total:n, ok:ok, wrong:wrong, extra:extra,
+          acc:(base?Math.round(ok/base*100):0)};
+}
+
+var trecs={};          /* 타이핑 기록 · 주소␟파트 → 줄 */
+var tyRows=[], tySort="part";
+
+function loadTyping(){
+  if(!state.me || !online()) return Promise.resolve();
+  return SB.from("typing_records").select("*").eq("owner",state.me.owner).then(function(r){
+    if(r.error) throw r.error;
+    var m={};
+    (r.data||[]).forEach(function(x){ m[pkey(x.addr,x.part_name)]=x; });
+    trecs=m;
+    if(screenNow==="tlist") paintTypeList();
+  }).catch(function(e){
+    setSync("타이핑 기록을 불러오지 못했습니다 · "+errText(e),true);
+  });
+}
+function saveTyping(res){
+  var t=state.typing;
+  if(!t || !state.me) return;
+  var key=pkey(t.a,t.pn), prev=trecs[key]||{};
+  var row={
+    owner:state.me.owner, addr:t.a, part_name:t.pn, ver:t.ver,
+    tries:(+prev.tries||0)+1, best:Math.max(+prev.best||0,res.acc), last:res.acc,
+    wrong:res.wrong, hints:t.hints, seconds:t.sec||0, topic_ok:t.topic,
+    updated_at:new Date().toISOString()
+  };
+  trecs[key]=row;                     /* 화면은 바로 반영 */
+  if(!online()) return;
+  setSync("기록하는 중…");
+  SB.from("typing_records").upsert(row,{onConflict:"owner,addr,part_name"}).then(function(r){
+    if(r.error) throw r.error;
+    setSync("서버에 저장됨 · "+hhmm());
+  }).catch(function(e){
+    setSync("타이핑 기록을 남기지 못했습니다 · "+errText(e),true);
+  });
+}
+
+function openTypeList(){
+  state.typing=null;
+  paintTypeList();
+  show("tlist");
+  if(state.me){ loadTyping(); loadProgress(true); }
+}
+function typeRows(){
+  var out=[], seen={};
+  selectedParts().forEach(function(p){
+    p.list.forEach(function(a){
+      var k=pkey(a,p.name);
+      if(seen[k]) return;
+      seen[k]=1;
+      out.push({a:a, p:p, rec:trecs[k]||null});
+    });
+  });
+  if(tySort==="weak"){
+    out.forEach(function(r,i){ r.i=i; });
+    out.sort(function(x,y){
+      var xb=x.rec?(+x.rec.best||0):-1, yb=y.rec?(+y.rec.best||0):-1;
+      return xb-yb || x.i-y.i;
+    });
+  }
+  return out;
+}
+function paintTypeList(){
+  tyRows=typeRows();
+  $("tlul").innerHTML=tyRows.map(function(r,i){
+    var m=lookup(r.a,r.p.name)||{};
+    var acc=r.rec
+      ? '<span class="tlacc">'+(+r.rec.best||0)+'%<em>최고 · '+(+r.rec.tries||0)+'번</em></span>'
+      : '<span class="tlacc new">-<em>아직 안 침</em></span>';
+    return '<li><button type="button" class="tlrow" data-i="'+i+'">'+
+      '<span class="tlmain"><span class="tladdr">'+esc(r.a)+'</span>'+
+      '<span class="tlsub">'+esc(r.p.name)+' · '+esc(m.n||"")+'</span></span>'+
+      acc+'</button></li>';
+  }).join("");
+  $("tlnote").textContent = tyRows.length
+    ? (tyRows.length+"구절"+(state.me?"":" · 로그인하면 정확도가 기록됩니다"))
+    : "고른 파트에 구절이 없습니다.";
+  document.querySelectorAll("#tlsort button").forEach(function(b){
+    b.setAttribute("aria-pressed", String(b.dataset.sort===tySort));
+  });
+}
+
+function tyText(){
+  var t=state.typing; if(!t) return "";
+  var m=lookup(t.a,t.pn)||{};
+  return (t.ver==="han" ? (m.h||m.g||"") : (m.g||""));
+}
+function openType(i){
+  var r=tyRows[i]; if(!r) return;
+  state.typing={a:r.a, pn:r.p.name, i:i, ver:state.ver, hints:0, from:0, revealed:0,
+                t0:Date.now(), sec:0, res:null};
+  paintTypeHead();
+  resetType();
+  show("type");
+}
+function paintTypeHead(){
+  var t=state.typing; if(!t) return;
+  var m=lookup(t.a,t.pn)||{};
+  $("tyaddr").textContent=t.a;
+  /* 제목도 맞혀야 하므로 여기서는 보여 주지 않습니다 */
+  $("tymeta").innerHTML=esc(t.pn)+(m.t?" · "+esc(m.t):"");
+  document.querySelectorAll("#tyver button").forEach(function(b){
+    b.setAttribute("aria-pressed", String(b.dataset.ver===t.ver));
+  });
+}
+function resetType(){
+  var t=state.typing; if(!t) return;
+  t.hints=0; t.from=0; t.revealed=0; t.t0=Date.now(); t.sec=0; t.res=null;
+  $("tyin").value="";
+  $("tytopic").value="";
+  $("tyhint").hidden=true; $("tyhint").innerHTML="";
+  $("tyresult").hidden=true;
+  $("tyinput").hidden=false;
+  $("tynote").textContent="";
+  paintTyStat();
+}
+function paintTyStat(){
+  var t=state.typing; if(!t) return;
+  var ref=tyWords(tyText()), mine=tyWords($("tyin").value);
+  $("tycount").textContent=mine.length+" / "+ref.length+" 어절";
+  $("tyhints").textContent=t.hints?("힌트 "+t.hints+"번"):"";
+}
+function tyHint(){
+  var t=state.typing; if(!t) return;
+  var ref=tyWords(tyText()), at=tyWords($("tyin").value).length;
+  if(at>t.revealed){ t.from=at; t.revealed=at; }
+  $("tyhint").hidden=false;
+  if(t.revealed>=ref.length){
+    $("tyhint").innerHTML='<b>힌트</b> 마지막 어절까지 다 나왔습니다.';
+    return;
+  }
+  t.revealed++; t.hints++;
+  $("tyhint").innerHTML='<b>힌트</b> '+esc(ref.slice(t.from,t.revealed).join(" "))+
+    (t.revealed<ref.length?" …":"");
+  paintTyStat();
+}
+function tyTopicSame(a,b){
+  return tyNorm(String(a||"").replace(/\s+/g,""))===tyNorm(String(b||"").replace(/\s+/g,""));
+}
+function tyCheck(){
+  var t=state.typing; if(!t) return;
+  var res=typeDiff(tyText(), $("tyin").value);
+  if(!res.total) return;
+  var m=lookup(t.a,t.pn)||{}, typed=$("tytopic").value.trim();
+  /* 제목: 안 썼으면 세지 않고, 썼는데 다르면 하나 틀린 것으로 봅니다 */
+  t.topic = !typed ? null : (tyTopicSame(typed,m.n||"") ? true : false);
+  t.topicTyped = typed;
+  t.res=res;
+  t.sec=Math.max(1,Math.round((Date.now()-t.t0)/1000));
+  paintTyResult();
+  saveTyping(res);
+}
+function tyBox(parts,which){
+  return parts.map(function(p){
+    if(which==="ref"){
+      if(p.t==="extra") return "";
+      return '<w class="'+(p.t==="ok"?"":p.t)+'">'+esc(p.r)+'</w> ';
+    }
+    if(p.t==="miss") return "";
+    return '<w class="'+(p.t==="ok"?"":p.t==="space"?"space":p.t==="extra"?"extra":"bad")+'">'+
+           esc(p.u)+'</w> ';
+  }).join("");
+}
+function gradeFromWrong(w){
+  return w<=0?"fruit":w===1?"flower":w===2?"leaf":w===3?"sprout":"seed";
+}
+function paintTyResult(){
+  var t=state.typing, res=t.res;
+  $("tyacc").textContent=res.acc+"%";
+  $("tysum").textContent="전체 "+res.total+"어절 중 "+res.wrong+"어절 틀림 · 힌트 "+t.hints+"번 · "+t.sec+"초";
+  var mt=lookup(t.a,t.pn)||{}, tl=$("tytopicline");
+  if(t.topic===true){
+    tl.innerHTML='<span class="o">제목 맞음</span><b>'+esc(mt.n||"")+'</b>';
+  }else if(t.topic===false){
+    tl.innerHTML='<span class="x">제목 틀림</span>쓴 것 <b>'+esc(t.topicTyped||"")+'</b> · 맞는 제목 <b>'+esc(mt.n||"")+'</b>';
+  }else{
+    tl.innerHTML='<span>제목 안 씀</span> · 이 구절의 제목은 <b>'+esc(mt.n||"")+'</b> 입니다';
+  }
+  $("tyref").innerHTML=tyBox(res.parts,"ref")||"—";
+  $("tymine").innerHTML=tyBox(res.parts,"mine")||"—";
+  paintTyGrade();
+  $("tyresult").hidden=false;
+  $("tyinput").hidden=true;
+}
+function paintTyGrade(){
+  var t=state.typing, res=t.res, host=$("tygrade");
+  if(!state.me){
+    host.innerHTML='<p class="fixednote">로그인하면 정확도가 기록되고, 이 결과를 개인 기록(씨앗~열매)에도 남길 수 있습니다.</p>';
+    return;
+  }
+  var titleMiss=(t.topic===false)?1:0;
+  var wrong=res.wrong+t.hints+titleMiss, g=gradeFromWrong(wrong);
+  var now=state.progress[pkey(t.a,t.pn)];
+  host.innerHTML='<p class="fixednote">틀린 어절 '+res.wrong+'개'+(t.hints?" + 힌트 "+t.hints+"번":"")+
+      (titleMiss?" + 제목 1개":"")+
+      ' → <b>'+GRADE_BY[g].n+'</b>. 눌러서 개인 기록에 남기세요.</p>'+
+    '<div class="grades" style="--cols:5">'+GROW_ORDER.map(function(k){
+      var x=GRADE_BY[k];
+      return '<button type="button" class="gbtn" data-tg="'+x.k+'" style="--gc:var(--g-'+x.k+
+             ');--gt:color-mix(in srgb, var(--g-'+x.k+') 16%, var(--surface))" aria-pressed="'+
+             (now&&now.grade===x.k)+'">'+svg(x.k)+'<b>'+x.n+'</b></button>';
+    }).join("")+'</div>';
+}
+function tyNext(){
+  var t=state.typing;
+  if(t && t.i+1<tyRows.length){ openType(t.i+1); return; }
+  paintTypeList();
+  goBack();
+}
+
+/* ═══ FSRS 암송 ═══
+   잊을 때쯤 다시 물어봅니다. 일정은 FSRS-6 을 그대로 옮겨 놓은 것으로,
+   공식 구현(ts-fsrs 5.4.2)과 14만 건을 맞춰 보아 같은 결과가 나옵니다.
+
+   한 구절에 카드가 셋까지 열립니다.
+     1단계 link   제목 ↔ 주소 (복습할 때마다 방향을 바꿔 가며)
+     2단계 recite 주소 → 내용 (1단계를 곡식 이상 연속 두 번)
+     3단계 title  제목 → 내용 (2단계를 곡식 이상 연속 두 번)
+   평가는 싹(다시) · 이삭(더듬) · 곡식(맞음) · 추수(막힘없음) 넷입니다.  */
+
+var FW=[0.212,1.2931,2.3065,8.2956,6.4133,0.8334,3.0194,0.001,1.8722,0.1666,0.796,
+        1.4835,0.0614,0.2629,1.6483,0.6014,1.8729,0.5425,0.0912,0.0658,0.1542];
+var F_SMIN=0.001, F_SMAX=36500, F_RET=0.9, F_MAXIVL=1095, F_CUT=4;
+
+function f8(x){ return Math.round(x*1e8)/1e8; }
+function fClamp(x,a,b){ return Math.min(Math.max(x,a),b); }
+function fDecay(){ return -FW[20]; }
+function fFactor(){ return f8(Math.exp(Math.log(0.9)/fDecay())-1); }
+function fRecall(t,s){ return f8(Math.pow(1+fFactor()*t/s, fDecay())); }
+function fInitS(g){ return Math.max(FW[g-1],0.1); }
+function fInitD(g){ return fClamp(f8(FW[4]-Math.exp((g-1)*FW[5])+1),1,10); }
+function fNextD(d,g){
+  var nd=d+f8(-FW[6]*(g-3)*(10-d)/9);
+  var d0e=f8(FW[4]-Math.exp(3*FW[5])+1);
+  return fClamp(f8(FW[7]*d0e+(1-FW[7])*nd),1,10);
+}
+function fNextS(d,s,r,g){
+  if(g===1){
+    var fail=f8(fClamp(FW[11]*Math.pow(d,-FW[12])*(Math.pow(s+1,FW[13])-1)*Math.exp((1-r)*FW[14]),F_SMIN,F_SMAX));
+    return fClamp(f8(s),F_SMIN,fail);
+  }
+  var hard=(g===2)?FW[15]:1, easy=(g===4)?FW[16]:1;
+  return f8(fClamp(s*(1+Math.exp(FW[8])*(11-d)*Math.pow(s,-FW[9])*(Math.exp((1-r)*FW[10])-1)*hard*easy),F_SMIN,F_SMAX));
+}
+/* 평가 한 번의 결과 · t: 지난 날수, g: 1~4 */
+function fReview(card,t,g){
+  if(!card || !card.s) return {s:fInitS(g), d:fInitD(g), reps:1, lapses:(g===1?1:0)};
+  var r=fRecall(Math.max(0,t),card.s);
+  return {s:fNextS(card.d,card.s,r,g), d:fNextD(card.d,g),
+          reps:(card.reps||0)+1, lapses:(card.lapses||0)+(g===1?1:0)};
+}
+function fIvl(s){
+  var mod=f8((Math.pow(F_RET,1/fDecay())-1)/fFactor());
+  return fClamp(Math.round(s*mod),1,F_MAXIVL);
+}
+
+/* ── 날짜 · 하루 경계는 새벽 4시 ── */
+function fp2(n){ return (n<10?"0":"")+n; }
+function fYmd(d){ return d.getFullYear()+"-"+fp2(d.getMonth()+1)+"-"+fp2(d.getDate()); }
+function fToday(){ return fYmd(new Date(serverNow()-F_CUT*3600e3)); }
+function fDayOf(iso){ var t=parseTs(iso); return isNaN(t)?"":fYmd(new Date(t-F_CUT*3600e3)); }
+function fAdd(day,n){ var d=new Date(day+"T12:00:00"); d.setDate(d.getDate()+n); return fYmd(d); }
+function fDiff(a,b){ return Math.round((new Date(b+"T12:00:00")-new Date(a+"T12:00:00"))/86400000); }
+function fIvlText(n){
+  if(n<=0) return "오늘 다시";
+  if(n===1) return "내일";
+  if(n<30) return n+"일 뒤";
+  if(n<365) return Math.round(n/30)+"달 뒤";
+  return (Math.round(n/36.5)/10)+"해 뒤";
+}
+
+var FGRADES=[{g:1,k:"bud",n:"싹",d:"못 외웠다"},{g:2,k:"ear",n:"이삭",d:"더듬거렸다"},
+             {g:3,k:"grain",n:"곡식",d:"맞게 외웠다"},{g:4,k:"harvest",n:"추수",d:"막힘없이"}];
+var FKIND={link:{n:"제목 · 주소",s:1},recite:{n:"주소 → 암송",s:2},title:{n:"제목 → 암송",s:3}};
+var FSTAGE=[{k:"none",n:"아직"},{k:"bud",n:"제목·주소"},{k:"grain",n:"주소→암송"},{k:"harvest",n:"제목→암송"}];
+function fkey(a,pn,k){ return a+"␟"+pn+"␟"+k; }
+
+/* ── 서버에서 읽고 쓰기 ── */
+function fSetFrom(row){
+  return {
+    parts: row? String(row.parts||"").split(" · ").filter(String) : [],
+    newPerDay: row? (+row.new_per_day||3) : 3,
+    maxReviews: row? (+row.max_reviews||20) : 20,
+    useTitle: row? (row.use_title!==false) : true
+  };
+}
+function loadFsrs(quiet){
+  if(!state.me || !online()) return Promise.resolve();
+  if(!quiet) setLive("flive","불러오는 중…",true);
+  return Promise.all([
+    SB.from("fsrs_cards").select("*").eq("owner",state.me.owner),
+    SB.from("fsrs_settings").select("*").eq("owner",state.me.owner).maybeSingle()
+  ]).then(function(rs){
+    if(rs[0].error) throw rs[0].error;
+    if(rs[1].error) throw rs[1].error;
+    var cards={};
+    (rs[0].data||[]).forEach(function(c){ cards[fkey(c.addr,c.part_name,c.kind)]=c; });
+    state.f.cards=cards;
+    state.f.set=fSetFrom(rs[1].data);
+    state.f.loaded=true;
+    setLive("flive","실시간 · "+hhmm()+" 기준",true);
+  }).catch(function(e){
+    setLive("flive","불러오지 못했습니다",false);
+    setSync("암송 기록을 불러오지 못했습니다 · "+errText(e),true);
+  });
+}
+function saveFsrsSet(){
+  var s=state.f.set;
+  if(!state.me || !online() || !s) return;
+  SB.from("fsrs_settings").upsert({
+    owner:state.me.owner, parts:s.parts.join(" · "), new_per_day:s.newPerDay,
+    max_reviews:s.maxReviews, use_title:!!s.useTitle, updated_at:new Date().toISOString()
+  },{onConflict:"owner"}).then(function(r){
+    if(r.error) throw r.error;
+  }).catch(function(e){ setSync("설정을 저장하지 못했습니다 · "+errText(e),true); });
+}
+var fOut={}, fRetryTimer=null;
+function fRowOf(c){
+  return {owner:(state.me&&state.me.owner)||c.owner, addr:c.addr, part_name:c.part_name, kind:c.kind,
+          stability:c.stability, difficulty:c.difficulty, due:c.due,
+          last_review:c.last_review||null, reps:c.reps, lapses:c.lapses,
+          streak:c.streak||0, dir:c.dir||0, updated_at:c.updated_at};
+}
+function saveFcard(c){
+  c.updated_at=new Date().toISOString();
+  if(!state.me) return;
+  fOut[fkey(c.addr,c.part_name,c.kind)]=fRowOf(c);
+  fFlush();
+}
+function fFlush(){
+  var keys=Object.keys(fOut);
+  if(!keys.length || !online()) return Promise.resolve();
+  var snap={}, rows=[];
+  keys.forEach(function(k){ snap[k]=fOut[k]; rows.push(fOut[k]); });
+  setSync("기록하는 중…");
+  return SB.from("fsrs_cards").upsert(rows,{onConflict:"owner,addr,part_name,kind"}).then(function(r){
+    if(r.error) throw r.error;
+    keys.forEach(function(k){ if(fOut[k]===snap[k]) delete fOut[k]; });
+    setSync("서버에 저장됨 · "+hhmm());
+  }).catch(function(e){
+    setSync("암송 기록을 남기지 못했습니다 · "+errText(e)+" · 잠시 뒤 다시 보냅니다",true);
+    if(!fRetryTimer) fRetryTimer=setTimeout(function(){ fRetryTimer=null; fFlush(); },5000);
+  });
+}
+
+/* ── 오늘 무엇을 볼지 ── */
+function fPlan(){
+  var st=state.f, set=st.set||(st.set=fSetFrom(null)), today=fToday(), cards=st.cards;
+  Object.keys(cards).forEach(function(k){ if(cards[k].fresh && !cards[k].reps) delete cards[k]; });
+  var verses=[], inSet={};
+  (set.parts||[]).forEach(function(pn){
+    var p=PART_BY_NAME[pn]; if(!p) return;
+    p.list.forEach(function(a){ verses.push({a:a,pn:pn}); inSet[a+"␟"+pn]=1; });
+  });
+  var due=[], ahead=[0,0,0,0,0,0,0], openedToday=0;
+  Object.keys(cards).forEach(function(k){
+    var c=cards[k];
+    if(!inSet[c.addr+"␟"+c.part_name]) return;
+    if(c.kind==="title" && !set.useTitle) return;
+    var d=String(c.due||today);
+    if(d<=today) due.push(k);
+    else { var n=fDiff(today,d); if(n>=1 && n<=7) ahead[n-1]++; }
+    if(c.kind==="link" && c.reps<=1 && fDayOf(c.last_review)===today) openedToday++;
+  });
+  due.sort(function(x,y){
+    var a=cards[x], b=cards[y];
+    return String(a.due).localeCompare(String(b.due)) ||
+           (FKIND[a.kind].s-FKIND[b.kind].s) || x.localeCompare(y);
+  });
+  var stage=[0,0,0,0];
+  verses.forEach(function(v){
+    var l=cards[fkey(v.a,v.pn,"link")], r=cards[fkey(v.a,v.pn,"recite")], t=cards[fkey(v.a,v.pn,"title")];
+    if(t) stage[3]++; else if(r) stage[2]++; else if(l) stage[1]++; else stage[0]++;
+  });
+  var room=Math.max(0,(set.newPerDay||3)-openedToday), news=[];
+  verses.forEach(function(v){
+    if(news.length>=room) return;
+    if(cards[fkey(v.a,v.pn,"link")]) return;
+    news.push(v);
+  });
+  return {due:due, news:news, stage:stage, ahead:ahead, verses:verses.length,
+          cap:Math.min(due.length, set.maxReviews||20), today:today};
+}
+function fMates(addr,pn,topic){
+  var p=PART_BY_NAME[pn];
+  if(!p || !topic) return [];
+  return p.list.filter(function(a){
+    if(a===addr) return false;
+    return ((lookup(a,pn)||{}).n||"")===topic;
+  });
+}
+function fVerseText(m){ return state.ver==="han" ? (m.h||m.g||"") : (m.g||""); }
+
+/* ── 오늘 화면 ── */
+function openFsrs(){
+  if(!state.f.set) state.f.set=fSetFrom(null);
+  fPaintHome();
+  show("fsrs");
+  /* 며칠이 지났는지로 일정이 정해지니, 서버 시각을 한 번 맞춰 둡니다. */
+  syncServerClock().then(function(){ if(screenNow==="fsrs") fPaintHome(); });
+  if(state.me) loadFsrs(state.f.loaded).then(fPaintHome);
+}
+function fPaintHome(){
+  var signed=!!state.me;
+  $("fsigninPanel").hidden=signed;
+  $("fPanels").hidden=!signed;
+  if(!signed) return;
+  var st=state.f, set=st.set||(st.set=fSetFrom(null)), plan=fPlan();
+  var todo=plan.cap+plan.news.length, left=plan.due.length-plan.cap;
+  $("ftoday").textContent=todo;
+  $("ftodaysub").innerHTML = set.parts.length
+    ? ("장 · 복습 "+plan.cap+" · 새 구절 "+plan.news.length+
+       (left>0?"<br>밀린 "+left+"장은 다음에 이어서 나옵니다":""))
+    : "먼저 외울 파트를 골라 주세요";
+  $("fstart").disabled=!todo;
+  $("fstart").textContent = todo? "시작하기" : "오늘은 끝";
+  $("fnote").textContent = !set.parts.length ? "아래 설정에서 파트를 고르면 시작합니다."
+    : (todo ? "" : "오늘 볼 카드를 다 했습니다. 내일 또 만나요.");
+
+  var tot=plan.verses||1, bar="";
+  [1,2,3].forEach(function(i){
+    if(!plan.stage[i]) return;
+    bar+='<i style="width:'+(plan.stage[i]/tot*100)+'%;background:var(--f-'+FSTAGE[i].k+')"></i>';
+  });
+  $("fbar").innerHTML=bar;
+  $("fstagerow").innerHTML=[1,2,3].map(function(i){
+    return '<i class="'+(plan.stage[i]?"":"zero")+'" style="--gc:var(--f-'+FSTAGE[i].k+')">'+
+      svg(FSTAGE[i].k)+FSTAGE[i].n+' '+plan.stage[i]+'</i>';
+  }).join("")+'<i class="'+(plan.stage[0]?"":"zero")+'" style="--gc:var(--line)">'+
+      svg("none")+'아직 '+plan.stage[0]+'</i>';
+  $("fcount").textContent = set.parts.length
+    ? ("고른 파트 "+set.parts.length+"개 · 구절 "+plan.verses+"개 · 열린 카드 "+
+       Object.keys(st.cards).length+"장")
+    : "";
+
+  var max=Math.max(1,Math.max.apply(null,plan.ahead));
+  $("fdays").innerHTML=plan.ahead.map(function(n){
+    return '<div><b>'+(n||"")+'</b><i style="height:'+Math.round(n/max*46)+'px'+
+           (n?"":";background:var(--line-soft)")+'"></i></div>';
+  }).join("");
+  $("fdaylabel").innerHTML=plan.ahead.map(function(n,i){
+    var d=new Date(new Date(plan.today+"T12:00:00").getTime()+(i+1)*86400000);
+    return '<span>'+["일","월","화","수","목","금","토"][d.getDay()]+'</span>';
+  }).join("");
+
+  $("fpartsnow").textContent = set.parts.length? ("· "+set.parts.join(" · ")) : "· 아직 안 골랐습니다";
+  $("fnew").innerHTML=[1,2,3,5,10].map(function(n){
+    return '<button type="button" class="cbtn" data-fn="'+n+'" aria-pressed="'+(set.newPerDay===n)+'">'+n+'</button>';
+  }).join("");
+  $("fmax").innerHTML=[10,20,30,50,0].map(function(n){
+    var on = n ? (set.maxReviews===n) : ((set.maxReviews||0)>=9999);
+    return '<button type="button" class="cbtn" data-fm="'+n+'" aria-pressed="'+on+'">'+
+      (n?n+"장":"전부")+'</button>';
+  }).join("");
+  $("ftitle").innerHTML=[["1","씀"],["0","안 씀"]].map(function(x){
+    return '<button type="button" class="cbtn" data-ft="'+x[0]+'" aria-pressed="'+
+      ((x[0]==="1")===!!set.useTitle)+'">'+x[1]+'</button>';
+  }).join("");
+}
+
+/* ── 복습 ── */
+function fStart(){
+  var st=state.f, plan=fPlan(), today=plan.today;
+  var q=plan.due.slice(0,plan.cap);
+  plan.news.forEach(function(v){
+    var k=fkey(v.a,v.pn,"link");
+    st.cards[k]={owner:(state.me&&state.me.owner)||"", addr:v.a, part_name:v.pn, kind:"link",
+                 stability:0, difficulty:0, due:today, last_review:null,
+                 reps:0, lapses:0, streak:0, dir:0, fresh:true};
+    q.push(k);
+  });
+  if(!q.length){ fPaintHome(); return; }
+  st.queue=q; st.qi=0; st.total=q.length; st.opened="";
+  fPaintCard();
+  show("fcard");
+}
+function fPaintCard(){
+  var st=state.f, k=st.queue[st.qi], c=k&&st.cards[k];
+  if(!c){ fFinish(); return; }
+  var m=lookup(c.addr,c.part_name)||{};
+  var ask,big;
+  if(c.kind==="link" && !c.dir){ ask="이 구절의 제목은?"; big=c.addr; }
+  else if(c.kind==="link"){      ask="이 제목의 구절은?"; big=m.n||""; }
+  else if(c.kind==="recite"){    ask="외워 보세요";       big=c.addr; }
+  else {                         ask="제목만 보고 외워 보세요"; big=m.n||""; }
+  $("fqlabel").textContent=ask;
+  $("fqbig").textContent=big;
+  $("fqsub").textContent=c.part_name+(c.reps?"":" · 새 구절");
+  $("fanswer").hidden=true;
+  $("fshowrow").hidden=false;
+  $("fopened").hidden=!st.opened;
+  $("fopened").innerHTML=st.opened||"";
+  $("fpos").textContent=(st.qi+1)+" / "+st.total;
+  $("fkind").textContent=FKIND[c.kind].n;
+  $("fpbar").style.width=(st.total? (st.qi/st.total*100) : 0)+"%";
+  window.scrollTo(0,0);
+}
+function fPreview(c,g){
+  var t=c.last_review ? Math.max(0,fDiff(fDayOf(c.last_review),fToday())) : 0;
+  var m=fReview({s:+c.stability||0, d:+c.difficulty||0}, t, g);
+  return g===1 ? 0 : fIvl(m.s);
+}
+function fShowAnswer(){
+  var st=state.f, k=st.queue[st.qi], c=k&&st.cards[k];
+  if(!c) return;
+  var m=lookup(c.addr,c.part_name)||{}, mates=fMates(c.addr,c.part_name,m.n||"");
+  var big="", text="", also="";
+  if(c.kind==="link" && !c.dir){ big=m.n||""; also=mates.length?("같은 제목의 구절: "+mates.join(" · ")):""; }
+  else if(c.kind==="link"){      big=c.addr; also=mates.length?("같은 제목의 다른 구절: "+mates.join(" · ")):""; }
+  else if(c.kind==="recite"){    big=m.n||""; text=fVerseText(m); }
+  else {                         big=c.addr; text=fVerseText(m); }
+  $("fabig").textContent=big;
+  $("fatext").textContent=text; $("fatext").hidden=!text;
+  $("faalso").textContent=also; $("faalso").hidden=!also;
+  $("frates").innerHTML=FGRADES.map(function(x){
+    return '<button type="button" class="fbtn" data-g="'+x.g+'" style="--gc:var(--f-'+x.k+')">'+
+      svg(x.k)+'<b>'+x.n+'</b><em>'+x.d+'</em><span>'+fIvlText(fPreview(c,x.g))+'</span></button>';
+  }).join("");
+  $("ftype").hidden=(c.kind==="link");
+  $("fanswer").hidden=false;
+  $("fshowrow").hidden=true;
+}
+function fRate(g){
+  var st=state.f, k=st.queue[st.qi], c=k&&st.cards[k];
+  if(!c || $("fanswer").hidden) return;
+  var today=fToday();
+  var t=c.last_review ? Math.max(0,fDiff(fDayOf(c.last_review),today)) : 0;
+  var m=fReview({s:+c.stability||0, d:+c.difficulty||0, reps:c.reps, lapses:c.lapses}, t, g);
+  c.stability=m.s; c.difficulty=m.d; c.reps=m.reps; c.lapses=m.lapses;
+  c.last_review=new Date(serverNow()).toISOString();
+  if(g===1){ c.streak=0; c.due=today; }
+  else { c.streak=(g>=3)?((c.streak||0)+1):0; c.due=fAdd(today, fIvl(m.s)); }
+  if(c.kind==="link") c.dir=c.dir?0:1;       /* 다음엔 반대 방향으로 물어봅니다 */
+  delete c.fresh;
+  saveFcard(c);
+  st.opened="";
+  fOpenNext(c,today);
+  if(g===1){ st.queue.push(k); st.total=st.queue.length; }   /* 오늘 안에 한 번 더 */
+  st.qi++;
+  fPaintCard();
+}
+function fOpenNext(c,today){
+  var st=state.f;
+  if((c.streak||0)<2) return;
+  var next = c.kind==="link" ? "recite"
+           : (c.kind==="recite" && st.set.useTitle ? "title" : "");
+  if(!next) return;
+  var k=fkey(c.addr,c.part_name,next);
+  if(st.cards[k]) return;
+  var nc={owner:(state.me&&state.me.owner)||"", addr:c.addr, part_name:c.part_name, kind:next,
+          stability:0, difficulty:0, due:fAdd(today,1), last_review:null,
+          reps:0, lapses:0, streak:0, dir:0};
+  st.cards[k]=nc;
+  saveFcard(nc);
+  st.opened="<b>"+esc(c.addr)+"</b> · 「"+FKIND[next].n+"」 카드가 열렸습니다. 내일부터 나옵니다.";
+}
+function fFinish(){
+  var st=state.f;
+  st.queue=[]; st.qi=0;
+  fFlush();
+  fPaintHome();
+  goBack();
+}
+
 /* ═══ 들어오기 ═══ */
-function signIn(){
+var PROVIDER_KO={google:"구글", kakao:"카카오"};
+function signIn(provider){
+  var p=provider||"google";
   if(!online()){ $("signinnote").textContent=DB_MSG; return; }
   /* 끝에 슬래시가 없는 주소는 되돌아올 때 한 번 더 리다이렉트되면서
      토큰이 사라지는 일이 있어, 미리 슬래시를 붙여 둡니다. */
   var back=location.origin+location.pathname;
   if(!/\/$/.test(back) && !/\.[a-z0-9]+$/i.test(back)) back+="/";
+  $("signinnote").textContent=(PROVIDER_KO[p]||p)+" 계정으로 넘어가는 중…";
   SB.auth.signInWithOAuth({
-    provider:"google",
+    provider:p,
     options:{redirectTo:back}
+  }).then(function(r){
+    if(r && r.error) throw r.error;
   }).catch(function(e){
-    $("signinnote").textContent="로그인에 실패했습니다 ("+((e&&e.message)||"오류")+")";
+    var m=String((e&&e.message)||"오류");
+    var hint=/not enabled|unsupported provider/i.test(m)
+      ? " → Supabase → Authentication → Sign In / Providers 에서 "+(PROVIDER_KO[p]||p)+"를 켜 주세요."
+      : "";
+    $("signinnote").textContent="로그인에 실패했습니다 ("+m+")"+hint;
   });
 }
 function afterAuth(u){
@@ -2354,9 +3329,10 @@ function initAuth(){
    보내 주는 depth 로 그 화면을 그대로 되살립니다. 화면 위의 「뒤로」
    버튼도 같은 길을 씁니다.                                          */
 
-var SCREENS=["home","lobby","setup","result","done","rank","me","detail"];
+var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard"];
 var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
-                 rank:"순위표",me:"내 기록",detail:"구절별 기록"};
+                 rank:"순위표",me:"내 기록",detail:"구절별 기록",
+                 tlist:"타이핑할 구절",type:"타이핑",fsrs:"FSRS 암송",fcard:"암송 복습"};
 var screenNow="home", screenLog=["home"], depth=0;
 
 function paintNav(){
@@ -2374,6 +3350,10 @@ function applyScreen(which){
      채점 화면에 되돌아오면 껍데기만 남아 눌렀을 때 깨지므로 막습니다. */
   if((which==="result"||which==="done") && !state.person) which="home";
   if((which==="rank"||which==="detail") && !state.contest) which="home";
+  if(which==="type" && !state.typing) which="tlist";
+  if(which==="fcard" && !(state.f.queue && state.f.queue.length)) which="fsrs";
+  if(screenNow==="fcard" && which!=="fcard") fFlush();
+  if(which==="tlist") paintTypeList();
   if(screenNow==="result" && which!=="result") flushSave();
   SCREENS.forEach(function(id){ $(id).hidden=(id!==which); });
   screenNow=which;
@@ -2440,6 +3420,8 @@ function goHome(){
   flushSave();                     /* 채점하던 것이 있으면 먼저 보냅니다 */
   if(drawArmed) disarmDraw();
   state.picked=[]; state.grades={}; state.person=null; state.review=false; state.entryId=null;
+  state.typing=null;
+  state.f.queue=[]; state.f.qi=0; state.f.opened="";
   setSync("");
   show("home");
 }
@@ -2461,6 +3443,7 @@ $("modes").addEventListener("click",function(e){
     paintMe(); show("me"); return;
   }
   if(m==="contest"){ openLobby(); return; }
+  if(m==="fsrs"){ openFsrs(); return; }
   setMode(m);
   show("setup");
 });
@@ -2571,7 +3554,74 @@ $("rlist").addEventListener("click",function(e){
   }
 });
 
-$("signin").addEventListener("click",signIn);
+$("signin").addEventListener("click",function(){ signIn("google"); });
+$("signinKakao").addEventListener("click",function(){ signIn("kakao"); });
+
+/* ── FSRS 암송 ── */
+$("fsignin").addEventListener("click",function(){ paintMe(); show("me"); });
+$("fstart").addEventListener("click",fStart);
+$("fshow").addEventListener("click",fShowAnswer);
+$("frates").addEventListener("click",function(e){
+  var b=e.target.closest(".fbtn[data-g]"); if(!b) return;
+  fRate(+b.dataset.g);
+});
+$("ftype").addEventListener("click",function(){
+  var st=state.f, k=st.queue[st.qi], c=k&&st.cards[k];
+  if(!c) return;
+  var p=PART_BY_NAME[c.part_name]; if(!p) return;
+  tyRows=[{a:c.addr, p:p, rec:trecs[pkey(c.addr,c.part_name)]||null}];
+  openType(0);
+});
+$("fpartsbtn").addEventListener("click",function(){
+  state.selected={};
+  (state.f.set.parts||[]).forEach(function(n){ state.selected[n]=1; });
+  setMode("fsrs");
+  show("setup");
+});
+$("fnew").addEventListener("click",function(e){
+  var b=e.target.closest(".cbtn[data-fn]"); if(!b) return;
+  state.f.set.newPerDay=+b.dataset.fn; saveFsrsSet(); fPaintHome();
+});
+$("fmax").addEventListener("click",function(e){
+  var b=e.target.closest(".cbtn[data-fm]"); if(!b) return;
+  state.f.set.maxReviews=+b.dataset.fm||9999; saveFsrsSet(); fPaintHome();
+});
+$("ftitle").addEventListener("click",function(e){
+  var b=e.target.closest(".cbtn[data-ft]"); if(!b) return;
+  state.f.set.useTitle=(b.dataset.ft==="1"); saveFsrsSet(); fPaintHome();
+});
+
+/* ── 타이핑 ── */
+$("tlsort").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-sort]"); if(!b) return;
+  tySort=b.dataset.sort;
+  paintTypeList();
+});
+$("tlul").addEventListener("click",function(e){
+  var b=e.target.closest(".tlrow[data-i]"); if(!b) return;
+  openType(+b.dataset.i);
+});
+$("tyver").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-ver]"); if(!b || !state.typing) return;
+  state.ver=state.typing.ver=b.dataset.ver;
+  paintTypeHead();
+  resetType();
+});
+$("tyin").addEventListener("input",paintTyStat);
+$("tyhintbtn").addEventListener("click",tyHint);
+$("tycheck").addEventListener("click",tyCheck);
+$("tyagain").addEventListener("click",function(){
+  resetType();
+  try{ $("tyin").focus(); }catch(e){}
+});
+$("tynext").addEventListener("click",tyNext);
+$("tygrade").addEventListener("click",function(e){
+  var b=e.target.closest(".gbtn[data-tg]"); if(!b || !state.typing || !state.me) return;
+  var t=state.typing, k=b.dataset.tg;
+  savePersonal(t.a,t.pn,k);
+  paintTyGrade();
+  $("tynote").textContent="개인 기록에 「"+GRADE_BY[k].n+"」으로 남겼습니다.";
+});
 $("signout").addEventListener("click",function(){
   if(online()) SB.auth.signOut();
   state.me=null; state.progress={}; pending={};
@@ -2864,6 +3914,10 @@ function loadDemo(){
 
 /* ═══ 시작 ═══ */
 try{ history.replaceState({nav:0},""); }catch(e){}
+if(AUTH_ERR){
+  setSync(authErrText(),true);
+  try{ history.replaceState({nav:0},"",BASE_URL+(URL_CODE?"?c="+encodeURIComponent(URL_CODE):"")); }catch(e){}
+}
 if(Q.has("demo")) loadDemo(); else initAuth();
 setMode("practice");
 applyScreen("home");
