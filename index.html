@@ -43,6 +43,7 @@
   --g-flower:#C9718F; --g-fruit:#C25F31; --g-none:#DCEDE5;
   --g-gold:#C49A12; --g-silver:#8391A0; --g-bronze:#B26A35;
   --f-bud:#6FAF3E; --f-ear:#9AA92F; --f-grain:#C99A1B; --f-harvest:#C2662B;
+  --g-bud:var(--f-bud); --g-ear:var(--f-ear); --g-grain:var(--f-grain); --g-harvest:var(--f-harvest);
   --hi:#FFFFFF;
   color-scheme:light;
 }
@@ -57,6 +58,7 @@
     --g-flower:#F0A6BE; --g-fruit:#F0925F; --g-none:#2C4B40;
     --g-gold:#EDC955; --g-silver:#C3CDD8; --g-bronze:#E0A071;
     --f-bud:#A6DE72; --f-ear:#CBD861; --f-grain:#EDC955; --f-harvest:#F0925F;
+  --g-bud:var(--f-bud); --g-ear:var(--f-ear); --g-grain:var(--f-grain); --g-harvest:var(--f-harvest);
     --hi:#12241E;
     color-scheme:dark;
   }
@@ -71,6 +73,7 @@
   --g-flower:#F0A6BE; --g-fruit:#F0925F; --g-none:#2C4B40;
   --g-gold:#EDC955; --g-silver:#C3CDD8; --g-bronze:#E0A071;
   --f-bud:#A6DE72; --f-ear:#CBD861; --f-grain:#EDC955; --f-harvest:#F0925F;
+  --g-bud:var(--f-bud); --g-ear:var(--f-ear); --g-grain:var(--f-grain); --g-harvest:var(--f-harvest);
   --hi:#12241E;
   color-scheme:dark;
 }
@@ -338,9 +341,9 @@ ol.lb>li:last-child{border-bottom:0}
 ol.lb>li.mine{background:var(--tint);border-radius:11px;padding-left:8px;padding-right:8px}
 .lbrank{font-family:"Gowun Batang",Georgia,serif;font-size:21px;font-weight:700;
   color:var(--ink-soft);text-align:center;font-variant-numeric:tabular-nums;line-height:1}
-li.top1 .lbrank{color:var(--g-fruit)}
-li.top2 .lbrank{color:var(--g-flower)}
-li.top3 .lbrank{color:var(--g-leaf)}
+li.top1 .lbrank{color:var(--g-harvest)}
+li.top2 .lbrank{color:var(--g-grain)}
+li.top3 .lbrank{color:var(--g-ear)}
 .lbname{font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.3}
 .lbname span{font-size:12px;font-weight:400;color:var(--ink-soft)}
 .lbsub{font-size:11px;color:var(--ink-soft);margin-top:1px}
@@ -474,7 +477,7 @@ ul.tl>li{background:var(--bg);border-radius:12px}
 .tygrade{margin-top:4px}
 .tygrade .grades{margin-top:8px}
 
-/* ── FSRS 암송 ── */
+/* ── 복습 카드 ── */
 .fhead{display:flex;align-items:baseline;gap:10px;margin:0 0 12px}
 .fbig{font-family:"Gowun Batang",Georgia,serif;font-size:38px;font-weight:700;line-height:1;
   color:var(--brand);font-variant-numeric:tabular-nums}
@@ -496,6 +499,13 @@ ul.tl>li{background:var(--bg);border-radius:12px}
 .fqbig{font-family:"Gowun Batang",Georgia,serif;font-size:29px;font-weight:700;line-height:1.35;
   color:var(--ink);margin:0;word-break:keep-all;letter-spacing:-.02em}
 .fqsub{margin:8px 0 0;font-size:12.5px;color:var(--ink-soft)}
+.fqsub .vstage{display:inline-flex;align-items:center;gap:4px;margin-left:7px;
+  padding:2px 9px 2px 6px;border-radius:999px;font-size:11.5px;font-weight:700;
+  color:var(--gc);background:color-mix(in srgb,var(--gc) 14%,var(--surface));
+  vertical-align:middle}
+.fqsub .vstage svg{width:14px;height:14px}
+.fratelabel{margin:16px 0 -4px;text-align:center;font-size:11.5px;color:var(--ink-soft)}
+.fratelabel b{font-weight:700;color:var(--ink)}
 .fabox{background:var(--bg);border-radius:13px;padding:16px;margin:16px 0 0;text-align:left}
 .fabig{font-family:"Gowun Batang",Georgia,serif;font-size:23px;font-weight:700;color:var(--brand);
   margin:0 0 6px;line-height:1.4;word-break:keep-all}
@@ -533,27 +543,41 @@ ul.tl>li{background:var(--bg);border-radius:12px}
 .cropnums b{display:block;font-family:"Gowun Batang",Georgia,serif;font-size:24px;font-weight:700;
   color:var(--ink);line-height:1.15;font-variant-numeric:tabular-nums}
 .cropnums span{display:block;font-size:11.5px;color:var(--ink-soft);margin-top:2px}
-.fieldcal{display:flex;flex-direction:column;gap:4px;margin:2px auto 8px;max-width:250px;width:100%}
-.fieldcal .wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.fieldcal i{display:block;padding-top:100%;border-radius:4px;background:var(--line-soft)}
-.fieldcal i.l1{background:color-mix(in srgb,var(--core) 45%,var(--line-soft))}
-.fieldcal i.l2{background:var(--core)}
-.fieldcal i.l3{background:var(--secondary)}
-.fieldcal i.l4{background:var(--brand)}
-.fieldcal i.today{outline:2px solid var(--accent);outline-offset:1px}
-.calhead{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:0 auto 4px;max-width:250px;width:100%}
+.calnav{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 0 12px}
+.calnav b{font-size:14.5px;font-weight:700;color:var(--ink);min-width:104px;text-align:center}
+.calnav button{width:31px;height:31px;border:1px solid var(--line);background:var(--surface);
+  border-radius:10px;color:var(--ink-soft);font-size:15px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
+.calnav button:disabled{opacity:.3;cursor:default}
+.monthcal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:0 auto 10px;
+  max-width:292px;width:100%}
+.monthcal i{position:relative;display:block;padding-top:100%;border-radius:7px;
+  background:var(--line-soft)}
+.monthcal i em{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-style:normal;font-size:10.5px;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.monthcal i.blank{background:none}
+.monthcal i.fut{background:none;box-shadow:inset 0 0 0 1px var(--line-soft)}
+.monthcal i.l1{background:color-mix(in srgb,var(--core) 45%,var(--line-soft))}
+.monthcal i.l2{background:var(--core)}
+.monthcal i.l3{background:var(--secondary)}
+.monthcal i.l4{background:var(--brand)}
+.monthcal i.l3 em,.monthcal i.l4 em{color:var(--hi)}
+.monthcal i.today{outline:2px solid var(--accent);outline-offset:1px}
+.calhead{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:0 auto 4px;
+  max-width:292px;width:100%}
 .calhead span{text-align:center;font-size:10.5px;color:var(--ink-soft)}
-.badges{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.badge{display:flex;align-items:center;gap:9px;background:var(--bg);border-radius:11px;padding:9px 11px;
-  min-width:0}
-.badge svg{flex:0 0 auto;width:24px;height:24px;color:var(--gc)}
-.badge b{flex:1 1 auto;min-width:0;font-size:12.5px;font-weight:600;color:var(--ink);
+ul.partbars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+ul.partbars li{display:flex;align-items:center;gap:9px}
+ul.partbars .pn{flex:0 0 76px;font-size:12.5px;font-weight:600;color:var(--ink);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.badge em{flex:0 0 auto;font-style:normal;font-size:11px;color:var(--ink-soft);
-  font-variant-numeric:tabular-nums}
-.badge.done{background:var(--tint)}
-.badge.done b{color:var(--brand);font-weight:700}
-.badge.off{opacity:.55}
+ul.partbars .pb{flex:1 1 auto;min-width:0;display:flex;height:12px;border-radius:999px;
+  overflow:hidden;background:var(--line-soft)}
+ul.partbars .pb i{display:block;height:100%}
+ul.partbars .pc{flex:0 0 40px;text-align:right;font-size:11.5px;font-weight:700;
+  color:var(--ink-soft);font-variant-numeric:tabular-nums}
+ul.partbars li.done .pn{color:var(--brand)}
+ul.partbars li.done .pc{color:var(--brand)}
+.bigtally em{display:block;font-style:normal;font-size:10.5px;color:var(--ink-soft);margin-top:1px}
 .wordbox{background:var(--tint);border-radius:13px;padding:15px 16px}
 .wordbox p{margin:0;font-size:15.5px;line-height:1.8;color:var(--ink);word-break:keep-all}
 .wordbox span{display:block;margin-top:8px;font-size:12px;color:var(--brand);font-weight:700}
@@ -647,7 +671,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
       <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACxCAYAAABDRbYTAABY6ElEQVR42u19d3yV5d3+dT/z7JycnOwdQhhJgLD3BgVBUKvU/bqK9Vdba9u3y71q21dbrXXVUfdAUUGW7LBngEACISF777PPs+7fH2cYUGQFDJDbTwxZ5zzPfV/Pd3+vL8ElvCilBABbUF6CqpZGuubALvLS3b9Rvu93nV7Pm5TSOw/VlPtcXo/uWGMt2lwOqFRDm8uB8sY6tLmcAOgPvichBHHWKKTYY2HSGaATBCTaohEbYUOUOcKXm9JHJ6vKW3pBvOv7/v6Bt//BTc4eRlPssSQvPQsAVEIIvVTPiFyCoBMqWxqw5fABcvOEK/zf8/M7ANyx+fB+f1FNhVjWUEOONdZRnSBkGUV9rMfv1TSNMj5ZCuwOBVRNg6wq0KgGcoot06gGjmUhsDwoKDRKIXA8BI4Dx7CaUadnnF5Po0+WSgYkppKM2ESaGZfkH9d/kAjgbULI2ye+5gebVonj+g+iqfY4EEKkXgD2QElXUF4i7iwtwr0zr/F1+X4CgGcrmuuxu+wwu+XwAVXguOkJtuj4mtYmdLpd8Eg+uH1etLtdx0k3Qgg4hgUhBIQQ8CwHlmFOfS0AVFWFoqlQNQ2apkGj9ATJSRBpNCPCYIROEGHWG5AUFYP69pZ6RVXXjM7KYYf36a+mRccDwB8IIXWhv3xm8Tu6K4eMRl56lv9SkIzkIgYdBwDPL/2I/Obqm+Qu3/8pgKQVBdt8lc0NI/vGJ916rLEOFc0NqGltQmVzAyilfhIQZZTneAgsB4HnOY5h2ABYAEoBGvo3KCiloKCn0sAAAQgCoA18DnyTBHeaIQSKpqmSLCuSIkNWFQAglIIyDBHTouORYItGWnQc+sYno6Su6r1ke+zOWXljdABqCCEfh97quSUf8g/OvZEGHxilF4AXBnhMcMO1E7438cud+UiItK9gWVa3uXg/dpUVobqlyRcABcCxHMw6PcexHKdRDZQGVOZJwdUdu0N/GKQMYUAIwBAGsqooLp9HUVQ18GcUSIqK1o3IHIgJA4ZAURXfscbaWTeOnwkA+V33oKmznYm2WI/bl14AduMa/9BCsvmp12gX0EUCsHywaZU/yhQxJjEqevGm4n34bNt6VaWaRgDoeIEYRB0Xkmga1QJA69EH8i0oAcDj9yk+WaI08DPm6uHj2emDRqC2rfnauvaWbXdNnSsCcBBC2nsl4Pn1ZkO2GQUASZY3tLkd4z7c9I1v+9GD+lZnJ0uDBj/HciCXkosVFM6KqsAvy2AYAoveqI7pl+u9fdJsXaTRvEXg+cmhvbqYbMMef0Rf7crn542YKAc31wZg29YjhfhqV35mQ0cr4/B6ICsyfLJMOYaFwHGEENLl7C5uO72r100phawqVFZViBxPRJ6HWW9ApNGiXTNqUumkgXkEwGhCSNv6g3tMEQaTb2hGvx5tG3I92autbm3k542Y6KSUzgNwx1vrvja0uRxZ1a2NKKqpgKzIKs9yEHkBZp2epcFD6pGgo2f32NMTPHORF4iOBxRNU50+L9pcDtS0NrEa1bK2HSnEwOT0zyml9xJCjgTjirrbJs3usV4z6WHAYypbGrhbXnhM3fzUa2rQuL6msKr0kXaXc8jqA7tQXFshEQAmnYHX8QJRNe1b2472UJlOAY4NhHQopVC1c7BFu9wjS1iwDAO/IlGn1yNTQBvZZ4Cu1eVYPDJz4P6fjpt+ONJk+TRoQ7Pv/+oxNtUep/QkR4X0JPB13Ri/LF39+pqvoGnaC0fqqtIOVpU5CGF0UWaLQECgaCo0TevxRkRIhXr8PiiaCo5hoRNEcAwDioBjdK7gJoSAY1kAQKuz0w9AnDBgCOKsUeWtrs4Hfj7zWsRERC452V5f1gAMOhiEEKJRSiMAxCzZtSk21mrbtHLfdqw/uIcSQjS7OYJVVA0qVXuupDsJQEKBaI7lIKsKJFkOg4Znue6xVYN7wjIsQKnS7naqAIRhGf3JnGHj0OLsnHD9mKmNAJoIIZ09BYQ/ug1ICKHVLY0CpVT2y/LP2lydf9tQtFfde+wIZQgDi95ICCGsX5EvLt+dAkxAPcInS7h21GSMyByIkroqfLN/B+raWqCoKohAAhkW0j2iRNVUAOAiDCYOAA5UltI9xw5jaEa/DZMG5rF2S8T/Ukqf06jGA/BfthIw6GiwIS+tvLHu7+sP7fn58r3bjG6/F6qqguM4yjEsuSi9WRqQRh7JB78s45ezr8esvDFgCIMWZwcOVJZiXeFu7Co7DIDCKOoh8gI0qp27Wu6i+lVNo7KqEIYwMOn0uG70ZM+EAUP+nRQV87+PffqGfnL2UHXSwDz5x3JQyI8EPmHCw/fKm596jVJKl64+sNOweMeGoU2d7dY2p0MWBYHV8QKD7rCRegAAJUXGr2bfgKuGjgPPBZSOoqpo7GzD4dpKHKgsxcp92+GXJYicALPBAE2jUDTlnM2NUMbFJ0uaT/Kr0ZZIvl9iijMjJuG/d027+pchB+WJBfdgau5w9ZIH4Cdb1+gXjJ3upZRyXsn/r7WFu+/dcuQAth0pBEMY1WaysIqmBoB3Mdl6pwDgL668HlcNGwuB5aBSLWz7AUCLowO7yopxoLIUu0qL0eLsAEBgM5kBECiqcs77wBAGHMuixdHp1/GCGB8ZpZl0+hf+ftv9RMcL/0sIkUNncyG3ib2AUo/Nu2qa+JPRU3yU0qiDVWV/3Fla9OCLyz+Vq1oaJLPeyJp1BtavSBeXrXeKQ5dVBaqmYVTfbGTFp4DnuEA4JqAeQQGYdHr0jU/G4NS+sBpNoKDwSRJaXZ3QKIWOFwAEQjhnuyeh8I9Jr+cUVVGbHR1EL+jGChw/WlYU5uV/vLA/J6WP44Vln4orP1ykXlISsGt6qK6txX6gqvTByqb6P36w6Ru3Uacz6ngRqqae0wb3dAl4/6zrcdXQcRB5HhqlYILZGkoDlTZdpaKkyFhZsB1f7spHVUsjmGA5GM9x3RK2YRgGDCHU4fVIsqIoN0+8wphqj3s2xR773MDk9JaHP36dTYuOp3dNm6tdEgAEgMaOtsji2gqltL7m/8oaa3625Uih22ayGDVNu+jTZacDwAfn3ogrBo+GwHHHAfBEKUUpDdcgNna24e11X2PdwT3QKIVBELv1xAgIGIZBm8vhHt9/sDErPvk/qqb9cubgkVKyPfaCGN/MeZZ83JtrlzIAEGE0bWnubK9evGPDrbtKi2HRGwyXLPiO3wQQEFgNJghBB4ScPCQFhmEQymXHRtjw6zk34g/X3IZUeywcXjeYgFvRTc8IhaZpsOgNhu0lB+UNh/beUdvW9FEIfA9//DrbtRDkopKAjR1t+lirzUsp5SRF3v7fDcuHbTi0F00dbRB5gfIsS7RLGXwhCej3QlZVPHvLfRiZOTAs6Qghp7TZQr+jahoqm+vxxY6NWLpnM3iWg1lvgEZpt2SDGBBIqqJSCpZhiDyyz8D9f7r2djAMM5ZjWTl0lheNBGx1dhqD4ItXNW3RB5tWDVu8fYNW19YsGUQdFXmehCqPL9kVjF6G9FionP9077or+FiGQUZsIm6bPAu3TZoFvSCizeWEqmngOS5cuX22K+josAwhmk/y86UNNcM/2LRqOMswn1JK42OtNm+rs9N4Prap2zMh9e0tuihzhJtSmuXx+x76es+W+e9sWO7jWU60mSyCRikUVb0E26F+GIwCx4dV8hmFKRgGWtBbjrZE4s6pc2EzReDzHetR3dIIg6iDyAtQz2VPSSAuyXMcw3McrWlr8v93wzKY9Yb5wWqkpwghJfXtLbr4SLuvxwKQUsoSQnyU0j6dHveTGw7tueHfKz93mfR6E89ygbDDpeTpnkIFEybYeEIpRF4IS8AzvX0mKD01TQMhBPNHToTNZMaHm1fjcG1l+PXPyUMm4dcnEQaTTlFVvLh8kUvkhVun5Q4XKaV/IoSUdXfBa7cCkBCiUkptnR7Xf1bu2z7l5VWL3REGo4kQ8u3mkMtH6oW8WoYwEEKBZ0oB5uw2gWEY0KAGmTgwD3aLFa+v/gr7K4+CIQxYljn3aw42YLEMgwiD0fT3JR+4/bJ0w6y8MdGU0usBtJ+BJXFhbMBQo1AwhrV20bZ1k19b/aVsFHXGQNCV4nJbBCQcbok0miHw/HE/O4eHHBzLQtM0DExKx/2zr8eozGy4/V5oGu1WD5kQAoMgGl9etVhetG3dZFXT1v31y/e/c+Y/qgSklHJvrftao5TGAvjm7fVfD/pyZz4ICCtywsWbyz13bRCodiEE8ZFRMIq6M3JCTuf1KaXoE5uIe6+4BjzHYVPxvu6xCbuAUC+I8Ep+bc2BXaTd7TT84ZpbteeWfMi/tOIzCkD70SXgp9vW8ndNm6sRQhqX7No0aPnebXD5PFKEwchcDF1o53MF7h8wiLpAnV43AzzUfpAWHY+7ps7FqL7Z8Ph98Ep+cCx7zt5xiBXCojfytW3Nyqp92+2PfvKfj35z9U3y/bOvV15Y9qn4o0rAFQXbdLPyxnjvefUv4pisnMdeXf2FR5JlnVlv5C4rh+MkURhNC+RfAx4w7XYTmAl5yARIi4nH3dOuhqQoKCg/AoYQ6Hjh3CIOQTuWZRhGL4pQVNVa1dL40/+uX1a959jhh3511Q3+IAZ8F1wCbjl8QJiVN8bX4Xbarh01+X8rmxv/4JdlgygIhGNZRruMwRdwdb91vGwmCxhyfpJODMMEwa6hb3wy/mfKVRiYlB5uAThVwPu0QjSaCpHjGZZhtGONdf7yprrfzR469vcdbqdtVt4Y37rC3ewFBSCllIzrP0iilFqPNdb9pra1+Yn1h/a4DaIInmGJqqoglyv4ukpASsGzLOKsUeGejfNlbzIMA0VVMTg1EzdNmImkqBg4PJ5uAX7InhVYjjHr9eL6Q3vdtW3NTxxrrHuQUmr3yRJ/tim7s7q6I3VVHKWUcfm8fy9tqPnTu/krvFaDyUgIgYbLWPKdAEFKNbAMi5iIyG+Jjc7jk8mxLFRNxfj+g3Hj+Jkw6XTwSr5ue6K0oGccaTQb3924wlvaUP1nl8/79OyhY31H6qrOypzjzlTyEUJoQ0cr6ZeQ8sWGQ3uvfHfjCqoXRLEXcCdKjYANyLEsoi3WsBNCzvv7BoA+c/BIdHpceH31lxA4Puy0dMcFUErBsxyW792G/KL9KgCs3r9TACCfbwlIqlsaxcnZQ6VV+3YkbS7eLzi8bq9R1DGXs7f7Q2EMlmFgFPUX7D0ZQgI5YpbD7LwxmD10LBxeNxRNBcsw6I4UPAWFRW8Qy5vqfA6va+4ba5b8/f7Z17urWxrF9/NXMucFgF/uzGcJIVqyPdZf0VT/6JLdm+x7y49IFr1BVDWtF23f0VjfFpxaDMbj7KkLBUKr0Yybxs/EoNRMePw+SIoCnmW7JRipUcoYRB3n8nmTKpvrf1XZ3PBosj3Wf8vEK7Uvd+az3QpASikzY9AIQim1UUrv3H3s8GOtzs4UVdMYgeNZrReA3zHaVaqBIQysRjOsBlMYjBfq/Qkh0DQNSVExuGf6PMRZo+CRfFCD+eRzXaqmwSDouDaXw3+w+hi/4+jBxyild1JKbUGsMN0GwJrWJt6o0ysAIttdjjf/u36Z3NDRqkQYjJysKL1Ox/cAwC9L4FgW6TEJ4U64C2mkMIQAQbsvN6UPrh01GSIvwOF1Bzxyeq73CPgVCVGmCLHN5VDeXLtUbnM53gQQadTplZrWJr7bnJClezZTSin32fZ11qLqClVWZF7khUu+pO8sDSQwTACAIi8g0WY/LjSDCw3CoOS9dtRk7Dl2GDuOHgpLwXO120MUKSIvMCCEeWnFZ+rA5DQrpZR75ZvFp/Xip5SA1S2N4s9nXqtQSuem2uPWbTi0l1AAOl5gVKr2Sr+TqWCNwqTTI8Ue1yOuh2UY/M/kQJC60+M6ri30nEIzVIOOFxhKKTYc2ktSo+PXAZj785nXKtUtjeI5A/CNtUsYQoj23NKPPBsOFVg0qoEPMj31rh9yQCgMoh5xkVE94ppUTUP/xFSM7z8IPMvB5fN0W+VMgMQ9gIlV+3ZYnvzsLQ8hRHtj7RLmnAC499gRLi06nlY2119v0ul/u2r/Dp9FbyQsw162VS6nIxVC9Kw6nkdshO2CesA/dFkAMH3QSIzOyoFPlsKFrufuEQcC7iadnqwt3OWzm62/rW5pvD7RFk33HjvCnTUANxXvZ++YOse3tnDPUIfHPV1RVcowTK/oO9WBaBoACovBBKvR1COuKZSqi7ZYMXPwKNjNVkiyHKjc7j5JSAgI7fC4pi8v2Db0ZzPm+zYV72fPGoD1HS20tq05Z1Pxvpg1hbv8Zr2BuyxaKc9R/UqKApZhkRAZBZ7lesx+heKD2cnpmJY7PFDESrsnLBNq8TTrDdyaAzv9aw7siimpq8qp72ihZwzA8Q8tJLOffpA8e/N9UnFNxQsZsQl3Soqi8SzH9zodp7aHJEWGzWRBWnRCz7q2oPKKNJoxcWAe9IIIRQ0SfXaTnmcZltco1fonpt5ZXFPxwrM33yfNfvpBMv6hheSMwjAOrxsA8NLKz7yUUhhFHVE0pRdhp5QyDCRFRpw1Cv0SUro4JT1DOpOgNE6LjsN1o6fg4y1rQGUJBlEf4BY8x0tVNAVGUUcKykuw59hhb1csnZYEbOpsZzY9+Sr+fusvhE3F+1fbTJaJHW6nrBMEsVfznp4yAgiizBYk2Ow9bssYhoFGKYw6PaYPGgG9IEL9ziixc7t9kRdEp9ctx1giJ64t3L3677f+Qtj05Kv4vjzxd77x549eZQghdEy/XP/S3ZvyfJLfLHC8pmmU9Krf04MfQBFpssCsN4L24DRlki0GMwaNgI4X4PH7gvS+566GVU0jIi9osqqYl+/dmjemX66fEELfXv/1DwOQUsokR8VQVVVtBypL/7T32BGloaNVNYo6Lkj92rtOsWRFgVHUIyUqFkwP7Qgk+LZSZ/7ISdALIvyK3G1Fs6qmwiDquIaOVnV/xVFlf8XRP6mqavvztf9DT8wRH/fF+oN7uEeuv0t9a/3XUn1769NR5ohYjVJKCMP2Quv0bCyf7EeyPRZpMfFdjrvnOUqhzyn2WAxISoPA8fBK/m6JDQbpk1hV06jdYo1t7Gx7+oXln0pTc4er6w/u4b4XgJRSsnjHRo1Sqo+12nLez1/pdfu91CDoSHcYp5cD+IAAxUVSVAxirbYeCr/jbAVolGLe8AmIs0bB5fN0jxQk4WoZ4vJ56QebvvEOSErLoZTqgxgj3wFgQXmJGJwmPiYtOn5bTWuT3idJEDiO7Y37neaZBqsz4qw2RJksx0mbHisFAQzr0x9p0XHH3cO545tC4DjWJ/lR1dKgz4hJ2AZgzEt3/0bZX3FU/A4A91ccBaWU2XBor1hQXhLo6g+J4178nRb4ApvOIyM2MdAc3k21dxdAEGJYn/6wmSzocLu6p4OPdvG6NYodpUXILyoQKaVMQXnJd1Xw8r1bCSFEe+Tj16uX792q6QQhzObZq35PrX5pUJ2Z9YYgufjFwfAfOtpRfbMxIDENane0cgZfWAv2jugEAav2bdce+vj1akKI9vWeLcer4L3HjnBNjg653eWYeNe0qx9u6GilPMuBIQzpVb+nKwE1SLKMFHscLHrTcXZhjwZgMD0XZ41CbmomGMJ0W2Yk6GkTnuVQ195CfzZ93sOdHtfEFmenHCpSYACgoaOV2/D4v7VmR8e06IjIGwAovULvzFaI93BAYirslojA032RlKyFKESyEpKRFBUNnyx1u5TVNE2xGIw31LQ2Tdvw+L+1ho7WbwG4saiAEkK0RdvW1a4/uEdmSG/Fy5kspgtPS2Z8Msw6Q7AF8uLYxkDLKEWKPRZD0/vBL0ugtHslOMswZF3hHvmjzatrCSHaxqICGgbgjqOHQCkVt5ccjDxYVcYbRF2YK653nZ4DomkBpy3JFh1WaxeLBAyyCcNutqJfYmq3Ao8GiQr0gg7HGmv5w7WVkZRSsayhJvDw7j12hNvw+Mv+drfzxfkjJz3ikfx+gQvSefauU3p6LGHhlSWomooZg0Yi1hrVo8MvJ7MDlWCmKz0mAVHmCKiqCo12H9+gwPGCw+v2zx465pF2t/PFz377F//eY0c4pqC8BJRS/mhddZzD6zYQhCY/967TOzxADfArY3RWDsx6Q/j7F5snDwSIlHJT+sCvyGF+w+6BAwUA2uF2GY7UVsZRSvmC8hIwBeUlIITIX+zcWHukrkpjGZb2trudoRcZ7AHOTekDhgSYUS+2npmQuWA1mjEkPSs8tbO7JKAWoHmjxxrrtJX7ttcSQuTCqlIw+ypKNErpfEIwvKa1iRoEkevt9zjNQ2MY+CQJHMMiJyUjnP1AN6quC/YgMQFHSuA4ZMYlgmXYbm2kp5RCL+i4mtYmSikdTimdX1hVpjGbn3pN06j2l6SomBEOj1vWCSLfC63TtP8YBh7JB50gYmTmQIQ1x0XYMUgQkOSUUkRHRCLaYgWAbgtMB+l++TaXQ46JsI3QKP3L2kdf0hgAqG5prG/u7NAIAem1/870yQYEjkOkyXJcfvWiNCeCs4WNoh6DUvqEp312nzlBQQhIi6NDq2ppqA+HYQ7XVnEdHhcT0tW960zsJgqzzoDs5PSLJuzyQ/YsAIgcj9zUTHBsoL2AIUx3ERoBANrcDuZg1bFAIJpSKhbVlDMOrzuQhukF4GkflqQo4BgWaTHxiLFEhm2di7VpP3TVHMsiLToOoeFC6CbSUU2jYBkWHW4XCitLGUqpyBBC/MW1FV6P3weOZSntBeBprYD954fdYsWIzAHfgo5c3A9V6PyTomJgCI6W6D6zmYJjWOqTJZQ21noJIX6GUvpHRVUz291O6Hs94NO2+1iGhazIiI+0Y1Tf7HAC/1JpnIkwmpBoiwbHcpBVtVvuS6MadILAOTwuAMiklP6RAfCMXhDTvJIfAsdzvT7I6dl+XskPg6jDsIx+sJutl9y2EZBAXSPHwy9L3VYjKHA855H8EHk+DcAzTEldleTx+2hgtFSv9DtdALp8HozJysW03OEnnYB+sa+U6DjoBRGSonRbRiQU3Pb6/bSkrkpiOr1uQdW03vDLaUoFSgFJUWAxGDElZxjiI+3dV8TZ0wBoj4VJpwfQ3Q8YhapppNPrFpiG9lbIqhK2bXrXqQ1Ar+THxAF56J+YEpSIzCV5qxF6Y5jdtbvwF8KYrCpoaG8F0+52BsY59dbdn6YKodCohtyUDNiMFmhUu6TUb1dJHmmyQAwO2qa0OyESGHzT7naCkRUlOJqzF1ynfnoDj69B1CHBFh1uuLkU1S8FhTE4eTP0dfeBPPB6sqKACcR+etXvqby3QFpKhaTIGNdvEBJt0d+RGJeczUsIIk3mcIFtt4aYghKVqWlthKIq4FgGvUHoHz6M0PC/eSMmwmayBKehk0v2oQOA2AgbRE7oxpwwDVOWuHxeMJsPH4CsKjCIOvSSjp8k7MIEc6IA+iemIj02IWwPXrISMHhbekGEwPPdI5yCrZoCx0OjFEfrqsBIigwCAqa3EOakkoBlGHj9fgi8gFl5Y6AP2kXMZWA4B+J/gZ6XbnHigvOTJUVGUU0FmF6EnfqpVVQVDMMgKz4Zk7OHgmGYi7ro4PRuO3BvRp0eHMtBUuRuu99QzlmlWi8AT7V4loPb70OMxYprRgWozC6nZTdHwKI3BBuUui2cEGTQIr0APLXKoFBUBZlxSccXHVwmcSuTzgC9qPvWbe1m+4brhdjJF8uwcHhciImwYVL20HOesRYy5L8PvD/0sx9zcSwL9nwO2e6F2cltIFVTQQFMyx0eKDrQtHMicPwhcPVUicqzbLcNtPneCEMv1E5ugDs8HozJysEVg0d1r+I5IaTR9eueFovlWA5caNo76f6dDvaBBMhpemOA30o+t9+HpKhoXD18AlKj486Z609WFXyyZQ32V5YGgtpqgIkgFEvccfQQ9lUcDc/57UkSkO1OCUgCSA6U/lEwNlMEWIbt/lTLxbgowo3lqqZi3ogJGJKWFRgAfRZqMiTNKKUoKC/Bin3b8OLyT7HmwK4wFS5DCDYf3o+XV32OJbs2odXZGX6fEOOWrCo/GigJYUC6sdqHgEBRFfAch4TIaDCDUvtA4Dj4Q91PlzH4WIaBX5Hhl2UMTe+HydnDIPL8Wdt+YQAC2FS8Hy2ODpTWV+PLnRtR194CAHD7vPh8+3pUNDVgZ2kRvt6zJSwFGULAsSx4ljuvdtgPLVVV0Z0TEhjCwCfL4FkOual9wKTYY0EIgdyNVa8XpeoNSj6P34dIoxk3T7wCUSZLkCGWnBX4aBcQVrc0QtModLyAuvYWbDtSCAAorq1EeWMdDKIIl8+DTcX7AzlmJtCTW9ZYiyN1legM9FFceAAGm9W76yHvan7ERkSCI4S5LFJKp5R+LIsOtxM8y+GKIaMwNL0fKCgoPbuUGyEkHL6gQereEAOVT5bQ7OgAAFS1NEANgRWAXhBACIHb70N+UQEW79gAp9eDWyZeiTnDxl34DAw9PyR9DCFgCANO4Lhu1fEXq/RTNRUa1ZCXmoUbxk4L2yvnctYhsBAAY7JycKSuCk2dbTDrDWHqi0ijBRzLwuXzgCUMUqMD80Ve/WYxVhZshxyUFlUtDWF1fiHFhUfyQ1LkEBa7D4AMA4NOBybSaA662ZdvUSrHsnB6PeiXkILbJ89GhOHsZvyGZIXT68GBylLkF+3DwaoyEEIwfdBIzBw8EhqlsBpMGNtvEABgbL9c6PnA1MrBaZm4bdIslDfVYdW+HVACE4dgEEXogr+jqAoUVYWqaRckZOOTJPhludtgT4JsmBzDwWa0gLMazT6GIcLlGhMkIPD4/RB4HpOyhyI3pc8ZOx0hVU0A+BQJ/1nzFfZXHgWCnYZ2sxUP/+QOLBg7HQmRdkSZI2C3RKCkrgpxkVG4f/ZPUFpfg/6JaYiJiMSm4krIqoIIgwntbif6J6Riau6woOd8YYZWUQTytW0uB5w+97e2SjfsNwCwDKNFW6wSNzApTWcU9WFVdDnZfSChHl8fJmcPxbSc4cexA5zJphISiPUxhKDV2YnypnqwDAMCgqqWRvxrxSL89uqbMXvoWABAQ0crXl61GAZRh7umzcXIzIEItMZS+GQJmqah3eVARmwifn7FtbCbrfh8xwY0d7aDYRj0T0xFTnJGoDAW548Ort3thFfyd0/BcpdLNOn0TL/EVB0nKconnR7XVIYw0VogOnhZSMIQ0Jx+D1Kj4zBvxETEWm1QNTVI2n2aKjfo2WmaBp4NZDavHzsNjY52lNZXQ+QFyKqMtYW7MSozGzMGjwSlFEfqqlBQfiT8Wj+feQ2S7bFQVBXx1igMSc+CSdTj2tGTERsRiXc2LMfSPZvhlfwgCBBJLpwxH7PyxkBVAyEbEvzoziUpEjSNgmf5bnFGNKppDGGYdrez2eXzrmNirbafNna2HdCLImRVli6HWHRIWvjlQDHuLROvxOC0vsHYG3NGUpQQgmZHO1bs24aimnLIqoIhaX1x3ajJSIqKhVGnQ4TBhFR7HESeB8sw8MkSyhvrwHMcbOYIbDl8ALvKisNM+/0SU/HYDXfj6ZvuxaCUTLy08nN8snUNeJZDhN4Io6iHV/LDHxynwAXztedDg6ma1q2df7KqSnpRRENH64Foi/WnHKWUuff1v4ntbic63U6iE8RLmyGBAgxD4JH8kFUFMwaNwPA+A0AIoJ1ByKVrlmPH0SL87av3wRCCZ276OUb3zcasvDGYNDAPBeUlcPm8SLRFIz02IegZB7xAJRjkJSQQmiGEBNNeBNagI3SgqhTtLgc4loWiqvDJfjCEwU0TZmJa7ojwg+ST/TDrjd0XUguaKB6/H7KqQsedO28pQxh4JT+xGk1ItceJ6yllGEKIlh4TT42iLtB4comLwFDAmVKKpKgY3DLpSkQazeFMyOmrkkCIpbatGXuOHQ6rwJdXfY6i2goAgfbNUX2zoRdEbD96EO9tXIGCipLAPGF7bHgWB6UI99+2u10oKC9BYVUZXD4vhmX0x70zr8H03BFIscdiVN9s/H7+rbhhzDSY9QaomobFOzbgtn89gR1HD4bp9bRustcaOlohKwp4jj9nwcQQAkmVIfICUqPjKCFE4wBgQFKaVNvWrKqhHld66Uo/gefQ6nRAL4r42Yx5SI6KPesYHwB0elxo6GgDx3IwijpUtzahuqUR2Unp2FVWjFdWLQalFG1uJzRNw/pDezBvxETcMGYapuUOx9rCXYiPtGNoRj+sLdyN9zaugKwqUDUNZr0B0weNwPTcEVg4Yz4cXg90PI/4SHv4Opbv3YoPNq2Cy+dBftE+ZCdnwKI3nvOgnMDsYwkOjxsABcsQKOfMXxCwu61GE/onpgbMBwAYlJKZXFxTye6vLJVZhoFyCWrgEJVup8cNkecxf8SkcCzuTLMLtIuUsZkjkBBpR3FNOTiWBQmqxAAptwhCCMoaa8EQAovBhKbOdvx3/TK0uRy4c+ocRFusyEvPwoZDBVi2dwvaXA5wDAuNaqhvb8XR+mrEWCIxJWcYosyBEWBlDbVIjYnD0bpqLNm9CU6fB2adHkU1FfD4fd8C8ByC56F4pj8YhO6W4HNQS1j0RjUjNlECAGb8QwsZm8nyn4aO1lKOYThVU9VLUfhxQUZ7RVMxKXsofjJmSmB0/RkeVGDyT6BIgCEE8dYoTMrOg9VoRquzEwxhEGk0g2ECYxv+MP9WjOgzAHpBB4fHBUoDrY6dHheSomJw17SrMTorBwSBwgRN0yAFZ3SY9QZMzh4KWxB4bS4H3li7BK98sxgdLieKaytQ3lQPs84AJRyY7j4Tyu3zhvO23QJAhkDTKLVbrGxWfHJ8wIFiWCbCaPq/GU/8MsuiN97jkyQvx7H6S83r1SiF2+/FyMxsXDdqCiKN5rOqcgnZyJqmwafIMAgiJg4Ygvr2FnyxYyNSouPQLzEFnR43nF43shJScP/s67F092YU1VRA5HjMGDQCVw0bB1XTUNXSAEVVcd3oKYg0mbHmwK4gLS6Qm9oHd0yZAx0vwCdLyC/ah/c2rgAFcLi2En5FBs+ycPu8oKAY2y8XJp0uLG3OdbU6O+GT/WENcu4hHUUTeZ7VNK1F5IX88Q8tJFxeel9soJR9ZvE7xqqWRpTUVRELb7xkPOHALF8Kh8eDtOh43DB2KvrGJ0FR1TMaTx8K9iqqirLGWtS1NcPp8yDGEomBSelYMHY6+sYnwyDoEBthw3v5K7GtpBCP3XA30qLjcf+s608IRyjQNIpdpcVw+724YvAozBsxEbOHjoXT64FB1EEXHHpNKUVxTQU+2LQSBlEHvyKjsKoMyfYYZMWn4GD1MSTY7Lhu9GSYdIaAA9sNAKxsaYDb5+0W7nCGMOj0uKQBiWk6h9f9NSHk5w+8/Q+Oy03JBCFEXVmwXVU1TTtcWxEsyrx0wKeoKhhCcOP4GRiW0R80MLXnzGy+4IHWtbfgD+//G06fN8AeqkhIscfh9/NvxZDUviAMwa6jxdhWchBF1RV4+OPX8frCPxyn1naWFsMj+ZAVnwyGCVSF6EUdGjrasHjHenR63EiItGNcv0FItsdC4Dg0drah2dEBi8EEnyyhxdmJOcPHAyBItEXjF7N+AoOo69bmpsaONsjB4lF6joPLQxNFk6Ji6Jh+uQwA5KZkgstLzwIAjMgcYHN43cyaA7suDYaYYLzPK8vwSRLuu+JaTMkZ9m2x5xkAMPQ3hGFgN0cg1mpDe20lGEJgCEyBxHNLPsS/7noQIiNg1f4dKKmrAscyqG5pwsHqY8hJzsC6g3vw+fb1qGltgs1kwZxh46AECY9IUOVtO3IQjZ1tYBkGS/dsxu2TZ2PusPHhB4FnWWiUIs5qQ3JUDBIi7UiKikFxbSXYoN0ZerjOJUWnaCqKasrhlSSYdPpz1ojBcjM6MCmdjMocGAUAeelZ4PLSs9S7Xn6ajzSany6qKW8ziOJNsqIoDEMu2o45SilETkCnxwVZVbFg7DTMGTYuwEmiaTibccghiWIQdfjdvFvw6CdvBIpMg/00h+sqkV+0D9MGjYDL5wlUsggi9IKAFkcHatua8fWezThYfSxc3u+R/GGJpWgq7OYI2EwWVLc2Qi+IaHV24tOta9E/IZD3jYmIRFNnO1Kj4zBj8Ei0ODvw5c58HKouR1NnO0SeR5w1CnOGjcOYrJzAyN0z8PC7/m5TRzsaOtqgagFTRVaUc5KAsqIoBkEUCqvK3ps/cuIrVzz5AJ+XnqUwhBBq1OlZhmG2VbU0rkmPSYBfltSLNRZIg+Q3Ln/Ag5uWOww3TbgCBlEXAB8hZyUVuh5in9hE3DPtakzNHYbMuGQMSsnElUNGIzoiMgwuEgzTyKqCaEskCivLUNnUAIOgC79WTnIG3D4vvJIfHr8P0RYrpg8aEeCikfzgGBZVzQ3YVnIwEDSfeCXG9huEO6fORVp0PD7duhbvblyBveVH0NDRioqmemw+vB//WrEIB6rKws7X2exhfUdLt05J8suSmhmXhJrWpjWEkG39ElNYQgjlAGDSwDz6AqX8waqytKLaCraoplzVQwzbUBfTYhkWkqLAL0kYlZWNO6fORYTBGM5cdMeGyoqCSdl5mJSdh6P11WhzORAbYUNaTKCYdFBKJgrKS+CT/Ogbn4xkewxW79+BVldnQIoKOkwYMAT9E1OxtnAXfLIUOGyGwbj+g1DeVId9FUfh9nnhkXxhKTlvxETMGzExDBKWYZEQaUeH2xXIC5PA0OkUeyykYCzyLLJvUDQVVc0NkORAn9C52GQh8ntZVciUnGFsdnJ62msLf8/nF+2jL4YC0XnpWXTCw/cq+U+8Utfs6GgiIJEXuvK228Itmgan140haVm4bdJsJNqiu53Hj+c4aJTC5fWAZVg0OzpQ1dIICiAtOg43TZiJTo8LG4sKcOP4GbDojRB4HtHBaUpXDBmFO6fMgayqoDRIWcbyIAjM6/3l7BvQ0NGK0oZa1LQ2YXBqJjRNQ4fHBY/fB0IIYiNsWDhjPganZuLTbWtR394KTdMwK28MbpowEwLHQ9W0M2upDDpbflnGvspS+BUZHMuesxAKPvwk0mhuyopPqZvw8L3Ku/c/woczIRmxidKC5x/SMQzzxsLX/lqeEh23prmzHWAYyjAMuRikYLiZ3OtBij0OC8ZNx8CktDM/hNOUFE6vG3/78n1sCTYX6QQBekFEos0OgeNx2+TZuHXSlTDpDGHpNWfYONjNVujFoHZRFbh8Xrh832YcQuGhOGsU4qxR0DQNTY52bD96COsP7sHqAztxw9hpuHXiLJj1BozMHIjRWTnBcdABT7VL0edZ3Z/T6w46USx0vBBoCSVndyaqplGqUZIRk8B/tn39TVNzh69d8PxDuozYRF8YgCGP5BMA0weN8DQ72uXPt6/neXAQWRZUoz1aHIZMBZfXiyizBXdOnYORmQO7XfJ17fF4cfkibCs5CJNOD4/fB1VVYTEYQUDw9Z4tyC8qQJ+4JAzN6IeUqFjERti+E3dsdzlwuK4SXr8PhVVl0KiGpo52tLsdaHM5caSuEtUtTWhzOyCwHIZm9MNv5t6EkX0HwijqsLZwN7YeKYSO55Fsj8OU7KGItdrOOr0YigzUtDajqbMdHMOAIUygLZOc+VNKmECvjayqyEvvJ0dHWD0vd8HacQC8atg48ntKCYComtYm/pMta0GIBj0h6LEhaYogUbgGj+SDRW/Az6bPx7j+g8AGv99d/bQn5kjLGmtACAm3U1r1ZuQkZ4DnOIzOyoHI86hoasDHm1ejpL4KZp0BAs8DIOBZFgZBB0lV4PS4QUHx2bZ1WLyDgdPrhtPrAaWASafHgKQ0zMobjbSYePSJTUKCLVCIoGoath45gDUHdoc77lbt2477Z12PoRn9ztoDdvm8OFRTDlXTzihQf7Lgc6CPRcV1oyfz8ZH2qAWUkoPVx8gfTgRgTnKG/Ncv3ye/n39LodvvezbCYHxAUmRRVlVKemKNVrAYlBACp88DhhDcOnl22IvsTvCduJodHWh3OSGrClocnRiRORBzh4+HzWTBf9cvw+TsoZgxaCQaO9qQl94Xh2srUd3SiBZnJ1w+L9x+LyqbG+CXZZh0elBK0eRoh81kQUZsIuKsUYiJiMTg1EzkpPSBLsjI6pX8eHPdUgxITMPYfrkYkpaFrUcK4ZclcCyL8qY6vJ+/EnZLwBFRtNPP9qhUA6EETq8bh6rKIHBcuCjirE6fEMiqQnmOg9Vo9vkV+Z8ACt9a9zW5c+qccIUD1yXMoLy86nOBEFI5/qGFD913xXV/+Gz7OnS4XUqEwcQpqtKj1HAIfA6PCzpewFXDxmH+iAnnHXwAYNTpMC13BJod7Yi12jBn2DikRcfjo83f4O31y+DwunHfFdchyhwBWVWQlZACi94Inyyh1dkJl8+D+vZWlDbU4IsdG8EwDK4dORnD+/RHXGQUUu1xgTih34fqlkbYzREw6QzYfPgA3t2wAhmxCZBVBWP75aKuvQUfbf4GWjC7s/vYYRRWlSHFHntGIZjQsOrGjjYcbagBz3JgGeasrX+OYdHhdqqRJjN34/gZultffPyhzU+9pr65dqlACJG+A0AAmJozXKOUMgASShtqDn6xc2NfjWpcd48p6S6Hw+XzQMeLuGrYWNwzfV4wZEDPKtB8JnHA2Agbfjn729yupmn4eMsavPrNl+C5gFfs8LrR1NmOP3/0KnS8iMduuAt9YhPD4x36JaRicvZQfLFjI0SOx6y8MegTlxjmgGlzOfDvlZ/hcG0lFs64BhMHDkFTZxtEnkd5Ux0e//RN/OXmn+Om8TNR396CopryQGErz8MYHLN6uk4IpRQcG+AHOlxXiQ63EyadPtA3g7Mt69IoAMKznD83pc/RTU++moAnX60tKC85zqI77gr7J6YqD7z9T0IIqe4bn5wbbbHW2c1W1u33yT8WN8nJlsvnBQHBdaMn496Z14IlTFgqXgiLgVIKSQnE2kobavDh5m9g0umhqBraXA7UtDahtKEGLY5O1LU34+VVn6O2rRmU0nC9YEuQHcHh9aDD7Qw7Al7Jj/c2rsC2koOobm3C4brKoEMVYOu3GALFIttKDkIviHjk+rvw/O2/whML7sFLd/0Gk7OHBg73NB/EkKSsaW1CUU05SJC14FxsP4/fJ8dERLLJ9ti6rISUXEJI9SOf/IcMzeinnBSAgXDBhPC/b55whTEpKhp+WaIcw/7oldIhNn+P3weA4o4pc3DLxCsDNA8X+AEhXbrQnF4PHB4XGIaAZQgiDEZ0elw41lgLQgCjqMO+iqOobWsO/s23c0cCnXU0OK0qAJjq1kYs27s1TFBU09oEpy/QvUfpt/av0+sOjLsiBElRMRiQlAar0fwdTXFqAAaEUnlTHfYeOwKDoAs4MWdz4DSgfv2KTBNsdiwYO80Y+tGU4IPxgwCckjNMG//QQrKucDebEZtwVUNH20aDoGP8siT9mOm1kIRz+DwghGDhjGswf+TEcH73x3KEAIRVvl+WIasq+iWkYkBiGnyyFLSlWGgaDQ+FDAHN5fMGYn+aBl+ww01SZNS3t0JSZPAcD44NVKJwDIsBSWmYPmg4Or1uqJoGvaCDEKpUOWG/zmRvOYaFrCo4XFsJl88LkefPRUrAJ0uSWW9kWp2dG5PtsVetK9zNjn9oIZmSM0w7JQAJITQExPhI++5rR01mRvYdyDt9HiU0OfFCg49nA5mHDrcLRlGHhTOuwbwREwLDdc6zw/GDex0EXkKkHXnp/SApMmYMGolpucNht1iRaIuGpASoNAyiDma98bi/lxTluJKxkPoyCLpgyk+GrCiItdqgE0REGEy4Y8oc3D5pNjJiEpAaHQdzsP6PBhutukrSM3iGUNFUj6Ka8m9RdLZZIpaD0+dRRmYO5K8bNYWJs0btDgEvhK3jnJUferGPN6/WTxqY93lRTbmBZZhsVdNUXChuiC7iXFIUuHweRJkjcOO4Gbhu9ORwLIz9EW1TNmgnxVgicde0udh2JB1XDx+PWKsNlAYqlLeXHMSByjJMyRmKFHvscX/nl6Vwc3tIOnIsi2R7LOIj7ahvb8Gg1D6YPHBouLghKSoGd06dg34JKUiKignEQc+RMYsQgm0lB3GssQ46QTwnPkBV01SR4xmGIXsmDhzy+Sdb1+gB+E5qL37fNzc/9RolhNA9x45osVbbCxzDLh2Zma1zeNzyhQwJhggjXT4PEiKjccvEK/GTMVODI1Ppjwq+rqqUYRjkJGfgnulXI9ZqC1fdpMck4JezF6BfYgquHTUZNpMl/PshJyb0pAUIgAKSzG6JwG2TZmFc/0H41VULkJOSEZjKzpBgozjFuP6DkBodF5Sa53YmPllCYWUpXD5PUKKenbFPQNDpccmjs3J0el5cGmmyvFDV3KgRQujmp1773hf9QQn4xIJ7tJyUdG720LHa+oN7XNuPHuRD4+nPd344mEeEV/KjT1wSbp80GxMHDgnX8/W02Hio17irQ0QpRWZ8UrgiOkRayXThDTzREVCDFB+z8sZgVt6Yb23g4GuyTKCyODQ45mwlXyjzwRCCrUcOoK69JTwV82zPK+hNk9yUDNfk7GHaqOL93LCM/trvcDPOSAKGll4U5T3HjnB2s/WvpQ21C3OSMzi/LGnnm0+aBPtHHV43Rmfl4I/X3IbxAwaHwxQ9MTHDBFkNugKCnJBC6vozRVPR4XYdx7BwOjHI0NdMN/LArNq3A3XtLcFGd/WszkvRVLh9Xi0vvR9X19ayMNpi/evawt2cXhR/sK/zlF7FPdPnEUKIpGqav6i6nP1/b/6fl2NZncBwRFbV7uMUDOZ1WYaB0+uBpMi4evgE3DB2OpKios/Yu+tJ67icbLDkqWscMeSQhMDV9T7PB99L6Ho0SnG4tgLlTXWBQl42METwTJ5vSgGWZaApMlWp5r972lz9gMQ0PyFEKqwq0z96qgf3VG+Qk5whfb59vcgQssdiMPx5dt5YPQDilfwaz3ZPbDAUiZcVBa3OTugFETdPuAK3TroSSVHRoMFsQ+gw6EX23/HXHJSAqgqnzxOWIYqqHO+ZEoRjcd1+LUGAy6qCRdvWodPjhl4QA+qXnJnQ4FkWXsmvEULI1cMn6E06w58JIXs+375ezEnOOGXo7pQAJISoLp9HJYRUpEbHP9M/MeWfqqY5VE2jajcF4FiGhVeS4JF8gXL36fNw66RZiLZEQlYUqMEQhappgTZFjV5cH/Tbf2tUC1SIaCokRQmTFcldWE+7/n53fyha4H00TUNZQy22lxyCqmln7f2qmqZpASw4BiSm/jM1Ou4ZQkhFEDOnfMHTCuzdPvkqZduRQnF0Vo5MCPn1C8s++X/5RfvYVlen32ayiJKinLMqlhQJuSmZ+MWV1yErIeXbuBJ3aU0TY4LPvFHUBcvoA+REflm6IF49E/yfx+/DioKtgZkdZ6HJQlQnbS6HHGWKECcOHKK/ati4X1NKme0lB/kx/XL9p/M6p326o7NyFAC0sLLMHBMRWVzT2jzI4XULqqZRhhByLq67rCgwiHoMTs2E1WhGWWNtQLxzwYqMrqOsACiqEjKlTtmvcKFIX7texwnm3nFLCRauNna0oayhBhzDgmMZ1LQ2YX/FUUSZI4IzW8h3XvuH7rfre57s3kP5ZJPegAOVR5FftA98sOxKPcOyKybgMVOe5YSM2ET8dNyM4nlN9WYAriBWTjdxcka2GiGEUEops7Jg+5Y1hbtG7y4r9keZI0RZVc768DQtFNrBtyTcNBCO0PFCeHJRqMElpKq6Dj4+GbgvVKwwdB2hlGFXY59lmHB4g3ZBEx8seWeCvDXSSYiAQn8bII5SvxMIV6kWnuemahooaHgMQteYKkXAZiMgkBQZDMOcddEpz3JodXb6h/cZIE7PHbH9yrzR4wghWggjZySRzyDwSoOftWR77DWU0vdiI2yM0+vxM+cQGjkOfKHNJoG6vhATqKyqkIK0ZcGLCMtcljDf+xF63QvxAUICgOjynqF/h66ZdhFL5FspAkVVjwvHnPjaTDDsQk+4165A7Pq7LGGCKb5vXyNk9/llGd5g3vl0qYi/e14MnF6PPybCxlBK30u2x15DCDlpuq1bVHDXteHgXn1OSkZDi6ODrju4h39pxaIOi94oSqp8doMsCEAoIHA8xC6xs66ThshJ9Mqp3upCBm7Iab4f6XJvGg1Uw3Ase1J7t+t+kFPcJznFvXel7gjljs/E6wUJZqhkybtg7DTrpOw8Gm2JbNhwcK9+cs5Q75nu2VkBcFJ2nn9z8X5DlDni02EZ/RKvHjFh2pLdm71Wg0lPGHJ2XVShkMNJjBz6fcbWJbDCttsP3Pv5MhnOJk5LKUWLs9N79YgJ1mF9+q+1m62fbi7ebxjXf5DvrJ2iM980oiXY7AohZFlGbOLvZ+WN2ZKb0kfv8LpVWVUowzCX7cy5S3FRGua0pg6vWx2U0kc/K2/MlrTo+N8TQpYFsaBdMAACgV7iXaVFRkLInnaX8+ZrRk4qtZsjWL8sEVXT6OU8+PDSQh/AEgJVValP9hO72crOHzmptN3tvJkQsmdXaZExxHZ6QQEIACMyB7rfXr9MGD9gcGV5U92wabkjOi16E9w+r3bZD0C8pMwEBm6/T4swmDBj0IjO8qa6YeP7D658e/0yYUTmQPc5xyXPZS3aulYe/9BCcs/0eY6kqJi+/RJS6q1GE9vudvkCvHK9B3gxq16e49DudviizBHsoNTM+gRbdN97ps9zjH9oIVm0de05E0ifc5ph+Z+fp5RScpXeSOYOH9/83JIPZ8mq8p7ANeU2dLQ6o8wR5nOl9updP47qFTgOrc5OZ5w1ypxijy1MiLTfOnf4+ObZTz9Ilv3puTMOufyQh98t6821S4W7ps2Vnl/60cSqlsan6tqaJzQ7OjwRRpNBC5Fo9wKxxwOPBGsaO90uT7TFakiwRW9KskU/9Nt5N+eHzri73q5b0wR3TZsrPfbpG8YH596YH2Wy/DHBZt8UaTIbHB63DKDXO74IwBcspqUOj1uONJkNCTb7piiT5Y+/nXdz/lOfvW3sTvB1uwQMrT9/+Krp6ZvudT312dv921yOz0rqq7P9skRFXgDLMORs2ZZ61/kHn6pp1C9LEHmBZMUnH7KZLD956Cd3HA6dabc7OOfrfh7/9E3dozfc5fu/JR9EN3d2lBysLrNKiqLpBZFQ0F749TxfFwSgXslPBY5ncpIzOqIjrFm/vfrm5tBZnp93PY/rzbVLmbumzdUe/eQ/EQSkvKCiJLLD7ZRsJougaGrvmfcg6ccHHA7JZooQRmQOaPfLUvrjC+7pDJ3h+Xrr89pi2ZZiQVX+Hmz8bKl/wT3/81WKPXaWR/JF13e0uqwGUwCEFyMV6yXmcOgEAc2ODlef2ET9xIFDyqLMEdMemPPT2q5neP7k7nle4x9aSIb36c/+845fK2sLd01oaG/7+/7Ko6O2lxxy2c0RJopAlW4vEC8s8EAAjuFAQdHmdLhGZ2WbhqRn7UiLjv/d2H65mx54+x9cSV21uvzPz59Xt/GCHflzSz40/Obqmzwur2fytqMHn9hecmjCmgM7fYQQJsJg4gkIOSsmzt51Ztj7lmmCdrhdMkC1mYNH6UZmDtw0MnPgIxFG04bQWV0Yy/MCrq/3bDHPGTbOSSkdVtFU/5+31n+dV1xTgVZnJ3SCQAWOJ5f0sOwesFjCwK/I1Cv5SWyEDUPSsnDzhJkFyfbYewghe0JndOFcnwu8DtdWGvonpnoopSleyb/1H19/jO1HDyb6JRksy2gcyzIX43iIi8HHDXLQaIqqMgZRhynZQ2t/ddUCABhLCKk6Uldl6JeQ4rmQ13XBuS36J6Z6AOCtdV/X6AUx1SdLqffOuGZ//6RUePw+iYD0Iu88LU2j1OP3SdnJGbjviuv2O7zuVACpb637ugYALjT4fhQJ+H2rrq0locPj/G9ZQ+2Ml1Ysgk+WpEiTRQgNTel1UM7F0WCDzGJOyaQzCA/MWYD06ITVNpP5f2zmiLof+zJ/1J5HSin7/NKPmASbvY5S+juOYVOGZfQfZjNZHl2yZ7OfAFqEwSRyHMvIqtILxDMAnsDzkBVFa3M5/ACY+SMnig6P5/EBiWl7Em3RVYSQuueWfMg/OPdG7XT6dy9pCfjVrnx+3oiJchCU5g2H9j5e29b86/0VR7GztAgAJKvBxLIsy4YbeHqB+B3gMUygEUtWFdXp9agAhLH9BmFwaiaS7bH/GNsv91FCiPPEPb9sJWBozRsxUaaUcvsqjuqCG/QgpTSZZRhG0dSZXkkylTfVwedxKQZRR0ROYCkoej3moCEfbAX1K5Lq8fuoyAvcoNRMVieIrhGZA765ZuQkjRDyIAAUlJeYhqT19RFC5J5w7T2GdoAQogBwvbl2KfPuxuUsIeR6AGjsaHtpx9FD099ev0wfaTSnuINzNjiWpTzLkW8FwOXlu4R6Byml8CkS1TSNGEQdazWaQSmtunbUZO/IzIFrjDr9LwBg0iM/52+bNFvNS89y9az76KHrzbVLGQDYcfQQ+/q9f5CrmhvmlTfVf/rG2iW0tq1Z5FgWAscDoaHMl5lKDnRzBrSAHGTW6hOX5L9z6hySHBV7Q4LN/tXfvnyfjzJHqABwPvO5lyQAv8dhEevbW6xvrl2qG545oGxP2WF29YGdlAIKxzCMxWBiA2y3l65qZoLN9lqAO1FVNU3jGZa7ZtQkMiApTd1XcbTPwhnzfUZR30EI8V8M90QuAuCRDzatIrdMvDKMqjZn5/hF29YxNnPE4yadfvKHm75BZXODjxCAYzmYdHqeY1g2QGerhXmYL5rHLWhNhJwKNtASqTq8bjnEstA3Lkl34/gZcPt9GzSNPnrlkFGaXtRtDr3E+/krmZsnXEG7o2z+srABu6regUlpfH7xPizdvVkKbiCllJJle7Zwf1/yIbWZIzYHwflwq7Mzr7ypLvOm8TN/WVhdhiO1lShtqAEF/ASEGEUddIIgAAEOmuMA+WM/hidcAxOk1GDYAPup2+eVvJIflIISAjE7OYPtl5CC7OQMVLU0vDiqb06pSacvIIRsBoA7//0097/zbyFbDh9Qb5l4pXYzpUxta7Pwz2Wf4N6Z85ERmyifbf/uZSkBxz+0kLx454NsXnqW2vVJ3nBor7DxUAETKpKklFoA/HPL4QNkye5NGssw15p0BmtpQw2aHR1wet0KEGCgFzgePMsRlglwkoXoMS6kExOayxb4HKa4VWVVoX5ZDvP02S1Wzm6OQEZsIjx+X4fA8YtnDx3DDEnLogAeIIQ4gvvEbX7qNYVSygLQerrU65EAfHPtUubt9V/Tr//4nNnl82Qt27MFC2deszv086LqcjIwOf24jd177Agnqwo3qm/2cdW6sqo81uronPvh5m+8u8uKrRaDKdsn+eHyeeGXAyxUkqJobFDFccHBfISQIB6+SyJ+Ot7293FXn0ixSymlqqbREFGlRik0TYPA84yOFyByPAyiDnpBBMswh4akZ3UsGDtdb9LplxJCHuv6Woeqj+mzkzO8lFIOwGBCyB4A+Hr3Zv7ZL99TNj35qsUnS31eX/0Vc/e0uTCIuqMAHH5ZIjpB1HoB2GV9vHm1/qfjZ3i3HD4w2Sf7128q3o9jjXVDnr5xYYVPlpS+8cnu8Q8tJN9H908pJR6/j/14yxoUVpXin3f8Wunys5iGjtaS8qY6bC4+oBWUH2FaXQ5R4DidrKjQgtRmgXkbgREIYeYpcqLU+uHxV+GBMSeClB4P3tBQRUVVghRpHFRV9cVabf4haX21kX0HMlnxKYgyR2QRQppCL/PA2//g8tKzcNuk2QCg1rQ2CW+sXUKvGjbuWpvR8pGqqYn9ElPrKKUiIcRPKZ3v9vu++MsX7+DGcTOQYo+bajEY168r3K2fmjvc2xPOvcfYgN/s38EAwJ8+fEXWCyK8kh+RRvPq0oYaMSM28VEA//z7rb8QlJt+rowfMBhdVU3ws3KS+GITpTSZ53jUtbXqDlSW+p766c9ujYmw/Xt3WTFK6qtR3dKIqpZGePx+AFQ92bMqcNwPMraqmgZfeKLZySQlYWMiIpEeE49keyxS7XEYkTkAjR1tv3nlmy/eG5SaqctKSPVFmSwIZS1CK/Rg3Q7gmcXv6Jbv3eq/ecIVt7+zYflL9e0t+PutvzhCKc0hhFQCgKTIzLHGWmwq2o/6tlaIPC8BwGurv+wxKrpHSMAXln0q/uqqG/z/WrFobn17y/NbDh9IvXbUZD7SaMb2o4egF8TWAUlpH7y7YcX/5j/5Sji88Pn29WJ6TIJ64gRGGpj8jrfWfU2+L/5FKdUD6H+gspTuLC0i1S2N4u6yw/47plz1s6EZ/e+tbG6A2++Fw+uGpMhQVQ1uvw81bU0ora8+bpYGISQ8n9hmsiApKhrRlkjoBRE8y8Eg6mA1mKAXRGTEJWLvsSOvfpC/8vWx/QeJSbYYf3ZKBs2KTyYADhNCvN9nmtw5dU7XBw0A8MnWNfoFY6d7C8pLfl/V3PDsp9vWSu//8jEBQOHv3v2XsqO06OVNT776xhc7Nt5UUF7ywcaivbh35jVHJw0c+sxrq7/48NaJs5AZnyRd9hJwXeFudsnuTSql9J4VBdse2HBwb6bIC/VZCSl/6nS7qg5Wlf3RIOqnV7c06vOffMXf4ux8N8pkoQB+EZIQ+8pLdBuL9tEJAwaTvPQsf5eDopRSpt3t1NtMFncX0HgBFJx4Lcvoc08D2BZntaktzg622dEBnyRBUVW0u53w+L3hGSbHAZBqYMBAJwiIjYhCij0WRp0eel6A2WBEjCUSUWaLyjIsmzDMvm7u8PE1H3/PXtzz6l+4OGsUvWbkJJKXngUAKiFEu+uE3/tg0ypxX3kJefjj101mvWHZ4LS+llir7Q9f7dqk2M0RuY2dbciKT37kvs3f4JpRk9747/pl5g2H9j69saig77HGOvHxBfdI9a8+awDQC8Dypnryzzt+rVwxZPSc1Qd2DfQrMr172tXWWXlj/isp8qRle7dGNHS0SlajOfmJRW8+9M6GZbfyLIev92zp/GpnfvnVIybsJoRs+j67sK6tRZjw8L3S5qdec3sl/206XogCsG79wT0Hp+QMEz/btk6taWvGjqOHaENHKyGE1AB493zf80/+74+iQdTTYRn9SVJUNEZmDsTR+mplau5wBQCe7PK7BypKOYHnyd+/eh+lDTUACL15whVhLfAkcLC2rflvHMv+6d2Ny5kZg0ZKFoNJqm1rTu5wu/5GKfUQQl57fNGbv9p4qMB4pLZqwksrPitbtG3dhmmP/4JZ++hL2mUNwHc3rggFTl1eyY8haX2V68dMXRRQsRu+VjTVlJPSx/+LK6+7cldp8ZVf7Nzos+iNSLHH3l/d2oj1h/ZuanF2PppfVMDPHT5e4Rh2OyHEE5SCfgBoaG+dvmTXpneGpGehvr3lT1Nzh+9fV7ibXj92mv9ErzrBZufq2lrQ2NkGSikaO9oABEZxNXa2obS+mm1ydCAjNgEev09rcXaGxWG8NSowaNAaFX7NWKsNccGv89KzUFBeogzN6OfHKZBOKWWmPvYLMigt8zu27fqDe8b9/asPeIfXzc0dPp5EmSyD9pWXoMXRqba5HPzEAUOE9/JXeneXFUcerh36Zk1rU/u6wt3mIku5Lj0m4War0ZSw8YmX1/zty/f5tbjMAXjbpFnYiJcxd/iEWp5l6/dXlH5DCPmf+998Lv7VbxY3MYTRzxsxgcRE2LSU6Fj17mlX6yZl56G6pUn5+X/+plU0N0zoG5e0rtXZiYOVZWBZdjCAA16/L14niACQDmD1p9vWqv9e+bkaZY7wjH9oIXl80Vt0/EMLwzbw5qdeo0FbUglJ0PMZT+v63qH3P8F50oLXYfXJkuF37/6LPVBZqqZEx4n7Ko7mJ9tjmKP1NWjoaINGKablDse7G1ewq/ZtR941t+HmCTP1L69arL24/FPh2lGTl3+1axOaHR31eelZSkxE5D4AiDJH/OjOSI+KA+p4QfTJkl/VtNjGztZjaw7sEq4bPUVLiLSzX+7MJ9WtjSCEoF9CCnJTMrF6/w6kRsdj9tCx2nv5K5i69hbYjJahjZ1t+9775aOPptjj/qyqqsxznH7RtnVSbESkYNIbfvPwR6//4/Yps3X/Wr7IBwCbnnz1O0xP5wOAXV+TUkomPHwvAMCiN6Jr+2PX3+twu76sbK6/6sXln/qONtTomADxJ3fD2Gkoa6zFrrJiTBqYhycW3IMVBdvw1y/fw7WjJmN0Vg4+27YOO44e0ghhmGtGTUJshG1mi6NjvUmnF+6YOsfTE869x4Rhgt6qFwCO1FYKnR6XrrGjHbPyxjDbSgpR2dKg/L8rr+OG9xmAgmNHsHTPFrR7XLgiMRUjMgcw/92wjGqaBo/fp9/81Gv0oeg4WeR4TtFUblruCApQmpPSBxa90bn8z8/T5Xg+7HGSp14LHbz42bZ1eGH5pwohRB3/0EJmTFYuzzAEz958n7S95OCAI3VVX/13/TI8e8t9GNU3+/Ga1qZFqqYJ/175uVTeVAuO5eiYrFySm5KhPPLJf7RhGf2FgvISXDVsLLoWCHwfuOvbW3TxkXYfgPjCyrKDf/3qvY67X3km0WIwcn5ZMukFEZqm4f9d+ROMyBww+Z0Ny+fGWW2/rGtr5nyy1HzlkNHjn/3ivc+W7906KNkeKz16w93C1iMHGLPOAI/fN3Fq7vAtQcmq9JRz53qSBLRbItgWR6ealZDSWNZYe5VZr9cbBNFf2dxwv8jxM3eVFjsWjJ0ucgwrfLRltWLWGeCTpY/bXI6NVqPpjabOdqx46B9bP9++/qb381cuqG5p6pg/cqKxsbON31VazA9KzcSglMxf/vXL9+Z8s28Ho2iqNrJvtvL4DXdzekF8mBByoIsU+grADYQQf21bs0AIoWsLdzdb9IZMCoq06HgAYJLtsf6QrRkOqh8vyfwAkI9XoFHtVQLyHoBD+yuOvvPHD19R3D4vJgwcwru83t/HR9qLH/74dT2ADgC/bepsf90r+dkBSWm+m8bP1B2tr8ZzSz9SnV4Pe6S2ct+dU+bM+HzHBn5T8T4cra+WBqVmHn1y0VuujUUFKGuo5XTDhV2DUjKfjrXaaMhR+3r3Zv6qYeOUnpKu62kSUAOAuwITtpcDwF9wH+5+5ZmG3NQ+/miLde7iHRuw4dBetdnR4V4wdpp1Wu6I0jv+/dRbI/sOfCPoSDyzsajgJwxh+t488QosGDsNv333X2joaGWaOtuxteRgzoHK0hxF0zAgMQ31bS34eMsa9EtI0VFKty3ZvQmvffNlzCvfLL76o03f/POBt//RuHr/zvcppeWrD+z84/pDe/2EEPLFzo0Ymt7vOkppBgDu/5Z8oKw+sAsmUa/cMXUOd9XQse8RQsruf/O5x/dVHKV3TJmD55Z8tDDCYOprEMWqps72q6fmDINfluH0ejBx4JDkB5rqni+pq178yCf/8T3505+9dfcrzzxY1lA7YGh6Ftc/MXWn2+9dJ/L8H5bszkd9e2vkpidfXV7f3jK0rq152v8t+UB+Ydmn4n1XXMu7fF4U1ZTj8+3rjy0YN/2rUL74jilztDnDx8voQatHDmKjlJKdpUXiZ9vW0+tGTxZHZ+XsppT+bldpkfbKN1/AajTNG5LW1xptiTzSPzG1dEha1hBV1VSWYXC4rvKPu0qL0NjZtmtK9lC3rKqTj9ZXIzHSTp1eL/lm/06l0+NWrho2FhMHDMHji94kb61bSu+edvXM0X2zZ7p8Xoi8gJ1Hi3yTsofeKykyvti5MSEvPas5JsL26wOVpRrPccxn29ch2mK9emBy2tU7S4vR7OhAtMWKZkcHDlUfQ6uzM/OD/FX7D9dVPsIQgsLKUlS3NuHG8TOm1re3YvGODb6FM+aT4X0GaAcqS+WM2ETEW+1Ij0kIxyvnjZgo/mfNV0x5Uz1DKV0/vM+AP/7mnRd/t6usGFOyh94C4NmNRQVvjuuXO6vD7bL/cvb1UrOjXWlzO1S/LLEa1ZJ3HD0kev1+pqyx1t8Ti1J7JACD6sEHAH8H/E8sepOd8PC9JZufem1+EKD520oOxr23ccXvF4yb/tWLyz+d2e5ysizD4NVVizvjIu0R/RNTX+4bn/xNUU1FDUMYTM4ZhsqWerS7ndyEAYO5e6ZdDavRjOm5I7Bq/w6UNdYq+cX7VL8sY2rOMHLFkFE6u8Uq//79f6udbtc9O44eQnpMQnFCpH1AU2c7+sQlISkqRvl061r1vxuWgyEEt0+ejS2HD5Ble7fSgUnpN88fOfHmaIvVT0BwqKYc98+6vjU7Ob1lZ+mXxtgIW5/8on20vKlOHdsvV7+95OBLj3/6xkpVUwdXtzR5OzwuJNmihRUF27TCqjLy7sYVZkpp/ObD+9nShhpMGzTiSVlRKm6bNKticvbQUgLUAMB7+SvNlFK2b3yyMy0m4dDIzIHSVc/8Bg6vuyceNS6KUZSPXH+X2tVzJIRMDGZRhJcpJRuLCpzVLU3ypsP7wTCM7q6pc7XJ2XlicU1FTGVzPVGpRtNjErC/4migVpBS1LW3wGIwYmTfgdhYVABCCJeVkMLFRERiZcF2/GfNEnglH9/U2a5GGE108Y4N/1rx5388vOfYkc7lBVtx26RZ2qi+2dz+iqMcAUFMRCTmj5yEUZnZeG7pRyiuraAxh60YkJwuUFDyy9nXIzs54470mIRvNhXvu8cnSa9vOLRX3VS8n1t/aC8UVX3jhrHTwBAGh2sr4fR5MDg1E3HWKP/awl1iWWMtbp88258VnyKP7psNk05PvbJff8/0eZtXFGzLnpU3RgKA1ft3eqflDJcrWxqeHZOV88y6wt3C8j8/L/XUs72oZqFOePje4+JlU3OHSwBQ3dK4t8PtSlVVFc/efF+tXhD/JnD8e3vLj1xV1lALSqkcZ7VxMYNGkD3HDqOssRZf7sxHVnwyPt22Dg6vG31iE5U1B3bhy50buayEFNw+eRZW7d+BopoKRFusJM4aRRVVVUO1eiIvAADaXE7oBQH/78qfINJoRqTRjHkjJ+KVVYuJ0+eFSdRTCsBqMCPOGlUuK8ptiqY+XlRd7n5gzk8NFr0RS3bl48UVi8AzLCqa6/HM4v8ChGB67giM7DtQlALTM1MBdFgMxjSbyUINoo4qquoEgBD4AMAg6manxsTzsVZbOwBMyRkm9+QzvagAGAIfpZTpGqwNeqL1ADDqsZcmFNdWHCaEeN7ZsDyf57jbHr/h7neTomIUm8miPr7gHv7fKz/Dqn078M3+HeHyKrvFypUFClh9VwwZTbKTM2iU2YpdpcWaSadHXnpfYemezXqNUh/PsGJjZxsAyEadTvVIfmbVvh1CvDUKx5rq8M2+7bJX8qlRZgtMegNFYMI8tpcclCdnD81pdXbG/+2r96EXRJ9Zb8Cxxjr/oJQ+EW7J945fllc/c/PP369ra0FVS8OtkUZzVYLNLvIs1xC837oTA9p3TJlD7pw6B4QQbVz/QS1dIws9rQL6ogbgiVmCrk7Lkt2buOeXfgRCyJbg93hCSCOA9zx+n10viM9/tm0dqloa/TeMmSZeP2YqOj1uLN29STtcW6XsKTv80vA+/RMnDhyyoKD8CD7fvh41bc2oa2tRUqPj/F7J771m5CSk2GN1q/fvVF5Y9omcaIvWzx8xkT9QWYpNxfv8tW3NqGltgqIq4sjMgfwvrrwepQ3VAAXcfi+sBnMKgA/3lh+panM5MmYOHvlrl8+LMVk5OpEXviyurXiyf2JqGaXU3uZyIMoc8f73OGj880s/wlXDxqFfQopKCNE2P/UavatLOtEg6khdW7M2NXd4j6ehvSTGkQedFjmojsWkqBiFECIfrq3k737lGc0g6v5BKU3afezwA1uPFIoOr1uZlTeG41gWVS1NamZ8knC4tmLJwz+5o6LF0aH9Z+0SX3lTPe+TJDqq78C5c4ePt8qKkgbAGxth+/jWSVf+tN3l5AqryormjZiwZ0xWbtqQtL4T6tpakJ2cjkPV5buzElKKrUYT1+LoVCgoGjrakGiLbieEFALYRynVtTg67C6/F2nR8QyApwkhZZ9sXaMnhLwQBBu7veQgt3jHRsRZbdpvrr5JDjWU/+Yke3FiaVrv+pHX+/krmW1HCkUA2HBo71//+fXHNTf+8xHftMfvV2c++St6+7+eUN5cu2TvyoLt808SEvozpTTf4/c91uV7n1NK8yubG6YGv06jlOYfqa3Mb3M58imlQ34gxMRuO1IonpgLBoAnFr3JAkBta7O47UihGKpr7F2XwGp2dBgAwOXz/rXd5aRf7cz3rN6/kx5rrKVNne39gcAc5CcWvclOeuQ+7hdvPMdNeuS+72iITUX7juPVPlBRyp0ks8NRStl3Nizjxj+0kAt+TbqaDXuPHeE2F+/nDlSUcpcr2P4/f7g12TBrbKcAAAAASUVORK5CYII=" alt="네비게이토">
       <span>
         <h1>네비게이토<br>암송 <em>Festival</em></h1>
-        <span class="lede" id="lede">구절을 뽑고, 씨앗부터 열매까지 채점합니다</span>
+        <span class="lede" id="lede">구절을 뽑고, 싹부터 추수까지 채점합니다</span>
       </span>
     </button>
   </header>
@@ -793,7 +817,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
   <!-- ===== 결과 · 채점 ===== -->
   <div id="result" hidden>
     <div class="rhead">
-      <p style="margin:0 0 8px"><span class="tag" id="rbadge">연습용</span></p>
+      <p style="margin:0 0 8px"><span class="tag" id="rbadge">연습</span></p>
       <h2 class="rname" id="rname"></h2>
       <p class="rmeta" id="rmeta"></p>
     </div>
@@ -809,7 +833,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
   <!-- ===== 채점 결과 ===== -->
   <div id="done" hidden>
     <div class="rhead">
-      <p style="margin:0 0 8px"><span class="tag" id="dbadge">연습용</span> 채점 결과</p>
+      <p style="margin:0 0 8px"><span class="tag" id="dbadge">연습</span> 채점 결과</p>
       <h2 class="rname" id="dname"></h2>
       <p class="rmeta" id="dmeta"></p>
     </div>
@@ -868,7 +892,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
 
     <div class="panel" id="signinPanel" hidden>
       <p class="eyebrow">개인 기록</p>
-      <p class="rmeta" style="margin:0 0 18px">암송한 구절이 하나씩 쌓입니다. 어떤 구절이 씨앗이고 어떤 구절이 열매인지, 자라는 과정을 그대로 볼 수 있어요. 기록은 <b>이 기기가 아니라 서버에</b> 남으니 폰을 바꾸거나 앱을 닫았다 열어도 그대로 이어집니다.</p>
+      <p class="rmeta" style="margin:0 0 18px">암송한 구절이 하나씩 쌓입니다. 어떤 구절이 이제 싹이고 어떤 구절이 추수까지 갔는지, 자라는 과정을 그대로 볼 수 있어요. 기록은 <b>이 기기가 아니라 서버에</b> 남으니 폰을 바꾸거나 앱을 닫았다 열어도 그대로 이어집니다.</p>
       <button type="button" class="go" id="signin">구글 계정으로 시작하기</button>
       <button type="button" class="go kakao" id="signinKakao">카카오 계정으로 시작하기</button>
       <p class="note" id="signinnote">기록은 로그인한 계정에 묶이고, 본인만 읽고 쓸 수 있습니다.</p>
@@ -901,11 +925,11 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
     </div>
   </div>
 
-  <!-- ===== FSRS 암송 · 오늘 ===== -->
+  <!-- ===== 복습 카드 · 오늘 ===== -->
   <div id="fsrs" hidden>
 
     <div class="panel" id="fsigninPanel" hidden>
-      <p class="eyebrow">FSRS 암송</p>
+      <p class="eyebrow">복습 카드</p>
       <p class="rmeta" style="margin:0 0 18px">잊을 때쯤 다시 물어봐서 오래 남게 외웁니다. 어디까지 외웠는지 서버에 쌓이기 때문에 <b>로그인이 필요합니다.</b> 며칠 못 들어와도 밀린 것부터 이어서 나옵니다.</p>
       <button type="button" class="go" id="fsignin">로그인하러 가기</button>
     </div>
@@ -956,7 +980,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
     </div>
   </div>
 
-  <!-- ===== FSRS 암송 · 복습 ===== -->
+  <!-- ===== 복습 카드 · 한 장씩 ===== -->
   <div id="fcard" hidden>
     <div class="fprog"><span id="fpos"></span><span class="bar"><i id="fpbar"></i></span><span id="fkind"></span></div>
 
@@ -972,6 +996,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
           <p class="fatext" id="fatext"></p>
           <p class="faalso" id="faalso"></p>
         </div>
+        <p class="fratelabel">이 <b>카드</b>를 어떻게 외웠나요? 이 평가로 다시 볼 날이 정해집니다.</p>
         <div class="frates" id="frates"></div>
         <button type="button" class="flink" id="ftype" hidden>타이핑으로 확인해 보기</button>
       </div>
@@ -1000,28 +1025,35 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
       </div>
 
       <div class="panel">
-        <p class="eyebrow">이어 온 날</p>
+        <p class="eyebrow">밭에 나온 날</p>
         <div class="cropnums" id="cdays"></div>
         <p class="fixednote" id="cdaysnote"></p>
       </div>
 
       <div class="panel">
-        <p class="eyebrow">밭 · 최근 12주</p>
+        <p class="eyebrow">밭</p>
+        <div class="calnav">
+          <button type="button" id="cprev" aria-label="지난 달">&#8249;</button>
+          <b id="cmonth"></b>
+          <button type="button" id="cnext" aria-label="다음 달">&#8250;</button>
+        </div>
         <div class="calhead"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
-        <div class="fieldcal" id="cfield"></div>
-        <p class="fixednote">한 칸이 하루입니다. 많이 한 날일수록 짙어집니다.</p>
+        <div class="monthcal" id="cfield"></div>
+        <p class="fixednote" id="cfnote"></p>
       </div>
 
       <div class="panel">
         <p class="eyebrow">곳간</p>
-        <div class="cropnums" id="cbarn"></div>
-        <div class="overall" id="cbar" style="margin-top:12px"></div>
+        <div class="overall" id="cbar" style="height:18px;margin:2px 0 12px"></div>
+        <div class="bigtally" id="cbarn" style="--cols:4"></div>
         <p class="donecount" id="cbarnnote"></p>
+        <p class="fixednote" id="cminenote"></p>
       </div>
 
       <div class="panel">
         <p class="eyebrow">파트 · 거둔 정도</p>
-        <div class="badges" id="cbadges"></div>
+        <ul class="partbars" id="cbadges"></ul>
+        <p class="fixednote" id="cpartnote"></p>
       </div>
 
       <div class="panel">
@@ -1147,38 +1179,51 @@ const BOOK_CODE = ["gen","exo","lev","num","deu","jos","jdg","rut","1sa","2sa","
 "use strict";
 
 /* ═══ 등급 ═══
-   채점 방식은 두 가지입니다.
-     grow  : 5단계 — 씨앗·새싹·잎·꽃·열매 (개인 기록은 늘 이 방식)
-     medal : 3단계 — 동·은·금
-   대회는 만들 때 방식을 정하고, 연습용은 뽑기 전에 고릅니다.          */
+   채점은 어디서나 같은 네 단계로 합니다. 「복습 카드」의 평가와 같은 말이어서
+   암송 점검·연습·타이핑·복습 기록이 한 갈래로 모입니다.
+     harvest : 4단계 — 싹·이삭·곡식·추수
+     medal   : 3단계 — 동·은·금 (대회를 만들 때 고를 수 있습니다)
+   씨앗·새싹·잎·꽃·열매로 쌓아 둔 옛 기록은 읽을 때 네 단계로 옮겨 놓습니다. */
 var GRADES = [
-  {k:"seed",   n:"씨앗", s:1, d:"4어절 이상"},
-  {k:"sprout", n:"새싹", s:2, d:"3어절 틀림"},
-  {k:"leaf",   n:"잎",   s:3, d:"2어절 틀림"},
-  {k:"flower", n:"꽃",   s:4, d:"1어절 틀림"},
-  {k:"fruit",  n:"열매", s:5, d:"다 맞춤"},
+  {k:"bud",     n:"싹",   s:1, d:"4어절 이상"},
+  {k:"ear",     n:"이삭", s:2, d:"2~3어절 틀림"},
+  {k:"grain",   n:"곡식", s:3, d:"1어절 틀림"},
+  {k:"harvest", n:"추수", s:4, d:"다 맞춤"},
   {k:"bronze", n:"동",   s:1, d:"4어절 이상"},
   {k:"silver", n:"은",   s:2, d:"1~3어절 틀림"},
-  {k:"gold",   n:"금",   s:3, d:"다 맞춤"}
+  {k:"gold",   n:"금",   s:3, d:"다 맞춤"},
+  /* ── 옛 5단계 · 옮겨 읽기만 합니다 ── */
+  {k:"seed",   n:"씨앗", s:1, d:"4어절 이상", old:"bud"},
+  {k:"sprout", n:"새싹", s:2, d:"3어절 틀림", old:"ear"},
+  {k:"leaf",   n:"잎",   s:2, d:"2어절 틀림", old:"ear"},
+  {k:"flower", n:"꽃",   s:3, d:"1어절 틀림", old:"grain"},
+  {k:"fruit",  n:"열매", s:4, d:"다 맞춤",    old:"harvest"}
 ];
 var GRADE_BY={}; GRADES.forEach(function(g){ GRADE_BY[g.k]=g; });
 var GRADE_KO={}; GRADES.forEach(function(g){ GRADE_KO[g.n]=g; });
-var RANK_ORDER=["fruit","flower","leaf","sprout","seed"];   /* 동점 처리 순서 */
-var GROW_ORDER=["seed","sprout","leaf","flower","fruit"];   /* 자라는 순서 */
+/* 옛 등급 키를 지금 등급으로 옮깁니다. 모르는 값은 그대로 둡니다. */
+function gnorm(k){ var g=GRADE_BY[k]; return (g&&g.old)?g.old:k; }
+/* 서버에 한글 이름으로 적힌 등급 → 지금 등급 (옛 이름도 알아봅니다) */
+function gradeFrom(ko){ var g=GRADE_KO[ko]; return g?(GRADE_BY[gnorm(g.k)]||null):null; }
+var RANK_ORDER=["harvest","grain","ear","bud"];   /* 동점 처리 순서 */
+var GROW_ORDER=["bud","ear","grain","harvest"];   /* 자라는 순서 */
 
 /* pick: 채점 단추 순서 · show: 결과 표시 순서 · rank: 순위 가르는 순서 */
 var SCALES={
-  grow: {k:"grow",  n:"5단계", d:"씨앗 · 새싹 · 잎 · 꽃 · 열매",
+  harvest:{k:"harvest", n:"4단계", d:"싹 · 이삭 · 곡식 · 추수",
          pick:GROW_ORDER, show:GROW_ORDER, rank:RANK_ORDER},
   medal:{k:"medal", n:"3단계", d:"금 · 은 · 동",
          pick:["gold","silver","bronze"], show:["gold","silver","bronze"],
          rank:["gold","silver","bronze"]}
 };
-function scaleOf(k){ return SCALES[k]||SCALES.grow; }
+function scaleOf(k){
+  if(k==="grow") k="harvest";              /* 5단계로 만들어 둔 옛 대회 */
+  return SCALES[k]||SCALES.harvest;
+}
 function scaleNow(){
   if(state.mode==="contest" && state.contest) return scaleOf(state.contest.scoring);
   if(state.mode==="practice") return scaleOf(state.pscale);
-  return SCALES.grow;
+  return SCALES.harvest;
 }
 
 var ICON = {
@@ -1223,13 +1268,13 @@ var ICON = {
     '<path d="M8.9 11.9c-1 .7-1.7 1.7-1.9 2.9" fill="none" style="stroke:var(--hi)" stroke-width="1.7" stroke-linecap="round" opacity=".55"/>'+
     '<circle cx="15.5" cy="18" r="1" style="fill:var(--hi)" opacity=".25"/>',
 
-  /* 연습용 — 펼친 책 */
+  /* 연습 — 펼친 책 */
   practice:
     '<path d="M11.2 6.6v13.8c-1.9-1.4-4.1-2.1-6.5-2.1-.6 0-1.2 0-1.7.1V4.6c.5-.1 1.1-.1 1.7-.1 2.5 0 4.7.7 6.5 2.1z"/>'+
     '<path d="M12.8 6.6v13.8c1.9-1.4 4.1-2.1 6.5-2.1.6 0 1.2 0 1.7.1V4.6c-.5-.1-1.1-.1-1.7-.1-2.5 0-4.7.7-6.5 2.1z"/>'+
     '<path d="M5.5 8.9c1.3.1 2.5.5 3.6 1.1M5.5 12.3c1.3.1 2.5.5 3.6 1.1M18.5 8.9c-1.3.1-2.5.5-3.6 1.1M18.5 12.3c-1.3.1-2.5.5-3.6 1.1" fill="none" style="stroke:var(--hi)" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>',
 
-  /* 대회용 — 트로피 */
+  /* 대회 — 트로피 */
   contest:
     '<path d="M7.4 2.9h9.2v5.5c0 2.7-2.1 4.9-4.6 4.9s-4.6-2.2-4.6-4.9V2.9z"/>'+
     '<path d="M11.1 13.9h1.8V18h-1.8z"/>'+
@@ -1237,7 +1282,7 @@ var ICON = {
     '<path d="M5.9 4.3H3.2v2.3c0 2 1.4 3.6 3.3 4V8.7c-.8-.3-1.3-1.1-1.3-2.1V4.3zM18.1 4.3h2.7v2.3c0 2-1.4 3.6-3.3 4V8.7c.8-.3 1.3-1.1 1.3-2.1V4.3z"/>'+
     '<path d="m12 4.7.9 1.85 2.05.3-1.48 1.44.35 2.04L12 9.36l-1.82.97.35-2.04L9.05 6.85l2.05-.3z" style="fill:var(--hi)" opacity=".6"/>',
 
-  /* 개인용 — 자라는 기록 */
+  /* 암송 점검 — 자라는 기록 */
   person:
     '<circle cx="12" cy="7.1" r="3.9"/>'+
     '<path d="M4.6 20.9c0-4 3.3-6.7 7.4-6.7s7.4 2.7 7.4 6.7z"/>'+
@@ -1295,6 +1340,12 @@ var ICON = {
     '<path d="M9.6 15.2h4.8" fill="none" style="stroke:var(--hi)" stroke-width=".9" stroke-linecap="round" opacity=".5"/>',
 
   /* 곳간 — 거둔 것을 쌓아 두는 곳간 */
+  /* 복습 카드 — 겹쳐 둔 카드 두 장 */
+  cards:
+    '<rect x="2.9" y="6.5" width="11.4" height="14.6" rx="2.5" transform="rotate(-10 8.6 13.8)" opacity=".42"/>'+
+    '<rect x="9.2" y="3.6" width="11.9" height="16.8" rx="2.6"/>'+
+    '<path d="M11.9 8.1h6.5M11.9 11.5h6.5M11.9 14.9h4" fill="none" style="stroke:var(--hi)" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>',
+
   barn:
     '<path d="M12 2.4 21 6.6v2.1H3V6.6z"/>'+
     '<path d="M4.6 9.6h14.8v11.8H4.6z" opacity=".55"/>'+
@@ -1493,7 +1544,7 @@ function bySort(x,y){
         목록에서 특정 자리에 있는 구절이 더 자주 나왔습니다.
    지금은 모든 구절이 같은 확률을 갖도록 파트 크기에 비례해 자리를 나누고,
    파트 안에서는 골고루 섞어 뽑습니다.
-   연습용·개인용은 여기에 더해 「이 기기에서 덜 나온 구절」을 먼저 뽑아,
+   연습·암송 점검은 여기에 더해 「이 기기에서 덜 나온 구절」을 먼저 뽑아,
    한 번씩 다 돌고 나서야 같은 구절이 다시 나오게 합니다.               */
 
 /* 파트 크기에 비례해 자리를 나눕니다. 몫의 소수점 아랫부분은 계통 추출로
@@ -1519,7 +1570,7 @@ function quotas(sizes,target,rng){
   return q;
 }
 
-/* ── 이 기기에서 각 구절이 몇 번 나왔는지 (연습용·개인용만) ── */
+/* ── 이 기기에서 각 구절이 몇 번 나왔는지 (연습·암송 점검만) ── */
 var VER_KEY="navfest.ver";
 function verLoad(){
   try{ var v=localStorage.getItem(VER_KEY); if(v==="gae"||v==="han") return v; }catch(e){}
@@ -1558,7 +1609,7 @@ function draw(parts,rng,want,fresh){
   var picked=[];
 
   if(fresh){
-    /* 연습용·개인용: 고른 파트 전체에서 「이 기기에서 덜 나온 구절」부터.
+    /* 연습·암송 점검: 고른 파트 전체에서 「이 기기에서 덜 나온 구절」부터.
        섞은 뒤 나온 횟수로 안정 정렬하므로 같은 횟수끼리는 무작위입니다.
        그래서 처음엔 모든 구절이 같은 확률이고, 한 바퀴를 다 돌아야
        같은 구절이 다시 나옵니다. */
@@ -1608,14 +1659,14 @@ var TOTAL_VERSES=ALL.reduce(function(a,p){ return a+p.list.length; },0);
 var state={
   mode:"practice", selected:{}, count:10, picked:[], grades:{}, ver:"gae",   /* 역본은 시작할 때 기기에 기억된 값으로 */
   person:null, me:null, progress:{}, review:false,
-  stages:{seed:1,sprout:1,leaf:1,flower:1},
+  stages:{bud:1,ear:1,grain:1},
   contest:null,         /* 들어가 있는 대회 {code,title,scoring,n,starts} */
-  pscale:"grow",        /* 연습용 채점 방식 */
-  newScale:"grow", newN:10,
+  pscale:"harvest",     /* 연습 채점 방식 */
+  newScale:"harvest", newN:10,
   newStart:"now",       /* 새 대회 시작: now(바로) | at(시각 정하기) */
   typing:null,          /* 지금 치는 구절 {a,pn,ver,hints,...} */
-  f:{cards:{},set:null,queue:[],qi:0,total:0,opened:"",loaded:false},   /* FSRS 암송 */
-  f:{cards:{},set:null,queue:[],qi:0,total:0,opened:"",loaded:false},   /* FSRS 암송 */
+  f:{cards:{},set:null,queue:[],qi:0,total:0,opened:"",loaded:false},   /* 복습 카드 */
+  f:{cards:{},set:null,queue:[],qi:0,total:0,opened:"",loaded:false},   /* 복습 카드 */
   entryId:null          /* 지금 채점 중인 대회 참가 기록 id */
 };
 var $=function(id){ return document.getElementById(id); };
@@ -1625,11 +1676,11 @@ function pkey(addr,partName){ return addr+" \u241F "+partName; }
 
 var COUNT_OPTS=[3,5,10,20,0];
 var MODES=[
-  {k:"practice",icon:"practice",n:"연습용",d:"이름 없이 가볍게. 뽑고 스스로 확인합니다."},
-  {k:"contest", icon:"contest", n:"대회용",d:"대회를 만들거나 대회코드로 들어가 겨룹니다."},
-  {k:"personal",icon:"person",  n:"개인용",d:"구글·카카오 계정으로 기록을 쌓고 자라는 과정을 봅니다."},
+  {k:"practice",icon:"practice",n:"연습",d:"이름 없이 가볍게. 뽑고 스스로 확인합니다."},
+  {k:"contest", icon:"contest", n:"대회",d:"대회를 만들거나 대회코드로 들어가 겨룹니다."},
+  {k:"personal",icon:"person",  n:"암송 점검",d:"입으로 외워 보고 네 단계로 채점해 기록에 남깁니다."},
   {k:"typing",  icon:"type",    n:"타이핑",d:"외워서 쳐 보고, 어디가 틀렸는지 바로 확인합니다."},
-  {k:"fsrs",    icon:"harvest", n:"FSRS 암송",d:"잊을 때쯤 다시 물어봐서 오래 남게 외웁니다."},
+  {k:"fsrs",    icon:"cards",   n:"복습 카드",d:"잊을 때쯤 다시 물어봐서 오래 남게 외웁니다."},
   {k:"crop",    icon:"barn",    n:"수확 기록",d:"여태 심고 거둔 것을 한자리에서 봅니다."}
 ];
 
@@ -1785,7 +1836,7 @@ function sendBox(id){
       if(r.error) throw r.error;
       var g={};
       (r.data||[]).forEach(function(x){
-        var k=GRADE_KO[x.grade];
+        var k=gradeFrom(x.grade);
         if(k && box.inPick[x.addr] && box.pick.indexOf(k.k)>=0) g[x.addr]=k.k;
       });
       mergeGrades(id,g);
@@ -1793,7 +1844,8 @@ function sendBox(id){
       /* 참가 기록은 점수 칸만 고칩니다. 이름·파트·뽑은 구절은 서버가 막고 있습니다. */
       return SB.from("contest_entries").update({
         graded:s.graded, score:s.score, scoring:box.scoring,
-        fruit:s.t.fruit, flower:s.t.flower, leaf:s.t.leaf, sprout:s.t.sprout, seed:s.t.seed,
+        bud:s.t.bud, ear:s.t.ear, grain:s.t.grain, harvest:s.t.harvest,
+        seed:0, sprout:0, leaf:0, flower:0, fruit:0,      /* 옛 칸은 비워 둡니다 */
         gold:s.t.gold, silver:s.t.silver, bronze:s.t.bronze,
         updated_at:new Date().toISOString()
       }).eq("id",id).select("id");
@@ -1885,8 +1937,9 @@ function progressSig(){
 }
 
 /* quiet=true 면 자동 새로고침이라 「불러오는 중」 문구를 띄우지 않습니다. */
+var progressLoaded=false;
 function loadProgress(quiet){
-  if(IS_DEMO) return Promise.resolve(false);          /* 미리보기 자료는 그대로 둡니다 */
+  if(IS_DEMO){ progressLoaded=true; return Promise.resolve(false); }   /* 미리보기 자료는 그대로 */
   if(!state.me){ state.progress={}; return Promise.resolve(false); }
   if(!online()){ setSync(DB_MSG); return Promise.resolve(false); }
   if(!quiet) setSync("기록을 불러오는 중…");
@@ -1894,8 +1947,13 @@ function loadProgress(quiet){
     .then(function(r){
       if(r.error) throw r.error;
       var before=progressSig(), next={};
-      (r.data||[]).forEach(function(row){ next[pkey(row.addr,row.part_name)]=row; });
+      (r.data||[]).forEach(function(row){
+        row.grade=gnorm(row.grade);            /* 옛 5단계 기록도 네 단계로 */
+        if(GRADE_BY[row.grade]) row.point=GRADE_BY[row.grade].s;
+        next[pkey(row.addr,row.part_name)]=row;
+      });
       state.progress=next;
+      progressLoaded=true;
       applyPending();                     /* 방금 누른 채점이 잠깐 사라지지 않도록 */
       var changed=(progressSig()!==before);
       if(!quiet) setSync((r.data||[]).length?("기록 "+r.data.length+"구절을 불러왔습니다"):"아직 쌓인 기록이 없습니다");
@@ -1906,7 +1964,7 @@ function loadProgress(quiet){
     });
 }
 
-function savePersonal(addr,partName,gradeKey){
+function savePersonal(addr,partName,gradeKey,quiet){
   if(!state.me) return;
   var m=lookup(addr,partName)||{}, p=PART_BY_NAME[partName];
   var row={
@@ -1915,9 +1973,10 @@ function savePersonal(addr,partName,gradeKey){
     grade:gradeKey, point:GRADE_BY[gradeKey].s, updated_at:new Date().toISOString()
   };
   var key=pkey(addr,partName);
-  var had=!!state.progress[key];
-  state.progress[key]=row;                     /* 화면은 바로 반영 */
-  if(!had || state.progress[key].grade!==gradeKey) bumpDay("graded",1);
+  var prev=state.progress[key];
+  var changed=(!prev || prev.grade!==gradeKey);   /* 바꾸기 전 값과 견줍니다 */
+  state.progress[key]=row;                        /* 화면은 바로 반영 */
+  if(!quiet && changed) bumpDay("graded",1);
   if(!online()){ setSync(DB_MSG,true); return; }
   pending[key]=row;
   setSync("기록하는 중…");
@@ -1971,7 +2030,7 @@ function buildCounts(){
 }
 function buildStages(){
   var counts=reviewCounts();
-  $("stages").innerHTML=["seed","sprout","leaf","flower"].map(function(k){
+  $("stages").innerHTML=["bud","ear","grain"].map(function(k){
     var g=GRADE_BY[k];
     return '<button type="button" class="stbtn" data-st="'+k+'" style="--gc:var(--g-'+k+
       ');--gt:color-mix(in srgb, var(--g-'+k+') 16%, var(--surface))" aria-pressed="'+
@@ -1979,11 +2038,11 @@ function buildStages(){
   }).join("");
   var total=reviewPool().length;
   $("stagenote").textContent = total
-    ? "다시 볼 구절 "+total+"개. 열매가 된 구절은 빠집니다."
+    ? "다시 볼 구절 "+total+"개. 추수한 구절은 빠집니다."
     : "아직 채점한 구절이 없습니다. 먼저 ‘새로 뽑기’로 암송해 보세요.";
 }
 function reviewCounts(){
-  var c={seed:0,sprout:0,leaf:0,flower:0,fruit:0};
+  var c={bud:0,ear:0,grain:0,harvest:0};
   Object.keys(state.progress).forEach(function(k){
     var g=state.progress[k].grade;
     if(c[g]!==undefined) c[g]++;
@@ -1994,7 +2053,7 @@ function reviewPool(){
   var out=[];
   Object.keys(state.progress).forEach(function(k){
     var row=state.progress[k];
-    if(row.grade==="fruit") return;
+    if(row.grade==="harvest") return;
     if(!state.stages[row.grade]) return;
     var p=PART_BY_NAME[row.part_name];
     if(p) out.push({a:row.addr,p:p,g:row.grade});
@@ -2027,9 +2086,9 @@ function wantCount(){
   return state.count===0?9999:state.count;
 }
 
-/* 채점 방식 고르는 단추 두 개 (대회 만들 때 · 연습용) */
+/* 채점 방식 고르는 단추 두 개 (대회 만들 때 · 연습) */
 function scaleButtons(cur){
-  return ["grow","medal"].map(function(k){
+  return ["harvest","medal"].map(function(k){
     var sc=SCALES[k];
     return '<button type="button" class="scbtn" data-sc="'+k+'" aria-pressed="'+(cur===k)+'">'+
       '<span class="scicons">'+sc.show.map(function(g){
@@ -2252,7 +2311,7 @@ function run(){
   } else {
     var sel=selectedParts();
     if(!sel.length) return;
-    /* 연습용·개인용: 이 기기에서 덜 나온 구절부터 */
+    /* 연습·암송 점검: 이 기기에서 덜 나온 구절부터 */
     state.picked=draw(sel,Math.random,wantCount(),true);
     state.person={
       name: state.mode==="personal" ? ((state.me&&state.me.name)||"") : "",
@@ -2261,7 +2320,7 @@ function run(){
   }
 
   state.grades={};
-  /* 개인용은 이미 쌓인 단계를 미리 보여 준다 */
+  /* 암송 점검은 이미 쌓인 단계를 미리 보여 준다 */
   if(state.mode==="personal"){
     state.picked.forEach(function(v){
       var row=state.progress[pkey(v.a,v.p.name)];
@@ -2279,7 +2338,7 @@ function run(){
 
 /* 뽑은 구절을 채점 화면에 그립니다. */
 function showResult(alert){
-  var badge={practice:"연습용",contest:"대회용",personal:state.review?"다시 보기":"개인용"}[state.mode];
+  var badge={practice:"연습",contest:"대회",personal:state.review?"다시 보기":"암송 점검"}[state.mode];
   $("rbadge").textContent=badge;
   $("rbadge").className="tag "+(state.mode==="contest"?"":state.mode==="personal"?"personal":"practice");
   $("rname").textContent = state.person.name || "암송 구절";
@@ -2410,7 +2469,7 @@ function restoreEntry(entry){
       rows.forEach(function(x){
         if(!inPick[x.addr]) return;          /* 뽑은 구절이 아닌 줄은 세지 않습니다 */
         has[x.addr]=1;
-        var g=GRADE_KO[x.grade];
+        var g=gradeFrom(x.grade);
         if(g && pick.indexOf(g.k)>=0) grades[x.addr]=g.k;
       });
       var missing=picked.filter(function(v){ return !has[v.a]; }).map(function(v){ return v.a; });
@@ -2443,7 +2502,7 @@ function runContest(name,num){
       /* 이 기기에서 채점했는데 아직 서버에 못 들어간 것이 있으면 그것이 최신입니다 */
       var box=outbox[entry.id];
       if(box) Object.keys(box.rows).forEach(function(a){
-        var g=GRADE_KO[box.rows[a].grade];
+        var g=gradeFrom(box.rows[a].grade);
         if(g) res.grades[a]=g.k; else delete res.grades[a];
       });
       state.picked=res.picked;
@@ -2534,7 +2593,7 @@ function runContest(name,num){
 /* ═══ 채점 결과 ═══ */
 function paintDone(){
   var s=tally(state.grades);
-  var badge={practice:"연습용",contest:"대회용",personal:state.review?"다시 보기":"개인용"}[state.mode];
+  var badge={practice:"연습",contest:"대회",personal:state.review?"다시 보기":"암송 점검"}[state.mode];
   $("dbadge").textContent=badge;
   $("dbadge").className="tag "+(state.mode==="contest"?"":state.mode==="personal"?"personal":"practice");
   $("dname").textContent=state.person.name||"암송 구절";
@@ -2642,6 +2701,10 @@ function loadRank(listEl,noteEl,liveEl,quiet){
     var list=(r.data||[]).filter(function(x){ return x.graded>0; }).map(function(x){
       var t=emptyTally();
       Object.keys(t).forEach(function(k){ t[k]=+x[k]||0; });
+      GRADES.forEach(function(g){                 /* 옛 5단계 칸을 네 단계로 */
+        if(!g.old || !t[g.k]) return;
+        t[g.old]+=t[g.k]; t[g.k]=0;
+      });
       return {id:x.id,name:x.name,num:x.num,parts:String(x.parts||"").split(" · ").filter(String),
               total:x.total,graded:x.graded,tally:t,updatedAt:x.updated_at||""};
     });
@@ -2680,7 +2743,7 @@ function paintDetail(groups){
         }).join("")+'</span>'+
       '</button>'+
       '<div class="dtlbody"><ul>'+g.rows.map(function(v,j){
-        var gk=GRADE_KO[v.grade]||null;
+        var gk=gradeFrom(v.grade);
         return '<li><span class="n">'+(v.no||j+1)+'</span>'+
           '<span class="a">'+esc(v.addr)+'<em>'+esc(v.part_name||"")+
             (v.topic?' · '+esc(v.topic):'')+'</em></span>'+
@@ -2714,7 +2777,7 @@ function loadDetail(quiet){
                           tally:emptyTally()};
       }
       g.rows.push(v);
-      var gk=GRADE_KO[v.grade];
+      var gk=gradeFrom(v.grade);
       if(gk){ g.graded++; g.tally[gk.k]++; }
     });
     var groups=Object.keys(by).map(function(k){ return by[k]; });
@@ -2774,13 +2837,13 @@ function paintMe(){
   $("overlegend").innerHTML=GROW_ORDER.map(function(k){
     return '<i class="'+(c[k]?"":"zero")+'" style="--gc:var(--g-'+k+')">'+svg(k)+c[k]+'</i>';
   }).join("");
-  $("donecount").textContent="전체 "+TOTAL_VERSES+"구절 중 "+rated+"구절 암송함 · 열매 "+c.fruit+"구절";
+  $("donecount").textContent="전체 "+TOTAL_VERSES+"구절 중 "+rated+"구절 암송함 · 추수 "+c.harvest+"구절";
 
   var html="";
   PART_GROUPS.forEach(function(g){
     html+='<div class="growgroup"><h3>'+esc(g.group)+'</h3><ul class="grow">';
     g.parts.forEach(function(p){
-      var cnt={seed:0,sprout:0,leaf:0,flower:0,fruit:0}, done=0;
+      var cnt={bud:0,ear:0,grain:0,harvest:0}, done=0;
       p.list.forEach(function(a){
         var row=state.progress[pkey(a,p.name)];
         if(row && cnt[row.grade]!==undefined){ cnt[row.grade]++; done++; }
@@ -3029,7 +3092,7 @@ function tyBox(parts,which){
   }).join("");
 }
 function gradeFromWrong(w){
-  return w<=0?"fruit":w===1?"flower":w===2?"leaf":w===3?"sprout":"seed";
+  return w<=0?"harvest":w===1?"grain":w<=3?"ear":"bud";
 }
 function paintTyResult(){
   var t=state.typing, res=t.res;
@@ -3052,7 +3115,7 @@ function paintTyResult(){
 function paintTyGrade(){
   var t=state.typing, res=t.res, host=$("tygrade");
   if(!state.me){
-    host.innerHTML='<p class="fixednote">로그인하면 정확도가 기록되고, 이 결과를 개인 기록(씨앗~열매)에도 남길 수 있습니다.</p>';
+    host.innerHTML='<p class="fixednote">로그인하면 정확도가 기록되고, 이 결과를 개인 기록(싹~추수)에도 남길 수 있습니다.</p>';
     return;
   }
   var titleMiss=(t.topic===false)?1:0;
@@ -3061,7 +3124,7 @@ function paintTyGrade(){
   host.innerHTML='<p class="fixednote">틀린 어절 '+res.wrong+'개'+(t.hints?" + 힌트 "+t.hints+"번":"")+
       (titleMiss?" + 제목 1개":"")+
       ' → <b>'+GRADE_BY[g].n+'</b>. 눌러서 개인 기록에 남기세요.</p>'+
-    '<div class="grades" style="--cols:5">'+GROW_ORDER.map(function(k){
+    '<div class="grades" style="--cols:'+GROW_ORDER.length+'">'+GROW_ORDER.map(function(k){
       var x=GRADE_BY[k];
       return '<button type="button" class="gbtn" data-tg="'+x.k+'" style="--gc:var(--g-'+x.k+
              ');--gt:color-mix(in srgb, var(--g-'+x.k+') 16%, var(--surface))" aria-pressed="'+
@@ -3075,7 +3138,7 @@ function tyNext(){
   goBack();
 }
 
-/* ═══ FSRS 암송 ═══
+/* ═══ 복습 카드 (FSRS) ═══
    잊을 때쯤 다시 물어봅니다. 일정은 FSRS-6 을 그대로 옮겨 놓은 것으로,
    공식 구현(ts-fsrs 5.4.2)과 14만 건을 맞춰 보아 같은 결과가 나옵니다.
 
@@ -3139,7 +3202,66 @@ function fIvlText(n){
 var FGRADES=[{g:1,k:"bud",n:"싹",d:"못 외웠다"},{g:2,k:"ear",n:"이삭",d:"더듬거렸다"},
              {g:3,k:"grain",n:"곡식",d:"맞게 외웠다"},{g:4,k:"harvest",n:"추수",d:"막힘없이"}];
 var FKIND={link:{n:"제목 · 주소",s:1},recite:{n:"주소 → 암송",s:2},title:{n:"제목 → 암송",s:3}};
-var FSTAGE=[{k:"none",n:"아직"},{k:"bud",n:"제목·주소"},{k:"grain",n:"주소→암송"},{k:"harvest",n:"제목→암송"}];
+var FSTAGE=[{k:"none",n:"아직"},{k:"sprout",n:"제목·주소"},{k:"leaf",n:"주소→암송"},{k:"fruit",n:"제목→암송"}];
+
+/* ── 카드 평가 → 말씀카드(구절) 단계 ──
+   카드 한 장 한 장의 평가는 「이 카드를 언제 다시 볼까」이고,
+   구절의 단계는 「이 구절을 얼마나 외웠나」입니다. 둘을 이렇게 잇습니다.
+     1단계(제목·주소)를 시작하면            → 싹
+     1단계를 추수로 평가하면                 → 이삭
+     2단계(주소 → 암송)를 추수로 평가하면    → 곡식
+     3단계(제목 → 암송)를 추수로 평가하면    → 추수
+   암송 점검·타이핑에서 이미 더 높게 매겨 둔 구절은 내리지 않습니다.  */
+var FLIFT={link:"ear", recite:"grain", title:"harvest"};
+function fLift(c,g){
+  if(!state.me || !progressLoaded) return "";        /* 아직 못 불러왔으면 건드리지 않습니다 */
+  var want=(g===4) ? (FLIFT[c.kind]||"bud") : "bud";
+  var now=state.progress[pkey(c.addr,c.part_name)];
+  var cur=now && GRADE_BY[now.grade];
+  if(cur && cur.s>=GRADE_BY[want].s) return "";
+  savePersonal(c.addr, c.part_name, want, true);     /* 오늘 「채점」 수로는 세지 않습니다 */
+  return want;
+}
+/* 이미 쌓여 있던 카드에서 구절 단계를 한 번 맞춰 줍니다(예전 판에서 넘어온 기록용).
+     1단계가 열려 있으면                     → 싹
+     2단계가 열려 있으면(1단계를 잘 외운 것)  → 이삭
+     3단계가 열려 있으면(2단계를 잘 외운 것)  → 곡식
+     3단계를 잘 외웠으면                      → 추수
+   역시 내려가지는 않습니다. 한 번만 돌고, 바꿀 것이 없으면 아무것도 보내지 않습니다. */
+var fSynced=false;
+function fSyncStages(){
+  if(fSynced || !state.me || !progressLoaded || !state.f.loaded) return Promise.resolve();
+  fSynced=true;
+  var by={};
+  Object.keys(state.f.cards).forEach(function(k){
+    var c=state.f.cards[k];
+    if(c.fresh && !c.reps) return;
+    var want = c.kind==="link" ? "bud" : c.kind==="recite" ? "ear" : "grain";
+    if((c.streak||0)>=2 && c.kind==="recite") want="grain";
+    if((c.streak||0)>=2 && c.kind==="title")  want="harvest";
+    var id=c.addr+"␟"+c.part_name, v=by[id]||(by[id]={addr:c.addr, pn:c.part_name, want:want});
+    if(GRADE_BY[want].s>GRADE_BY[v.want].s) v.want=want;
+  });
+  var rows=[], stamp=new Date().toISOString();
+  Object.keys(by).forEach(function(id){
+    var v=by[id], key=pkey(v.addr,v.pn), now=state.progress[key], cur=now&&GRADE_BY[now.grade];
+    if(cur && cur.s>=GRADE_BY[v.want].s) return;
+    var m=lookup(v.addr,v.pn)||{}, pp=PART_BY_NAME[v.pn];
+    var row={owner:state.me.owner, addr:v.addr, part_name:v.pn, display:state.me.name,
+             series:(m.s||(pp&&pp.g)||""), part:(m.t||""), topic:(m.n||""),
+             grade:v.want, point:GRADE_BY[v.want].s, updated_at:stamp};
+    state.progress[key]=row;
+    rows.push(row);
+  });
+  if(!rows.length || !online()) return Promise.resolve();
+  return SB.from("personal_records").upsert(rows,{onConflict:"owner,addr,part_name"})
+    .then(function(r){ if(r.error) throw r.error; })
+    .catch(function(){ fSynced=false; });      /* 다음에 다시 해 봅니다 */
+}
+function fVerseGrade(c){
+  var r=state.progress[pkey(c.addr,c.part_name)];
+  return (r && GRADE_BY[r.grade]) || null;
+}
 function fkey(a,pn,k){ return a+"␟"+pn+"␟"+k; }
 
 /* ── 서버에서 읽고 쓰기 ── */
@@ -3214,7 +3336,13 @@ function fFlush(){
 /* ── 오늘 무엇을 볼지 ── */
 function fPlan(){
   var st=state.f, set=st.set||(st.set=fSetFrom(null)), today=fToday(), cards=st.cards;
-  Object.keys(cards).forEach(function(k){ if(cards[k].fresh && !cards[k].reps) delete cards[k]; });
+  /* 열어만 두고 아직 한 번도 평가하지 않은 카드는 없던 것으로 봅니다.
+     다만 지금 보고 있는 차례에 들어 있는 카드는 그대로 둡니다.        */
+  var inQ={};
+  if(screenNow==="fcard") (st.queue||[]).forEach(function(k){ inQ[k]=1; });
+  Object.keys(cards).forEach(function(k){
+    if(cards[k].fresh && !cards[k].reps && !inQ[k]) delete cards[k];
+  });
   var verses=[], inSet={};
   (set.parts||[]).forEach(function(pn){
     var p=PART_BY_NAME[pn]; if(!p) return;
@@ -3228,7 +3356,8 @@ function fPlan(){
     var d=String(c.due||today);
     if(d<=today) due.push(k);
     else { var n=fDiff(today,d); if(n>=1 && n<=7) ahead[n-1]++; }
-    if(c.kind==="link" && String(c.opened_on||"")===today) openedToday++;
+    /* 열어만 두고 아직 평가하지 않은 카드는 오늘 몫으로 세지 않습니다 */
+    if(c.kind==="link" && !c.fresh && String(c.opened_on||"")===today) openedToday++;
   });
   due.sort(function(x,y){
     var a=cards[x], b=cards[y];
@@ -3240,14 +3369,17 @@ function fPlan(){
     var l=cards[fkey(v.a,v.pn,"link")], r=cards[fkey(v.a,v.pn,"recite")], t=cards[fkey(v.a,v.pn,"title")];
     if(t) stage[3]++; else if(r) stage[2]++; else if(l) stage[1]++; else stage[0]++;
   });
-  var room=Math.max(0,(set.newPerDay||3)-openedToday), news=[];
+  /* 새 구절은 ① 하루 몫에서 오늘 이미 연 만큼을 뺀 자리만큼,
+     ② 고른 파트에 아직 열지 않은 구절이 있는 만큼 나옵니다.        */
+  var perDay=set.newPerDay||3, room=Math.max(0,perDay-openedToday), news=[], unopened=0;
   verses.forEach(function(v){
-    if(news.length>=room) return;
     if(cards[fkey(v.a,v.pn,"link")]) return;
-    news.push(v);
+    unopened++;
+    if(news.length<room) news.push(v);
   });
   return {due:due, news:news, stage:stage, ahead:ahead, verses:verses.length,
-          cap:Math.min(due.length, set.maxReviews||20), today:today};
+          cap:Math.min(due.length, set.maxReviews||20), today:today,
+          perDay:perDay, openedToday:openedToday, room:room, unopened:unopened};
 }
 function fMates(addr,pn,topic){
   var p=PART_BY_NAME[pn];
@@ -3259,6 +3391,24 @@ function fMates(addr,pn,topic){
 }
 function fVerseText(m){ return state.ver==="han" ? (m.h||m.g||"") : (m.g||""); }
 
+/* 새 구절이 하루 몫보다 적게 나온 까닭을 한 줄로 알려 줍니다. */
+function fWhyNew(plan){
+  if(plan.news.length>=plan.perDay) return "";
+  var bits=[];
+  if(plan.openedToday)
+    bits.push("오늘 새 구절 "+plan.openedToday+"개를 이미 열어서 하루 몫("+plan.perDay+
+              "개) 가운데 "+plan.room+"개가 남았습니다");
+  if(plan.unopened<=0)
+    bits.push("고른 파트의 구절은 모두 열었습니다");
+  else if(plan.unopened<plan.room)
+    bits.push("고른 파트에 아직 열지 않은 구절이 "+plan.unopened+"개뿐입니다");
+  if(!bits.length) return "";
+  var more = (plan.unopened<=0 || plan.unopened<plan.room)
+    ? " 아래 설정에서 파트를 더 고르면 더 열립니다."
+    : " 더 하고 싶으면 아래 설정에서 하루 몫을 늘리세요.";
+  return bits.join(" · ")+"."+more;
+}
+
 /* ── 오늘 화면 ── */
 function openFsrs(){
   if(!state.f.set) state.f.set=fSetFrom(null);
@@ -3266,7 +3416,14 @@ function openFsrs(){
   show("fsrs");
   /* 며칠이 지났는지로 일정이 정해지니, 서버 시각을 한 번 맞춰 둡니다. */
   syncServerClock().then(function(){ if(screenNow==="fsrs") fPaintHome(); });
-  if(state.me) loadFsrs(state.f.loaded).then(fPaintHome);
+  if(state.me){
+    /* 구절 단계를 올리려면 지금 기록이 필요합니다 */
+    Promise.all([loadFsrs(state.f.loaded), loadProgress(true).catch(function(){})])
+      .then(function(){
+        fSyncStages();
+        if(screenNow==="fsrs") fPaintHome();  /* 카드를 보는 중이면 건드리지 않습니다 */
+      });
+  }
 }
 function fPaintHome(){
   var signed=!!state.me;
@@ -3282,20 +3439,19 @@ function fPaintHome(){
     : "먼저 외울 파트를 골라 주세요";
   $("fstart").disabled=!todo;
   $("fstart").textContent = todo? "시작하기" : "오늘은 끝";
-  var moreLeft = set.parts.length && (plan.stage[0]>0) && !plan.news.length;
-  $("fnote").textContent = !set.parts.length ? "아래 설정에서 파트를 고르면 시작합니다."
-    : todo ? (moreLeft ? "오늘 열 새 구절("+(set.newPerDay||3)+"개)은 다 열었습니다. 더 하려면 아래 설정에서 늘리세요." : "")
-    : (moreLeft ? "오늘 볼 카드를 다 했습니다. 새 구절은 내일 "+(set.newPerDay||3)+"개가 또 열립니다."
-                : "오늘 볼 카드를 다 했습니다. 내일 또 만나요.");
+  var why=fWhyNew(plan), tail=todo?"":"오늘 볼 카드를 다 했습니다. ";
+  $("fnote").textContent = !set.parts.length
+    ? "아래 설정에서 파트를 고르면 시작합니다."
+    : (tail + (why || (todo ? "" : "내일 또 만나요.")));
 
   var tot=plan.verses||1, bar="";
   [1,2,3].forEach(function(i){
     if(!plan.stage[i]) return;
-    bar+='<i style="width:'+(plan.stage[i]/tot*100)+'%;background:var(--f-'+FSTAGE[i].k+')"></i>';
+    bar+='<i style="width:'+(plan.stage[i]/tot*100)+'%;background:var(--g-'+FSTAGE[i].k+')"></i>';
   });
   $("fbar").innerHTML=bar;
   $("fstagerow").innerHTML=[1,2,3].map(function(i){
-    return '<i class="'+(plan.stage[i]?"":"zero")+'" style="--gc:var(--f-'+FSTAGE[i].k+')">'+
+    return '<i class="'+(plan.stage[i]?"":"zero")+'" style="--gc:var(--g-'+FSTAGE[i].k+')">'+
       svg(FSTAGE[i].k)+FSTAGE[i].n+' '+plan.stage[i]+'</i>';
   }).join("")+'<i class="'+(plan.stage[0]?"":"zero")+'" style="--gc:var(--line)">'+
       svg("none")+'아직 '+plan.stage[0]+'</i>';
@@ -3356,13 +3512,16 @@ function fPaintCard(){
   else {                         ask="제목만 보고 외워 보세요"; big=m.n||""; }
   $("fqlabel").textContent=ask;
   $("fqbig").textContent=big;
-  $("fqsub").textContent=c.part_name+(c.reps?"":" · 새 구절");
+  var vg=fVerseGrade(c);
+  $("fqsub").innerHTML=esc(c.part_name)+(c.reps?"":" · 새 구절")+
+    '<b class="vstage" style="--gc:var('+(vg?"--g-"+vg.k:"--line")+')">'+
+    svg(vg?vg.k:"none")+'이 구절 '+(vg?vg.n:"아직")+'</b>';
   $("fanswer").hidden=true;
   $("fshowrow").hidden=false;
   $("fopened").hidden=!st.opened;
   $("fopened").innerHTML=st.opened||"";
   $("fpos").textContent=(st.qi+1)+" / "+st.total;
-  $("fkind").textContent=FKIND[c.kind].n;
+  $("fkind").textContent=FKIND[c.kind].s+"단계 "+FKIND[c.kind].n;
   $("fpbar").style.width=(st.total? (st.qi/st.total*100) : 0)+"%";
   window.scrollTo(0,0);
 }
@@ -3409,6 +3568,9 @@ function fRate(g){
   saveFcard(c);
   st.opened="";
   fOpenNext(c,today);
+  var lift=fLift(c,g);
+  if(lift) st.opened=(st.opened?st.opened+"<br>":"")+
+    "<b>"+esc(c.addr)+"</b> · 이 구절이 「"+GRADE_BY[lift].n+"」 단계가 되었습니다.";
   if(g===1){ st.queue.push(k); st.total=st.queue.length; }   /* 오늘 안에 한 번 더 */
   st.qi++;
   fPaintCard();
@@ -3445,53 +3607,91 @@ function fFinish(){
    비교도 순위도 두지 않습니다. 못 한 날을 나무라지도 않습니다.        */
 
 var cropDays={};          /* 날짜 → {reviews,opened,typings,words,graded} */
-var cropLoaded=false, cropTimer=null, cropDirty={};
+var cropLoaded=false, cropLoading=null, cropTimer=null;
+var cropDirty={};         /* 서버로 보내야 할 날 */
+var cropAdd={};           /* 아직 서버 값에 얹지 못한 이 기기 몫 */
+var cropMonth=null;       /* 밭 달력에서 보고 있는 달 (YYYY-MM) */
 
 function cropBlank(){ return {reviews:0,opened:0,typings:0,words:0,graded:0}; }
 function cropToday(){ return cropDays[fToday()] || cropBlank(); }
+/* 하루에 거둔 것 — 복습 카드 · 타이핑한 구절 · 채점한 구절을 함께 셉니다 */
+function cropSum(r){ r=r||cropBlank(); return (+r.reviews||0)+(+r.typings||0)+(+r.graded||0); }
+function cropPct(n){ return (Math.round(n/TOTAL_VERSES*1000)/10)+"%"; }
+function cropAddTo(base,add){
+  Object.keys(add||{}).forEach(function(f){ base[f]=(+base[f]||0)+(+add[f]||0); });
+  return base;
+}
+
 /* 오늘 한 일을 한 줄에 더해 둡니다. 잠시 모았다가 서버로 보냅니다. */
 function bumpDay(field,n){
   if(!state.me) return;
-  var day=fToday(), row=cropDays[day]||(cropDays[day]=cropBlank());
-  row[field]=(+row[field]||0)+(n||1);
+  n = (n===undefined) ? 1 : (+n||0);
+  if(!n) return;
+  var day=fToday();
+  cropAddTo(cropDays[day]||(cropDays[day]=cropBlank()), pair(field,n));
+  cropAddTo(cropAdd[day]||(cropAdd[day]=cropBlank()), pair(field,n));
   cropDirty[day]=1;
   clearTimeout(cropTimer);
   cropTimer=setTimeout(saveDays,1500);
+  if(screenNow==="crop") paintCrop();
 }
+function pair(k,v){ var o={}; o[k]=v; return o; }
+
+/* 보내기 전에 서버에 있는 하루 줄을 한 번 읽습니다. 다른 기기에서 한 몫을
+   덮어쓰지 않도록, 이 기기에서 더한 몫만 서버 값에 얹습니다.          */
 function saveDays(){
   clearTimeout(cropTimer); cropTimer=null;
   if(!state.me || !online()) return Promise.resolve();
-  var days=Object.keys(cropDirty);
-  if(!days.length) return Promise.resolve();
-  cropDirty={};
-  var rows=days.map(function(d){
-    var r=cropDays[d]||cropBlank();
-    return {owner:state.me.owner, day:d, reviews:r.reviews||0, opened:r.opened||0,
-            typings:r.typings||0, words:r.words||0, graded:r.graded||0,
-            updated_at:new Date().toISOString()};
+  if(!Object.keys(cropDirty).length) return Promise.resolve();
+  return ensureDays().then(function(){
+    var days=Object.keys(cropDirty);
+    if(!days.length || !state.me) return;
+    cropDirty={};
+    var back={};
+    var rows=days.map(function(d){
+      var r=cropDays[d]||cropBlank();
+      back[d]=cropAdd[d]; delete cropAdd[d];
+      return {owner:state.me.owner, day:d, reviews:r.reviews||0, opened:r.opened||0,
+              typings:r.typings||0, words:r.words||0, graded:r.graded||0,
+              updated_at:new Date().toISOString()};
+    });
+    return SB.from("study_days").upsert(rows,{onConflict:"owner,day"}).then(function(r){
+      if(r.error) throw r.error;
+    }).catch(function(e){
+      days.forEach(function(d){                  /* 못 보낸 몫은 다시 담아 둡니다 */
+        cropDirty[d]=1;
+        if(back[d]) cropAddTo(cropAdd[d]||(cropAdd[d]=cropBlank()), back[d]);
+      });
+      setSync("오늘 기록을 남기지 못했습니다 · "+errText(e),true);
+    });
   });
-  return SB.from("study_days").upsert(rows,{onConflict:"owner,day"}).then(function(r){
-    if(r.error) throw r.error;
-  }).catch(function(e){
-    days.forEach(function(d){ cropDirty[d]=1; });
-    setSync("오늘 기록을 남기지 못했습니다 · "+errText(e),true);
-  });
+}
+/* 한 번은 꼭 불러온 뒤에 보냅니다 */
+function ensureDays(){
+  if(cropLoaded) return Promise.resolve();
+  return loadDays();
 }
 function loadDays(){
   if(!state.me || !online()) return Promise.resolve();
-  return SB.from("study_days").select("*").eq("owner",state.me.owner).then(function(r){
+  if(cropLoading) return cropLoading;
+  cropLoading=SB.from("study_days").select("*").eq("owner",state.me.owner).then(function(r){
+    cropLoading=null;
     if(r.error) throw r.error;
     var m={};
     (r.data||[]).forEach(function(x){
       m[String(x.day)]={reviews:+x.reviews||0, opened:+x.opened||0, typings:+x.typings||0,
                         words:+x.words||0, graded:+x.graded||0};
     });
-    /* 아직 안 보낸 오늘 몫은 지키기 */
-    Object.keys(cropDirty).forEach(function(d){ if(cropDays[d]) m[d]=cropDays[d]; });
+    /* 아직 서버에 못 얹은 이 기기 몫을 위에 더합니다 */
+    Object.keys(cropAdd).forEach(function(d){
+      cropAddTo(m[d]||(m[d]=cropBlank()), cropAdd[d]);
+    });
     cropDays=m; cropLoaded=true;
   }).catch(function(e){
+    cropLoading=null;
     setSync("수확 기록을 불러오지 못했습니다 · "+errText(e),true);
   });
+  return cropLoading;
 }
 
 /* 수확과 어울리는 구절 — 모두 이 앱에 들어 있는 구절입니다. */
@@ -3514,40 +3714,45 @@ function cropWord(){
 }
 
 function openCrop(){
+  cropMonth=null;                       /* 늘 이번 달부터 */
   paintCrop();
   show("crop");
   if(!state.me) return;
   syncServerClock();
   setLive("clive","불러오는 중…",true);
-  Promise.all([loadDays(), loadProgress(true), loadFsrs(true), loadTyping()]).then(function(){
-    setLive("clive","실시간 · "+hhmm()+" 기준",true);
-    if(screenNow==="crop") paintCrop();
-  });
+  Promise.all([loadDays(), loadProgress(true), loadFsrs(true), loadTyping()])
+    .then(fSyncStages)
+    .then(function(){
+      setLive("clive","실시간 · "+hhmm()+" 기준",true);
+      if(screenNow==="crop") paintCrop();
+    }).catch(function(){});
 }
 
-/* 며칠 이어 왔는지 — 끊겨도 0으로 되돌리지 않고 가장 길었던 날을 남깁니다. */
-function cropStreaks(){
-  var keys=Object.keys(cropDays).filter(function(d){
-    var r=cropDays[d]; return (r.reviews+r.typings+r.graded+r.opened)>0;
-  }).sort();
-  var set={}; keys.forEach(function(d){ set[d]=1; });
-  var today=fToday();
-  var cur=0, day=today;
-  if(!set[day]) day=fAdd(today,-1);          /* 오늘 아직 안 했으면 어제부터 셉니다 */
-  while(set[day]){ cur++; day=fAdd(day,-1); }
-  var best=0, run=0, prev=null;
-  keys.forEach(function(d){
-    run = (prev && fDiff(prev,d)===1) ? run+1 : 1;
-    if(run>best) best=run;
+/* ── 날짜 셈 ── */
+function dowOf(d){ return new Date(d+"T12:00:00").getDay(); }      /* 0=일 */
+function monthNow(){ return cropMonth || fToday().slice(0,7); }
+function monthShift(ym,d){
+  var y=+ym.slice(0,4), m=+ym.slice(5,7)-1+d, t=new Date(Date.UTC(y,m,1));
+  return t.toISOString().slice(0,7);
+}
+function monthLen(ym){
+  return new Date(Date.UTC(+ym.slice(0,4), +ym.slice(5,7), 0)).getUTCDate();
+}
+/* 밭에 나온 날을 이번 주 · 이번 달로 셉니다. 끊겨도 나무라지 않습니다. */
+function cropDayStats(){
+  var today=fToday(), ym=today.slice(0,7), pm=monthShift(ym,-1);
+  var days=Object.keys(cropDays).filter(function(d){ return cropSum(cropDays[d])>0; }).sort();
+  var wStart=fAdd(today,-dowOf(today));          /* 이번 주 일요일 */
+  var s={week:0, month:0, best:0, total:days.length, first:days[0]||""};
+  var run=0, prev=null;
+  days.forEach(function(d){
+    if(d>=wStart && d<=today) s.week++;
+    if(d.slice(0,7)===ym) s.month++;
+    run = (prev && fDiff(prev,d)===1) ? run+1 : 1;   /* 하루도 안 거르고 이어 온 날 */
+    if(run>s.best) s.best=run;
     prev=d;
   });
-  var week=0, weekStart=fAdd(today,-((new Date(today+"T12:00:00").getDay()+6)%7));  /* 월요일 */
-  var m30=0;
-  keys.forEach(function(d){
-    if(d>=weekStart && d<=today) week++;
-    if(fDiff(d,today)<30 && d<=today) m30++;
-  });
-  return {cur:cur, best:best, week:week, m30:m30, total:keys.length, first:keys[0]||""};
+  return s;
 }
 
 function paintCrop(){
@@ -3558,97 +3763,127 @@ function paintCrop(){
   var today=fToday(), t=cropToday();
 
   /* ── 오늘 ── */
-  $("ctodaybig").textContent=t.reviews||0;
-  $("ctodaysub").innerHTML="장 거둠"+
-    (t.opened?" · 새 구절 "+t.opened+"개 심음":"")+
-    (t.typings?" · 타이핑 "+t.typings+"구절":"");
+  var got=[];
+  if(t.reviews) got.push("복습 "+t.reviews+"장");
+  if(t.typings) got.push("타이핑 "+t.typings+"구절 "+(t.words||0)+"어절");
+  if(t.graded) got.push("채점 "+t.graded+"구절");
+  if(t.opened) got.push("새 구절 "+t.opened+"개 심음");
+  $("ctodaybig").textContent=cropSum(t);
+  $("ctodaysub").innerHTML="번 거두었습니다"+(got.length?"<br>"+got.join(" · "):"");
+
   var lines=[];
+  Object.keys(trecs).forEach(function(k){
+    var x=trecs[k];
+    if(fDayOf(x.updated_at)!==today) return;
+    lines.push({ic:"type", g:"--core",
+      html:"<b>"+esc(x.addr)+"</b> · 타이핑 "+(+x.last||0)+"% 맞음"});
+  });
   Object.keys(state.f.cards).forEach(function(k){
     var c=state.f.cards[k];
     if(String(c.opened_on||"")!==today || c.kind==="link" || c.fresh) return;
-    lines.push({ic:(c.kind==="title"?"harvest":"grain"), g:"--f-"+(c.kind==="title"?"harvest":"grain"),
+    lines.push({ic:(c.kind==="title"?"fruit":"leaf"), g:"--g-"+(c.kind==="title"?"fruit":"leaf"),
       html:"<b>"+esc(c.addr)+"</b> · 「"+FKIND[c.kind].n+"」 카드가 열렸습니다"});
   });
   Object.keys(state.progress).forEach(function(k){
     var r=state.progress[k];
-    if(!r || r.grade!=="fruit") return;
+    if(!r || r.grade!=="harvest") return;
     if(fDayOf(r.updated_at)!==today) return;
-    lines.push({ic:"fruit", g:"--g-fruit", html:"<b>"+esc(r.addr)+"</b> · 열매가 되었습니다"});
+    lines.push({ic:"harvest", g:"--g-harvest", html:"<b>"+esc(r.addr)+"</b> · 추수까지 갔습니다"});
   });
-  if(!lines.length && (t.reviews||t.typings)){
-    lines.push({ic:"grain", g:"--f-grain", html:"오늘도 한 걸음 거두었습니다."});
+  if(!lines.length && cropSum(t)){
+    lines.push({ic:"grain", g:"--g-grain", html:"오늘도 한 걸음 거두었습니다."});
   }
-  var shown=lines.slice(0,4), more=lines.length-shown.length;
+  var shown=lines.slice(0,5), more=lines.length-shown.length;
   $("ctodaylines").innerHTML = lines.length
     ? shown.map(function(x){
         return '<li style="--gc:var('+x.g+')">'+svg(x.ic)+'<span>'+x.html+'</span></li>';
       }).join("")+(more?'<li style="--gc:var(--core)">'+svg("grain")+'<span>그 밖에 <b>'+more+'구절</b>이 더 자랐습니다</span></li>':"")
     : '<li style="--gc:var(--line)">'+svg("none")+'<span>오늘은 아직 밭에 나오지 않으셨습니다. 한 장부터 시작해도 됩니다.</span></li>';
 
-  /* ── 이어 온 날 ── */
-  var st=cropStreaks();
+  /* ── 밭에 나온 날 ── */
+  var st=cropDayStats(), thisMo=+today.slice(5,7);
   $("cdays").innerHTML=
-    '<div><b>'+st.week+'일</b><span>이번 주</span></div>'+
-    '<div><b>'+st.m30+'일</b><span>지난 30일</span></div>'+
-    '<div><b>'+st.cur+'일</b><span>이어 오는 중</span></div>'+
-    '<div><b>'+st.best+'일</b><span>가장 길게</span></div>';
+    '<div><b>'+st.week+'일</b><span>이번 주 · 일~토</span></div>'+
+    '<div><b>'+st.month+'일</b><span>이번 달 · '+thisMo+'월</span></div>'+
+    '<div><b>'+st.best+'일</b><span>연속 최대</span></div>'+
+    '<div><b>'+st.total+'일</b><span>전체 기간</span></div>';
   $("cdaysnote").textContent = st.total
-    ? ("밭에 나온 날이 모두 "+st.total+"일입니다"+(st.first?" · 처음 나온 날 "+st.first:"")+
-       ". 쉬어 가는 날도 밭에는 필요합니다.")
+    ? (thisMo+"월은 오늘까지 "+(+today.slice(8,10))+"일 중 "+st.month+"일 나오셨습니다"+
+       (st.first?" · 처음 나온 날 "+st.first:"")+". 쉬어 가는 날도 밭에는 필요합니다.")
     : "오늘 한 장이라도 하면 여기 첫 날이 기록됩니다.";
 
-  /* ── 밭 달력 · 최근 12주 ── */
-  var end=fAdd(today, 6-((new Date(today+"T12:00:00").getDay()+6)%7));   /* 이번 주 일요일까지 */
-  var cells=[], start=fAdd(end,-83);
-  for(var i=0;i<84;i++){
-    var d=fAdd(start,i), r=cropDays[d], n=r?(r.reviews+r.typings+r.graded):0;
+  /* ── 밭 달력 · 한 달치 ── */
+  var ym=monthNow(), len=monthLen(ym), lead=dowOf(ym+"-01"), cells=[], mdays=0, mgot=0;
+  for(var i=0;i<lead;i++) cells.push('<i class="blank"></i>');
+  for(var d=1;d<=len;d++){
+    var ds=ym+"-"+(d<10?"0":"")+d, r=cropDays[ds], n=r?cropSum(r):0;
     var lv = !n?0 : n<=5?1 : n<=15?2 : n<=30?3 : 4;
-    cells.push('<i class="l'+lv+(d===today?" today":"")+'" title="'+d+' · '+n+'"></i>');
+    if(n){ mdays++; mgot+=n; }
+    cells.push('<i class="'+(ds>today?"fut":"l"+lv)+(ds===today?" today":"")+
+      '" title="'+ds+' · '+n+'번"><em>'+d+'</em></i>');
   }
-  var weeks=[];
-  for(var w=0;w<12;w++) weeks.push('<div class="wk">'+cells.slice(w*7,w*7+7).join("")+'</div>');
-  $("cfield").innerHTML=weeks.join("");
+  $("cfield").innerHTML=cells.join("");
+  $("cmonth").textContent=(+ym.slice(0,4))+"년 "+(+ym.slice(5,7))+"월";
+  var oldest=(Object.keys(cropDays).sort()[0]||today).slice(0,7);
+  $("cprev").disabled=(ym<=oldest);
+  $("cnext").disabled=(ym>=today.slice(0,7));
+  $("cfnote").textContent = mdays
+    ? ("이 달에 "+mdays+"일 나와서 모두 "+mgot+"번 거두었습니다. 짙은 칸일수록 많이 한 날입니다.")
+    : "이 달에는 아직 기록이 없습니다. 한 칸부터 채워 가면 됩니다.";
 
-  /* ── 곳간 ── */
-  var learned=0, fruit=0;
-  Object.keys(state.progress).forEach(function(k){
-    learned++; if(state.progress[k].grade==="fruit") fruit++;
+  /* ── 곳간 ── 말씀카드(구절)가 지금 어느 단계에 있는지, 253구절 가운데 얼마인지 */
+  var pc=reviewCounts(), rated=0;
+  GROW_ORDER.forEach(function(k){ rated+=(pc[k]||0); });
+  var bar="";
+  GROW_ORDER.forEach(function(k){
+    if(!pc[k]) return;
+    bar+='<i style="width:'+(pc[k]/TOTAL_VERSES*100)+'%;background:var(--g-'+k+')" title="'+
+         GRADE_BY[k].n+' '+pc[k]+'구절"></i>';
   });
-  var reps=0, harvested={}, opened={};
+  $("cbar").innerHTML=bar;
+  $("cbarn").innerHTML=GROW_ORDER.map(function(k){
+    var n=pc[k]||0;
+    return '<div style="--gc:var(--g-'+k+')">'+svg(k)+'<b>'+n+'</b><span>'+GRADE_BY[k].n+
+      '</span><em>'+cropPct(n)+'</em></div>';
+  }).join("");
+  $("cbarnnote").textContent="전체 "+TOTAL_VERSES+"구절 가운데 "+rated+"구절("+cropPct(rated)+
+    ")이 밭에 있습니다"+(pc.harvest?" · 추수까지 간 구절 "+pc.harvest+"개":"");
+
+  var reps=0, opened={};
   Object.keys(state.f.cards).forEach(function(k){
     var c=state.f.cards[k];
     if(c.fresh) return;
     reps+=(+c.reps||0);
     opened[c.addr+"␟"+c.part_name]=1;
-    if(c.kind==="title") harvested[c.addr+"␟"+c.part_name]=1;
   });
-  var words=0, typed=0;
+  var words=0, typed=0, tkeys=Object.keys(trecs);
   Object.keys(cropDays).forEach(function(d){ words+=(cropDays[d].words||0); });
-  Object.keys(trecs).forEach(function(k){ typed+=(+trecs[k].tries||0); });
-  $("cbarn").innerHTML=
-    '<div><b>'+learned+'구절</b><span>기록이 쌓인 구절</span></div>'+
-    '<div><b>'+fruit+'구절</b><span>열매까지</span></div>'+
-    '<div><b>'+reps+'장</b><span>여태 거둔 카드</span></div>'+
-    '<div><b>'+words.toLocaleString("ko-KR")+'어절</b><span>손으로 옮겨 적음</span></div>';
-  var pct=Math.min(100, Math.round(learned/TOTAL_VERSES*1000)/10);
-  $("cbar").innerHTML='<i style="width:'+pct+'%;background:var(--core)"></i>'+
-    (fruit?'<i style="width:'+Math.min(100,fruit/TOTAL_VERSES*100)+'%;background:var(--g-fruit)"></i>':"");
-  $("cbarnnote").textContent="전체 "+TOTAL_VERSES+"구절 중 "+learned+"구절 · 타이핑 "+typed+"번 · "+
-    "암송 카드가 열린 구절 "+Object.keys(opened).length+"개";
+  tkeys.forEach(function(k){ typed+=(+trecs[k].tries||0); });
+  $("cminenote").textContent="암송 점검 · 타이핑 · 복습 카드가 함께 올려 준 단계입니다 · "+
+    "여태 거둔 카드 "+reps+"장 · 카드가 열린 구절 "+Object.keys(opened).length+"개 · "+
+    "타이핑 "+typed+"번 "+words.toLocaleString("ko-KR")+"어절";
 
-  /* ── 파트 배지 ── */
+  /* ── 파트 · 거둔 정도 ── 파트마다 구절이 어느 단계에 있는지 가로 막대로 */
   var html="";
   ALL.forEach(function(p){
-    var got=0;
+    var cnt={bud:0,ear:0,grain:0,harvest:0};
     p.list.forEach(function(a){
       var r=state.progress[pkey(a,p.name)];
-      if((r&&r.grade==="fruit") || harvested[a+"␟"+p.name]) got++;
+      if(r && cnt[r.grade]!==undefined) cnt[r.grade]++;
     });
-    var done=(got>=p.list.length);
-    html+='<div class="badge '+(done?"done":"off")+'" style="--gc:var(--f-'+(done?"harvest":"bud")+')">'+
-      svg(done?"harvest":"ear")+'<b>'+esc(p.name)+'</b><em>'+got+'/'+p.list.length+'</em></div>';
+    var seg="";
+    GROW_ORDER.forEach(function(k){
+      if(!cnt[k]) return;
+      seg+='<i style="width:'+(cnt[k]/p.list.length*100)+'%;background:var(--g-'+k+')" title="'+
+           GRADE_BY[k].n+' '+cnt[k]+'구절"></i>';
+    });
+    html+='<li'+(cnt.harvest>=p.list.length?' class="done"':'')+'>'+
+      '<span class="pn">'+esc(p.name)+'</span>'+
+      '<span class="pb">'+seg+'</span>'+
+      '<span class="pc">'+cnt.harvest+'/'+p.list.length+'</span></li>';
   });
   $("cbadges").innerHTML=html;
+  $("cpartnote").textContent="막대 색은 싹 · 이삭 · 곡식 · 추수입니다. 오른쪽 숫자는 추수까지 간 구절입니다.";
 
   /* ── 오늘의 말씀 ── */
   var w=cropWord();
@@ -3712,7 +3947,7 @@ function initAuth(){
 var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop"];
 var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"내 기록",detail:"구절별 기록",
-                 tlist:"타이핑할 구절",type:"타이핑",fsrs:"FSRS 암송",fcard:"암송 복습",
+                 tlist:"타이핑할 구절",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
                  crop:"수확 기록"};
 var screenNow="home", screenLog=["home"], depth=0;
 
@@ -3739,12 +3974,14 @@ function applyScreen(which){
   SCREENS.forEach(function(id){ $(id).hidden=(id!==which); });
   screenNow=which;
   if(which==="setup") render();       /* 대회 시작 잠금 등 지금 상태로 */
+  if(which==="fsrs") fPaintHome();    /* 뒤로 왔을 때 오늘 몫을 다시 셈 */
+  if(which==="crop") paintCrop();
   document.body.classList.toggle("compact", which!=="home");
   var docked=(which==="result");
   $("dock").hidden=!docked;
   document.body.classList.toggle("docked",docked);
   $("lede").textContent = which==="home"
-    ? "구절을 뽑고, 씨앗부터 열매까지 자라갑니다" : "";
+    ? "구절을 뽑고, 싹부터 추수까지 자라갑니다" : "";
   paintNav();
   armPoll();
   window.scrollTo(0,0);
@@ -3944,8 +4181,17 @@ $("rlist").addEventListener("click",function(e){
 $("signin").addEventListener("click",function(){ signIn("google"); });
 $("signinKakao").addEventListener("click",function(){ signIn("kakao"); });
 
-/* ── FSRS 암송 ── */
+/* ── 복습 카드 ── */
 $("csignin").addEventListener("click",function(){ paintMe(); show("me"); });
+/* 밭 달력 · 달 넘기기 */
+$("cprev").addEventListener("click",function(){
+  cropMonth=monthShift(monthNow(),-1); paintCrop();
+});
+$("cnext").addEventListener("click",function(){
+  var n=monthShift(monthNow(),1);
+  cropMonth=(n>fToday().slice(0,7))?null:n;
+  paintCrop();
+});
 $("fsignin").addEventListener("click",function(){ paintMe(); show("me"); });
 $("fstart").addEventListener("click",fStart);
 $("fshow").addEventListener("click",fShowAnswer);
@@ -4230,7 +4476,7 @@ function runDbCheck(){
   })).then(function(lines){
     lines.push(state.me
       ? "로그인 · "+state.me.name
-      : "개인 기록 · 로그인해야 확인할 수 있습니다 (개인용에서 구글 로그인 후 다시 눌러 주세요)");
+      : "개인 기록 · 로그인해야 확인할 수 있습니다 (암송 점검에서 구글 로그인 후 다시 눌러 주세요)");
     out.innerHTML=lines.map(esc).join("<br>");
   });
 }
