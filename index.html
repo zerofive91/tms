@@ -3150,7 +3150,7 @@ function tyNext(){
 
 var FW=[0.212,1.2931,2.3065,8.2956,6.4133,0.8334,3.0194,0.001,1.8722,0.1666,0.796,
         1.4835,0.0614,0.2629,1.6483,0.6014,1.8729,0.5425,0.0912,0.0658,0.1542];
-var F_SMIN=0.001, F_SMAX=36500, F_RET=0.9, F_MAXIVL=1095, F_CUT=4;
+var F_SMIN=0.001, F_SMAX=36500, F_RET=0.9, F_MAXIVL=1095, F_CUT=0;
 
 function f8(x){ return Math.round(x*1e8)/1e8; }
 function fClamp(x,a,b){ return Math.min(Math.max(x,a),b); }
@@ -3184,7 +3184,7 @@ function fIvl(s){
   return fClamp(Math.round(s*mod),1,F_MAXIVL);
 }
 
-/* ── 날짜 · 하루 경계는 새벽 4시 ── */
+/* ── 날짜 · 하루 경계는 00시 ── */
 function fp2(n){ return (n<10?"0":"")+n; }
 function fYmd(d){ return d.getFullYear()+"-"+fp2(d.getMonth()+1)+"-"+fp2(d.getDate()); }
 function fToday(){ return fYmd(new Date(serverNow()-F_CUT*3600e3)); }
