@@ -852,6 +852,158 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
   .growgrid{grid-template-columns:repeat(3,1fr)}
 }
 @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+
+/* ── 처음 화면 · 네 갈래 ── */
+.modegroup{background:var(--surface);border:1.5px solid var(--line-soft);border-radius:16px;
+  padding:17px 18px 15px;box-shadow:var(--shadow)}
+.mghead{display:flex;align-items:center;gap:15px}
+.mghead b{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.mghead span span{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.mgsubs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+.modesub{display:flex;align-items:center;gap:10px;min-width:0;text-align:left;background:var(--bg);
+  border:1.5px solid var(--line-soft);border-radius:13px;padding:11px 11px;font:inherit;color:inherit;cursor:pointer}
+.modesub:hover{border-color:var(--core);background:var(--tint)}
+.modesub>svg{flex:0 0 auto;width:26px;height:26px;color:var(--brand)}
+.modesub b{display:block;font-size:14.5px;font-weight:700;color:var(--ink)}
+.modesub em{display:block;font-style:normal;font-size:11px;line-height:1.35;color:var(--ink-soft);margin-top:1px}
+.modesub>span{min-width:0}
+.modecard .mcount{display:block;font-style:normal;font-size:12px;font-weight:700;color:var(--brand);margin-top:3px}
+
+/* ── 다음에 할 것 ── */
+.nextbar{margin:4px 0 14px;padding:14px 14px 12px;border-radius:14px;background:var(--surface);
+  box-shadow:var(--shadow);border:1.5px solid var(--core)}
+.nextbar>p{margin:0 0 10px;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.nextbar>p b{display:block;font-size:15.5px;color:var(--ink);margin-bottom:2px}
+.nextbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.nextbtns button{display:flex;align-items:center;gap:7px;min-width:0;text-align:left;border:1.5px solid var(--line);
+  background:var(--bg);color:var(--ink);border-radius:11px;padding:10px 10px;font:inherit;font-size:13px;
+  font-weight:700;cursor:pointer;line-height:1.3}
+.nextbtns button svg{flex:0 0 auto;width:19px;height:19px;color:var(--brand)}
+.nextbtns button:hover{border-color:var(--brand)}
+.nextbtns button.main{background:var(--brand);border-color:var(--brand);color:var(--hi)}
+.nextbtns button.main svg{color:var(--hi)}
+
+/* ── 내 구절 (새 · 최근 · 이전) ── */
+.myp{border:1.5px solid var(--core)}
+.myslot+.myslot{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+.myhead{display:flex;align-items:center;gap:8px;margin:0 0 7px}
+.myhead i{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--sc)}
+.myhead b{flex:0 0 auto;font-size:15px;font-weight:700;color:var(--ink);white-space:nowrap}
+.myhead .myn{flex:0 0 auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--tint);
+  color:var(--ink-soft);font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.mydesc{margin:-5px 0 9px 18px;font-size:11.5px;color:var(--ink-soft)}
+.myhead em{flex:1 1 auto;min-width:0;font-style:normal;font-size:11.5px;color:var(--ink-soft);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.myhead .myadd{flex:0 0 auto;display:inline-flex;align-items:center;gap:3px;border:1.5px solid var(--brand);
+  background:var(--surface);color:var(--brand);border-radius:999px;padding:4px 11px 4px 8px;font:inherit;
+  font-size:12px;font-weight:700;cursor:pointer}
+.myhead .myadd svg{width:14px;height:14px}
+ul.myv{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.myrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--bg);border:0;
+  border-left:4px solid var(--sc);border-radius:11px;padding:10px 11px;font:inherit;color:var(--ink);cursor:pointer}
+.myrow:hover{background:var(--tint)}
+.myrow>svg{flex:0 0 auto;width:22px;height:22px;color:var(--gc)}
+.myrow .mym{flex:1 1 auto;min-width:0}
+.myrow .mym b{display:block;font-size:14.5px;font-weight:700}
+.myrow .mym em{display:block;font-style:normal;font-size:11.5px;color:var(--ink-soft);margin-top:1px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.myrow .chev{flex:0 0 auto;color:var(--ink-soft);font-size:17px;line-height:1}
+.myed{display:flex;gap:5px;margin:5px 0 3px 4px}
+.myed button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  border-radius:9px;padding:6px 2px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.myed button[aria-pressed="true"]{background:var(--sc);border-color:var(--sc);color:var(--hi)}
+.myed button.del{color:#B4532A;border-color:color-mix(in srgb,#B4532A 40%,var(--line))}
+.myempty{margin:0;padding:12px;border-radius:11px;background:var(--bg);font-size:12.5px;color:var(--ink-soft);text-align:center}
+.mymove{display:block;width:100%;margin:8px 0 0;border:1.5px dashed var(--brand);background:none;color:var(--brand);
+  border-radius:11px;padding:9px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.myuse{margin:18px 0 0;padding:13px;border-radius:13px;background:var(--tint)}
+.myuse>p{margin:0 0 9px;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.myscope{display:flex;gap:5px;margin:0 0 10px}
+.myscope button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  border-radius:999px;padding:6px 4px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+.myscope button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--hi)}
+.myuse .mpact{margin-top:0}
+.myuse .mpact button{flex:1 1 44%}
+.myuse .mpact button{background:var(--surface)}
+.mynote{margin:10px 2px 0;font-size:12px;line-height:1.55;color:var(--ink-soft)}
+.mynote.warn{color:var(--accent-ink)}
+:root{--my-new:#C2662B;--my-recent:#3C7C67;--my-prev:#7C8F87}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--my-new:#F0925F;--my-recent:#90E4C1;--my-prev:#A9BDB4} }
+:root[data-theme="dark"]{--my-new:#F0925F;--my-recent:#90E4C1;--my-prev:#A9BDB4}
+
+/* 칸 고르기 (새 · 최근 · 이전) */
+.myslots{display:flex;gap:7px}
+.myslots button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  border-radius:12px;padding:10px 4px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;line-height:1.3}
+.myslots button em{display:block;font-style:normal;font-size:11px;font-weight:600;opacity:.85}
+.myslots button[aria-pressed="true"]{background:var(--sc);border-color:var(--sc);color:var(--hi)}
+
+/* 구절 넣기 */
+.mpgrp+.mpgrp{margin-top:10px}
+.mpgrp h4{margin:0 0 6px;font-size:11.5px;font-weight:700;color:var(--ink-soft)}
+.mpgrp div{display:flex;flex-wrap:wrap;gap:6px}
+.mpgrp button{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;
+  padding:7px 11px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.mpgrp button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--hi)}
+.mpgrp button i{font-style:normal;font-size:10.5px;font-weight:700;margin-left:4px;opacity:.8}
+.mptopic{display:flex;align-items:center;gap:8px;margin:14px 2px 7px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.mptopic:first-child{margin-top:0}
+.mptopic span{flex:0 0 auto;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--tint);
+  color:var(--brand);font-size:11.5px;display:inline-flex;align-items:center;justify-content:center}
+.mptopic button{margin-left:auto;flex:0 0 auto;border:0;background:none;font:inherit;font-size:12px;font-weight:700;
+  color:var(--brand);cursor:pointer;padding:2px 0}
+.mprow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--bg);
+  border:1.5px solid transparent;border-radius:11px;padding:10px 11px;margin:0 0 6px;font:inherit;color:var(--ink);cursor:pointer}
+.mprow .box{flex:0 0 auto;width:22px;height:22px;border-radius:7px;border:2px solid var(--line);display:flex;
+  align-items:center;justify-content:center;color:var(--hi);font-size:14px;font-weight:700}
+.mprow.on{border-color:var(--sc)}
+.mprow.on .box{background:var(--sc);border-color:var(--sc)}
+.mprow b{flex:1 1 auto;min-width:0;font-size:14.5px;font-weight:700}
+.mprow .tag2{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--sc2);border:1.5px solid var(--sc2);
+  border-radius:999px;padding:1px 8px}
+
+/* 구절 카드 · 가리기 · 내 암송에 두기 */
+.vchead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px}
+.vcmain .vchead .eyebrow{margin:0;text-align:left;min-width:0}
+.vchide{flex:0 0 auto;border:1.5px solid var(--line);background:var(--surface);
+  color:var(--ink-soft);border-radius:999px;padding:4px 11px;font:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
+.vchide[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--hi)}
+.vctext.hid{color:transparent;position:relative;cursor:pointer;user-select:none;min-height:88px}
+.vctext.hid::after{content:"눌러서 본문 보기";position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;color:var(--ink-soft);font-size:14px;font-weight:700;border:2px dashed var(--line);border-radius:13px}
+.vcmy .myslots button{font-size:13px}
+
+/* 한눈에 */
+.glhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.glhead .eyebrow{margin:0}
+.glhead .vertoggle{margin:0}
+.glsec{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:15px 16px;margin:0 0 11px;
+  border-top:4px solid var(--sc)}
+.glsec h3{display:flex;align-items:center;gap:7px;margin:0 0 10px;font-size:13px;font-weight:700;color:var(--sc)}
+.glsec h3 em{font-style:normal;color:var(--ink-soft);font-weight:600}
+.glv{padding:10px 0;border-top:1px solid var(--line-soft);cursor:pointer}
+.glv:first-of-type{border-top:0;padding-top:2px}
+.glv .glt{margin:0;font-size:12px;font-weight:700;color:var(--ink-soft)}
+.glv .gla{display:block;font-family:"Gowun Batang",Georgia,serif;font-size:19px;font-weight:700;color:var(--ink);line-height:1.35}
+.glv .glx{margin:5px 0 0;font-size:15.5px;line-height:1.75;color:var(--ink);word-break:keep-all}
+.glv .glx.hid{color:transparent;background:var(--bg);border-radius:9px;height:32px;overflow:hidden;position:relative}
+.glv .glx.hid::after{content:"눌러서 보기";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.glsec.small .gla{font-size:16px}
+.glsec.small .glx{font-size:14.5px}
+.glempty{margin:0 0 12px;padding:22px 16px;border-radius:16px;background:var(--surface);box-shadow:var(--shadow);
+  text-align:center;font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+.glempty .go{margin-top:12px}
+.glstart{display:flex;align-items:center;gap:9px;margin:0;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer}
+.glstart input{width:20px;height:20px;margin:0;flex:0 0 auto;accent-color:var(--brand)}
+
+/* 복습 카드 · 쉬는 파트 */
+.frest{margin:12px 0 0;padding:12px 13px;border-radius:12px;border:1.5px dashed var(--line)}
+.frest p{margin:0 0 9px;font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
+.frest p b{color:var(--ink)}
+.frest div{display:flex;flex-wrap:wrap;gap:6px}
+.frest button{border:1.5px solid var(--brand);background:var(--surface);color:var(--brand);border-radius:999px;
+  padding:6px 12px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -880,15 +1032,6 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
 
   <!-- ===== 홈 · 모드 선택 ===== -->
   <div id="home">
-    <!-- 내 암송 · 하던 것을 메뉴를 거치지 않고 바로 이어 갑니다 -->
-    <div class="panel mine" id="minePanel" hidden>
-      <div class="phead">
-        <p class="eyebrow">내 암송</p>
-        <span class="minewho" id="minewho"></span>
-      </div>
-      <div id="mineBody"></div>
-    </div>
-
     <p class="eyebrow">무엇을 하시겠어요</p>
     <div class="modes" id="modes"></div>
     <div class="panel" style="margin-top:14px">
@@ -1100,7 +1243,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
   <div id="me" hidden>
 
     <div class="panel" id="signinPanel" hidden>
-      <p class="eyebrow">개인 기록</p>
+      <p class="eyebrow">리사이팅 · 내 기록</p>
       <p class="rmeta" style="margin:0 0 18px">암송한 구절이 하나씩 쌓입니다. 어떤 구절이 이제 싹이고 어떤 구절이 추수까지 갔는지, 자라는 과정을 그대로 볼 수 있어요. 기록은 <b>이 기기가 아니라 서버에</b> 남으니 폰을 바꾸거나 앱을 닫았다 열어도 그대로 이어집니다.</p>
       <button type="button" class="go" id="signin">구글 계정으로 시작하기</button>
       <button type="button" class="go kakao" id="signinKakao">카카오 계정으로 시작하기</button>
@@ -1144,6 +1287,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
     </div>
 
     <div id="fPanels" hidden>
+      <div id="fdone" hidden></div>
       <div class="panel">
         <p class="eyebrow">오늘</p>
         <p class="fhead"><span class="fbig" id="ftoday">0</span><span class="fsub" id="ftodaysub"></span></p>
@@ -1159,6 +1303,7 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
           <button type="button" class="pickbtn" id="fpartsbtn">파트 고르기</button>
         </div>
         <ul class="fparts" id="fparts"></ul>
+        <div id="frest"></div>
       </div>
 
       <div class="panel">
@@ -1341,28 +1486,92 @@ footer{color:var(--ink-soft);font-size:11px;margin-top:18px;letter-spacing:.03em
 
   <!-- ===== 구절 카드 ===== -->
   <div id="vcard" hidden>
-    <div class="panel vcmain">
-      <p class="eyebrow" id="vcpart"></p>
+    <div class="panel vcmain" id="vcmain">
+      <div class="vchead">
+        <p class="eyebrow" id="vcpart"></p>
+        <button type="button" class="vchide" id="vchide" aria-pressed="false">가리기</button>
+      </div>
       <p class="vctopic" id="vctopic"></p>
       <h2 class="vcaddr" id="vcaddr"></h2>
       <p class="vctext" id="vctext"></p>
       <p class="vcver" id="vcver"></p>
-    </div>
-    <div class="panel">
-      <p class="eyebrow">내 기록</p>
-      <ul class="vcrec" id="vcrec"></ul>
     </div>
     <div class="vcnav">
       <button type="button" id="vcprev">&#8249; 앞 구절</button>
       <button type="button" class="mid" id="vctype">타이핑으로 연습</button>
       <button type="button" id="vcnext">다음 구절 &#8250;</button>
     </div>
+    <div class="panel vcmy">
+      <p class="eyebrow">내 암송에 두기</p>
+      <div class="myslots" id="vcmy"></div>
+      <p class="fixednote" id="vcmynote"></p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">내 기록</p>
+      <ul class="vcrec" id="vcrec"></ul>
+    </div>
+  </div>
+
+  <!-- ===== 내 암송 ===== -->
+  <div id="mine" hidden>
+    <div class="panel myp">
+      <div class="phead">
+        <p class="eyebrow">지금 외우는 구절</p>
+        <button type="button" class="pickbtn" id="myeditbtn">고치기</button>
+      </div>
+      <div id="myBody"></div>
+    </div>
+    <div class="panel mine" id="minePanel" hidden>
+      <div class="phead">
+        <p class="eyebrow">하던 것 이어 하기</p>
+        <span class="minewho" id="minewho"></span>
+      </div>
+      <div id="mineBody"></div>
+    </div>
+  </div>
+
+  <!-- ===== 내 구절 넣기 ===== -->
+  <div id="mypick" hidden>
+    <div class="panel">
+      <p class="eyebrow">어느 칸에 넣을까요</p>
+      <div class="myslots" id="mpslot"></div>
+      <p class="fixednote" id="mpslotnote"></p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">파트</p>
+      <div id="mpparts"></div>
+    </div>
+    <div class="panel">
+      <p class="eyebrow" id="mphead">구절</p>
+      <div id="mplist"></div>
+    </div>
+    <div class="actions" style="margin-bottom:20px">
+      <button type="button" class="primary" id="mpdone">다 골랐습니다</button>
+    </div>
+  </div>
+
+  <!-- ===== 내 구절 한눈에 ===== -->
+  <div id="glance" hidden>
+    <div class="glhead">
+      <p class="eyebrow">내 구절 한눈에</p>
+      <div class="vertoggle" id="glhide" role="group" aria-label="본문">
+        <button type="button" data-gh="0">본문 보기</button>
+        <button type="button" data-gh="1">가리기</button>
+      </div>
+    </div>
+    <div id="glbody"></div>
+    <div class="panel">
+      <label class="glstart"><input type="checkbox" id="glstart"><span>앱을 열면 이 화면부터 보기</span></label>
+      <p class="fixednote" id="glnote"></p>
+      <button type="button" class="textlink" data-next="mine">내 구절 고치기 · 하던 것 이어 하기</button>
+    </div>
   </div>
 
   <!-- ===== 타이핑 · 구절 고르기 ===== -->
   <div id="tlist" hidden>
+    <div id="tldone" hidden></div>
     <div class="panel">
-      <p class="eyebrow">타이핑할 구절</p>
+      <p class="eyebrow" id="tlhead">타이핑할 구절</p>
       <div class="tlsort" id="tlsort">
         <button type="button" data-sort="part" aria-pressed="true">파트 순서</button>
         <button type="button" data-sort="random" aria-pressed="false">무작위</button>
@@ -1674,6 +1883,31 @@ var ICON = {
     '<rect x="13.3" y="11.6" width="5.7" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".6"/>'+
     '<rect x="7.3" y="14.8" width="9.4" height="2.1" rx="1" style="fill:var(--hi)"/>',
 
+  /* 내 암송 — 마음을 담은 책갈피 */
+  mine:
+    '<path d="M6.3 2.6h11.4c.8 0 1.4.6 1.4 1.4v17.4l-7.1-4.7-7.1 4.7V4c0-.8.6-1.4 1.4-1.4z"/>'+
+    '<path d="M12 13.1c-2.1-1.5-3.4-2.8-3.4-4.3 0-1.1.8-1.9 1.8-1.9.7 0 1.2.3 1.6.9.4-.6.9-.9 1.6-.9 1 0 1.8.8 1.8 1.9 0 1.5-1.3 2.8-3.4 4.3z" style="fill:var(--hi)" opacity=".85"/>',
+
+  /* 암송 점검 — 확인 표시가 있는 기록판 */
+  check:
+    '<rect x="4.4" y="4.1" width="15.2" height="18" rx="2.7"/>'+
+    '<path d="M8.5 2.4h7a1 1 0 0 1 1 1v2.9h-9V3.4a1 1 0 0 1 1-1z" opacity=".55"/>'+
+    '<path d="m8.3 13.6 2.6 2.6 5-5.5" fill="none" style="stroke:var(--hi)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+
+  /* 리사이팅 — 입으로 말하기 */
+  recite:
+    '<path d="M4.7 3.9h14.6c1.2 0 2.2 1 2.2 2.2v9.1c0 1.2-1 2.2-2.2 2.2h-7.5l-5 4v-4H4.7c-1.2 0-2.2-1-2.2-2.2V6.1c0-1.2 1-2.2 2.2-2.2z"/>'+
+    '<path d="M7 8.7h10M7 12.3h6.4" fill="none" style="stroke:var(--hi)" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>',
+
+  /* 한눈에 — 휴대폰 한 화면에 세 칸 */
+  glance:
+    '<rect x="5.4" y="1.8" width="13.2" height="20.4" rx="2.9"/>'+
+    '<rect x="8" y="5" width="8" height="3.5" rx="1" style="fill:var(--hi)" opacity=".92"/>'+
+    '<rect x="8" y="9.9" width="8" height="3.5" rx="1" style="fill:var(--hi)" opacity=".7"/>'+
+    '<rect x="8" y="14.8" width="8" height="3.5" rx="1" style="fill:var(--hi)" opacity=".48"/>',
+
+  home:'<path d="M12 3.1 2.6 11.2h2.7v9.7h5.2v-6.1h3v6.1h5.2v-9.7h2.7z"/>',
+  plus:'<path d="M10.9 4.5h2.2v6.4h6.4v2.2h-6.4v6.4h-2.2v-6.4H4.5v-2.2h6.4z"/>',
   none:'<circle cx="12" cy="12" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3.4"/>',
   back:'<path d="M10.4 4.2 3 11.6a.56.56 0 0 0 0 .8l7.4 7.4 1.55-1.55-4.8-4.75h14.2v-2.2H7.15l4.8-4.75z"/>'
 };
@@ -1691,6 +1925,8 @@ var IS_DEMO=Q.has("demo");
 var URL_CODE=normCode(Q.get("c")||"");
 var BASE_URL=location.href.split("#")[0].split("?")[0];
 var URL_FIELD=(Q.get("h")||"").replace(/\D/g,"").slice(0,4);
+/* ?v=glance · ?v=mine · ?v=cards — 앱 아이콘을 길게 눌러 여는 바로가기 */
+var URL_VIEW=String(Q.get("v")||"");
 
 /* 로그인에서 돌아올 때 오류가 붙어 오는 경우가 있습니다(제공자가 꺼져 있거나
    돌아올 주소가 등록되지 않았을 때). 그대로 읽어 두었다가 알려 줍니다. */
@@ -2014,13 +2250,17 @@ function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
 function pkey(addr,partName){ return addr+" \u241F "+partName; }
 
 var COUNT_OPTS=[3,5,10,20,0];
+/* 처음 화면은 네 갈래입니다. 갈래 안의 활동은 한 번만 누르면 바로 들어갑니다. */
 var MODES=[
-  {k:"practice",icon:"practice",n:"연습",d:"이름 없이 가볍게. 뽑고 스스로 확인합니다."},
-  {k:"contest", icon:"contest", n:"대회",d:"대회를 만들거나 대회코드로 들어가 겨룹니다."},
-  {k:"coop",    icon:"together",n:"함께 거두기",d:"여럿이 돌아가며 외우고 서로 들어 줍니다. 순위 없이 함께 거둡니다."},
-  {k:"personal",icon:"person",  n:"암송 점검",d:"입으로 외워 보고 네 단계로 채점해 기록에 남깁니다."},
-  {k:"typing",  icon:"type",    n:"타이핑",d:"외워서 쳐 보고, 어디가 틀렸는지 바로 확인합니다."},
-  {k:"fsrs",    icon:"cards",   n:"복습 카드",d:"잊을 때쯤 다시 물어봐서 오래 남게 외웁니다."},
+  {k:"mine",    icon:"mine",    n:"내 암송",d:"지금 외우는 새 구절 · 최근 구절 · 이전 구절을 두고, 하던 것을 이어 합니다."},
+  {g:"check",   icon:"check",   n:"암송 점검",d:"혼자, 또는 여럿이 함께 외운 것을 확인합니다.", subs:[
+    {k:"personal",icon:"recite",  n:"리사이팅",  d:"입으로 외우고 네 단계로"},
+    {k:"typing",  icon:"type",    n:"타이핑",    d:"외워 치고 틀린 곳 확인"},
+    {k:"fsrs",    icon:"cards",   n:"복습 카드", d:"잊을 때쯤 다시 물어봄"},
+    {k:"coop",    icon:"together",n:"함께 거두기",d:"여럿이 돌아가며 들어 줌"}]},
+  {g:"contest", icon:"contest", n:"대회",d:"대회처럼 뽑아 연습하거나, 대회를 열고 참가합니다.", subs:[
+    {k:"practice",icon:"practice",n:"연습",d:"이름 없이 뽑고 스스로 확인"},
+    {k:"contest", icon:"contest", n:"실전",d:"대회를 만들거나 코드로 참가"}]},
   {k:"crop",    icon:"barn",    n:"수확 기록",d:"여태 심고 거둔 것을 한자리에서 봅니다."}
 ];
 
@@ -2063,7 +2303,7 @@ function paintOff(){
 function backOnline(){
   paintOff();
   setSync("다시 연결되었습니다 · 기록을 이어 보냅니다");
-  flushSave(); fFlush(); saveDays();
+  flushSave(); fFlush(); saveDays(); myFlush();
   if(!state.me){ if(poll.job) poll.job(true); return; }
   if(screenNow==="me"){ loadProgress(true).then(paintMe).catch(function(){}); return; }
   if(screenNow==="fsrs"||screenNow==="fcard"){
@@ -2387,9 +2627,17 @@ function removePersonal(addr,partName){
 /* ═══ 홈 ═══ */
 function buildModes(){
   $("modes").innerHTML=MODES.map(function(m){
+    if(m.subs) return '<div class="modegroup" data-group="'+m.g+'">'+
+      '<div class="mghead"><span class="modeicon">'+svg(m.icon)+'</span>'+
+        '<span><b>'+m.n+'</b><span>'+esc(m.d)+'</span></span></div>'+
+      '<div class="mgsubs">'+m.subs.map(function(s){
+        return '<button type="button" class="modesub" data-mode="'+s.k+'">'+svg(s.icon)+
+          '<span><b>'+s.n+'</b><em>'+esc(s.d)+'</em></span></button>';
+      }).join("")+'</div></div>';
     return '<button type="button" class="modecard" data-mode="'+m.k+'">'+
       '<span class="modeicon">'+svg(m.icon)+'</span>'+
-      '<span><b>'+m.n+'</b><span>'+esc(m.d)+'</span></span></button>';
+      '<span><b>'+m.n+'</b><span>'+esc(m.d)+'</span>'+
+      (m.k==="mine"?'<em class="mcount" id="minecount"></em>':'')+'</span></button>';
   }).join("");
 }
 
@@ -2490,6 +2738,7 @@ function needName(){ return state.mode==="contest"; }
 function setMode(m){
   state.mode=m;
   state.review=false;
+  state.srcList=null;
   if(drawArmed) disarmDraw();
   noteHold=false;
   $("contestPanel").hidden = (m!=="contest");
@@ -2514,6 +2763,7 @@ function setMode(m){
 function setReview(){
   state.mode="personal";
   state.review=true;
+  state.srcList=null;
   $("contestPanel").hidden=true;
   $("scalePanel").hidden=true;
   $("whoPanel").hidden=true;
@@ -2684,6 +2934,10 @@ function run(){
   if(needName() && !name) return;
   if(state.mode==="contest"){ runContest(name,num); return; }
 
+  /* 내 구절 · 방금 친 구절처럼 목록으로 들어온 리사이팅은 그 목록으로 다시 */
+  if(state.mode==="personal" && !state.review && state.srcList){
+    reciteFromList(state.srcList, state.srcLabel); return;
+  }
   if(state.review){
     var pool=reviewPool();
     if(!pool.length) return;
@@ -2732,7 +2986,7 @@ function run(){
 
 /* 뽑은 구절을 채점 화면에 그립니다. */
 function showResult(alert){
-  var badge={practice:"연습",contest:"대회",personal:state.review?"다시 보기":"암송 점검"}[state.mode];
+  var badge={practice:"연습",contest:"대회",personal:state.review?"다시 보기":"리사이팅"}[state.mode];
   $("rbadge").textContent=badge;
   $("rbadge").className="tag "+(state.mode==="contest"?"":state.mode==="personal"?"personal":"practice");
   $("rname").textContent = state.person.name || "암송 구절";
@@ -2987,7 +3241,7 @@ function runContest(name,num){
 /* ═══ 채점 결과 ═══ */
 function paintDone(){
   var s=tally(state.grades);
-  var badge={practice:"연습",contest:"대회",personal:state.review?"다시 보기":"암송 점검"}[state.mode];
+  var badge={practice:"연습",contest:"대회",personal:state.review?"다시 보기":"리사이팅"}[state.mode];
   $("dbadge").textContent=badge;
   $("dbadge").className="tag "+(state.mode==="contest"?"":state.mode==="personal"?"personal":"practice");
   $("dname").textContent=state.person.name||"암송 구절";
@@ -3011,9 +3265,14 @@ function paintDone(){
 
   var acts=$("doneActions");
   if(state.mode==="personal"){
-    acts.innerHTML='<button type="button" data-go="me">내 성장 보기</button>'+
-                   '<button type="button" class="primary" data-go="home">확인</button>';
+    acts.className="";
+    acts.innerHTML=nextBar("리사이팅을 마쳤습니다", s.graded+"구절을 매겼습니다",
+      ["again","typePicked","cards","mine","me","home"]);
+  } else if(state.mode==="practice"){
+    acts.className="";
+    acts.innerHTML=nextBar("연습을 마쳤습니다","",["again","home"]);
   } else {
+    acts.className="actions";
     acts.innerHTML='<button type="button" class="primary" data-go="home">확인</button>';
   }
 
@@ -3317,6 +3576,7 @@ function typeDiff(refText,usrText){
 
 var trecs={};          /* 타이핑 기록 · 주소␟파트 → 줄 */
 var tyRows=[], tySort=orderOf("typing"), tySeed=String(Date.now());
+var tyCustom=null, tyLabel="", tyDone=null;   /* 고른 구절로 칠 때의 목록 · 다 친 뒤 */
 
 function loadTyping(){
   if(!state.me || !online()) return Promise.resolve();
@@ -3353,6 +3613,7 @@ function saveTyping(res){
 
 function openTypeList(){
   state.typing=null;
+  tyCustom=null; tyLabel=""; tyDone=null;
   tySeed=String(Date.now());                 /* 무작위는 목록을 열 때마다 새로 섞습니다 */
   paintTypeList();
   show("tlist");
@@ -3360,7 +3621,14 @@ function openTypeList(){
 }
 function typeRows(){
   var out=[], seen={};
-  selectedParts().forEach(function(p){
+  if(tyCustom){
+    tyCustom.forEach(function(v){
+      var p=PART_BY_NAME[v.pn], k=pkey(v.a,v.pn);
+      if(!p || seen[k]) return;
+      seen[k]=1;
+      out.push({a:v.a, p:p, rec:trecs[k]||null});
+    });
+  } else selectedParts().forEach(function(p){
     p.list.forEach(function(a){
       var k=pkey(a,p.name);
       if(seen[k]) return;
@@ -3395,6 +3663,11 @@ function paintTypeList(){
   $("tlnote").textContent = tyRows.length
     ? (tyRows.length+"구절"+(state.me?"":" · 로그인하면 정확도가 기록됩니다"))
     : "고른 파트에 구절이 없습니다.";
+  $("tlhead").textContent = tyCustom && tyLabel ? "타이핑할 구절 · "+tyLabel : "타이핑할 구절";
+  var dn=$("tldone");
+  dn.hidden=!tyDone;
+  dn.innerHTML = tyDone ? nextBar("타이핑을 마쳤습니다", tyRows.length+"구절을 끝까지 쳐 봤습니다",
+                                  ["reciteTyped","cards","mine","home"]) : "";
   document.querySelectorAll("#tlsort button").forEach(function(b){
     b.setAttribute("aria-pressed", String(b.dataset.sort===tySort));
   });
@@ -3407,6 +3680,7 @@ function tyText(){
 }
 function openType(i){
   var r=tyRows[i]; if(!r) return;
+  tyDone=null;
   state.typing={a:r.a, pn:r.p.name, i:i, ver:state.ver, hints:0, from:0, revealed:0,
                 t0:Date.now(), sec:0, res:null};
   paintTypeHead();
@@ -3498,6 +3772,7 @@ function paintTyResult(){
   }else{
     tl.innerHTML='<span>제목 안 씀</span> · 이 구절의 제목은 <b>'+esc(mt.n||"")+'</b> 입니다';
   }
+  $("tynext").textContent=(t.i+1<tyRows.length) ? "다음 구절" : "마치기";
   $("tyref").innerHTML=tyBox(res.parts,"ref")||"—";
   $("tymine").innerHTML=tyBox(res.parts,"mine")||"—";
   paintTyGrade();
@@ -3526,8 +3801,11 @@ function paintTyGrade(){
 function tyNext(){
   var t=state.typing;
   if(t && t.i+1<tyRows.length){ openType(t.i+1); return; }
-  paintTypeList();
-  goBack();
+  /* 카드 · 구절 카드에서 한 구절만 확인하러 왔으면 그리로 돌아갑니다 */
+  var prev=(depth>0 && screenLog[depth-1])||"";
+  if(prev==="fcard"||prev==="vcard"){ goBack(); return; }
+  tyDone={n:tyRows.length};
+  landOn("tlist");
 }
 
 /* ═══ 복습 카드 (FSRS) ═══
@@ -3821,6 +4099,16 @@ function fPartStats(pn){
 }
 function fPaintParts(){
   var parts=(state.f.set&&state.f.set.parts)||[];
+  /* 고른 파트에서 빠졌지만 카드가 남아 있는 파트 — 지워진 게 아니라 쉬는 중입니다 */
+  var rest=ALL.map(function(p){ return p.name; }).filter(function(pn){
+    return parts.indexOf(pn)<0 && fPartStats(pn).cards>0;
+  });
+  $("frest").innerHTML = rest.length
+    ? '<div class="frest"><p><b>쉬는 파트</b> · 전에 열어 둔 카드가 그대로 남아 있지만, 지금 고른 파트가 아니라서 '+
+      '나오지 않습니다. 다시 켜면 멈췄던 자리부터 이어서 나옵니다.</p><div>'+
+      rest.map(function(pn){ return '<button type="button" data-rest="'+esc(pn)+'">'+esc(pn)+' 다시 켜기</button>'; }).join("")+
+      '</div></div>'
+    : "";
   if(!parts.length){
     $("fparts").innerHTML='<li class="fpempty">아직 고른 파트가 없습니다.<br>오른쪽 위 <b>파트 고르기</b>로 시작하세요.</li>';
     return;
@@ -4002,6 +4290,11 @@ function fPaintHome(){
 
   fPaintParts();
   fPaintCatch(plan);
+  var dn=$("fdone"), d=st.done;
+  dn.hidden=!d;
+  dn.innerHTML = d ? nextBar("복습 카드를 마쳤습니다",
+      "이번에 "+d.n+"장"+(d.today>d.n?" · 오늘 모두 "+d.today+"장":"")+(d.opened?" · 새 구절 "+d.opened+"개":""),
+      (d.seen.length?["fparts","ftyping","mine","home"]:["fparts","mine","home"])) : "";
   $("fnew").innerHTML=[1,2,3,5,10].map(function(n){
     return '<button type="button" class="cbtn" data-fn="'+n+'" aria-pressed="'+(set.newPerDay===n)+'">'+n+'</button>';
   }).join("");
@@ -4043,6 +4336,7 @@ function fStart(){
     });
   }
   st.queue=q; st.qi=0; st.total=q.length; st.opened="";
+  st.did=0; st.seen=[]; st.done=null;
   fPaintCard();
   show("fcard");
 }
@@ -4120,6 +4414,10 @@ function fRate(g){
   delete c.fresh;
   bumpDay("reviews",1);
   saveFcard(c);
+  st.did=(st.did||0)+1;
+  st.seen=st.seen||[];
+  if(!st.seen.some(function(v){ return v.a===c.addr && v.pn===c.part_name; }))
+    st.seen.push({a:c.addr, pn:c.part_name});
   st.opened="";
   fOpenNext(c,today);
   var lift=fLift(c,g);
@@ -4149,10 +4447,12 @@ function fFinish(){
   st.queue=[]; st.qi=0;
   fFlush();
   saveDays();
-  fPaintHome();
   var t=cropToday();
+  /* 처음 화면으로 튕기지 않고 복습 카드 화면에서 다음 할 것을 고릅니다 */
+  st.done={n:st.did||0, today:t.reviews||0, opened:t.opened||0, seen:(st.seen||[]).slice()};
+  fPaintHome();
   if(t.reviews) setSync("오늘 "+t.reviews+"장을 거두었습니다"+(t.opened?" · 새 구절 "+t.opened+"개":""));
-  goBack();
+  landOn("fsrs");
 }
 
 /* ═══ 수확 기록 ═══
@@ -4413,7 +4713,7 @@ function paintCrop(){
   var words=0, typed=0, tkeys=Object.keys(trecs);
   Object.keys(cropDays).forEach(function(d){ words+=(cropDays[d].words||0); });
   tkeys.forEach(function(k){ typed+=(+trecs[k].tries||0); });
-  $("cminenote").textContent="암송 점검 · 타이핑 · 복습 카드가 함께 올려 준 단계입니다 · "+
+  $("cminenote").textContent="리사이팅 · 타이핑 · 복습 카드가 함께 올려 준 단계입니다 · "+
     "여태 거둔 카드 "+reps+"장 · 카드가 열린 구절 "+Object.keys(opened).length+"개 · "+
     "타이핑 "+typed+"번 "+words.toLocaleString("ko-KR")+"어절";
 
@@ -4939,13 +5239,13 @@ function coDoneHtml(){
     }).join("")+'</ul>'+
     '<p class="cotell">서로 들어 주고 이어 준 덕분입니다.</p>'+
     coMineListHtml()+
-    '<button type="button" class="go" data-co="home">처음 화면으로</button>';
+    nextBar("","",["mine","recite","home"]);
 }
 
 /* ═══ 파트 보기 · 구절 카드 ═══
    수확 기록 · 내 기록 · 내 암송에서 파트를 누르면, 그 파트를 소제목별로 나눠
    구절마다 익은 정도를 보여 줍니다. 구절을 누르면 구절 카드가 열립니다.   */
-var PV={pn:"", a:""};
+var PV={pn:"", a:"", list:null, li:0, label:"", hide:false, shown:false};
 function pvLoad(){
   if(!state.me || !online()) return Promise.resolve();
   return Promise.all([
@@ -5025,7 +5325,18 @@ function paintPartView(){
 }
 
 function openVerseCard(pn,a){
-  PV.pn=pn; PV.a=a;
+  PV.pn=pn; PV.a=a; PV.list=null; PV.hide=false; PV.shown=false;
+  paintVerseCard();
+  show("vcard");
+  window.scrollTo(0,0);
+  pvLoad();
+}
+/* 고른 구절들을 카드로 넘겨 봅니다(내 구절 등). hide 면 본문을 가려 두고 눌러서 봅니다. */
+function openVerseList(list,i,label,hide){
+  if(!list || !list.length) return;
+  i=Math.max(0,Math.min(list.length-1,i||0));
+  PV.list=list; PV.li=i; PV.label=label||""; PV.hide=!!hide; PV.shown=false;
+  PV.pn=list[i].pn; PV.a=list[i].a;
   paintVerseCard();
   show("vcard");
   window.scrollTo(0,0);
@@ -5034,11 +5345,26 @@ function openVerseCard(pn,a){
 function vcFmt(d){ return d ? ((+d.slice(5,7))+"월 "+(+d.slice(8,10))+"일") : ""; }
 function paintVerseCard(){
   var pn=PV.pn, a=PV.a, p=PART_BY_NAME[pn]; if(!p) return;
-  var m=lookup(a,pn)||{}, i=p.list.indexOf(a);
-  $("vcpart").textContent=pn+" · "+(p.title||"")+" · "+(i+1)+"/"+p.list.length;
+  var m=lookup(a,pn)||{}, i=p.list.indexOf(a), mine=MY.items[pkey(a,pn)];
+  if(PV.list){
+    var tag=mine ? MY_BY[mine.slot].n : (PV.label||"");
+    $("vcpart").textContent=(tag?tag+" · ":"")+(PV.li+1)+"/"+PV.list.length+" · "+pn;
+  } else $("vcpart").textContent=pn+" · "+(p.title||"")+" · "+(i+1)+"/"+p.list.length;
   $("vctopic").textContent=m.n||"";
   $("vcaddr").textContent=a;
   $("vctext").textContent=(state.ver==="han"?(m.h||m.g||""):(m.g||""));
+  var hid=PV.hide && !PV.shown;
+  $("vctext").classList.toggle("hid",hid);
+  $("vctext").setAttribute("aria-label", hid ? "본문 가림 · 눌러서 보기" : "");
+  $("vchide").setAttribute("aria-pressed",String(!!PV.hide));
+  $("vchide").textContent=PV.hide?"가리는 중":"가리기";
+  $("vcmy").innerHTML=MY_SLOTS.map(function(x){
+    return '<button type="button" data-vs="'+x.k+'" style="--sc:'+x.c+'" aria-pressed="'+(!!mine && mine.slot===x.k)+'">'+
+      x.n+'</button>';
+  }).join("");
+  $("vcmynote").textContent = mine
+    ? "「"+MY_BY[mine.slot].n+"」에 들어 있습니다 · 다른 칸을 누르면 옮기고, 같은 칸을 한 번 더 누르면 뺍니다."
+    : "누르면 내 암송의 그 칸에 들어갑니다. 한눈에 보기에도 함께 나옵니다.";
   var link=bskoreaLink(a);
   $("vcver").innerHTML=(state.ver==="han"?"개역한글":"개역개정")+
     (link?' · <a href="'+link+'" target="_blank" rel="noopener">대한성서공회에서 확인</a>':'');
@@ -5052,7 +5378,7 @@ function paintVerseCard(){
     rows.push('<li style="--gc:var('+(gd?"--g-"+gd.k:"--line")+')">'+svg(gd?gd.k:"none")+
       '<div><b>구절 단계 · '+(gd?gd.n:"아직 매기지 않음")+'</b>'+
       '<span>'+(gd&&r.updated_at?("마지막으로 매긴 날 "+vcFmt(fDayOf(r.updated_at))):
-               "암송 점검 · 타이핑 · 복습 카드에서 매기면 여기 남습니다")+'</span></div></li>');
+               "리사이팅 · 타이핑 · 복습 카드에서 매기면 여기 남습니다")+'</span></div></li>');
     var today=fToday(), kinds=[["link","1단계 제목 · 주소"],["recite","2단계 주소 → 암송"],["title","3단계 제목 → 암송"]];
     var lines=kinds.map(function(k){
       var c=state.f.cards[fkey(a,pn,k[0])];
@@ -5070,14 +5396,26 @@ function paintVerseCard(){
       '</span></div></li>');
   }
   $("vcrec").innerHTML=rows.join("");
-  $("vcprev").disabled=(i<=0);
-  $("vcnext").disabled=(i>=p.list.length-1);
+  if(PV.list){
+    $("vcprev").disabled=(PV.li<=0);
+    $("vcnext").disabled=(PV.li>=PV.list.length-1);
+  } else {
+    $("vcprev").disabled=(i<=0);
+    $("vcnext").disabled=(i>=p.list.length-1);
+  }
 }
 function vcStep(d){
-  var p=PART_BY_NAME[PV.pn]; if(!p) return;
-  var i=p.list.indexOf(PV.a)+d;
-  if(i<0 || i>=p.list.length) return;
-  PV.a=p.list[i];
+  if(PV.list){
+    var j=PV.li+d;
+    if(j<0 || j>=PV.list.length) return;
+    PV.li=j; PV.pn=PV.list[j].pn; PV.a=PV.list[j].a;
+  } else {
+    var p=PART_BY_NAME[PV.pn]; if(!p) return;
+    var i=p.list.indexOf(PV.a)+d;
+    if(i<0 || i>=p.list.length) return;
+    PV.a=p.list[i];
+  }
+  PV.shown=false;
   paintVerseCard();
   window.scrollTo(0,0);
 }
@@ -5096,7 +5434,7 @@ function mineLoad(){
     mineLoaded=true; mineAt=Date.now(); mineBusy=null;
     return fSyncStages();
   }).then(function(){
-    if(screenNow==="home") paintMine();
+    if(screenNow==="mine"){ paintMine(); paintMy(); }
   }).catch(function(){ mineBusy=null; });
   return mineBusy;
 }
@@ -5127,12 +5465,16 @@ function minePartHtml(pn){
     if(trecs[pkey(a,pn)]) typed++;
   });
   var fs=fPartStats(pn), inSet=((state.f.set&&state.f.set.parts)||[]).indexOf(pn)>=0, seg="";
+  /* 카드를 못 불러왔으면 「안 씀」으로 단정하지 않습니다 */
+  var known=!!state.f.loaded;
   GROW_ORDER.forEach(function(k){
     if(!g[k]) return;
     seg+='<i style="width:'+(g[k]/n*100)+'%;background:var(--g-'+k+')" title="'+GRADE_BY[k].n+' '+g[k]+'"></i>';
   });
   var bits=[];
-  bits.push(inSet ? ("카드 "+fs.open+"/"+n+(fs.due?" · 오늘 "+fs.due+"장":"")) : "복습 카드 안 씀");
+  bits.push(inSet ? ("카드 "+fs.open+"/"+n+(fs.due?" · 오늘 "+fs.due+"장":""))
+          : !known ? "복습 카드 확인 중"
+          : fs.open ? ("복습 카드 쉬는 중 · 열린 구절 "+fs.open+"/"+n) : "복습 카드 안 씀");
   bits.push("타이핑 "+typed+"/"+n);
   return '<li data-pn="'+esc(pn)+'">'+
     '<div class="fpt"><b>'+esc(pn)+'</b><span>'+esc(p.title||"")+'</span></div>'+
@@ -5140,8 +5482,9 @@ function minePartHtml(pn){
     '<div class="mpm"><span>'+bits.join(" · ")+'</span><span>추수 <b>'+g.harvest+'</b>/'+n+'</span></div>'+
     '<div class="mpact">'+
       '<button type="button" data-mine="type" data-pn="'+esc(pn)+'">'+svg("type")+'타이핑 이어서</button>'+
-      '<button type="button" data-mine="check" data-pn="'+esc(pn)+'">'+svg("person")+'점검 이어서</button>'+
-      (inSet ? '' : '<button type="button" data-mine="addcards" data-pn="'+esc(pn)+'">'+svg("cards")+'카드에 넣기</button>')+
+      '<button type="button" data-mine="check" data-pn="'+esc(pn)+'">'+svg("recite")+'리사이팅 이어서</button>'+
+      (inSet || !known ? '' : '<button type="button" data-mine="addcards" data-pn="'+esc(pn)+'">'+svg("cards")+
+        (fs.open ? '카드 다시 켜기' : '복습 카드 시작')+'</button>')+
     '</div></li>';
 }
 function paintMine(){
@@ -5151,7 +5494,7 @@ function paintMine(){
   if(!authReady) return;
   if(!state.me){
     $("minewho").textContent="";
-    body.innerHTML='<p class="mineempty">로그인하면 복습 카드 · 타이핑 · 암송 점검에서 하던 것을 '+
+    body.innerHTML='<p class="mineempty">로그인하면 복습 카드 · 타이핑 · 리사이팅에서 하던 것을 '+
       '여기서 바로 이어 갑니다.</p><button type="button" class="go" data-mine="signin">로그인하기</button>';
     return;
   }
@@ -5198,6 +5541,7 @@ function mineType(pn){
   var p=PART_BY_NAME[pn]; if(!p) return;
   state.selected={}; state.selected[pn]=1;
   setMode("typing");
+  tyCustom=null; tyLabel="";
   tySort=(orderOf("typing")==="random")?"random":"part";
   tySeed=String(Date.now());
   tyRows=typeRows();
@@ -5234,10 +5578,417 @@ function mineCheck(pn){
 }
 function mineAddCards(pn){
   if(!state.f.set) state.f.set=fSetFrom(null);
+  var had=fPartStats(pn).open;
   if(state.f.set.parts.indexOf(pn)<0) state.f.set.parts.push(pn);
   saveFsrsSet();
   paintMine();
-  setSync("「"+pn+"」 파트를 복습 카드에 넣었습니다 · 오늘부터 새 구절이 열립니다");
+  if(screenNow==="fsrs") fPaintHome();
+  setSync(had ? "「"+pn+"」 파트 카드를 다시 켰습니다 · 멈췄던 카드부터 이어서 나옵니다"
+              : "「"+pn+"」 파트를 복습 카드에 넣었습니다 · 오늘부터 새 구절이 열립니다");
+}
+function openMine(){
+  paintMy(); paintMine();
+  show("mine");
+  if(state.me){ myLoad(); }
+}
+
+/* ═══ 내 구절 — 새 구절 · 최근 구절 · 이전 구절 ═══
+   네비게이토에서 외우는 방식 그대로입니다. 이번 주에 외우는 새 구절, 요즘 외워서
+   날마다 한 번씩 다시 보는 최근 구절, 그 전에 외워서 가끔 보는 이전 구절.
+   로그인하면 계정(my_verses 표)에, 아니면 이 기기에 둡니다.                   */
+var MY_SLOTS=[
+  {k:"new",   n:"새 구절",  s:"새",  d:"이번에 외우는 구절",            c:"var(--my-new)"},
+  {k:"recent",n:"최근 구절",s:"최근",d:"요즘 외운 구절 · 날마다 한 번씩",  c:"var(--my-recent)"},
+  {k:"prev",  n:"이전 구절",s:"이전",d:"그 전에 외운 구절 · 가끔 한 번씩", c:"var(--my-prev)"}
+];
+var MY_BY={}; MY_SLOTS.forEach(function(s){ MY_BY[s.k]=s; });
+var MY_SCOPES=[["daily","새 · 최근"],["prev","이전"],["all","전부"]];
+var MY_KEY="navfest.my", MY_SCOPE_KEY="navfest.myscope";
+var MY={items:{}, owner:"", pend:{}, loaded:false, noTable:false, edit:false,
+        pick:{slot:"new", pn:""}, scope:"daily", busy:null, flushing:null, again:false};
+(function(){
+  try{
+    var o=JSON.parse(localStorage.getItem(MY_KEY)||"null");
+    if(o && o.items){ MY.items=o.items; MY.owner=o.owner||""; MY.pend=o.pend||{}; }
+    var sc=localStorage.getItem(MY_SCOPE_KEY);
+    if(sc==="daily"||sc==="prev"||sc==="all") MY.scope=sc;
+  }catch(e){}
+})();
+function mySave(){
+  try{ localStorage.setItem(MY_KEY,JSON.stringify({owner:MY.owner, items:MY.items, pend:MY.pend})); }catch(e){}
+}
+function myReset(){
+  MY.items={}; MY.owner=""; MY.pend={}; MY.loaded=false; MY.noTable=false;
+  mySave();
+}
+function myList(slot){
+  return Object.keys(MY.items).map(function(k){ return MY.items[k]; })
+    .filter(function(x){ return x && x.slot===slot && PART_BY_NAME[x.part_name]; })
+    .sort(function(a,b){ return (a.pos-b.pos) || String(a.addr).localeCompare(String(b.addr)); });
+}
+function myScopeList(scope){
+  var slots = scope==="daily" ? ["new","recent"] : scope==="prev" ? ["prev"] : ["new","recent","prev"];
+  var out=[];
+  slots.forEach(function(s){ out=out.concat(myList(s)); });
+  return out;
+}
+function myPairs(list){ return list.map(function(v){ return {a:v.addr, pn:v.part_name}; }); }
+function myPos(slot,atTop){
+  var l=myList(slot);
+  if(!l.length) return 1;
+  return atTop ? l[0].pos-1 : l[l.length-1].pos+1;
+}
+/* 한 구절을 한 칸에 둡니다. slot 이 없으면 뺍니다. atTop 이면 그 칸 맨 위로. */
+function mySet(a,pn,slot,atTop){
+  var k=pkey(a,pn), cur=MY.items[k];
+  if(!slot){
+    if(!cur) return;
+    delete MY.items[k];
+    if(state.me) MY.pend[k]=null;
+  } else {
+    if(cur && cur.slot===slot) return;
+    var row={addr:a, part_name:pn, slot:slot, pos:myPos(slot,atTop)};
+    MY.items[k]=row;
+    if(state.me) MY.pend[k]=row;
+  }
+  if(state.me && !MY.owner) MY.owner=state.me.owner;
+  mySave();
+  paintHomeCount();
+  myFlush();
+}
+function myNoTable(e){
+  var c=String((e&&e.code)||""), m=String((e&&e.message)||"");
+  return c==="PGRST205"||c==="42P01"||/schema cache|does not exist/i.test(m);
+}
+function myLoad(){
+  if(!state.me || !online()) return Promise.resolve();
+  if(MY.busy) return MY.busy;
+  var owner=state.me.owner;
+  MY.busy=SB.from("my_verses").select("*").eq("owner",owner).then(function(r){
+    if(r.error) throw r.error;
+    if(!state.me || state.me.owner!==owner) return;
+    var srv={};
+    (r.data||[]).forEach(function(x){
+      srv[pkey(x.addr,x.part_name)]={addr:x.addr, part_name:x.part_name, slot:x.slot, pos:+x.pos||0};
+    });
+    if(MY.owner===owner){
+      /* 아직 못 보낸 것은 서버 값 위에 얹습니다 */
+      Object.keys(MY.pend).forEach(function(k){ var v=MY.pend[k]; if(v) srv[k]=v; else delete srv[k]; });
+    } else if(!MY.owner){
+      /* 로그인 전에 이 기기에 넣어 둔 것은 계정으로 올립니다 */
+      Object.keys(MY.items).forEach(function(k){
+        if(!srv[k]){ srv[k]=MY.items[k]; MY.pend[k]=MY.items[k]; }
+      });
+    } else MY.pend={};
+    MY.items=srv; MY.owner=owner; MY.loaded=true; MY.noTable=false;
+    mySave();
+    myPaintAll();
+    return myFlush();
+  }).catch(function(e){
+    if(myNoTable(e)){
+      MY.noTable=true;
+      if(MY.owner && MY.owner!==owner){ MY.items={}; MY.pend={}; }
+      MY.owner=owner;
+      mySave(); myPaintAll();
+    } else if(!netOff()) setSync("내 구절을 불러오지 못했습니다 · "+failText(e),true);
+  }).then(function(){ MY.busy=null; });
+  return MY.busy;
+}
+function myFlush(){
+  if(!state.me || MY.owner!==state.me.owner || MY.noTable || !canSave()) return Promise.resolve();
+  if(MY.flushing){ MY.again=true; return MY.flushing; }
+  var keys=Object.keys(MY.pend);
+  if(!keys.length) return Promise.resolve();
+  var owner=state.me.owner, snap={}, ups=[], jobs=[], stamp=new Date().toISOString();
+  keys.forEach(function(k){
+    var v=MY.pend[k]; snap[k]=v;
+    if(v) ups.push({owner:owner, addr:v.addr, part_name:v.part_name, slot:v.slot, pos:v.pos, updated_at:stamp});
+    else {
+      var bits=k.split(" \u241F ");
+      jobs.push(SB.from("my_verses").delete().eq("owner",owner).eq("addr",bits[0]).eq("part_name",bits[1]));
+    }
+  });
+  if(ups.length) jobs.unshift(SB.from("my_verses").upsert(ups,{onConflict:"owner,addr,part_name"}));
+  MY.flushing=Promise.all(jobs).then(function(rs){
+    rs.forEach(function(r){ if(r && r.error) throw r.error; });
+    keys.forEach(function(k){ if(MY.pend[k]===snap[k]) delete MY.pend[k]; });
+    mySave();
+  }).catch(function(e){
+    if(myNoTable(e)){ MY.noTable=true; myPaintAll(); }
+    else setSync("내 구절을 저장하지 못했습니다 · "+failText(e),true);
+  }).then(function(){
+    MY.flushing=null;
+    if(MY.again){ MY.again=false; myFlush(); }
+    if(screenNow==="mine") paintMy();
+  });
+  return MY.flushing;
+}
+function myPaintAll(){
+  paintHomeCount();
+  if(screenNow==="mine") paintMy();
+  if(screenNow==="mypick") paintMyPick();
+  if(screenNow==="glance") paintGlance();
+  if(screenNow==="vcard") paintVerseCard();
+}
+/* 처음 화면 「내 암송」 아래 한 줄 */
+function paintHomeCount(){
+  var el=$("minecount"); if(!el) return;
+  var bits=[];
+  MY_SLOTS.forEach(function(s){ var n=myList(s.k).length; if(n) bits.push(s.s+" "+n); });
+  el.textContent=bits.length ? bits.join(" · ") : "";
+  el.hidden=!bits.length;
+}
+
+/* ── 내 암송 · 지금 외우는 구절 ── */
+function myRowHtml(v){
+  var k=pkey(v.addr,v.part_name), m=lookup(v.addr,v.part_name)||{}, s=MY_BY[v.slot];
+  var r=state.progress[k], g=r&&GRADE_BY[r.grade];
+  var html='<li><button type="button" class="myrow" data-my="open" data-k="'+esc(k)+'" style="--sc:'+s.c+
+      ';--gc:var('+(g?"--g-"+g.k:"--line")+')">'+svg(g?g.k:"none")+
+    '<span class="mym"><b>'+esc(v.addr)+'</b><em>'+esc((m.n?m.n+" · ":"")+v.part_name)+'</em></span>'+
+    '<span class="chev">&#8250;</span></button>';
+  if(MY.edit) html+='<div class="myed">'+MY_SLOTS.map(function(x){
+      return '<button type="button" data-my="to" data-slot="'+x.k+'" data-k="'+esc(k)+'" style="--sc:'+x.c+
+        '" aria-pressed="'+(x.k===v.slot)+'">'+x.s+'</button>';
+    }).join("")+'<button type="button" class="del" data-my="del" data-k="'+esc(k)+'">빼기</button></div>';
+  return html+'</li>';
+}
+function myNoteHtml(){
+  var waiting=Object.keys(MY.pend).length>0;
+  if(!state.me) return ['지금은 <b>이 기기에만</b> 둡니다. 로그인하면 계정에 남아 다른 기기에서도 똑같이 보입니다.',false];
+  if(MY.noTable) return ['서버에 「내 구절」 표가 아직 없어 <b>이 기기에만</b> 두었습니다. Supabase SQL Editor 에서 '+
+                         'schema.sql 을 다시 실행하면 계정에 저장됩니다.',true];
+  if(waiting && netOff()) return ['인터넷이 없어 아직 보내지 못했습니다 · 연결되면 바로 보냅니다.',true];
+  return ['계정에 저장됩니다 · 다른 기기에서도 같은 목록이 보입니다.',false];
+}
+function paintMy(){
+  var body=$("myBody"); if(!body) return;
+  $("myeditbtn").textContent=MY.edit?"다 고쳤어요":"고치기";
+  var total=0, html="";
+  MY_SLOTS.forEach(function(s){
+    var list=myList(s.k); total+=list.length;
+    html+='<section class="myslot" data-slot="'+s.k+'" style="--sc:'+s.c+'">'+
+      '<div class="myhead"><i></i><b>'+s.n+'</b><span class="myn">'+list.length+'</span><em></em>'+
+        '<button type="button" class="myadd" data-my="add" data-slot="'+s.k+'">'+svg("plus")+'넣기</button></div>'+
+      '<p class="mydesc">'+s.d+'</p>'+
+      (list.length ? '<ul class="myv">'+list.map(myRowHtml).join("")+'</ul>'
+                   : '<p class="myempty">'+(s.k==="new" ? "이번에 외울 구절을 넣어 두세요" : "아직 없습니다")+'</p>');
+    if(s.k==="new" && list.length)
+      html+='<button type="button" class="mymove" data-my="graduate">새 구절을 다 외웠어요 → 최근 구절로 옮기기</button>';
+    html+='</section>';
+  });
+  if(total){
+    var n=myScopeList(MY.scope).length;
+    html+='<div class="myuse"><p>이 구절들로 · '+n+'구절</p>'+
+      '<div class="myscope">'+MY_SCOPES.map(function(x){
+        return '<button type="button" data-my="scope" data-sc="'+x[0]+'" aria-pressed="'+(MY.scope===x[0])+'">'+x[1]+'</button>';
+      }).join("")+'</div>'+
+      '<div class="mpact">'+
+        '<button type="button" data-my="flip">'+svg("cards")+'카드로 넘겨 보기</button>'+
+        '<button type="button" data-my="recite">'+svg("recite")+'리사이팅</button>'+
+        '<button type="button" data-my="type">'+svg("type")+'타이핑</button>'+
+        '<button type="button" data-my="glance">'+svg("glance")+'한눈에 보기</button>'+
+      '</div></div>';
+  }
+  var note=myNoteHtml();
+  html+='<p class="mynote'+(note[1]?' warn':'')+'">'+note[0]+'</p>';
+  body.innerHTML=html;
+}
+/* 새 구절을 다 외우면 최근 구절 맨 위로 — 순서는 그대로 */
+function myGraduate(){
+  var list=myList("new");
+  if(!list.length) return;
+  for(var i=list.length-1;i>=0;i--) mySet(list[i].addr,list[i].part_name,"recent",true);
+  paintMy();
+  setSync("새 구절 "+list.length+"개를 최근 구절로 옮겼습니다 · 다음 새 구절을 넣어 주세요");
+}
+/* 내 구절 전체를 구절 카드로 — 새 · 최근 · 이전 순서 */
+function myOpenCard(k,hide){
+  var all=myScopeList("all"), i=0;
+  all.forEach(function(v,j){ if(pkey(v.addr,v.part_name)===k) i=j; });
+  if(!all.length) return;
+  openVerseList(myPairs(all), i, "내 구절", hide);
+}
+
+/* ── 구절 넣기 ── */
+/* 넣기 화면은 지난번에 보던 파트에서 시작합니다(이 기기 기억).
+   처음이면 지금 외우는 새 구절 · 최근 구절의 파트, 그다음은 복습 카드 파트. */
+var MY_PART_KEY="navfest.mypart";
+function myLastPart(){
+  var pn="";
+  try{ pn=localStorage.getItem(MY_PART_KEY)||""; }catch(e){}
+  if(PART_BY_NAME[pn]) return pn;
+  var cur=myList("new").concat(myList("recent"));
+  if(cur.length) return cur[0].part_name;
+  var fp=(state.f.set&&state.f.set.parts)||[];
+  if(fp.length && PART_BY_NAME[fp[0]]) return fp[0];
+  return ALL[0].name;
+}
+function openMyPick(slot){
+  MY.pick.slot=MY_BY[slot]?slot:"new";
+  if(!PART_BY_NAME[MY.pick.pn]) MY.pick.pn=myLastPart();
+  paintMyPick();
+  show("mypick");
+}
+function mpShort(name){ return String(name).replace(/^(60|180)구절\s*/,""); }
+function paintMyPick(){
+  var sl=MY.pick.slot, s=MY_BY[sl], p=PART_BY_NAME[MY.pick.pn]||ALL[0];
+  $("mpslot").innerHTML=MY_SLOTS.map(function(x){
+    return '<button type="button" data-ps="'+x.k+'" aria-pressed="'+(x.k===sl)+'" style="--sc:'+x.c+'">'+
+      x.n+'<em>'+myList(x.k).length+'구절</em></button>';
+  }).join("");
+  $("mpslotnote").textContent=s.d+". 구절을 누르면 「"+s.n+"」에 넣고, 한 번 더 누르면 뺍니다.";
+  var cnt={};
+  Object.keys(MY.items).forEach(function(k){ var v=MY.items[k]; cnt[v.part_name]=(cnt[v.part_name]||0)+1; });
+  $("mpparts").innerHTML=PART_GROUPS.map(function(g){
+    return '<div class="mpgrp"><h4>'+esc(g.group)+'</h4><div>'+g.parts.map(function(q){
+      return '<button type="button" data-pp="'+esc(q.name)+'" aria-pressed="'+(q.name===p.name)+'">'+
+        esc(mpShort(q.name))+(cnt[q.name]?'<i>'+cnt[q.name]+'</i>':'')+'</button>';
+    }).join("")+'</div></div>';
+  }).join("");
+  $("mphead").textContent=p.name+" · "+(p.title||"");
+  $("mplist").innerHTML=pvGroups(p.name).map(function(g,gi){
+    var allIn=g.list.every(function(a){ var it=MY.items[pkey(a,p.name)]; return it && it.slot===sl; });
+    return '<div class="mptopic"><span>'+(gi+1)+'</span>'+esc(g.topic||"소제목 없음")+
+        '<button type="button" data-pg="'+gi+'">'+(allIn?"모두 빼기":"모두 넣기")+'</button></div>'+
+      g.list.map(function(a){
+        var it=MY.items[pkey(a,p.name)], on=!!(it && it.slot===sl), other=(it && !on) ? MY_BY[it.slot] : null;
+        return '<button type="button" class="mprow'+(on?' on':'')+'" data-pa="'+esc(a)+'" style="--sc:'+s.c+
+            (other?';--sc2:'+other.c:'')+'"><span class="box">'+(on?'&#10003;':'')+'</span><b>'+esc(a)+'</b>'+
+          (other?'<span class="tag2">'+other.n+'</span>':'')+'</button>';
+      }).join("");
+  }).join("");
+}
+
+/* ═══ 다음에 할 것 ═══
+   무엇을 마치면 처음 화면으로 튕기지 않고, 이어서 할 만한 것을 고르게 합니다. */
+var NEXT={
+  fparts:     {n:"다른 파트 고르기", i:"cards"},
+  cards:      {n:"복습 카드",        i:"cards"},
+  ftyping:    {n:"방금 본 구절 타이핑", i:"type"},
+  typePicked: {n:"이 구절 타이핑",   i:"type"},
+  reciteTyped:{n:"이 구절 리사이팅", i:"recite"},
+  again:      {n:"다시 뽑기",        i:"practice"},
+  mine:       {n:"내 암송",          i:"mine"},
+  glance:     {n:"한눈에 보기",      i:"glance"},
+  recite:     {n:"리사이팅",         i:"recite"},
+  me:         {n:"내 기록 보기",     i:"person"},
+  crop:       {n:"수확 기록",        i:"barn"},
+  home:       {n:"처음 화면",        i:"home"}
+};
+function nextBar(title,sub,codes){
+  return '<div class="nextbar"><p>'+(title?'<b>'+esc(title)+'</b>':'')+esc(sub||"")+
+    (sub?' · ':'')+'이어서 무엇을 할까요?</p><div class="nextbtns">'+
+    codes.map(function(c,i){
+      var x=NEXT[c]; if(!x) return "";
+      return '<button type="button" data-next="'+c+'"'+(i===0?' class="main"':'')+'>'+svg(x.i)+'<span>'+x.n+'</span></button>';
+    }).join("")+'</div></div>';
+}
+function openFsrsParts(){
+  if(!state.f.set) state.f.set=fSetFrom(null);
+  state.selected={};
+  (state.f.set.parts||[]).forEach(function(n){ state.selected[n]=1; });
+  setMode("fsrs");
+  show("setup");
+}
+function goNext(c){
+  if(screenNow==="field") coLeave();
+  if(c==="home"){ goHome(); return; }
+  if(c==="mine"){ openMine(); return; }
+  if(c==="glance"){ openGlance(); return; }
+  if(c==="fparts"){ openFsrsParts(); return; }
+  if(c==="cards"){ mineCards(); return; }
+  if(c==="crop"){ openCrop(); return; }
+  if(c==="me"||c==="recite"){ state.mode="personal"; state.review=false; paintMe(); show("me"); return; }
+  if(c==="again"){ run(); return; }
+  if(c==="ftyping"){
+    var d=state.f.done;
+    if(d && d.seen.length) typeFromList(d.seen,"방금 본 복습 카드");
+    return;
+  }
+  if(c==="typePicked"){
+    typeFromList(state.picked.map(function(v){ return {a:v.a, pn:v.p.name}; }),"방금 리사이팅한 구절");
+    return;
+  }
+  if(c==="reciteTyped"){
+    reciteFromList(tyRows.map(function(r){ return {a:r.a, pn:r.p.name}; }),"방금 친 구절");
+    return;
+  }
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-next]"); if(!b) return;
+  goNext(b.dataset.next);
+});
+
+/* ── 고른 구절로 리사이팅 · 타이핑 ── */
+function reciteFromList(list,label){
+  var picked=[], seen={};
+  (list||[]).forEach(function(v){
+    var p=PART_BY_NAME[v.pn];
+    if(!p || seen[v.a]) return;      /* 채점은 주소 기준이라 같은 주소는 한 번만 */
+    seen[v.a]=1; picked.push({a:v.a, p:p});
+  });
+  if(!picked.length) return;
+  setMode("personal");
+  if(orderOf("check")==="random") shuffle(picked,Math.random);
+  state.picked=picked;
+  state.srcList=(list||[]).slice(); state.srcLabel=label||"";
+  state.person={name:(state.me&&state.me.name)||"", num:"", parts:[label||"고른 구절"]};
+  state.grades={};
+  picked.forEach(function(v){
+    var row=state.progress[pkey(v.a,v.p.name)];
+    if(row) state.grades[v.a]=row.grade;
+  });
+  showResult("");
+}
+function typeFromList(list,label){
+  if(!list || !list.length) return;
+  setMode("typing");
+  tyCustom=list.slice(); tyLabel=label||"";
+  tySort=orderOf("typing");
+  tySeed=String(Date.now());
+  state.typing=null; tyDone=null;
+  paintTypeList();
+  show("tlist");
+  if(state.me){ loadTyping(); loadProgress(true); }
+}
+
+/* ═══ 한눈에 — 위젯 대신 ═══
+   휴대폰 홈 화면 위젯은 앱스토어 앱만 만들 수 있습니다. 그래서 새 · 최근 · 이전
+   구절을 한 화면에 모은 이 화면을 두고, 앱을 열면 바로 여기서 시작할 수 있게 합니다. */
+var START_KEY="navfest.start", GL={hide:false, open:{}};
+function startPref(){ try{ return localStorage.getItem(START_KEY)||""; }catch(e){ return ""; } }
+function setStartPref(v){ try{ if(v) localStorage.setItem(START_KEY,v); else localStorage.removeItem(START_KEY); }catch(e){} }
+function openGlance(){
+  GL.open={};
+  paintGlance();
+  show("glance");
+  if(state.me) myLoad();
+}
+function paintGlance(){
+  document.querySelectorAll("#glhide button").forEach(function(b){
+    b.setAttribute("aria-pressed", String((b.dataset.gh==="1")===GL.hide));
+  });
+  var html="";
+  MY_SLOTS.forEach(function(s){
+    var list=myList(s.k); if(!list.length) return;
+    var small=(s.k==="prev");
+    html+='<section class="glsec'+(small?' small':'')+'" data-slot="'+s.k+'" style="--sc:'+s.c+'"><h3>'+s.n+' <em>'+list.length+'</em></h3>'+
+      list.map(function(v){
+        var k=pkey(v.addr,v.part_name), m=lookup(v.addr,v.part_name)||{};
+        /* 이전 구절은 많으니 제목 · 주소만, 누르면 본문 */
+        var hid = small ? !GL.open[k] : (GL.hide && !GL.open[k]);
+        return '<div class="glv" data-k="'+esc(k)+'"><p class="glt">'+esc(m.n||"")+'</p>'+
+          '<b class="gla">'+esc(v.addr)+'</b><p class="glx'+(hid?' hid':'')+'">'+esc(fVerseText(m))+'</p></div>';
+      }).join("")+'</section>';
+  });
+  if(!html) html='<div class="glempty">아직 넣어 둔 구절이 없습니다.<br>내 암송에서 새 구절 · 최근 구절 · 이전 구절을 넣어 두면 '+
+    '여기 한 화면에 모입니다.<button type="button" class="go" data-glpick="1">구절 넣으러 가기</button></div>';
+  $("glbody").innerHTML=html;
+  $("glstart").checked=(startPref()==="glance");
+  var android=/android/i.test(navigator.userAgent||"");
+  $("glnote").textContent="휴대폰 홈 화면에 이 앱을 추가해 두고 이것을 켜면, 아이콘을 누르자마자 이 화면이 열려 위젯처럼 쓸 수 있습니다."+
+    (android ? " 앱 아이콘을 길게 누르면 「내 구절 한눈에」로 바로 갈 수도 있습니다." : "");
 }
 
 /* ═══ 들어오기 ═══ */
@@ -5274,7 +6025,8 @@ function afterAuth(u){
   if(u) setMe(u);
   else { state.me=null; state.progress={}; pending={}; mineLoaded=false; }
   paintMine();
-  if(u) mineLoad();
+  if(u){ mineLoad(); myLoad(); }
+  if(screenNow==="mine") paintMy();
   if(!$("me").hidden){
     paintMe();
     armPoll();          /* 기록을 불러오고 실시간 갱신을 다시 겁니다 */
@@ -5295,22 +6047,25 @@ function initAuth(){
    보내 주는 depth 로 그 화면을 그대로 되살립니다. 화면 위의 「뒤로」
    버튼도 같은 길을 씁니다.                                          */
 
-var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard"];
+var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","glance"];
 var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
-                 rank:"순위표",me:"내 기록",detail:"구절별 기록",
+                 rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
                  crop:"수확 기록", coop:"함께 거두기", field:"함께 거두는 밭",
-                 partv:"파트 보기", vcard:"구절 카드"};
+                 partv:"파트 보기", vcard:"구절 카드",
+                 mine:"내 암송", mypick:"구절 넣기", glance:"한눈에"};
 var screenNow="home", screenLog=["home"], depth=0;
 
+/* 리사이팅 화면은 로그인하기 전에는 로그인 화면입니다 */
+function scrName(id){ return (id==="me" && !state.me) ? "로그인" : (SCREEN_NAME[id]||""); }
 function paintNav(){
   var top=(screenNow==="home");
   $("navbar").hidden=top;
   if(top) return;
   var prev=(depth>0 && screenLog[depth-1]) || "home";
-  $("backbtn").innerHTML=svg("back")+"<span>"+esc(SCREEN_NAME[prev]||"뒤로")+"</span>";
+  $("backbtn").innerHTML=svg("back")+"<span>"+esc(scrName(prev)||"뒤로")+"</span>";
   $("homebtn").hidden=(prev==="home");
-  $("navhere").textContent=SCREEN_NAME[screenNow]||"";
+  $("navhere").textContent=scrName(screenNow);
 }
 
 function applyScreen(which){
@@ -5321,6 +6076,9 @@ function applyScreen(which){
   if(which==="type" && !state.typing) which="tlist";
   if(which==="fcard" && !(state.f.queue && state.f.queue.length)) which="fsrs";
   if(screenNow==="fcard" && which!=="fcard"){ fFlush(); saveDays(); }
+  /* 「마쳤습니다 · 다음에 할 것」은 그 화면을 떠나면 걷습니다 */
+  if(screenNow==="fsrs" && which!=="fsrs") state.f.done=null;
+  if(screenNow==="tlist" && which!=="tlist") tyDone=null;
   if(which==="tlist") paintTypeList();
   if(screenNow==="result" && which!=="result") flushSave();
   SCREENS.forEach(function(id){ $(id).hidden=(id!==which); });
@@ -5329,10 +6087,14 @@ function applyScreen(which){
   if(which==="fsrs") fPaintHome();    /* 뒤로 왔을 때 오늘 몫을 다시 셈 */
   if(which==="field"){ if(CO.code){ coPaint(); coStart(); } }
   else coStop();                      /* 밭을 떠나면 서버 읽기를 멈춥니다 */
-  if(which==="home"){                 /* 처음 화면에 올 때마다 내 암송을 지금 셈으로 */
-    paintMine();
+  if(which==="home") paintHomeCount();
+  if(which==="mine"){                 /* 내 암송에 올 때마다 지금 셈으로 */
+    paintMy(); paintMine();
     if(state.me && (!mineLoaded || Date.now()-mineAt>60000)) mineLoad();
   }
+  if(which==="mypick") paintMyPick();
+  if(which==="glance") paintGlance();
+  if(which==="vcard") paintVerseCard();
   if(which==="crop") paintCrop();
   document.body.classList.toggle("compact", which!=="home");
   var docked=(which==="result");
@@ -5378,6 +6140,16 @@ function show(which){
   try{ history.pushState({nav:depth},""); }catch(e){}
 }
 
+/* 지금 화면 자리를 다른 화면으로 바꿉니다(뒤로 가기 길에 끼어들지 않게) */
+function replaceScreen(which){
+  screenLog[depth]=which;
+  applyScreen(which);
+  try{ history.replaceState({nav:depth},""); }catch(e){}
+}
+/* 마친 뒤 그 화면으로: 바로 앞이 그 화면이면 뒤로, 아니면 자리를 바꿉니다 */
+function landOn(which){
+  if(depth>0 && screenLog[depth-1]===which) goBack(); else replaceScreen(which);
+}
 function goBack(){
   if(depth<=0){ applyScreen("home"); return; }
   try{ history.back(); }
@@ -5417,8 +6189,9 @@ $("backbtn").addEventListener("click",goBack);
 $("homebtn").addEventListener("click",goHome);
 
 $("modes").addEventListener("click",function(e){
-  var b=e.target.closest(".modecard"); if(!b) return;
+  var b=e.target.closest("[data-mode]"); if(!b) return;
   var m=b.dataset.mode;
+  if(m==="mine"){ openMine(); return; }
   if(m==="personal"){
     state.mode="personal"; state.review=false;
     paintMe(); show("me"); return;
@@ -5562,15 +6335,104 @@ $("ftype").addEventListener("click",function(){
   var st=state.f, k=st.queue[st.qi], c=k&&st.cards[k];
   if(!c) return;
   var p=PART_BY_NAME[c.part_name]; if(!p) return;
+  tyCustom=[{a:c.addr, pn:c.part_name}]; tyLabel="";
   tyRows=[{a:c.addr, p:p, rec:trecs[pkey(c.addr,c.part_name)]||null}];
   openType(0);
 });
-$("fpartsbtn").addEventListener("click",function(){
-  state.selected={};
-  (state.f.set.parts||[]).forEach(function(n){ state.selected[n]=1; });
-  setMode("fsrs");
-  show("setup");
+$("fpartsbtn").addEventListener("click",openFsrsParts);
+$("frest").addEventListener("click",function(e){
+  var b=e.target.closest("[data-rest]"); if(!b) return;
+  mineAddCards(b.dataset.rest);
 });
+/* ── 내 구절 ── */
+$("myeditbtn").addEventListener("click",function(){ MY.edit=!MY.edit; paintMy(); });
+$("myBody").addEventListener("click",function(e){
+  var b=e.target.closest("[data-my]"); if(!b) return;
+  var w=b.dataset.my, k=b.dataset.k, it=k?MY.items[k]:null;
+  if(w==="open"){ if(it) myOpenCard(k,false); return; }
+  if(w==="add"){ openMyPick(b.dataset.slot); return; }
+  if(w==="to"){ if(it){ mySet(it.addr,it.part_name,b.dataset.slot,true); paintMy(); } return; }
+  if(w==="del"){
+    if(it){ mySet(it.addr,it.part_name,null); paintMy(); setSync("「"+it.addr+"」 구절을 뺐습니다"); }
+    return;
+  }
+  if(w==="graduate"){ myGraduate(); return; }
+  if(w==="scope"){
+    MY.scope=b.dataset.sc;
+    try{ localStorage.setItem(MY_SCOPE_KEY,MY.scope); }catch(_){}
+    paintMy(); return;
+  }
+  if(w==="glance"){ openGlance(); return; }
+  var name=""; MY_SCOPES.forEach(function(x){ if(x[0]===MY.scope) name=x[1]; });
+  var list=myPairs(myScopeList(MY.scope));
+  if(!list.length){ setSync("「"+name+"」에 넣어 둔 구절이 없습니다 · 먼저 구절을 넣어 주세요",true); return; }
+  if(w==="flip"){ openVerseList(list,0,"내 구절",true); return; }
+  if(w==="recite"){ reciteFromList(list,"내 구절 · "+name); return; }
+  if(w==="type"){ typeFromList(list,"내 구절 · "+name); return; }
+});
+$("mpslot").addEventListener("click",function(e){
+  var b=e.target.closest("[data-ps]"); if(!b) return;
+  MY.pick.slot=b.dataset.ps; paintMyPick();
+});
+$("mpparts").addEventListener("click",function(e){
+  var b=e.target.closest("[data-pp]"); if(!b) return;
+  MY.pick.pn=b.dataset.pp; paintMyPick();
+  try{ localStorage.setItem(MY_PART_KEY,MY.pick.pn); }catch(_){}
+});
+$("mplist").addEventListener("click",function(e){
+  var pn=MY.pick.pn, sl=MY.pick.slot;
+  var g=e.target.closest("[data-pg]");
+  if(g){
+    var grp=pvGroups(pn)[+g.dataset.pg]; if(!grp) return;
+    var allIn=grp.list.every(function(a){ var it=MY.items[pkey(a,pn)]; return it && it.slot===sl; });
+    grp.list.forEach(function(a){ if(allIn) mySet(a,pn,null); else mySet(a,pn,sl,false); });
+    paintMyPick(); return;
+  }
+  var b=e.target.closest("[data-pa]"); if(!b) return;
+  var a=b.dataset.pa, it=MY.items[pkey(a,pn)];
+  if(it && it.slot===sl) mySet(a,pn,null); else mySet(a,pn,sl,false);
+  paintMyPick();
+});
+$("mpdone").addEventListener("click",goBack);
+/* ── 한눈에 ── */
+$("glhide").addEventListener("click",function(e){
+  var b=e.target.closest("[data-gh]"); if(!b) return;
+  GL.hide=(b.dataset.gh==="1"); GL.open={}; paintGlance();
+});
+$("glbody").addEventListener("click",function(e){
+  if(e.target.closest("[data-glpick]")){ openMyPick("new"); return; }
+  var v=e.target.closest(".glv[data-k]"); if(!v) return;
+  var k=v.dataset.k;
+  if(GL.open[k]) delete GL.open[k]; else GL.open[k]=1;
+  paintGlance();
+});
+$("glstart").addEventListener("change",function(){
+  setStartPref(this.checked?"glance":"");
+  setSync(this.checked ? "이제 앱을 열면 「한눈에」부터 보입니다" : "앱을 열면 처음 화면부터 보입니다");
+});
+/* ── 구절 카드 · 가리기 · 내 암송에 두기 · 밀어서 넘기기 ── */
+$("vchide").addEventListener("click",function(){ PV.hide=!PV.hide; PV.shown=false; paintVerseCard(); });
+$("vctext").addEventListener("click",function(){
+  if(PV.hide && !PV.shown){ PV.shown=true; paintVerseCard(); }
+});
+$("vcmy").addEventListener("click",function(e){
+  var b=e.target.closest("[data-vs]"); if(!b) return;
+  var it=MY.items[pkey(PV.a,PV.pn)], sl=b.dataset.vs;
+  if(it && it.slot===sl){ mySet(PV.a,PV.pn,null); setSync("내 암송에서 뺐습니다"); }
+  else { mySet(PV.a,PV.pn,sl,false); setSync("「"+MY_BY[sl].n+"」에 넣었습니다"); }
+  paintVerseCard();
+});
+(function(){
+  var x0=null, y0=0;
+  $("vcmain").addEventListener("touchstart",function(e){
+    var t=e.touches&&e.touches[0]; if(!t) return; x0=t.clientX; y0=t.clientY;
+  },{passive:true});
+  $("vcmain").addEventListener("touchend",function(e){
+    var t=e.changedTouches&&e.changedTouches[0]; if(x0===null || !t) return;
+    var dx=t.clientX-x0, dy=t.clientY-y0; x0=null;
+    if(Math.abs(dx)>60 && Math.abs(dy)<50) vcStep(dx<0?1:-1);
+  },{passive:true});
+})();
 $("cogoal").addEventListener("click",function(e){
   var b=e.target.closest("[data-cg]"); if(!b) return;
   CO.goal=+b.dataset.cg; coPaintGoal();
@@ -5609,6 +6471,7 @@ $("vcprev").addEventListener("click",function(){ vcStep(-1); });
 $("vcnext").addEventListener("click",function(){ vcStep(1); });
 $("vctype").addEventListener("click",function(){
   var p=PART_BY_NAME[PV.pn]; if(!p) return;
+  tyCustom=[{a:PV.a, pn:PV.pn}]; tyLabel="";
   tyRows=[{a:PV.a, p:p, rec:trecs[pkey(PV.a,PV.pn)]||null}];
   openType(0);
 });
@@ -5700,6 +6563,7 @@ $("tygrade").addEventListener("click",function(e){
 $("signout").addEventListener("click",function(){
   if(online()) SB.auth.signOut();
   state.me=null; state.progress={}; pending={};
+  myReset(); paintHomeCount();
   setSync(""); pollStop();
   paintMe();
 });
@@ -5907,7 +6771,7 @@ function runDbCheck(){
   if(!online()){ out.textContent="서버에 연결되어 있지 않습니다. index.html 맨 위의 SUPABASE_URL·키를 확인해 주세요."; return; }
   out.textContent="점검하는 중…";
   var tables=[{t:"contests",n:"대회 목록"},{t:"contest_entries",n:"대회 순위"},{t:"contest_verses",n:"대회 구절"}];
-  if(state.me) tables.push({t:"personal_records",n:"개인 기록"});
+  if(state.me) tables.push({t:"personal_records",n:"개인 기록"},{t:"my_verses",n:"내 구절"});
   Promise.all(tables.map(function(j){
     return SB.from(j.t).select("*").limit(1)
       .then(function(r){ return j.n+" · "+(r.error?("✗ "+errText(r.error)):"정상"); })
@@ -5915,7 +6779,7 @@ function runDbCheck(){
   })).then(function(lines){
     lines.push(state.me
       ? "로그인 · "+state.me.name
-      : "개인 기록 · 로그인해야 확인할 수 있습니다 (암송 점검에서 구글 로그인 후 다시 눌러 주세요)");
+      : "개인 기록 · 로그인해야 확인할 수 있습니다 (리사이팅에서 로그인한 뒤 다시 눌러 주세요)");
     out.innerHTML=lines.map(esc).join("<br>");
   });
 }
@@ -6005,8 +6869,16 @@ if(AUTH_ERR){
 }
 if(Q.has("demo")) loadDemo(); else initAuth();
 setMode("practice");
+paintHomeCount();
 applyScreen("home");
 if(URL_CODE) joinContest(URL_CODE,{fromUrl:true});
+/* 바로가기로 열었거나, 「앱을 열면 한눈에부터」를 켜 둔 경우 (로그인에서 돌아온 때는 빼고) */
+if(!URL_CODE && URL_FIELD.length!==4 && !AUTH_ERR &&
+   !/[?&#](code|access_token)=/.test(location.href) && (URL_VIEW || startPref()==="glance")){
+  try{ if(URL_VIEW) history.replaceState({nav:0},"",BASE_URL); }catch(e){}
+  var v0=URL_VIEW||"glance";
+  if(v0==="mine") openMine(); else if(v0==="cards") openFsrs(); else openGlance();
+}
 if(URL_FIELD.length===4){                 /* 초대 주소로 왔거나, 밭에서 새로고침한 경우 */
   var coOld=coRecall(URL_FIELD);
   openCoop();
