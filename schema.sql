@@ -347,6 +347,55 @@ create policy "본인 구절만" on public.my_verses
   with check (owner = 'g:' || auth.uid()::text);
 
 
+-- ── 3-7. 성경 읽기 ─────────────────────────────────────────────
+-- 1년 성경읽기표(12달 × 25일 × 네 칸)를 읽은 기록입니다. 날짜는 읽기표 날짜
+-- ('01-05' = 읽기표 1월 5일째)로 남기므로, 시작 달을 바꿔도 기록은 그대로입니다.
+-- 로그인한 사람만, 본인 것만 읽고 씁니다.
+
+create table if not exists public.reading_settings (
+  owner        text primary key,            -- 'g:' || auth.uid()
+  start_month  text not null,               -- 시작한 달 '2026-01' (이 달이 읽기표 1월)
+  updated_at   timestamptz not null default now()
+);
+
+create table if not exists public.reading_checks (
+  owner      text not null,
+  plan_day   text not null,                 -- 읽기표 날짜 '01-05'
+  slot       smallint not null check (slot between 0 and 3),   -- 0 신약1 · 1 신약2 · 2 구약 시가서 · 3 구약 역사·예언
+  read_at    timestamptz not null default now(),
+  primary key (owner, plan_day, slot)
+);
+
+create table if not exists public.reading_notes (
+  owner      text not null,
+  plan_day   text not null,
+  note       text not null default '',      -- 한 줄 묵상
+  marks      jsonb not null default '[]',   -- 밑줄 그은 절 ["마태복음|1|3", …]
+  updated_at timestamptz not null default now(),
+  primary key (owner, plan_day)
+);
+
+alter table public.reading_settings enable row level security;
+alter table public.reading_checks   enable row level security;
+alter table public.reading_notes    enable row level security;
+
+drop policy if exists "본인 읽기설정만" on public.reading_settings;
+create policy "본인 읽기설정만" on public.reading_settings
+  for all to authenticated
+  using      (owner = 'g:' || auth.uid()::text)
+  with check (owner = 'g:' || auth.uid()::text);
+drop policy if exists "본인 읽기체크만" on public.reading_checks;
+create policy "본인 읽기체크만" on public.reading_checks
+  for all to authenticated
+  using      (owner = 'g:' || auth.uid()::text)
+  with check (owner = 'g:' || auth.uid()::text);
+drop policy if exists "본인 묵상만" on public.reading_notes;
+create policy "본인 묵상만" on public.reading_notes
+  for all to authenticated
+  using      (owner = 'g:' || auth.uid()::text)
+  with check (owner = 'g:' || auth.uid()::text);
+
+
 -- ── 3-6. 함께 거두는 밭 ────────────────────────────────────────
 -- 여럿이 방 번호로 들어와 한 파트를 함께 거둡니다. 로그인 없이 누구나
 -- 들어올 수 있어야 해서 대회 표처럼 누구에게나 열려 있습니다. 다만 지우기는
@@ -432,6 +481,9 @@ revoke all on public.fsrs_cards       from anon, authenticated;
 revoke all on public.fsrs_settings    from anon, authenticated;
 revoke all on public.study_days       from anon, authenticated;
 revoke all on public.my_verses        from anon, authenticated;
+revoke all on public.reading_settings from anon, authenticated;
+revoke all on public.reading_checks   from anon, authenticated;
+revoke all on public.reading_notes    from anon, authenticated;
 revoke all on public.harvest_rooms    from anon, authenticated;
 revoke all on public.harvest_players  from anon, authenticated;
 revoke all on public.harvest_rounds   from anon, authenticated;
@@ -469,6 +521,9 @@ grant select, insert, update, delete on public.fsrs_cards    to authenticated;
 grant select, insert, update, delete on public.fsrs_settings to authenticated;
 grant select, insert, update, delete on public.study_days   to authenticated;
 grant select, insert, update, delete on public.my_verses    to authenticated;
+grant select, insert, update, delete on public.reading_settings to authenticated;
+grant select, insert, update, delete on public.reading_checks   to authenticated;
+grant select, insert, update, delete on public.reading_notes    to authenticated;
 
 -- 함께 거두는 밭 — 로그인 없이 누구나. 지우기는 주지 않습니다.
 --   방은 「끝남」 표시만, 사람은 이름과 「자리에 있음」만, 차례는 이어 받기 ·
@@ -503,6 +558,9 @@ notify pgrst, 'reload schema';
 --   fsrs_settings        1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   study_days           1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   my_verses            1     1   없음                      DELETE, INSERT, SELECT, UPDATE
+--   reading_checks       1     1   없음                      DELETE, INSERT, SELECT, UPDATE
+--   reading_notes        1     1   없음                      DELETE, INSERT, SELECT, UPDATE
+--   reading_settings     1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   harvest_players      1     1   INSERT, SELECT, UPDATE(일부 칸만)  (로그인도 같음)
 --   harvest_rooms        1     1   INSERT, SELECT, UPDATE(일부 칸만)  (로그인도 같음)
 --   harvest_rounds       1     1   INSERT, SELECT, UPDATE(일부 칸만)  (로그인도 같음)
@@ -511,7 +569,7 @@ notify pgrst, 'reload schema';
 -- contest_entries 의 「일부 칸만」은 점수 칸, 함께 거두는 밭의 「일부 칸만」은
 -- 이어 받기 · 다 외움 · 결과 같은 칸입니다. contests 의 SELECT(일부 칸만)은
 -- 호스트 번호 지문(host_hash)만 빼고 읽을 수 있다는 뜻입니다.
--- 개인 기록 · 타이핑 · FSRS · 내 구절 표의 anon 이 "없음" 인 것은 정상입니다.
+-- 개인 기록 · 타이핑 · FSRS · 내 구절 · 성경 읽기 표의 anon 이 "없음" 인 것은 정상입니다.
 -- 개인 기록은 로그인한 사람만 쓰라고 일부러 그렇게 둔 것입니다.
 
 select t.table_name as "표",
@@ -560,8 +618,8 @@ select t.table_name as "표",
  where t.table_schema='public'
    and t.table_name in ('contests','contest_entries','contest_verses',
                         'personal_records','typing_records','fsrs_cards','fsrs_settings',
-                        'study_days','my_verses','harvest_rooms','harvest_players','harvest_rounds',
-                        'harvest_votes')
+                        'study_days','my_verses','reading_settings','reading_checks','reading_notes',
+                        'harvest_rooms','harvest_players','harvest_rounds','harvest_votes')
  order by t.table_name;
 
 
