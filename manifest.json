@@ -69,6 +69,19 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "전도지 · 하나님께 가는 다리",
+      "short_name": "전도지",
+      "description": "함께 보기 · 링크 · QR 보내기",
+      "url": "./?v=tract",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

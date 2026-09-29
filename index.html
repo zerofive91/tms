@@ -1180,6 +1180,46 @@ html[data-fz="120"] .rdmc,html[data-fz="130"] .rdmc{grid-column:2;grid-row:1}
 .rnmark b{margin-right:6px;font-size:calc(12.5px * var(--fz));color:var(--brand)}
 .rnmark em{font-style:normal;color:var(--ink-soft)}
 .nw{white-space:nowrap}
+
+/* ── 전도지 ── */
+.trcover{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:176px;margin:-4px -2px 14px;
+  padding:14px 16px;border-radius:13px;overflow:hidden;color:#fff;background:#2b2f4d url(bridge/img/base.webp) center 24%/cover}
+.trcover::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,22,45,.85),rgba(20,22,45,.05) 62%)}
+.trcover b,.trcover span{position:relative}
+.trcover b{font-family:"Gowun Batang",Georgia,serif;font-size:calc(23px * var(--fz));font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.trcover span{font-size:calc(12.5px * var(--fz));opacity:.92;margin-top:3px;line-height:1.4}
+label .lsub{display:block;margin-top:2px;font-weight:400;line-height:1.45}
+.trqr{display:flex;flex-direction:column;align-items:center;gap:9px;margin:16px 0 2px}
+.trqr[hidden]{display:none}
+.trqr .qrbox{line-height:0;padding:12px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.trqr .qrbox img,.trqr .qrbox canvas{display:block}
+.tview{position:fixed;inset:0;z-index:60;background:#23263f}
+.tview iframe{display:block;width:100%;height:100%;border:0}
+body.tviewing{overflow:hidden}
+ul.pllist{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.plrow{background:var(--bg);border:1.5px solid var(--line-soft);border-radius:12px}
+.plrow.open{border-color:var(--core)}
+.plhead{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:12px 13px;
+  font:inherit;color:var(--ink);cursor:pointer}
+.plhead b{flex:0 1 auto;min-width:0;font-size:calc(15px * var(--fz));overflow-wrap:anywhere}
+.plhead .plmeta{flex:1 1 auto;min-width:0;font-size:calc(12px * var(--fz));color:var(--ink-soft);text-align:right}
+.plhead .chev{flex:0 0 auto;color:var(--ink-soft);font-size:calc(17px * var(--fz));transition:transform .2s}
+.plrow.open .plhead .chev{transform:rotate(90deg)}
+.plpeek{margin:-5px 13px 12px;font-size:calc(13px * var(--fz));color:var(--ink-soft);line-height:1.5;white-space:pre-wrap;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pledit{padding:0 13px 13px}
+.pledit textarea{width:100%;padding:11px 12px;font:inherit;font-size:calc(14.5px * var(--fz));border:1.5px solid var(--line);
+  border-radius:10px;background:var(--surface);color:var(--ink);resize:vertical;line-height:1.55}
+.pldates{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 0;font-size:calc(12.5px * var(--fz));color:var(--ink-soft)}
+.pldates button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 10px;
+  font:inherit;font-size:calc(12px * var(--fz));font-weight:700;cursor:pointer}
+.mpact button.pldel.armed{border-color:var(--accent-ink);color:var(--accent-ink)}
+.plempty{padding:4px 2px;font-size:calc(13px * var(--fz));color:var(--ink-soft);line-height:1.55}
+/* 120% 부터 이름 아래에 나눈 날 — 긴 이름도 한 줄로 */
+html[data-fz="120"] .plhead,html[data-fz="130"] .plhead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 10px}
+html[data-fz="120"] .plhead b,html[data-fz="130"] .plhead b{grid-column:1;grid-row:1}
+html[data-fz="120"] .plhead .plmeta,html[data-fz="130"] .plhead .plmeta{grid-column:1;grid-row:2;text-align:left}
+html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:2;grid-row:1 / span 2;align-self:center}
 </style>
 </head>
 <body>
@@ -1806,6 +1846,51 @@ html[data-fz="120"] .rdmc,html[data-fz="130"] .rdmc{grid-column:2;grid-row:1}
     <div id="rnotelist"></div>
   </div>
 
+  <!-- ===== 전도지 ===== -->
+  <div id="tract" hidden>
+    <div class="panel">
+      <div class="trcover"><b>하나님께 가는 다리</b><span>눌러 보고 끌어 보며 따라가는 일곱 장의 이야기</span></div>
+      <p class="rmeta" style="margin:0 0 14px">내 폰으로 함께 보거나, 상대방 폰으로 링크나 QR을 보냅니다. 소리가 나니 조용한 곳에서는
+        전도지 오른쪽 위 🔊 를 눌러 끄세요.</p>
+      <button type="button" class="go" id="trshow">함께 보기</button>
+      <p class="fixednote" id="troff"></p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">상대방 폰으로 보내기</p>
+      <div class="field">
+        <label for="trname">보내는 사람 이름<span class="lsub">표지에 「○○ 님이 보내 드려요」로 나옵니다 · 비워 두면 이름 없이</span></label>
+        <input type="text" id="trname" maxlength="20" autocomplete="off" placeholder="예: 홍길동">
+      </div>
+      <div class="field">
+        <label for="trwho">누구에게<span class="lsub">기도 명단에서 고르면 보낸 날을 그 분의 「나눈 날」로 적어 둡니다</span></label>
+        <select id="trwho"></select>
+        <p class="fixednote" id="trwhonote"></p>
+      </div>
+      <div class="field">
+        <label for="trlink">받는 사람이 열 링크</label>
+        <div class="linkrow"><input type="text" id="trlink" readonly><button type="button" id="trcopy">복사</button></div>
+      </div>
+      <div class="mpact">
+        <button type="button" id="trsend">링크 보내기</button>
+        <button type="button" id="trqrbtn" aria-pressed="false">QR 보여 주기</button>
+      </div>
+      <div class="trqr" id="trqrwrap" hidden><div class="qrbox" id="trqr"></div><p class="qrnote" id="trqrnote"></p></div>
+      <p class="fixednote" id="trsendnote">받는 사람에게는 암송 앱 없이 전도지만 열립니다.</p>
+    </div>
+    <div class="panel">
+      <div class="phead"><p class="eyebrow" id="plhead">전도 대상자 · 기도 명단</p></div>
+      <div class="linkrow pladd">
+        <input type="text" id="plname" maxlength="20" autocomplete="off" placeholder="이름을 적고 더하기">
+        <button type="button" id="pladd">더하기</button>
+      </div>
+      <ul class="pllist" id="pllist"></ul>
+      <p class="fixednote" id="plnote"></p>
+    </div>
+  </div>
+
+  <!-- ===== 전도지 · 함께 보기 (전체 화면) ===== -->
+  <div id="tview" class="tview" hidden></div>
+
   <!-- ===== 내 구절 한눈에 ===== -->
   <div id="glance" hidden>
     <div class="glhead">
@@ -2170,6 +2255,11 @@ var ICON = {
     '<path d="M11.3 6.3h1.6v2.3h2.2v1.6h-2.2v5h-1.6v-5H9.1V8.6h2.2z" style="fill:var(--hi)" opacity=".9"/>'+
     '<path d="M6.3 18.6h12.2" fill="none" style="stroke:var(--hi)" stroke-width="1.2" opacity=".55"/>'+
     '<path d="M15.6 2.6v5.2l1.3-1 1.3 1V2.6z" opacity=".55"/>',
+  /* 전도지 — 두 절벽 사이에 눕혀 놓인 십자가 다리 */
+  bridge:
+    '<path d="M1.4 12.7h5.4l.9 1.6v6.3H1.4zM22.6 12.7h-5.4l-.9 1.6v6.3h5.3z" opacity=".5"/>'+
+    '<rect x="2.2" y="9.9" width="19.6" height="2.7" rx=".9"/>'+
+    '<rect x="14.6" y="6.1" width="2.7" height="10.3" rx=".9"/>',
   check2:'<path d="m9.6 16.2-4.1-4.1-1.6 1.6 5.7 5.7L20.1 8.9l-1.6-1.6z"/>',
   plus:'<path d="M10.9 4.5h2.2v6.4h6.4v2.2h-6.4v6.4h-2.2v-6.4H4.5v-2.2h6.4z"/>',
   none:'<circle cx="12" cy="12" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 3.4"/>',
@@ -2574,7 +2664,8 @@ var MODES=[
   {g:"contest", icon:"contest", n:"대회",d:"대회처럼 뽑아 연습하거나, 대회를 열고 참가합니다.", subs:[
     {k:"practice",icon:"practice",n:"연습",d:"이름 없이 뽑고 스스로 확인"},
     {k:"contest", icon:"contest", n:"실전",d:"대회를 만들거나 코드로 참가"}]},
-  {k:"crop",    icon:"barn",    n:"수확 기록",d:"여태 심고 거둔 것을 한자리에서 봅니다."}
+  {k:"crop",    icon:"barn",    n:"수확 기록",d:"여태 심고 거둔 것을 한자리에서 봅니다."},
+  {k:"tract",   icon:"bridge",  n:"전도지",d:"「하나님께 가는 다리」를 함께 보거나 링크 · QR로 보냅니다. 전도 대상자 기도 명단."}
 ];
 
 /* 알림 한 줄. 잘 된 소식은 잠시 뒤 스스로 사라지고, 오류는 남습니다. */
@@ -2616,7 +2707,8 @@ function paintOff(){
 function backOnline(){
   paintOff();
   setSync("다시 연결되었습니다 · 기록을 이어 보냅니다");
-  flushSave(); fFlush(); saveDays(); myFlush(); rdFlush();
+  flushSave(); fFlush(); saveDays(); myFlush(); rdFlush(); plFlush();
+  if(screenNow==="tract" && !TR.preOk) trPrefetch();
   if(!state.me){ if(poll.job) poll.job(true); return; }
   if(screenNow==="me"){ loadProgress(true).then(paintMe).catch(function(){}); return; }
   if(screenNow==="fsrs"||screenNow==="fcard"){
@@ -2951,7 +3043,8 @@ function buildModes(){
       '<span class="modeicon">'+svg(m.icon)+'</span>'+
       '<span><b>'+m.n+'</b><span>'+esc(m.d)+'</span>'+
       (m.k==="mine"?'<em class="mcount" id="minecount"></em>':'')+
-      (m.k==="read"?'<em class="mcount" id="readcount"></em>':'')+'</span></button>';
+      (m.k==="read"?'<em class="mcount" id="readcount"></em>':'')+
+      (m.k==="tract"?'<em class="mcount" id="tractcount"></em>':'')+'</span></button>';
   }).join("");
 }
 
@@ -6363,6 +6456,11 @@ function rdLoad(){
     if(rdNoTable(e)){
       RD.noTable=true;
       if(RD.owner && RD.owner!==owner){ RD.start=""; RD.checks={}; RD.notes={}; RD.pend={}; }
+      else if(!RD.owner){                /* 로그인 전 기록은 표가 생기면 올라가도록 적어 둡니다 */
+        if(RD.start) RD.pend["s"]=RD.start;
+        Object.keys(RD.checks).forEach(function(id){ for(var s=0;s<4;s++) if(RD.checks[id]&(1<<s)) RD.pend["c|"+id+"|"+s]=true; });
+        Object.keys(RD.notes).forEach(function(id){ RD.pend["n|"+id]=RD.notes[id]; });
+      }
       RD.owner=owner; rdSave(); rdPaintAll();
     } else if(!netOff()) setSync("성경 읽기 기록을 불러오지 못했습니다 · "+failText(e),true);
   }).then(function(){ RD.busy=null; });
@@ -6858,7 +6956,7 @@ function afterAuth(u){
   authReady=true;
   if(u) setMe(u);
   else { state.me=null; state.progress={}; pending={}; mineLoaded=false; }
-  if(u){ mineLoad(); myLoad(); rdLoad(); }
+  if(u){ mineLoad(); myLoad(); rdLoad(); plLoad(); }
   if(screenNow==="mine") paintMy();
   if(!$("me").hidden){
     paintMe();
@@ -6880,14 +6978,314 @@ function initAuth(){
    보내 주는 depth 로 그 화면을 그대로 되살립니다. 화면 위의 「뒤로」
    버튼도 같은 길을 씁니다.                                          */
 
-var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","glance","read","rday","rnotes"];
+/* ═══ 전도지 ═══
+   「하나님께 가는 다리」(bridge/ 폴더) — 앱 안에서 전체 화면으로 함께 보거나, 링크 · QR로
+   상대방 폰에 보냅니다(받는 사람에게는 암송 앱 없이 전도지만 열림, ?from=이름 이면 표지에 한 줄).
+   전도 대상자 기도 명단은 로그인하면 계정(prayer_list 표)에, 아니면 이 기기에 둡니다.      */
+var TRACT_DIR="bridge/";
+var TRACT_FILES=["index.html"].concat(["base","empty","fellow","crack","sad","fail_good","fail_religion","fail_moral",
+  "fail_edu","dawn","cross","rise","walk","arrive","door","dooropen","pray"].map(function(n){ return "img/"+n+".webp"; }));
+var TRACT_FONTS=["https://fonts.googleapis.com/css2?family=Jua&display=swap",
+  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"];
+var TR_NAME_KEY="navfest.trname";
+var TR_SEND_NOTE="받는 사람에게는 암송 앱 없이 전도지만 열립니다.";
+var TR={inited:false, who:"", qr:false, pre:null, preOk:false, preFail:false};
+
+function clean20(s){ return String(s||"").replace(/[\u0000-\u001f\u007f<>]/g,"").trim().slice(0,20); }
+function trNameVal(){ return clean20($("trname").value); }
+function trLink(){
+  var u=new URL(TRACT_DIR, BASE_URL).href, n=trNameVal();
+  return n ? u+"?from="+encodeURIComponent(n) : u;
+}
+function mdText(d){
+  var y=+d.slice(0,4), now=+fToday().slice(0,4);
+  return (y!==now ? y+"년 " : "")+(+d.slice(5,7))+"월 "+(+d.slice(8,10))+"일";
+}
+function openTract(){
+  paintTract();
+  show("tract");
+  trPrefetch();
+  if(state.me) plLoad();
+}
+function paintTract(){
+  if(!TR.inited){
+    TR.inited=true;
+    var v=""; try{ v=localStorage.getItem(TR_NAME_KEY)||""; }catch(e){}
+    $("trname").value=v;
+  }
+  trPaintLink(); trPaintWho(); trPaintOff(); plPaint();
+}
+/* 칸에는 한글 그대로 보이게(보낼 때 · 복사할 때 · QR 은 주소 규칙대로 바꾼 것) */
+function trShowLink(){ var u=trLink(); try{ return decodeURI(u); }catch(e){ return u; } }
+function trPaintLink(){ $("trlink").value=trShowLink(); if(TR.qr) trDrawQr(); }
+function trPaintWho(){
+  var sel=$("trwho"), rows=plList();
+  if(TR.who && !PL.rows[TR.who]){ TR.who=""; $("trwhonote").textContent=""; }
+  sel.innerHTML='<option value="">'+(rows.length?"고르지 않음":"기도 명단이 비어 있습니다")+'</option>'+
+    rows.map(function(r){ return '<option value="'+esc(r.id)+'"'+(r.id===TR.who?' selected':'')+'>'+esc(r.name)+'</option>'; }).join("");
+  sel.disabled=!rows.length;
+}
+/* 명단에서 고른 분이 있으면 오늘을 그 분의 「나눈 날」로 */
+function trMarkShared(){
+  var r=TR.who && PL.rows[TR.who]; if(!r) return "";
+  plAddShared(r.id, fToday());
+  $("trwhonote").textContent=r.name+" 님께 오늘("+mdText(fToday())+") 나눈 날로 적었습니다.";
+  return r.name;
+}
+function trNote(t){ $("trsendnote").textContent=t; }
+
+/* 인터넷 없이 보여 주기 — 전도지와 그림 17장을 서비스 워커 저장소에 받아 둡니다.
+   서비스 워커는 이미 담아 둔 것은 저장소에서 바로 내주므로, 화면을 열 때마다 불러도 인터넷을 쓰지 않습니다
+   (sw.js 의 CACHE 를 올려 저장소가 비워졌으면 그때 새로 받습니다). */
+function trPrefetch(){
+  if(TR.pre) return TR.pre;
+  var sw=!!(navigator.serviceWorker && navigator.serviceWorker.controller);
+  if(!sw){ trPaintOff(); return Promise.resolve(); }
+  TR.preFail=false;
+  var slow=setTimeout(function(){ if(!TR.preOk) trPaintOff(true); },400);   /* 오래 걸릴 때만 「받는 중」 */
+  TR.pre=Promise.all(TRACT_FILES.map(function(f){
+    return fetch(TRACT_DIR+f).then(function(r){ return r.ok; }).catch(function(){ return false; });
+  }).concat(TRACT_FONTS.map(function(u){
+    return fetch(u,{mode:"no-cors"}).then(function(){ return true; }).catch(function(){ return true; });
+  }))).then(function(rs){
+    clearTimeout(slow);
+    TR.preOk=rs.every(Boolean); TR.preFail=!TR.preOk;
+    TR.pre=null; trPaintOff();
+  });
+  return TR.pre;
+}
+function trPaintOff(busy){
+  var el=$("troff"); if(!el) return;
+  var sw=!!(navigator.serviceWorker && navigator.serviceWorker.controller);
+  el.textContent = TR.preOk ? "그림까지 받아 두었습니다 · 인터넷이 없어도 함께 볼 수 있습니다"
+    : busy ? "인터넷 없이도 보여 줄 수 있게 그림을 받는 중입니다 (약 0.8MB, 한 번만)"
+    : TR.preFail ? "그림을 다 받지 못했습니다 · 인터넷이 연결되면 다시 받습니다"
+    : ("serviceWorker" in navigator && !sw) ? "인터넷이 있을 때 이 화면을 한 번 더 열어 두면, 그다음부터 인터넷 없이도 볼 수 있습니다"
+    : "";
+}
+
+/* 함께 보기 — 전체 화면. 닫으면 iframe 을 걷어 내 소리와 움직임이 멈춥니다 */
+function trOpenFrame(){
+  var host=$("tview"); if(host.querySelector("iframe")) return;
+  var f=document.createElement("iframe");
+  f.title="하나님께 가는 다리";
+  f.setAttribute("allow","autoplay");
+  f.src=TRACT_DIR+"?in=app";
+  host.appendChild(f);
+  try{ f.focus(); }catch(e){}
+}
+function trCloseFrame(){ var host=$("tview"); while(host.firstChild) host.removeChild(host.firstChild); }
+window.addEventListener("message",function(e){
+  if(e.origin!==location.origin) return;
+  var f=$("tview").querySelector("iframe");
+  if(!f || e.source!==f.contentWindow) return;
+  if(e.data && e.data.navfest==="tract-close" && screenNow==="tview") goBack();
+});
+
+function trDrawQr(){
+  var box=$("trqr"), url=trLink();
+  if(typeof QRCode==="undefined"){
+    $("trqrnote").textContent="QR을 만드는 중…";
+    needQr(function(ok){
+      if(!ok){ $("trqrnote").textContent="QR을 만들지 못했습니다 · 인터넷을 확인하거나 「링크 보내기」를 써 주세요."; return; }
+      if(TR.qr) trDrawQr();
+    });
+    return;
+  }
+  box.innerHTML="";
+  new QRCode(box,{text:url,width:196,height:196,colorDark:"#23263f",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+  $("trqrnote").textContent="상대방 폰 카메라로 찍으면 전도지가 열립니다";
+}
+function trSend(){
+  var url=trLink(), n=trNameVal();
+  var data={title:"하나님께 가는 다리",
+            text:(n ? n+" 님이 보내 드리는 " : "")+"「하나님께 가는 다리」 — 눌러 보고 끌어 보며 따라가는 일곱 장의 이야기",
+            url:url};
+  if(navigator.share){
+    navigator.share(data).then(function(){
+      var nm=trMarkShared(); trNote(nm ? nm+" 님께 보냈습니다." : "보냈습니다.");
+    }).catch(function(e){ if(e && e.name==="AbortError") return; trCopy(); });
+    return;
+  }
+  trCopy();
+}
+function trCopy(){
+  var el=$("trlink"), url=trLink(); el.value=trShowLink();
+  try{ el.select(); el.setSelectionRange(0,99999); }catch(e){}
+  function done(ok){
+    if(ok) trMarkShared();
+    trNote(ok ? "링크를 복사했습니다 · 카카오톡이나 문자에 붙여 넣어 보내세요." : "위 링크를 길게 눌러 복사해 주세요.");
+  }
+  function fallback(){ var ok=false; try{ ok=document.execCommand("copy"); }catch(e){} done(ok); }
+  if(navigator.clipboard && navigator.clipboard.writeText)
+    navigator.clipboard.writeText(url).then(function(){ done(true); },fallback);
+  else fallback();
+}
+
+/* ── 전도 대상자 · 기도 명단 ── */
+var PL_KEY="navfest.pray";
+var PL={rows:{}, owner:"", pend:{}, loaded:false, noTable:false, busy:null, flushing:null, again:false,
+        open:"", arm:"", dirty:false, noteTimer:null};
+(function(){
+  try{
+    var o=JSON.parse(localStorage.getItem(PL_KEY)||"null");
+    if(o){ PL.rows=o.rows||{}; PL.owner=o.owner||""; PL.pend=o.pend||{}; }
+  }catch(e){}
+})();
+function plSave(){ try{ localStorage.setItem(PL_KEY,JSON.stringify({rows:PL.rows,owner:PL.owner,pend:PL.pend})); }catch(e){} }
+function plClone(r){ return {id:r.id, name:r.name||"", note:r.note||"", shared:(r.shared||[]).slice(), pos:+r.pos||0}; }
+function plListOf(rows){
+  return Object.keys(rows).map(function(k){ return rows[k]; })
+    .sort(function(a,b){ return ((a.pos||0)-(b.pos||0)) || (a.id<b.id?-1:1); });
+}
+function plList(){ return plListOf(PL.rows); }
+function plNewId(){ return "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function plPend(id,v){
+  if(state.me){ PL.pend[id]=v ? plClone(v) : null; if(!PL.owner) PL.owner=state.me.owner; }
+  plSave(); plFlush();
+}
+function plPut(r){ PL.rows[r.id]=r; plPend(r.id,r); }
+function plDel(id){ delete PL.rows[id]; plPend(id,null); }
+function plAddShared(id,day){
+  var r=PL.rows[id]; if(!r) return;
+  if((r.shared||[]).indexOf(day)<0){
+    var c=plClone(r); c.shared.push(day); c.shared.sort().reverse(); plPut(c);
+  }
+  if(screenNow==="tract") plPaint();
+}
+function plReset(){ PL.rows={}; PL.owner=""; PL.pend={}; PL.loaded=false; PL.noTable=false; PL.open=""; PL.arm=""; plSave(); }
+function plLoad(){
+  if(!state.me || !online()) return Promise.resolve();
+  if(PL.busy) return PL.busy;
+  var owner=state.me.owner;
+  PL.busy=Promise.resolve(SB.from("prayer_list").select("id,name,note,shared,pos").eq("owner",owner)).then(function(r){
+    if(r.error) throw r.error;
+    if(!state.me || state.me.owner!==owner) return;
+    var rows={};
+    (r.data||[]).forEach(function(x){ rows[x.id]=plClone({id:x.id,name:x.name,note:x.note,shared:Array.isArray(x.shared)?x.shared:[],pos:x.pos}); });
+    if(PL.owner===owner){
+      /* 아직 못 보낸 것은 서버 값 위에 */
+      Object.keys(PL.pend).forEach(function(id){ var v=PL.pend[id]; if(v) rows[id]=plClone(v); else delete rows[id]; });
+    } else if(!PL.owner){
+      /* 로그인 전에 이 기기에 적은 명단을 계정으로 */
+      var top=0; Object.keys(rows).forEach(function(id){ top=Math.max(top,rows[id].pos||0); });
+      plList().forEach(function(v){
+        if(rows[v.id]) return;
+        var c=plClone(v); c.pos=++top; rows[c.id]=c; PL.pend[c.id]=plClone(c);
+      });
+    } else PL.pend={};
+    PL.rows=rows; PL.owner=owner; PL.loaded=true; PL.noTable=false;
+    plSave(); plPaintAll();
+    return plFlush();
+  }).catch(function(e){
+    if(myNoTable(e)){
+      PL.noTable=true;
+      if(PL.owner && PL.owner!==owner){ PL.rows={}; PL.pend={}; }
+      else if(!PL.owner) plList().forEach(function(v){ PL.pend[v.id]=plClone(v); });   /* 표가 생기면 올라가도록 */
+      PL.owner=owner; plSave(); plPaintAll();
+    } else if(!netOff()) setSync("기도 명단을 불러오지 못했습니다 · "+failText(e),true);
+  }).then(function(){ PL.busy=null; });
+  return PL.busy;
+}
+function plFlush(){
+  if(!state.me || PL.owner!==state.me.owner || PL.noTable || !canSave()) return Promise.resolve();
+  if(PL.flushing){ PL.again=true; return PL.flushing; }
+  var keys=Object.keys(PL.pend);
+  if(!keys.length) return Promise.resolve();
+  var owner=state.me.owner, snap={}, ups=[], jobs=[], stamp=new Date().toISOString();
+  keys.forEach(function(id){
+    var v=PL.pend[id]; snap[id]=v;
+    if(v) ups.push({owner:owner, id:id, name:v.name, note:v.note||"", shared:v.shared||[], pos:v.pos||0, updated_at:stamp});
+    else jobs.push(SB.from("prayer_list").delete().eq("owner",owner).eq("id",id));
+  });
+  if(ups.length) jobs.push(SB.from("prayer_list").upsert(ups,{onConflict:"owner,id"}));
+  PL.flushing=Promise.all(jobs).then(function(rs){
+    rs.forEach(function(r){ if(r && r.error) throw r.error; });
+    keys.forEach(function(k){ if(PL.pend[k]===snap[k]) delete PL.pend[k]; });
+    plSave();
+  }).catch(function(e){
+    if(myNoTable(e)){ PL.noTable=true; plPaintAll(); }
+    else setSync("기도 명단을 저장하지 못했습니다 · "+failText(e),true);
+  }).then(function(){
+    PL.flushing=null;
+    if(PL.again){ PL.again=false; plFlush(); }
+  });
+  return PL.flushing;
+}
+function paintTractCount(){
+  var el=$("tractcount"); if(!el) return;
+  var n=plList().length;
+  el.textContent = n ? "기도 명단 "+n+"명" : "";
+}
+function plPaintAll(){
+  paintTractCount();
+  if(screenNow==="tract"){ plPaint(true); trPaintWho(); }
+}
+/* soft: 서버에서 받아 온 때처럼 저절로 다시 그릴 때 — 기도 제목을 쓰는 중이면 미룹니다 */
+function plPaint(soft){
+  var list=$("pllist"); if(!list) return;
+  var act=document.activeElement;
+  if(soft && act && act.tagName==="TEXTAREA" && list.contains(act)){ PL.dirty=true; return; }
+  plNoteFlush();                    /* 쓰던 기도 제목을 먼저 남기고 다시 그립니다 */
+  PL.dirty=false;
+  var rows=plList();
+  $("plhead").textContent="전도 대상자 · 기도 명단"+(rows.length ? " · "+rows.length+"명" : "");
+  list.innerHTML = rows.length ? rows.map(function(r){
+    var id=esc(r.id), open=(PL.open===r.id), sh=r.shared||[];
+    var meta = sh.length ? "나눈 날 "+sh.length+"번 · "+mdText(sh[0]) : "아직 나누지 않음";
+    return '<li class="plrow'+(open?' open':'')+'" data-id="'+id+'">'+
+      '<button type="button" class="plhead" data-plopen="'+id+'" aria-expanded="'+open+'"><b>'+esc(r.name)+'</b>'+
+        '<span class="plmeta">'+esc(meta)+'</span><span class="chev">&#8250;</span></button>'+
+      (!open && r.note ? '<p class="plpeek">'+esc(r.note)+'</p>' : '')+
+      (open ? '<div class="pledit">'+
+        '<label for="pln_'+id+'">기도 제목</label>'+
+        '<textarea id="pln_'+id+'" data-plnote="'+id+'" rows="3" maxlength="300" placeholder="이 분을 위해 기도할 것">'+esc(r.note||"")+'</textarea>'+
+        '<div class="pldates">'+(sh.length
+          ? '<span>나눈 날</span>'+sh.map(function(d){
+              return '<button type="button" data-pldate="'+id+'|'+d+'" aria-label="'+esc(mdText(d))+' 지우기">'+esc(mdText(d))+' ×</button>';
+            }).join("")
+          : '<span>전도지를 보여 주거나 보내면 여기에 날이 적힙니다</span>')+'</div>'+
+        '<div class="mpact"><button type="button" data-plshare="'+id+'">오늘 나눈 날로 적기</button>'+
+          '<button type="button" class="pldel'+(PL.arm===r.id?' armed':'')+'" data-pldel="'+id+'">'+
+          (PL.arm===r.id ? "한 번 더 누르면 뺍니다" : "명단에서 빼기")+'</button></div>'+
+      '</div>' : '')+
+    '</li>';
+  }).join("") : '<li class="plempty">아직 아무도 없습니다. 전도지를 나누고 싶은 분의 이름을 적고, 날마다 기도해 보세요.</li>';
+  $("plnote").textContent = state.me
+    ? (PL.noTable ? "서버에 기도 명단 표가 아직 없어 이 기기에만 두었습니다 · Supabase 에서 schema.sql 을 다시 실행해 주세요."
+                  : "계정에 남아 다른 기기에서도 이어집니다. 본인만 봅니다.")
+    : "로그인하지 않으면 이 기기에만 남습니다. 나중에 로그인하면 계정으로 올라갑니다.";
+}
+function plAdd(){
+  var n=clean20($("plname").value);
+  if(!n){ $("plname").focus(); return; }
+  var top=0; plList().forEach(function(r){ top=Math.max(top,r.pos||0); });
+  var r={id:plNewId(), name:n, note:"", shared:[], pos:top+1};
+  plPut(r);
+  $("plname").value="";
+  PL.open=r.id; PL.arm="";
+  plPaint(); trPaintWho(); paintTractCount();
+  var ta=document.querySelector('#pllist [data-plnote="'+r.id+'"]'); if(ta) ta.focus();
+}
+function plSetNote(id,v){
+  var r=PL.rows[id]; if(!r || r.note===v) return;
+  var c=plClone(r); c.note=v; plPut(c);
+}
+function plNoteFlush(){
+  clearTimeout(PL.noteTimer); PL.noteTimer=null;
+  var ta=document.querySelector("#pllist textarea[data-plnote]");
+  if(ta) plSetNote(ta.dataset.plnote, ta.value);
+}
+
+var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","glance","read","rday","rnotes","tract","tview"];
 var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
                  crop:"수확 기록", coop:"함께 거두기", field:"함께 거두는 밭",
                  partv:"파트 보기", vcard:"구절 카드",
                  mine:"내 암송", mypick:"구절 넣기", glance:"한눈에",
-                 read:"성경 읽기", rday:"오늘 분량", rnotes:"묵상 모아 보기"};
+                 read:"성경 읽기", rday:"오늘 분량", rnotes:"묵상 모아 보기",
+                 tract:"전도지", tview:"하나님께 가는 다리"};
 var screenNow="home", screenLog=["home"], depth=0;
 
 /* 리사이팅 화면은 로그인하기 전에는 로그인 화면입니다 */
@@ -6914,6 +7312,8 @@ function applyScreen(which){
   if(screenNow==="fsrs" && which!=="fsrs") state.f.done=null;
   if(screenNow==="tlist" && which!=="tlist") tyDone=null;
   if(screenNow==="rday" && which!=="rday") rdMemoSave();   /* 묵상을 쓰다 나가도 남깁니다 */
+  if(screenNow==="tview" && which!=="tview") trCloseFrame();  /* 전도지를 닫으면 소리 · 움직임도 멈춥니다 */
+  if(screenNow==="tract" && which!=="tract") plNoteFlush();
   if(which==="tlist") paintTypeList();
   if(screenNow==="result" && which!=="result") flushSave();
   SCREENS.forEach(function(id){ $(id).hidden=(id!==which); });
@@ -6922,7 +7322,10 @@ function applyScreen(which){
   if(which==="fsrs") fPaintHome();    /* 뒤로 왔을 때 오늘 몫을 다시 셈 */
   if(which==="field"){ if(CO.code){ coPaint(); coStart(); } }
   else coStop();                      /* 밭을 떠나면 서버 읽기를 멈춥니다 */
-  if(which==="home"){ paintHomeCount(); paintReadCount(); }
+  if(which==="home"){ paintHomeCount(); paintReadCount(); paintTractCount(); }
+  if(which==="tract") paintTract();
+  if(which==="tview") trOpenFrame();
+  document.body.classList.toggle("tviewing", which==="tview");
   if(which==="read") paintRead();
   if(which==="rday") paintReadDay();
   if(which==="rnotes") paintReadNotes();
@@ -7042,6 +7445,7 @@ $("modes").addEventListener("click",function(e){
   if(m==="contest"){ openLobby(); return; }
   if(m==="fsrs"){ openFsrs(); return; }
   if(m==="crop"){ openCrop(); return; }
+  if(m==="tract"){ openTract(); return; }
   if(m==="coop"){ openCoop(); return; }
   setMode(m);
   show("setup");
@@ -7471,7 +7875,7 @@ $("tygrade").addEventListener("click",function(e){
 $("signout").addEventListener("click",function(){
   if(online()) SB.auth.signOut();
   state.me=null; state.progress={}; pending={};
-  myReset(); paintHomeCount(); rdReset(); paintReadCount();
+  myReset(); paintHomeCount(); rdReset(); paintReadCount(); plReset(); paintTractCount();
   setSync(""); pollStop();
   paintMe();
 });
@@ -7678,6 +8082,18 @@ function paintContestHeads(){
   $("dtlSub").textContent=line;
 }
 
+/* QR 그리는 스크립트는 처음 쓸 때 한 번만 불러옵니다(대회 · 전도지 함께) */
+var qrWaiters=null;
+function needQr(cb){
+  if(typeof QRCode!=="undefined"){ cb(true); return; }
+  if(qrWaiters){ qrWaiters.push(cb); return; }
+  qrWaiters=[cb];
+  var sc=document.createElement("script");
+  sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+  sc.onload=function(){ var w=qrWaiters; qrWaiters=null; w.forEach(function(f){ f(true); }); };
+  sc.onerror=function(){ var w=qrWaiters; qrWaiters=null; sc.remove(); w.forEach(function(f){ f(false); }); };
+  document.head.appendChild(sc);
+}
 var qrLoading=false;
 function drawShare(){
   $("plink").value=participantLink();
@@ -7686,11 +8102,10 @@ function drawShare(){
     if(qrLoading) return;
     qrLoading=true;
     $("qrnote").textContent="QR을 만드는 중…";
-    var sc=document.createElement("script");
-    sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
-    sc.onload=function(){ qrLoading=false; drawShare(); };
-    sc.onerror=function(){ qrLoading=false; $("qrnote").textContent="QR을 만들지 못했습니다. 위 링크를 직접 나눠 주세요."; };
-    document.head.appendChild(sc);
+    needQr(function(ok){
+      qrLoading=false;
+      if(ok) drawShare(); else $("qrnote").textContent="QR을 만들지 못했습니다. 위 링크를 직접 나눠 주세요.";
+    });
     return;
   }
   box.innerHTML=""; box.classList.add("on");
@@ -7706,7 +8121,8 @@ function runDbCheck(){
   out.textContent="점검하는 중…";
   var tables=[{t:"contests",n:"대회 목록"},{t:"contest_entries",n:"대회 순위"},{t:"contest_verses",n:"대회 구절"}];
   if(state.me) tables.push({t:"personal_records",n:"개인 기록"},{t:"my_verses",n:"내 구절"},
-                          {t:"reading_checks",n:"성경 읽기 체크"},{t:"reading_notes",n:"성경 읽기 묵상"});
+                          {t:"reading_checks",n:"성경 읽기 체크"},{t:"reading_notes",n:"성경 읽기 묵상"},
+                          {t:"prayer_list",n:"기도 명단"});
   Promise.all(tables.map(function(j){
     return (j.t==="contests" ? SB.from("contests").select(CONTEST_COLS).limit(1) : SB.from(j.t).select("*").limit(1))
       .then(function(r){ return j.n+" · "+(r.error?("✗ "+errText(r.error)):"정상"); })
@@ -7783,6 +8199,62 @@ $("copy").addEventListener("click",function(){
 });
 $("dbcheck").addEventListener("click",runDbCheck);
 
+/* ── 전도지 이벤트 ── */
+$("trshow").addEventListener("click",function(){ trMarkShared(); show("tview"); });
+$("trname").addEventListener("input",function(){
+  try{ localStorage.setItem(TR_NAME_KEY,this.value); }catch(e){}
+  trPaintLink(); trNote(TR_SEND_NOTE);
+});
+$("trwho").addEventListener("change",function(){
+  TR.who=this.value;
+  var r=PL.rows[TR.who];
+  $("trwhonote").textContent = r ? "함께 보거나 링크 · QR로 보내면 "+r.name+" 님께 오늘을 나눈 날로 적습니다." : "";
+});
+$("trcopy").addEventListener("click",trCopy);
+$("trsend").addEventListener("click",trSend);
+$("trqrbtn").addEventListener("click",function(){
+  TR.qr=!TR.qr;
+  $("trqrwrap").hidden=!TR.qr;
+  this.setAttribute("aria-pressed",String(TR.qr));
+  this.textContent = TR.qr ? "QR 숨기기" : "QR 보여 주기";
+  if(TR.qr){ trDrawQr(); trMarkShared(); }
+});
+$("pladd").addEventListener("click",plAdd);
+$("plname").addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); plAdd(); } });
+$("pllist").addEventListener("click",function(e){
+  var o=e.target.closest("[data-plopen]");
+  if(o){ plNoteFlush(); var id=o.dataset.plopen; PL.open=(PL.open===id?"":id); PL.arm=""; plPaint(); return; }
+  var s=e.target.closest("[data-plshare]");
+  if(s){ plAddShared(s.dataset.plshare, fToday()); return; }
+  var d=e.target.closest("[data-pldate]");
+  if(d){
+    var p=d.dataset.pldate.split("|"), r=PL.rows[p[0]]; if(!r) return;
+    var c=plClone(r); c.shared=c.shared.filter(function(x){ return x!==p[1]; }); plPut(c); plPaint(); return;
+  }
+  var x=e.target.closest("[data-pldel]");
+  if(x){
+    var id2=x.dataset.pldel;
+    if(PL.arm===id2){
+      PL.arm=""; PL.open=""; plDel(id2);
+      plPaint(); trPaintWho(); paintTractCount();
+    } else {
+      PL.arm=id2; plPaint();
+      setTimeout(function(){ if(PL.arm===id2){ PL.arm=""; plPaint(); } },3500);
+    }
+  }
+});
+$("pllist").addEventListener("input",function(e){
+  var t=e.target.closest("textarea[data-plnote]"); if(!t) return;
+  clearTimeout(PL.noteTimer);
+  PL.noteTimer=setTimeout(function(){ PL.noteTimer=null; plSetNote(t.dataset.plnote, t.value); },700);
+});
+$("pllist").addEventListener("focusout",function(e){
+  var t=e.target.closest("textarea[data-plnote]"); if(!t) return;
+  clearTimeout(PL.noteTimer); PL.noteTimer=null;
+  plSetNote(t.dataset.plnote, t.value);
+  if(PL.dirty) setTimeout(function(){ plPaint(true); },0);
+});
+
 /* ?demo — Supabase 없이 개인 성장 화면이 어떻게 보이는지 미리 봅니다.
    실제 저장은 되지 않고, 새로 고치면 사라집니다. */
 function loadDemo(){
@@ -7822,6 +8294,7 @@ if(Q.has("demo")) loadDemo(); else initAuth();
 setMode("practice");
 paintHomeCount();
 paintReadCount();
+paintTractCount();
 applyScreen("home");
 if(URL_CODE) joinContest(URL_CODE,{fromUrl:true});
 /* 바로가기로 열었거나, 「앱을 열면 한눈에부터」를 켜 둔 경우 (로그인에서 돌아온 때는 빼고) */
@@ -7829,7 +8302,7 @@ if(!URL_CODE && URL_FIELD.length!==4 && !AUTH_ERR &&
    !/[?&#](code|access_token)=/.test(location.href) && (URL_VIEW || startPref()==="glance")){
   try{ if(URL_VIEW) history.replaceState({nav:0},"",BASE_URL); }catch(e){}
   var v0=URL_VIEW||"glance";
-  if(v0==="mine") openMine(); else if(v0==="cards") openFsrs(); else openGlance();
+  if(v0==="mine") openMine(); else if(v0==="cards") openFsrs(); else if(v0==="tract") openTract(); else openGlance();
 }
 if(URL_FIELD.length===4){                 /* 초대 주소로 왔거나, 밭에서 새로고침한 경우 */
   var coOld=coRecall(URL_FIELD);
