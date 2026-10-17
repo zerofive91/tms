@@ -396,6 +396,54 @@ create policy "본인 묵상만" on public.reading_notes
   with check (owner = 'g:' || auth.uid()::text);
 
 
+-- ── 3-7-2. 성경순서로 ──────────────────────────────────────────
+-- 성경 순서대로 장 단위로 읽는 계획표입니다. 한 사람에 한 줄(지금 계획).
+--   plan : 계획 설정 {id, scope(all·ot·nt), unit(m·y), num, rounds, rest(none·sun·weekend), start, end, pre}
+--          날마다의 분량은 이 설정으로 앱이 똑같이 다시 계산합니다.
+--   done : 읽은 장 묶음 '0-350,352-360' (장 번호 = 회독×1189 + 성경 전체에서 몇째 장)
+-- 로그인한 사람만, 본인 것만 읽고 씁니다.
+
+create table if not exists public.order_plans (
+  owner      text primary key,              -- 'g:' || auth.uid()
+  plan       jsonb not null,
+  done       text not null default '',
+  updated_at timestamptz not null default now()
+);
+
+alter table public.order_plans enable row level security;
+
+drop policy if exists "본인 순서로만" on public.order_plans;
+create policy "본인 순서로만" on public.order_plans
+  for all to authenticated
+  using      (owner = 'g:' || auth.uid()::text)
+  with check (owner = 'g:' || auth.uid()::text);
+
+
+-- ── 3-8. 전도지 · 기도 명단 ─────────────────────────────────────
+-- 전도 대상자 이름 · 기도 제목 · 전도지를 나눈 날입니다. 한 사람에 한 줄.
+-- 로그인한 사람만, 본인 것만 읽고 씁니다. (전도지 자체는 bridge/ 폴더의 웹 페이지라
+-- 서버에 따로 남는 것이 없습니다.)
+
+create table if not exists public.prayer_list (
+  owner      text not null,                 -- 'g:' || auth.uid()
+  id         text not null,                 -- 앱이 만드는 번호
+  name       text not null default '',      -- 이름(20자까지)
+  note       text not null default '',      -- 기도 제목
+  shared     jsonb not null default '[]',   -- 전도지를 나눈 날 ["2026-09-28", …]
+  pos        integer not null default 0,    -- 명단 안의 순서
+  updated_at timestamptz not null default now(),
+  primary key (owner, id)
+);
+
+alter table public.prayer_list enable row level security;
+
+drop policy if exists "본인 기도명단만" on public.prayer_list;
+create policy "본인 기도명단만" on public.prayer_list
+  for all to authenticated
+  using      (owner = 'g:' || auth.uid()::text)
+  with check (owner = 'g:' || auth.uid()::text);
+
+
 -- ── 3-6. 함께 거두는 밭 ────────────────────────────────────────
 -- 여럿이 방 번호로 들어와 한 파트를 함께 거둡니다. 로그인 없이 누구나
 -- 들어올 수 있어야 해서 대회 표처럼 누구에게나 열려 있습니다. 다만 지우기는
@@ -484,6 +532,8 @@ revoke all on public.my_verses        from anon, authenticated;
 revoke all on public.reading_settings from anon, authenticated;
 revoke all on public.reading_checks   from anon, authenticated;
 revoke all on public.reading_notes    from anon, authenticated;
+revoke all on public.order_plans      from anon, authenticated;
+revoke all on public.prayer_list      from anon, authenticated;
 revoke all on public.harvest_rooms    from anon, authenticated;
 revoke all on public.harvest_players  from anon, authenticated;
 revoke all on public.harvest_rounds   from anon, authenticated;
@@ -524,6 +574,8 @@ grant select, insert, update, delete on public.my_verses    to authenticated;
 grant select, insert, update, delete on public.reading_settings to authenticated;
 grant select, insert, update, delete on public.reading_checks   to authenticated;
 grant select, insert, update, delete on public.reading_notes    to authenticated;
+grant select, insert, update, delete on public.order_plans      to authenticated;
+grant select, insert, update, delete on public.prayer_list      to authenticated;
 
 -- 함께 거두는 밭 — 로그인 없이 누구나. 지우기는 주지 않습니다.
 --   방은 「끝남」 표시만, 사람은 이름과 「자리에 있음」만, 차례는 이어 받기 ·
@@ -553,11 +605,13 @@ notify pgrst, 'reload schema';
 --   contest_verses       1     1   INSERT, SELECT, UPDATE    INSERT, SELECT, UPDATE
 --   contests             2     1   INSERT, SELECT(일부 칸만)  INSERT, SELECT(일부 칸만)
 --   personal_records     1     1   없음                      DELETE, INSERT, SELECT, UPDATE
+--   prayer_list          1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   typing_records       1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   fsrs_cards           1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   fsrs_settings        1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   study_days           1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   my_verses            1     1   없음                      DELETE, INSERT, SELECT, UPDATE
+--   order_plans          1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   reading_checks       1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   reading_notes        1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   reading_settings     1     1   없음                      DELETE, INSERT, SELECT, UPDATE
@@ -569,7 +623,7 @@ notify pgrst, 'reload schema';
 -- contest_entries 의 「일부 칸만」은 점수 칸, 함께 거두는 밭의 「일부 칸만」은
 -- 이어 받기 · 다 외움 · 결과 같은 칸입니다. contests 의 SELECT(일부 칸만)은
 -- 호스트 번호 지문(host_hash)만 빼고 읽을 수 있다는 뜻입니다.
--- 개인 기록 · 타이핑 · FSRS · 내 구절 · 성경 읽기 표의 anon 이 "없음" 인 것은 정상입니다.
+-- 개인 기록 · 타이핑 · FSRS · 내 구절 · 성경 읽기 · 성경순서로 · 기도 명단 표의 anon 이 "없음" 인 것은 정상입니다.
 -- 개인 기록은 로그인한 사람만 쓰라고 일부러 그렇게 둔 것입니다.
 
 select t.table_name as "표",
@@ -619,6 +673,7 @@ select t.table_name as "표",
    and t.table_name in ('contests','contest_entries','contest_verses',
                         'personal_records','typing_records','fsrs_cards','fsrs_settings',
                         'study_days','my_verses','reading_settings','reading_checks','reading_notes',
+                        'order_plans','prayer_list',
                         'harvest_rooms','harvest_players','harvest_rounds','harvest_votes')
  order by t.table_name;
 
