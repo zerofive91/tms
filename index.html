@@ -1238,6 +1238,9 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:searchfield-
 .sopts .counts{flex:1 1 220px}
 .sopts select{flex:1 1 140px;width:auto;padding:10px 12px}
 .schips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.smmode{margin:2px 0 10px}
+.smmode .cbtn small{font-weight:500;opacity:.8}
+.smother{margin:-2px 0 6px;text-align:right}
 .schips button,.bkchips button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:999px;
   padding:5px 11px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
 .schips button:hover{border-color:var(--brand);color:var(--brand)}
@@ -1341,6 +1344,83 @@ ul.slist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
 .bcgrid button:hover{border-color:var(--core);background:var(--tint)}
 .bcgrid button.last{border-color:var(--brand);color:var(--brand)}
 .bcgrid button.memo{box-shadow:inset 0 -3px 0 var(--core)}
+.bcgrid button.flash{animation:bcflash 1.4s ease}
+@keyframes bcflash{0%,40%{background:var(--core);border-color:var(--brand)}100%{}}
+.bcintro .bvsum{margin:12px 0 0;font-size:calc(14.5px * var(--fz));line-height:1.75;color:var(--ink)}
+.ainote{display:flex;align-items:flex-start;gap:8px;margin:10px 0 0;padding:8px 10px;border-radius:10px;
+  background:color-mix(in srgb,var(--accent,#E9C5AB) 22%,transparent);border:1px dashed color-mix(in srgb,var(--ink) 22%,transparent);
+  font-size:calc(12px * var(--fz));line-height:1.55;color:var(--ink-soft)}
+.ainote b{flex:0 0 auto;font-size:calc(10.5px * var(--fz));font-weight:800;letter-spacing:.04em;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:1px 7px;margin-top:1px}
+.ainote span{min-width:0}
+.btgmain .ainote{margin-top:8px}
+.bvmeta{margin:12px 0 0;display:grid;gap:6px}
+.bvmeta div{display:grid;grid-template-columns:calc(64px * var(--fz)) 1fr;gap:8px;align-items:baseline}
+.bvblk{margin-top:12px;padding:10px 12px;border-radius:11px;background:var(--bg);border:1px solid var(--line-soft)}
+.bvblk h5{margin:0 0 4px;font-size:calc(12px * var(--fz));font-weight:700;color:var(--brand);letter-spacing:.02em}
+.bvblk p{margin:0;font-size:calc(13.8px * var(--fz));line-height:1.7;color:var(--ink)}
+.bvmeta dt{font-size:calc(12px * var(--fz));font-weight:700;color:var(--brand)}
+.bvmeta dd{margin:0;font-size:calc(13.5px * var(--fz));line-height:1.6;color:var(--ink);min-width:0}
+.bvh{display:flex;align-items:baseline;gap:8px;margin:16px 0 8px;font-size:calc(13.5px * var(--fz));font-weight:700;color:var(--ink)}
+.bvh em{font-style:normal;font-size:calc(11.5px * var(--fz));font-weight:600;color:var(--ink-soft)}
+.gdbar{position:relative;display:flex;gap:2px;height:10px;border-radius:999px;overflow:visible}
+.gdbar span{display:block;height:100%;background:color-mix(in srgb,var(--core) 70%,var(--surface));border-radius:3px;min-width:3px}
+.gdbar span.alt{background:color-mix(in srgb,var(--core) 38%,var(--surface))}
+.gdbar span:first-child{border-radius:999px 3px 3px 999px}
+.gdbar span:last-child{border-radius:3px 999px 999px 3px}
+.gdbar span:only-child{border-radius:999px}
+.gdbar span.on{background:var(--brand)}
+.gdbar u{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--surface);border:3px solid var(--brand);box-sizing:border-box}
+.bvfl{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+.bvfl button{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;border:0;background:none;color:var(--ink);font:inherit;
+  padding:6px 4px;border-radius:9px;cursor:pointer}
+.bvfl button:hover{background:var(--tint)}
+.bvfl i,.bcsec h4 i{flex:0 0 auto;font-style:normal;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:11.5px;font-weight:700;color:var(--brand);background:var(--tint);margin-top:1px}
+.bvfl span{min-width:0;font-size:calc(14px * var(--fz));font-weight:600;line-height:1.5}
+.bvfl em,.bcsec h4 em{display:block;font-style:normal;font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--ink-soft)}
+.bvkeys{display:flex;flex-direction:column;gap:6px}
+.bvkeys button{display:block;text-align:left;border:1px solid var(--line-soft);background:var(--bg);color:var(--ink);border-radius:11px;padding:9px 11px;font:inherit;cursor:pointer}
+.bvkeys button:hover{border-color:var(--core)}
+.bvkeys b{display:block;font-size:calc(12px * var(--fz));color:var(--brand);margin-bottom:2px}
+.bvkeys span{display:block;font-family:"Gowun Batang",Georgia,serif;font-size:calc(14px * var(--fz));line-height:1.7}
+.bvkeys span:empty{display:none}
+.bvfold{margin-top:10px}
+.bchead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.bchead .eyebrow{margin:0}
+.bcview{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.bcview button{border:0;background:var(--surface);color:var(--ink-soft);font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;padding:5px 12px;cursor:pointer}
+.bcview button[aria-pressed="true"]{background:var(--brand);color:#fff}
+.bcgrid.list{display:block;margin-top:10px}
+.bcsec+.bcsec{margin-top:14px}
+.bcsec h4{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;display:flex;align-items:flex-start;gap:10px;margin:0 0 6px;padding:8px 2px;
+  background:var(--surface);font-size:calc(14px * var(--fz));font-weight:700;color:var(--ink);line-height:1.45}
+.bcsec h4 span{min-width:0}
+.bcgrid.list .bcrow{aspect-ratio:auto;display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;border:0;border-radius:11px;
+  background:none;padding:9px 8px;font:inherit;color:var(--ink);cursor:pointer;border-left:3px solid transparent}
+.bcgrid.list .bcrow+.bcrow{margin-top:2px}
+.bcgrid.list .bcrow:hover{background:var(--tint)}
+.bcgrid.list .bcrow.memo{box-shadow:none;border-left-color:var(--core)}
+.bcgrid.list .bcrow.last{background:color-mix(in srgb,var(--core) 18%,transparent)}
+.bcrow i{flex:0 0 auto;font-style:normal;min-width:calc(28px * var(--fz));font-size:calc(15px * var(--fz));font-weight:700;color:var(--brand);text-align:right;line-height:1.4}
+.bcrow span{min-width:0;flex:1 1 auto}
+.bcrow b{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:calc(14.5px * var(--fz));font-weight:700;line-height:1.4}
+.bcrow em{display:block;font-style:normal;font-size:calc(12.8px * var(--fz));color:var(--ink-soft);line-height:1.6;margin-top:2px}
+.bcrow small{font-size:calc(10.5px * var(--fz));font-weight:700;border-radius:999px;padding:1px 7px}
+.bcrow small.bcm{background:var(--tint);color:var(--brand)}
+.bcrow small.bcl{background:var(--brand);color:#fff}
+.btguide{margin-top:12px;border-top:1px solid var(--line-soft);padding-top:10px}
+.btgflow{display:block;width:100%;text-align:left;border:0;background:none;padding:0 0 4px;font:inherit;color:var(--ink-soft);cursor:pointer}
+.btgflow>span{display:block;font-size:calc(12px * var(--fz));line-height:1.5;margin-bottom:7px}
+.btgflow b{color:var(--ink)}
+.btgflow em{font-style:normal;white-space:nowrap}
+.btgflow .gdbar{height:7px}
+.btgmain{margin-top:10px}
+.btgt{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.btgt b{font-size:calc(15.5px * var(--fz));line-height:1.45;color:var(--ink);min-width:0}
+.btgfold{flex:0 0 auto;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:3px 10px;
+  font:inherit;font-size:calc(11.5px * var(--fz));font-weight:700;cursor:pointer}
+.btgmain p{margin:6px 0 0;font-size:calc(13.8px * var(--fz));line-height:1.7;color:var(--ink)}
 .bttop{display:flex;align-items:center;gap:10px}
 .btbook{flex:1 1 auto;min-width:0;text-align:left;border:0;background:none;padding:0;font:inherit;cursor:pointer;
   font-family:"Gowun Batang",Georgia,serif;font-size:calc(23px * var(--fz));font-weight:700;color:var(--ink)}
@@ -1399,19 +1479,80 @@ body.sheeting{overflow:hidden}
 
 /* ── 성경 지도 ── */
 .mapwrap{padding:10px}
-.mapbox{position:relative;height:min(62vh,460px);border-radius:12px;overflow:hidden;background:var(--mapsea);touch-action:none;
-  user-select:none;-webkit-user-select:none;cursor:grab}
-.mapbox:active{cursor:grabbing}
-.mapbox svg{display:block;width:100%;height:100%}
-:root{--mapsea:#cfe3ea;--mapland:#efe6d2;--mapcoast:#b9a98a;--mapriver:#7fa7b8;--mappin:#3C7C67;--mapsel:#C2662B}
-@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--mapsea:#13303a;--mapland:#26352c;--mapcoast:#4d6457;--mapriver:#3f7489;--mappin:#90E4C1;--mapsel:#F0925F} }
-:root[data-theme="dark"]{--mapsea:#13303a;--mapland:#26352c;--mapcoast:#4d6457;--mapriver:#3f7489;--mappin:#90E4C1;--mapsel:#F0925F}
+.mapbox{position:relative;height:min(62vh,460px);border-radius:12px;overflow:hidden;background:var(--mapsea);touch-action:pan-x pan-y;
+  user-select:none;-webkit-user-select:none;cursor:grab;-webkit-tap-highlight-color:transparent}
+.mapbox.grabbing{cursor:grabbing}
+.mapbox svg.mpbase{display:block;width:100%;height:100%}
+.mpov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mpbase.thm #mppins{opacity:.22}
+.maphint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(20,30,26,.78);color:#fff;border-radius:12px;
+  padding:10px 14px;font-size:calc(13px * var(--fz));font-weight:700;text-align:center;max-width:80%;opacity:0;transition:opacity .2s;pointer-events:none}
+.maphint.on{opacity:1}
+.mpcard{position:absolute;left:8px;right:8px;bottom:8px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;background:var(--surface);color:var(--ink);
+  border:1px solid var(--line);border-radius:12px;padding:8px 36px 8px 12px;box-shadow:0 4px 14px rgba(0,0,0,.15);cursor:default}
+.mpcard b{font-size:calc(14px * var(--fz));display:inline-flex;align-items:center;gap:6px}
+.mpcard b i{font-style:normal;min-width:20px;height:20px;padding:0 5px;border-radius:999px;font-size:11px;display:inline-flex;align-items:center;justify-content:center;
+  color:#fff;background:hsl(var(--h) 70% var(--lnl))}
+.mpcard span{flex:1 1 160px;min-width:0;font-size:calc(12px * var(--fz));color:var(--ink-soft)}
+.mpcard button{border:0;background:var(--tint);color:var(--brand);border-radius:999px;padding:5px 11px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
+.mpcard .mpx{position:absolute;right:6px;top:6px;background:none;color:var(--ink-soft);padding:4px 6px}
+.mapgest{margin:8px 2px 0;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);line-height:1.5}
+.mptabs{margin-bottom:10px}
+.thgrp{margin-top:4px}
+.thgrp+.thgrp{margin-top:10px}
+.thgrp>p{margin:0 0 6px;font-size:calc(12px * var(--fz));font-weight:700;color:var(--ink-soft);letter-spacing:.04em}
+.thchips{display:flex;flex-wrap:wrap;gap:6px}
+.thchips button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;
+  font-size:calc(13px * var(--fz));font-weight:600;cursor:pointer}
+.thchips button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+#mpthemes .textlink{margin-top:10px}
+.thdesc{margin:0 0 8px;line-height:1.65;font-size:calc(14px * var(--fz))}
+.thleg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:4px 0 6px;font-size:calc(12px * var(--fz));color:var(--ink-soft)}
+.thleg span{display:inline-flex;align-items:center;gap:6px}
+.thleg small{opacity:.8}
+.lgl{display:inline-block;width:22px;height:0;border-top:3px solid hsl(var(--h) 75% var(--lnl))}
+.lgl.sea{border-top:3px dashed var(--ink-soft)}
+.lga{display:inline-block;width:14px;height:12px;border-radius:3px;background:hsl(var(--h) 55% var(--arl) / .35);border:1.5px solid hsl(var(--h) 55% var(--arl))}
+.thst{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.thst li{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.thst li.on{border-color:var(--brand)}
+.thsel{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;width:100%;text-align:left;border:0;background:none;color:var(--ink);padding:10px 12px;font:inherit;cursor:pointer}
+.thsel i{grid-row:1 / span 2;font-style:normal;min-width:24px;height:24px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;background:hsl(var(--h) 70% var(--lnl));margin-top:1px}
+.thsel span{min-width:0}
+.thsel b{display:block;font-size:calc(14.5px * var(--fz))}
+.thsel em{display:block;font-style:normal;font-size:calc(12.5px * var(--fz));color:var(--ink-soft);line-height:1.5;margin-top:1px}
+.thsel small{grid-column:2;font-size:calc(11.5px * var(--fz));color:var(--brand);font-weight:700}
+.thvs{display:flex;flex-direction:column;gap:6px;padding:0 12px 10px 46px}
+.thv{display:block;text-align:left;border:0;border-radius:10px;background:var(--bg);color:var(--ink);padding:8px 10px;font:inherit;cursor:pointer}
+.thv b{display:block;font-size:calc(12px * var(--fz));color:var(--brand);margin-bottom:2px}
+.thv span{display:block;font-family:"Gowun Batang",serif;font-size:calc(14px * var(--fz));line-height:1.7}
+.thv .ld{font-family:inherit;color:var(--ink-soft);font-size:calc(12px * var(--fz))}
+.thst li .textlink{margin:0 12px 10px 46px}
+/* 덧그림 — 화면 px 단위 */
+.tar{fill:hsl(var(--h) 55% var(--arl) / .2);stroke:hsl(var(--h) 55% var(--arl) / .85);stroke-width:1.3;stroke-linejoin:round}
+.tlnb{fill:none;stroke:var(--mapland);stroke-width:6.5;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.tln{fill:none;stroke:hsl(var(--h) 75% var(--lnl));stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.tln.sea{stroke-dasharray:7 5;stroke-linecap:butt}
+.tarw{fill:hsl(var(--h) 75% var(--lnl));stroke:var(--mapland);stroke-width:1}
+.tst rect{fill:var(--surface);stroke:hsl(var(--h) 70% var(--lnl));stroke-width:2}
+.tst.sel rect{fill:hsl(var(--h) 70% var(--lnl));stroke:var(--surface);stroke-width:2.5}
+.tstn{font:700 10.5px "IBM Plex Sans KR",sans-serif;fill:hsl(var(--h) 70% var(--lnl))}
+.tst.sel .tstn{fill:#fff}
+.tsd{fill:var(--surface);stroke:hsl(var(--h) 70% var(--lnl));stroke-width:2.4}
+.tsl{font:700 12.5px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3.2px;stroke-linejoin:round;fill:var(--ink)}
+.tsl.sel{fill:var(--mapsel)}
+.tal{font:800 12px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;stroke-linejoin:round;fill:hsl(var(--h) 60% calc(var(--arl) - 14%))}
+.trl{font:600 11.5px "IBM Plex Sans KR",sans-serif;letter-spacing:.12em;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;fill:var(--ink-soft);opacity:.85}
+:root{--mapsea:#cfe3ea;--mapland:#efe6d2;--mapcoast:#b9a98a;--mapriver:#7fa7b8;--mappin:#3C7C67;--mapsel:#C2662B;--lnl:40%;--arl:46%}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--mapsea:#13303a;--mapland:#26352c;--mapcoast:#4d6457;--mapriver:#3f7489;--mappin:#90E4C1;--mapsel:#F0925F;--lnl:68%;--arl:64%} }
+:root[data-theme="dark"]{--mapsea:#13303a;--mapland:#26352c;--mapcoast:#4d6457;--mapriver:#3f7489;--mappin:#90E4C1;--mapsel:#F0925F;--lnl:68%;--arl:64%}
 .maptools{display:flex;gap:6px;margin-top:8px}
 .maptools button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;
   padding:8px 4px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
 .maptools button[data-mz="in"],.maptools button[data-mz="out"]{flex:0 0 44px;font-size:18px}
-.mplabel{font:700 13px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;fill:var(--ink)}
-.mplabel.sel{fill:var(--mapsel)}
+.mplabel{font:700 12.5px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)}
+.mplabel.sel{fill:var(--mapsel);font-size:15px}
 .mpin.rg{fill:none;stroke:var(--mappin);stroke-opacity:.7}
 .plmeta2{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 10px}
 .plmeta2 span{font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--ink-soft);background:var(--bg);border-radius:999px;padding:2px 9px}
@@ -1466,6 +1607,83 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
 .shimgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
 .shimgs a{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
 .shimgs img{display:block;width:100%;height:auto}
+
+/* ── 외우며 치기 ── */
+.mttop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mttop .eyebrow{margin:0}
+.mttop .vertoggle{margin:0}
+.mtaddr{margin:8px 0 0;font-family:"Gowun Batang",Georgia,serif;font-size:calc(22px * var(--fz));font-weight:700;color:var(--ink)}
+.mtsteps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:14px}
+.mtsteps button{display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  border-radius:12px;padding:8px 4px;font:inherit;font-size:calc(11.5px * var(--fz));font-weight:700;cursor:pointer;min-width:0;line-height:1.25;text-align:center}
+.mtsteps button i{font-style:normal;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--tint);color:var(--brand);font-size:12.5px}
+.mtsteps button i .ic{width:15px;height:15px}
+.mtsteps button.did i{background:var(--core);color:#fff}
+.mtsteps button[aria-selected="true"]{border-color:var(--brand);color:var(--ink);background:var(--tint)}
+.mtsteps button[aria-selected="true"] i{background:var(--brand);color:#fff}
+.mtdesc{margin:10px 2px 0;font-size:calc(13px * var(--fz));line-height:1.6;color:var(--ink-soft)}
+.mtopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mtchip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:5px 12px;font:inherit;
+  font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
+.mtchip[aria-pressed="true"]{border-color:var(--brand);color:var(--brand);background:var(--tint)}
+.mtchip[aria-pressed="true"]::before{content:"✓ "}
+.mtseg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.mtseg button{border:0;background:var(--surface);color:var(--ink-soft);font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;padding:5px 11px;cursor:pointer}
+.mtseg button[aria-pressed="true"]{background:var(--brand);color:#fff}
+.mtpanel{padding:18px 16px 14px}
+.mtbox{font-family:"Gowun Batang",Georgia,serif;font-size:calc(19px * var(--fz));line-height:2.15;color:var(--ink);word-break:keep-all;cursor:text;min-height:4em}
+.mtbox .mw{display:inline;white-space:nowrap;border-radius:6px}
+.mtbox .mw-title,.mtbox .mw-ref{font-family:"IBM Plex Sans KR",sans-serif;font-weight:700;font-size:.86em}
+.mtbox .mw-ref{color:var(--brand)}
+.mtbox b{font-weight:400}
+.mtbox .mw-title b,.mtbox .mw-ref b{font-weight:700}
+.mtbox b.f{color:color-mix(in srgb,var(--ink) 34%,transparent)}
+.mtbox b.t{color:var(--ink)}
+.mtbox b.c{color:color-mix(in srgb,var(--ink) 55%,transparent);box-shadow:inset 0 -3px 0 var(--brand)}
+.mtbox b.x{color:#fff;background:#D0533F;border-radius:4px}
+.mtbox b.pk{color:var(--accent-ink,var(--brand))}
+.mtbox b.ph{display:inline-block;width:.92em;height:1.15em;vertical-align:-.2em;box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--ink) 28%,transparent)}
+.mtbox b.ph.c{box-shadow:inset 0 -3px 0 var(--brand)}
+.mtbox b.ph.x{background:#D0533F}
+.mtbox b.pc{color:color-mix(in srgb,var(--ink) 34%,transparent)}
+.mtbox b.pc.on{color:var(--ink)}
+.mtbox .mw.ok b{color:var(--ink)}
+.mtbox .slot{display:inline-block;vertical-align:-.15em;min-width:calc(var(--len) * .95em);height:1.25em;border-radius:6px;
+  background:color-mix(in srgb,var(--core) 22%,transparent);box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--brand) 40%,transparent);text-align:left;padding:0 3px}
+.mtbox .slot em{font-style:normal;font-size:.8em;color:var(--brand);opacity:.85;line-height:1.25em;vertical-align:top}
+.mtbox .slot.cur{background:color-mix(in srgb,var(--core) 45%,transparent);box-shadow:inset 0 -3px 0 var(--brand)}
+.mtbox .slot.bad{background:color-mix(in srgb,#D0533F 30%,transparent);box-shadow:inset 0 -3px 0 #D0533F}
+.mtbox .mw.pop{animation:mtpop .45s ease}
+@keyframes mtpop{0%{background:color-mix(in srgb,var(--core) 55%,transparent)}100%{background:transparent}}
+.mtbox .mw.shake{animation:mtshake .4s ease}
+@keyframes mtshake{0%,100%{transform:none}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+.mtbox .mw.shake{display:inline-block}
+.mtstat{position:relative;isolation:isolate;display:flex;flex-wrap:wrap;gap:4px 12px;margin:12px 0 0;padding-bottom:8px;font-size:calc(12.5px * var(--fz));color:var(--ink-soft)}
+.mtstat b{color:var(--ink)}
+.mtstat i{position:absolute;left:0;bottom:0;height:4px;border-radius:4px;background:var(--core);transition:width .2s}
+.mtstat::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;border-radius:4px;background:var(--line-soft);z-index:-1}
+.mtbar{position:sticky;bottom:0;z-index:5;display:flex;gap:8px;align-items:stretch;margin:0 -4px;padding:10px 4px calc(10px + env(safe-area-inset-bottom,0px));
+  background:var(--bg);border-top:1px solid var(--line-soft)}
+.mtbar textarea{flex:1 1 auto;min-width:0;resize:none;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);color:var(--ink);
+  font:inherit;font-size:calc(17px * var(--fz));line-height:1.5;height:calc(3.2em + 4px)}
+.mtbar textarea:focus{outline:none;border-color:var(--brand)}
+.mtbtns{flex:0 0 auto;display:flex;flex-direction:column;gap:6px}
+.mtbtns button{flex:1 1 0;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:0 12px;font:inherit;
+  font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer;white-space:nowrap}
+.mtbtns #mthint{border-color:var(--brand);color:var(--brand)}
+.mtok{display:flex;align-items:center;gap:12px}
+.mtok>.ic{flex:0 0 auto;width:34px;height:34px;padding:7px;border-radius:50%;background:var(--core);color:#fff;box-sizing:border-box}
+.mtok b{display:block;font-size:calc(16px * var(--fz))}
+.mtok span{display:block;font-size:calc(12.5px * var(--fz));color:var(--ink-soft);margin-top:2px}
+.mttip{margin:10px 0 0;font-size:calc(13px * var(--fz));color:var(--ink-soft);line-height:1.6}
+.mtacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.mtacts button{flex:1 1 auto;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:11px 12px;font:inherit;
+  font-size:calc(14px * var(--fz));font-weight:700;cursor:pointer}
+.mtacts button.main{background:var(--brand);border-color:var(--brand);color:#fff;flex-basis:100%}
+.mtdots{flex:0 0 auto;display:inline-flex;gap:3px;margin-left:auto;margin-right:2px}
+.mtdots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.mtdots i.on{background:var(--core)}
 </style>
 </head>
 <body>
@@ -1977,7 +2195,7 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
     </div>
     <div class="vcnav">
       <button type="button" id="vcprev">&#8249; 앞 구절</button>
-      <button type="button" class="mid" id="vctype">타이핑으로 연습</button>
+      <button type="button" class="mid" id="vctype">타이핑으로 외우기</button>
       <button type="button" id="vcnext">다음 구절 &#8250;</button>
     </div>
     <div class="panel vcmy">
@@ -2019,6 +2237,36 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
     </div>
     <div class="actions" style="margin-bottom:20px">
       <button type="button" class="primary" id="mpdone">다 골랐습니다</button>
+    </div>
+  </div>
+
+  <!-- ===== 내 암송 · 외우며 치기 ===== -->
+  <div id="mtyp" hidden>
+    <div class="panel mthead">
+      <div class="mttop">
+        <p class="eyebrow" id="mtpos"></p>
+        <div class="vertoggle" id="mtver" role="group" aria-label="성경 역본">
+          <button type="button" data-ver="gae" aria-pressed="true">개역개정</button>
+          <button type="button" data-ver="han" aria-pressed="false">개역한글</button>
+        </div>
+      </div>
+      <h2 class="mtaddr" id="mtaddr"></h2>
+      <p class="rmeta" id="mtmeta" style="margin:2px 0 0"></p>
+      <div class="mtsteps" id="mtsteps" role="tablist" aria-label="외우는 단계"></div>
+      <p class="mtdesc" id="mtdesc"></p>
+      <div class="mtopts" id="mtopts"></div>
+    </div>
+    <div class="panel mtpanel">
+      <div class="mtbox" id="mtbox"></div>
+      <p class="mtstat" id="mtstat"></p>
+    </div>
+    <div class="panel mtdone" id="mtdone" hidden></div>
+    <div class="mtbar" id="mtbar">
+      <textarea id="mtin" rows="2" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-label="여기에 치세요"></textarea>
+      <div class="mtbtns">
+        <button type="button" id="mthint">힌트</button>
+        <button type="button" id="mtreset">처음부터</button>
+      </div>
     </div>
   </div>
 
@@ -2168,7 +2416,7 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
     </div>
     <div class="panel">
       <p class="eyebrow">인터넷 없이 읽기</p>
-      <p class="rmeta" style="margin:0 0 10px" id="bvofftext">한 번 연 책은 인터넷 없이도 열립니다. 66권을 한꺼번에 받아 둘 수도 있습니다(약 4.4MB).</p>
+      <p class="rmeta" style="margin:0 0 10px" id="bvofftext">한 번 연 책은 인터넷 없이도 열립니다. 66권 본문과 책 소개 · 장 요약을 한꺼번에 받아 둘 수도 있습니다(약 4.8MB).</p>
       <button type="button" class="go soft" id="bvoffline">성경 전체 받아 두기</button>
       <p class="fixednote" id="bvoffnote"></p>
     </div>
@@ -2179,7 +2427,12 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
     <div class="panel">
       <p class="eyebrow" id="bcgroup"></p>
       <h2 class="pvtitle" id="bctitle"></h2>
+      <div class="bcintro" id="bcintro"></div>
+    </div>
+    <div class="panel">
+      <div class="bchead"><p class="eyebrow" id="bclisthead">장 고르기</p><div class="bcview" id="bcview" hidden></div></div>
       <div class="bcgrid" id="bcgrid"></div>
+      <p class="srcnote">책 소개와 장 요약은 이 앱을 위해 새로 쓴 길잡이 글입니다. 저자 · 받는 사람 · 기록 시기는 전통적 견해를 따랐고 학자에 따라 다를 수 있습니다. AI를 이용해 작성한 내용이므로 기존 이론과 배치되는 경우 재확인이 필요합니다.</p>
     </div>
   </div>
 
@@ -2191,6 +2444,7 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
         <div class="btnav2"><button type="button" id="btprev2" aria-label="앞 장">&#8249;</button><button type="button" id="btnext2" aria-label="다음 장">&#8250;</button></div>
       </div>
       <p class="rdsum" id="btsub"></p>
+      <div class="btguide" id="btguide" hidden></div>
     </div>
     <div class="panel btbody"><div class="rdv" id="btverses"></div></div>
     <div class="panel" id="btwho">
@@ -2225,12 +2479,13 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
   <div id="smemo" hidden>
     <div class="panel">
       <p class="eyebrow">암송 카드 찾기 · 495구절</p>
+      <div class="counts smmode" id="smmode" role="group" aria-label="무엇에서 찾을까요"></div>
       <form class="sbox" id="smform" autocomplete="off">
-        <input type="search" id="smq" placeholder="시리즈 · 파트 · 소제목 · 구절 내용 · 주소" enterkeyhint="search">
+        <input type="search" id="smq" placeholder="제목에서 찾을 말" enterkeyhint="search">
         <button type="submit">찾기</button>
       </form>
       <div class="schips" id="smchips"></div>
-      <p class="fixednote">개역개정 · 개역한글 본문을 함께 찾습니다. 누르면 구절 카드가 열립니다.</p>
+      <p class="fixednote" id="smnote"></p>
     </div>
     <div id="smres"></div>
   </div>
@@ -2251,11 +2506,15 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
   <!-- ===== 성경 검색 · 성경 지도 ===== -->
   <div id="smap" hidden>
     <div class="panel">
-      <form class="sbox" id="mpform" autocomplete="off">
-        <input type="search" id="mpq" placeholder="지명 (예: 베들레헴 · 갈릴리)" enterkeyhint="search">
-        <button type="submit">찾기</button>
-      </form>
-      <div id="mpres"></div>
+      <div class="counts mptabs" id="mptabs" role="group" aria-label="지도 보기"></div>
+      <div id="mpfind">
+        <form class="sbox" id="mpform" autocomplete="off">
+          <input type="search" id="mpq" placeholder="지명 (예: 베들레헴 · 갈릴리)" enterkeyhint="search">
+          <button type="submit">찾기</button>
+        </form>
+        <div id="mpres"></div>
+      </div>
+      <div id="mpthemes" hidden><div id="mpthlist"></div></div>
     </div>
     <div class="panel mapwrap" id="mappanel">
       <div class="mapbox" id="mapbox"><p class="mineempty" style="padding:20px">지도를 불러오는 중…</p></div>
@@ -2265,7 +2524,9 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
         <button type="button" data-mz="land">이스라엘</button>
         <button type="button" data-mz="all">전체</button>
       </div>
+      <p class="mapgest">한 손가락으로 밀면 화면이 넘어갑니다 · 지도는 두 손가락으로 옮기고 확대하세요 (PC는 끌기 · Ctrl+휠)</p>
     </div>
+    <div class="panel" id="mapthm" hidden></div>
     <div class="panel" id="mapinfo" hidden></div>
     <p class="srcnote" id="mapsrc" style="margin:0 4px 16px"></p>
   </div>
@@ -3175,7 +3436,7 @@ var MODES=[
   {g:"search",  n:"성경 검색", cols:3, subs:[
     {k:"sverse",  icon:"search",  n:"성경구절", d:"낱말로 찾기"},
     {k:"smemo",   icon:"cardfind",n:"암송카드", d:"제목·내용"},
-    {k:"smap",    icon:"pin",     n:"성경지도", d:"지명·위치"},
+    {k:"smap",    icon:"pin",     n:"성경지도", d:"지명·테마 지도"},
     {k:"speople", icon:"people",  n:"성경인물", d:"가족·사건"},
     {k:"sxref",   icon:"xref",    n:"관주",     d:"TSK 교차참조"}]},
   {g:"check",   n:"암송 점검", cols:2, subs:[
@@ -6751,7 +7012,7 @@ function myRowHtml(v,idx,len){
   var html='<li><button type="button" class="myrow" data-my="open" data-k="'+esc(k)+'" style="--sc:'+s.c+
       ';--gc:var('+(g?"--g-"+g.k:"--line")+')">'+
     (MY.edit ? '<span class="mygrip" data-grip="1" data-k="'+esc(k)+'" aria-label="끌어서 순서 바꾸기">'+svg("grip")+'</span>' : svg(g?g.k:"none"))+
-    meta+'<span class="chev">&#8250;</span></button>';
+    meta+(MY.edit?'':mtDots(k))+'<span class="chev">&#8250;</span></button>';
   if(MY.edit) html+='<div class="myed">'+
       '<button type="button" class="mv" data-my="up" data-k="'+esc(k)+'" aria-label="위로"'+(idx<=0?' disabled':'')+'>'+svg("up")+'</button>'+
       '<button type="button" class="mv" data-my="down" data-k="'+esc(k)+'" aria-label="아래로"'+(idx>=len-1?' disabled':'')+'>'+svg("down")+'</button>'+
@@ -6801,7 +7062,7 @@ function paintMy(){
       '<div class="mpact">'+
         '<button type="button" data-my="flip">'+svg("cards")+'카드로 넘겨 보기</button>'+
         '<button type="button" data-my="recite">'+svg("recite")+'리사이팅</button>'+
-        '<button type="button" data-my="type">'+svg("type")+'타이핑</button>'+
+        '<button type="button" data-my="type">'+svg("type")+'외우며 치기</button>'+
         '<button type="button" data-my="glance">'+svg("glance")+'한눈에 보기</button>'+
         '<button type="button" data-my="share">'+svg("share")+'카드 공유</button>'+
       '</div></div>';
@@ -7797,11 +8058,12 @@ function paintOrderSetup(){
   $("odunit").innerHTML=[["m","개월"],["y","년"]].map(function(x){
     return '<button type="button" class="cbtn" data-oun="'+x[0]+'" aria-pressed="'+(d.unit===x[0])+'">'+x[1]+'</button>';
   }).join("");
-  var max=(d.unit==="y")?5:36, opts="";
+  var max=(d.unit==="y")?1:12, opts="";   /* 개월은 12개월까지, 년은 1년 */
   if(d.num>max) d.num=max;
+  if(d.rounds>3) d.rounds=3;
   for(var n=1;n<=max;n++) opts+='<option value="'+n+'"'+(n===d.num?' selected':'')+'>'+n+(d.unit==="y"?"년":"개월")+'</option>';
   $("odnum").innerHTML=opts;
-  $("odrounds").innerHTML=[1,2,3,4,5,7,10].map(function(n){
+  $("odrounds").innerHTML=[1,2,3].map(function(n){
     return '<button type="button" class="cbtn" data-orn="'+n+'" aria-pressed="'+(d.rounds===n)+'">'+n+'독</button>';
   }).join("");
   $("odrest").innerHTML=OD_RESTS.map(function(x){
@@ -8105,15 +8367,142 @@ function bvOfflineState(have){
   $("bvoffline").disabled=(have>=66);
   $("bvoffline").textContent = have>=66 ? "66권을 모두 받아 두었습니다" : "성경 전체 받아 두기"+(have?" ("+have+"권 받아 둠)":"");
 }
+/* ── 책 소개 · 장별 요약 (data/guide/g01.json …) ──
+   책마다 { tag 한 줄 별칭, au 저자, dt 기록 시기, th 핵심 주제, key 핵심 구절["책.장.절(-절)"], sum 요약,
+            fl 흐름[[처음 장, 끝 장, 단락 이름] …], ch 장마다[제목, 요약] }  — 이 앱을 위해 새로 쓴 글입니다. */
+/* AI 로 쓴 글(책 소개 · 장 요약 · 배경 · 테마 지도 · 사건 번역 · 한글 이름 맞춤)에 붙이는 안내 */
+var AI_NOTE="AI를 이용해 작성한 내용이므로 기존 이론과 배치되는 경우 재확인이 필요합니다.";
+function aiNote(extra){ return '<p class="ainote"><b>AI 작성</b><span>'+AI_NOTE+(extra?' '+extra:'')+'</span></p>'; }
+var GUIDE_VER="2", GUIDE={cache:{}, loading:{}};
+var BV_VIEW_KEY="navfest.bvview", BV_INTRO_KEY="navfest.bvintro", BV_SUM_KEY="navfest.bvsum";
+function lsRead(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
+function lsWrite(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function guideBook(bi){
+  if(GUIDE.cache[bi]) return Promise.resolve(GUIDE.cache[bi]);
+  if(GUIDE.loading[bi]) return GUIDE.loading[bi];
+  GUIDE.loading[bi]=fetch("data/guide/g"+p2(bi+1)+".json?v="+GUIDE_VER).then(function(r){
+    if(!r.ok) throw new Error("책 소개 파일을 찾지 못했습니다 ("+r.status+")");
+    return r.json();
+  }).then(function(j){ GUIDE.cache[bi]=j; delete GUIDE.loading[bi]; return j; },
+          function(e){ delete GUIDE.loading[bi]; throw e; });
+  return GUIDE.loading[bi];
+}
+function guideAll(){
+  var list=[], p=Promise.resolve();
+  for(var i=0;i<66;i++) if(!GUIDE.cache[i]) list.push(i);
+  for(var k=0;k<list.length;k+=8) (function(part){ p=p.then(function(){ return Promise.all(part.map(guideBook)); }); })(list.slice(k,k+8));
+  return p;
+}
+function gdRef(s){ var m=/^(\d+)\.(\d+)\.(\d+)(?:-(\d+))?$/.exec(s||""); return m?{bi:+m[1]-1, c:+m[2], v:+m[3], v2:m[4]?+m[4]:+m[3]}:null; }
+function gdRefName(r){ return BOOK_SHORT[r.bi]+" "+r.c+":"+r.v+(r.v2!==r.v?"-"+r.v2:""); }
+function gdFlowAt(g,c){ for(var i=0;i<g.fl.length;i++) if(c>=g.fl[i][0] && c<=g.fl[i][1]) return i; return -1; }
+function gdRange(bi,a,z){ return (a===z ? a : a+"–"+z)+chWord(bi); }
+/* 흐름 막대 — 단락마다 장 수만큼 너비. cur: 지금 단락(장 화면) · mark: 지금 장 */
+function gdBar(bi,g,cur,mark){
+  var n=CH_V[bi].length;
+  return '<div class="gdbar" aria-hidden="true">'+g.fl.map(function(f,i){
+    return '<span class="'+(i%2?'alt':'')+(i===cur?' on':'')+'" style="flex:'+(f[1]-f[0]+1)+' 1 0"></span>';
+  }).join("")+(mark?'<u style="left:'+((mark-0.5)/n*100).toFixed(2)+'%"></u>':'')+'</div>';
+}
+
 function openBook(bi){ BV.bi=bi; paintChapters(); show("bchap"); }
 function paintChapters(){
-  var bi=BV.bi, n=CH_V[bi].length, mc=memoChapters(), cat=bookCat(bi), L=BV.last;
+  var bi=BV.bi, n=CH_V[bi].length, cat=bookCat(bi), g=GUIDE.cache[bi];
   $("bcgroup").textContent=(cat?cat.t.n+" · "+cat.c[0]:"")+" · "+n+chWord(bi);
-  $("bctitle").innerHTML=esc(BOOK_ORDER[bi])+'<span>'+(bi===18?'편을':'장을')+' 고르세요</span>';
+  $("bctitle").innerHTML=esc(BOOK_ORDER[bi])+'<span id="bctag"></span>';
+  paintBookIntro(bi,g);
+  paintChapterList(bi,g);
+  if(!g) guideBook(bi).then(function(j){
+    if(screenNow!=="bchap" || BV.bi!==bi) return;
+    paintBookIntro(bi,j); paintChapterList(bi,j); scrollSettle();
+  },function(){ if(screenNow==="bchap" && BV.bi===bi) paintBookIntro(bi,null,true); });
+  bibBook(bi).then(function(){ if(screenNow==="bchap" && BV.bi===bi) bcKeyTexts(bi); }).catch(function(){});
+}
+function paintBookIntro(bi,g,failed){
+  var host=$("bcintro");
+  if(!g){
+    $("bctag").textContent=(bi===18?"편":"장")+"을 고르세요";
+    host.innerHTML='<p class="rmeta" style="margin:10px 0 0">'+(failed?(netOff()?"인터넷이 없어 책 소개를 불러오지 못했습니다. 아래에서 바로 장을 고를 수 있습니다.":"책 소개를 불러오지 못했습니다."):"책 소개를 불러오는 중…")+'</p>';
+    return;
+  }
+  $("bctag").textContent=g.tag;
+  var open=lsRead(BV_INTRO_KEY,"1")!=="0";
+  var fl=g.fl.map(function(f,i){
+    return '<li><button type="button" data-bcfl="'+i+'"><i>'+(i+1)+'</i><span><em>'+gdRange(bi,f[0],f[1])+'</em>'+esc(f[2])+'</span></button></li>';
+  }).join("");
+  var keys=g.key.map(function(s){
+    var r=gdRef(s); if(!r) return "";
+    return '<button type="button" data-bck="'+s+'"><b>'+esc(gdRefName(r))+'</b><span data-bckt="'+s+'"></span></button>';
+  }).join("");
+  host.innerHTML='<p class="bvsum">'+esc(g.sum)+'</p>'+aiNote()+
+    '<div class="bvmore"'+(open?'':' hidden')+'>'+
+      '<dl class="bvmeta">'+[["누가",g.au],["누구에게",g.to],["언제",g.dt],["어디서",g.pl]].filter(function(r){ return r[1]; }).map(function(r){
+        return '<div><dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd></div>'; }).join("")+'</dl>'+
+      [["어떤 상황에서",g.bg],["무엇을 위해",g.pu],["핵심 주제",g.th]].filter(function(r){ return r[1]; }).map(function(r){
+        return '<div class="bvblk"><h5>'+r[0]+'</h5><p>'+esc(r[1])+'</p></div>'; }).join("")+
+      '<h4 class="bvh">흐름<em>'+g.fl.length+'단락 · 누르면 그 단락으로</em></h4>'+gdBar(bi,g,-1,0)+'<ol class="bvfl">'+fl+'</ol>'+
+      '<h4 class="bvh">핵심 구절<em>누르면 본문으로</em></h4><div class="bvkeys">'+keys+'</div>'+
+    '</div>'+
+    '<button type="button" class="textlink bvfold" data-bcfold="1">'+(open?"소개 접기 ▴":"누가 · 누구에게 · 배경 · 목적 · 흐름 펼치기 ▾")+'</button>';
+  bcKeyTexts(bi);
+}
+function bcKeyTexts(bi){
+  document.querySelectorAll("#bcintro [data-bckt]").forEach(function(el){
+    var r=gdRef(el.dataset.bckt); if(!r || !BIB.cache[r.bi]) return;
+    var t=[]; for(var v=r.v; v<=r.v2; v++){ var x=bibVerse(r.bi,r.c,v); if(x) t.push(x); }
+    el.textContent=t.join(" ");
+  });
+}
+function paintChapterList(bi,g){
+  var n=CH_V[bi].length, mc=memoChapters(), L=BV.last, list=!!g && lsRead(BV_VIEW_KEY,"list")==="list";
+  $("bcview").hidden=!g;
+  $("bcview").innerHTML='<button type="button" data-bcv="list" aria-pressed="'+list+'">제목 · 요약</button><button type="button" data-bcv="grid" aria-pressed="'+(!list)+'">번호만</button>';
+  $("bclisthead").textContent=(bi===18?"편":"장")+" 고르기 · "+n+chWord(bi);
+  var host=$("bcgrid"); host.classList.toggle("list",list);
+  function cls(c){ return (mc.c[bi+"|"+c]?' memo':'')+(L&&L.bi===bi&&L.c===c?' last':''); }
   var h="";
-  for(var c=1;c<=n;c++) h+='<button type="button" data-bcc="'+c+'" class="'+(mc.c[bi+"|"+c]?'memo':'')+(L&&L.bi===bi&&L.c===c?' last':'')+'">'+c+'</button>';
-  $("bcgrid").innerHTML=h;
-  bibBook(bi).catch(function(){});
+  if(!list){
+    for(var c=1;c<=n;c++) h+='<button type="button" data-bcc="'+c+'" class="'+cls(c)+'"'+(g&&g.ch[c-1]?' title="'+esc(g.ch[c-1][0])+'"':'')+'>'+c+'</button>';
+    host.innerHTML=h; return;
+  }
+  g.fl.forEach(function(f,i){
+    h+='<section class="bcsec" id="bcsec'+i+'"><h4><i>'+(i+1)+'</i><span><em>'+gdRange(bi,f[0],f[1])+'</em>'+esc(f[2])+'</span></h4>';
+    for(var c=f[0]; c<=f[1]; c++){
+      var x=g.ch[c-1]||["",""], last=L&&L.bi===bi&&L.c===c;
+      h+='<button type="button" data-bcc="'+c+'" class="bcrow'+cls(c)+'"><i>'+c+'</i><span><b>'+esc(x[0])+
+        (mc.c[bi+"|"+c]?'<small class="bcm">암송</small>':'')+(last?'<small class="bcl">읽던 곳</small>':'')+'</b><em>'+esc(x[1])+'</em></span></button>';
+    }
+    h+='</section>';
+  });
+  host.innerHTML=h;
+}
+/* 흐름 단락으로 — 목록이면 그 단락 머리로, 번호만이면 그 단락 첫 장으로 */
+function bcJump(i){
+  var g=GUIDE.cache[BV.bi]; if(!g || !g.fl[i]) return;
+  SCROLL_WANT=null;
+  var el=$("bcsec"+i) || document.querySelector('#bcgrid [data-bcc="'+g.fl[i][0]+'"]');
+  if(!el) return;
+  var y=el.getBoundingClientRect().top+window.scrollY-($("bcsec"+i)?2:70);   /* 단락 머리가 맨 위에 붙도록 */
+  window.scrollTo({top:Math.max(0,y), behavior:"smooth"});
+  if(!$("bcsec"+i)){
+    for(var c=g.fl[i][0]; c<=g.fl[i][1]; c++){ var b=document.querySelector('#bcgrid [data-bcc="'+c+'"]'); if(b){ b.classList.remove("flash"); void b.offsetWidth; b.classList.add("flash"); } }
+  }
+}
+/* 장 화면 맨 위 — 이 장이 책의 흐름에서 어디쯤인지 · 장 제목과 요약 */
+function paintBtGuide(){
+  var bi=BV.bi, c=BV.c, g=GUIDE.cache[bi], box=$("btguide");
+  if(!g){
+    box.hidden=true;
+    guideBook(bi).then(function(){ if(screenNow==="btext" && BV.bi===bi && BV.c===c) paintBtGuide(); }).catch(function(){});
+    return;
+  }
+  var x=g.ch[c-1]; if(!x || !x[0]){ box.hidden=true; return; }
+  var i=gdFlowAt(g,c), f=g.fl[i], open=lsRead(BV_SUM_KEY,"1")!=="0";
+  box.hidden=false;
+  box.innerHTML=(f?'<button type="button" class="btgflow" data-btfl="'+i+'"><span>흐름 '+(i+1)+'/'+g.fl.length+' · <b>'+esc(f[2])+'</b> <em>'+gdRange(bi,f[0],f[1])+'</em></span>'+gdBar(bi,g,i,c)+'</button>':'')+
+    '<div class="btgmain"><div class="btgt"><b>'+esc(x[0])+'</b>'+
+      '<button type="button" class="btgfold" data-btfold="1" aria-expanded="'+open+'">'+(open?"요약 접기":"요약 보기")+'</button></div>'+
+      (open?'<p>'+esc(x[1])+'</p>'+aiNote():'')+'</div>';
 }
 /* 장 열기. opt.hl: 강조할 절(검색 · 관주 · 인물에서) · opt.v: 그 절로 · opt.stay: 지금 화면에서 바꾸기(앞 · 다음 장) */
 function openChapter(bi,c,opt){
@@ -8128,6 +8517,7 @@ function paintBText(){
   $("btbook").textContent=chName(bi,c);
   var cat=bookCat(bi);
   $("btsub").textContent=(cat?cat.t.n+" · "+cat.c[0]+" · ":"")+CH_V[bi][c-1]+"절 · 개역한글";
+  paintBtGuide();
   $("btprev").disabled=$("btprev2").disabled=(bi===0 && c===1);
   $("btnext").disabled=$("btnext2").disabled=(bi===65 && c===n);
   if(!BV.whoOpen){ $("btwholist").innerHTML=""; $("btwhobtn").hidden=false; }
@@ -8313,8 +8703,14 @@ function paintSvRes(){
   $("svres").innerHTML=h;
 }
 
-/* ═══ 성경 검색 · 암송 카드 ═══ */
-var SM_INDEX=null;
+/* ═══ 성경 검색 · 암송 카드 ═══
+   위에서 「제목」과 「내용」 가운데 하나를 고릅니다. 쓴 말이 띄어쓰기까지 그대로 들어 있는 카드만 나옵니다.
+     제목 — 과정 · 시리즈 · 파트 이름과 제목 · 카드 소제목 · 구절 주소
+     내용 — 지금 보는 역본(처음 화면에서 고른 개역개정/개역한글)의 구절 본문 */
+var SM_INDEX=null, SM={mode:"title"};
+try{ var smm0=localStorage.getItem("navfest.smmode"); if(smm0==="title"||smm0==="text") SM.mode=smm0; }catch(e){}
+var SM_CHIPS={title:["확신","지침","그리스도","성령","순종","전도","제자","기도","말씀","사랑"],
+              text:["구원","기도","말씀","사랑","믿음","성령","순종","증거","시험","평안"]};
 function smIndex(){
   if(SM_INDEX) return SM_INDEX;
   SM_INDEX=[];
@@ -8322,40 +8718,61 @@ function smIndex(){
     g.parts.forEach(function(p){
       p.list.forEach(function(a,i){
         var m=lookup(a,p.name)||{};
-        var hay=[g.course, g.group, p.name, p.title, m.s||"", m.t||"", m.n||"", a, m.a1||"", m.g||"", m.h||""].join(" ");
-        SM_INDEX.push({a:a, pn:p.name, g:g, p:p, m:m, i:i, hay:hay, hay2:hay.replace(/\s/g,"")});
+        var title=[g.course, g.group, p.name, p.title, m.s||"", m.t||"", m.n||"", a, m.a1||""].join("\n");
+        SM_INDEX.push({a:a, pn:p.name, g:g, p:p, m:m, i:i, title:title});
       });
     });
   });
   return SM_INDEX;
 }
+function smText(e){ return state.ver==="han"?(e.m.h||e.m.g||""):(e.m.g||""); }
+function smVerName(){ return state.ver==="han"?"개역한글":"개역개정"; }
+function paintSmMode(){
+  $("smmode").innerHTML=[["title","제목에서 찾기","시리즈 · 파트 · 소제목 · 주소"],["text","내용에서 찾기","구절 본문 · "+smVerName()]].map(function(x){
+    return '<button type="button" class="cbtn" data-smm="'+x[0]+'" aria-pressed="'+(SM.mode===x[0])+'">'+x[1]+'<br><small>'+x[2]+'</small></button>';
+  }).join("");
+  $("smq").placeholder = SM.mode==="title" ? "제목에서 찾을 말 (예: 확신 · 요한복음)" : "본문에서 찾을 말 (예: 하나님의 사랑)";
+  $("smchips").innerHTML=SM_CHIPS[SM.mode].map(function(w){ return '<button type="button" data-smw="'+w+'">'+w+'</button>'; }).join("");
+  $("smnote").textContent = SM.mode==="title"
+    ? "쓴 말이 띄어쓰기까지 그대로 들어 있는 제목만 찾습니다. 누르면 구절 카드가 열립니다."
+    : "지금 보는 역본("+smVerName()+")의 본문에서, 쓴 말이 띄어쓰기까지 그대로 들어 있는 구절만 찾습니다.";
+}
+function smSetMode(m){
+  if(m!=="title" && m!=="text") return;
+  SM.mode=m; try{ localStorage.setItem("navfest.smmode",m); }catch(e){}
+  paintSmMode(); smRun();
+}
 function openSearchMemo(){
-  $("smchips").innerHTML=["구원","기도","말씀","사랑","믿음","성령","순종","증거","시험","확신"].map(function(w){
-    return '<button type="button" data-smw="'+w+'">'+w+'</button>'; }).join("");
+  paintSmMode();
   show("smemo");
   if(!$("smq").value) setTimeout(function(){ try{ $("smq").focus(); }catch(e){} },200);
+  else smRun();
+}
+function smHits(q,mode){
+  return smIndex().filter(function(e){ return (mode==="title" ? e.title : smText(e)).indexOf(q)>=0; });
 }
 function smRun(){
   var q=$("smq").value.replace(/\s+/g," ").trim(), host=$("smres");
   if(!q){ host.innerHTML=""; return; }
-  var words=q.split(" ").filter(String);
-  var hits=smIndex().filter(function(e){
-    return words.every(function(w){ return e.hay.indexOf(w)>=0 || e.hay2.indexOf(w.replace(/\s/g,""))>=0; });
-  });
+  var mode=SM.mode, other=mode==="title"?"text":"title";
+  var hits=smHits(q,mode), nOther=smHits(q,other).length;
   var byPart={}, order=[];
   hits.forEach(function(e){ if(!byPart[e.pn]){ byPart[e.pn]=[]; order.push(e.pn); } byPart[e.pn].push(e); });
-  var h='<div class="panel"><div class="shead"><b>'+hits.length+'구절</b><span>'+esc(q)+' · '+order.length+'파트</span></div>';
-  if(!hits.length) h+='<p class="mineempty">찾는 말이 들어 있는 암송 카드가 없습니다.</p>';
+  var words=[q];
+  var h='<div class="panel"><div class="shead"><b>'+hits.length+'구절</b><span>「'+esc(q)+'」 · '+(mode==="title"?"제목":"내용")+'에서 · '+order.length+'파트</span></div>';
+  if(!hits.length) h+='<p class="mineempty">'+"「"+esc(q)+"」 — "+(mode==="title"?"제목":"본문")+'에 이 말이 그대로 들어 있는 암송 카드가 없습니다.'+
+    (nOther?' <button type="button" class="textlink" data-smm="'+other+'">'+(other==="title"?"제목":"내용")+'에서는 '+nOther+'구절 →</button>':'')+'</p>';
+  else if(nOther) h+='<p class="smother"><button type="button" class="textlink" data-smm="'+other+'">'+(other==="title"?"제목":"내용")+'에서 찾으면 '+nOther+'구절 →</button></p>';
   order.forEach(function(pn){
     var p=PART_BY_NAME[pn], g=byPart[pn][0].g;
-    h+='<p class="psvb">'+esc(groupLabel(g))+' · '+esc(pn)+' '+esc(p.title||"")+'</p><ul class="slist">'+byPart[pn].map(function(e){
-      var txt=state.ver==="han"?(e.m.h||e.m.g||""):(e.m.g||"");
-      var inTxt=words.some(function(w){ return txt.indexOf(w)>=0; });
-      return '<li><button type="button" class="srow" data-smgo="'+esc(e.a)+'" data-smpn="'+esc(pn)+'"><span class="sa"><b>'+esc(e.a)+'</b><em>'+
-        hlText(e.m.n||"",words)+'</em></span><span class="st">'+(inTxt?hlText(txt,words):esc(txt))+'</span></button></li>';
+    var head=groupLabel(g)+' · '+pn+' '+(p.title||"");
+    h+='<p class="psvb">'+(mode==="title"?hlText(head,words):esc(head))+'</p><ul class="slist">'+byPart[pn].map(function(e){
+      var txt=smText(e);
+      return '<li><button type="button" class="srow" data-smgo="'+esc(e.a)+'" data-smpn="'+esc(pn)+'"><span class="sa"><b>'+(mode==="title"?hlText(e.a,words):esc(e.a))+'</b><em>'+
+        (mode==="title"?hlText(e.m.n||"",words):esc(e.m.n||""))+'</em></span><span class="st">'+(mode==="text"?hlText(txt,words):esc(txt))+'</span></button></li>';
     }).join("")+'</ul>';
   });
-  h+='<p class="srcnote">본문은 처음 화면에서 고른 역본('+(state.ver==="han"?"개역한글":"개역개정")+')으로 보입니다. 두 역본을 함께 찾습니다.</p></div>';
+  h+='</div>';
   host.innerHTML=h;
 }
 
@@ -8452,7 +8869,7 @@ function loadPeople(){
 function loadPlaces(){
   if(PLC.rows) return Promise.resolve(PLC);
   if(PLC.loading) return PLC.loading;
-  PLC.loading=fetch("data/places.json?v=1").then(function(r){ if(!r.ok) throw new Error("지명 자료를 찾지 못했습니다 ("+r.status+")"); return r.json(); })
+  PLC.loading=fetch("data/places.json?v=2").then(function(r){ if(!r.ok) throw new Error("지명 자료를 찾지 못했습니다 ("+r.status+")"); return r.json(); })
     .then(function(j){ PLC.rows=j.p; PLC.src=j.src; indexRows(PLC,6); PLC.loading=null; return PLC; },
           function(e){ PLC.loading=null; throw e; });
   return PLC.loading;
@@ -8539,7 +8956,7 @@ function paintPerson(){
     var ev=PPL.ev[e]; if(!ev) return '';
     var rf=ev[2]?ev[2].split("."):null;
     return '<li><button type="button"'+(rf?' data-ppgo="'+(+rf[0]-1)+'|'+rf[1]+'|'+rf[2]+'|0"':'')+'><b>'+esc(ev[0])+'</b><em>'+esc(yearText(ev[1]))+'</em></button></li>';
-  }).join("")+'</ul><p class="srcnote">사건과 연대: Theographic Bible Metadata (CC BY-SA 4.0). 연대는 전통적 성경 연대기에 따른 추정입니다.</p></div>';
+  }).join("")+'</ul><p class="srcnote">사건과 연대: Theographic Bible Metadata (CC BY-SA 4.0). 연대는 전통적 성경 연대기에 따른 추정입니다. 사건 이름의 한국어 번역과 한글 인물 이름 맞춤은 '+AI_NOTE+'</p></div>';
   if(r[15] && r[15].length) h+='<div class="panel"><p class="eyebrow">기록한 책(전통적으로)</p><div class="whog" style="margin:0"><div>'+r[15].map(function(b){
     return '<button type="button" data-ppbk="'+(b-1)+'">'+esc(BOOK_ORDER[b-1])+'</button>'; }).join("")+'</div></div></div>';
   h+='<div class="panel"><p class="eyebrow">나오는 곳 · '+refs.length+'절</p><div id="psrefs">'+refListHtml(refs,PS.more,"data-ppgo")+'</div>'+
@@ -8554,25 +8971,58 @@ function paintPerson(){
 
 /* ═══ 성경 검색 · 성경 지도 ═══
    지도 바탕은 Natural Earth(퍼블릭 도메인)를 줄여서 그린 것이고(data/map.json), 지명과 위치는 OpenBible.info.
-   인터넷이 없어도 열립니다. 핀을 누르면 그곳 정보와 나오는 절이 보이고, 구글 · OSM 지도로 자세히 볼 수 있습니다. */
-var MP={map:null, vb:null, sel:-1, q:"", drag:null, pts:{}, ready:false, svg:null, more:10, fold:false};
+   인터넷이 없어도 열립니다. 핀을 누르면 그곳 정보와 나오는 절이 보이고, 구글 지도로 자세히 볼 수 있습니다.
+   ─ 바탕(땅 · 바다 · 핀)은 viewBox 로 확대하고, 이름표 · 테마 선 · 면 · 번호는 화면 좌표 덧그림(#mpov)에 그립니다.
+     그래서 아무리 확대해도 글자와 선 굵기가 같은 크기로 보입니다.
+   ─ 손가락: 한 손가락은 화면을 넘기고(지도에 갇히지 않게), 두 손가락으로 지도를 옮기고 확대합니다.
+     마우스: 끌어서 옮기고, Ctrl(⌘) + 휠로 확대합니다. ＋ − 단추도 있습니다.
+   ─ 테마 지도(data/themes.json): 선교여행 · 출애굽 같은 경로(선), 정류장(점), 지파 · 왕국 · 지역(면). */
+var MP={map:null, vb:null, sel:-1, q:"", pts:{}, ready:false, svg:null, more:10, fold:false,
+        tab:"find", th:-1, ts:-1, thm:null, raf:0, hintT:0, drag:null, moved:false, pinchAt:0};
+try{ var mpt0=localStorage.getItem("navfest.mptab"); if(mpt0==="theme") MP.tab="theme"; }catch(e){}
 function mpXY(lon,lat){ var m=MP.map; return [(lon-m.lon0)*m.c*m.k, (m.lat0-lat)*m.k]; }
 function loadMap(){
   if(MP.map) return Promise.resolve(MP.map);
   return fetch("data/map.json?v=1").then(function(r){ if(!r.ok) throw new Error("지도 자료를 찾지 못했습니다 ("+r.status+")"); return r.json(); })
     .then(function(j){ MP.map=j; return j; });
 }
+function loadThemes(){
+  if(MP.thm) return Promise.resolve(MP.thm);
+  return fetch("data/themes.json?v=1").then(function(r){ if(!r.ok) throw new Error("테마 지도 자료를 찾지 못했습니다 ("+r.status+")"); return r.json(); })
+    .then(function(j){ MP.thm=j; return j; });
+}
 function openMap(sel){
+  if(sel!==undefined && sel>=0){ MP.tab="find"; MP.th=-1; MP.ts=-1; }
   show("smap");
+  mpPaintTabs();
   Promise.all([loadMap(),loadPlaces()]).then(function(){
     if(!MP.ready) mpBuild();
     if(sel!==undefined && sel>=0) mpSelect(sel,true);
+    else if(MP.th>=0) mpApply();
     else if(MP.sel<0) mpView("land");
+    else mpApply();
     mpList();
-    $("mapsrc").innerHTML='지명 · 위치: <a href="https://www.openbible.info/geo/" target="_blank" rel="noopener">OpenBible.info</a> Bible Geocoding Data (CC BY 4.0) · 지도: Natural Earth (퍼블릭 도메인). 한글 이름은 개역한글 본문과 절 번호로 맞춰 확인한 것만 실었습니다.';
+    if(MP.tab==="theme") mpThemeList();
+    mpSrc();
   },function(e){
     $("mapbox").innerHTML='<p class="mineempty" style="padding:20px">'+(netOff()?"인터넷이 없어 지도를 불러오지 못했습니다. 한 번 연 뒤로는 인터넷 없이도 열립니다.":esc(String(e&&e.message||e)))+'</p>';
   });
+}
+function mpSrc(){
+  $("mapsrc").innerHTML='지명 · 위치: <a href="https://www.openbible.info/geo/" target="_blank" rel="noopener">OpenBible.info</a> Bible Geocoding Data (CC BY 4.0) · 지도: Natural Earth (퍼블릭 도메인). 한글 이름은 개역한글 본문과 절 번호로 맞춰 확인한 것만 실었습니다.'+
+    (MP.th>=0?' 테마 지도의 경로와 경계는 성경 본문과 일반적인 성경 지도책을 따라 대략 그린 것입니다.':'')+' 한글 이름 맞춤과 테마 지도는 '+AI_NOTE;
+}
+function mpPaintTabs(){
+  $("mptabs").innerHTML=[["find","지명 찾기"],["theme","테마 지도"]].map(function(x){
+    return '<button type="button" class="cbtn" data-mptab="'+x[0]+'" aria-pressed="'+(MP.tab===x[0])+'">'+x[1]+'</button>'; }).join("");
+  $("mpfind").hidden=MP.tab!=="find";
+  $("mpthemes").hidden=MP.tab!=="theme";
+}
+function mpSetTab(k){
+  MP.tab=k; try{ localStorage.setItem("navfest.mptab",k); }catch(e){}
+  mpPaintTabs();
+  if(k==="theme") mpThemeList();
+  else if(MP.th>=0) mpTheme(-1);
 }
 function mpBuild(){
   var m=MP.map, ns="http://www.w3.org/2000/svg";
@@ -8580,16 +9030,19 @@ function mpBuild(){
     if(r[2]==null) return '';
     var p=mpXY(r[2],r[3]); MP.pts[i]=p;
     var rg=/지역|산지|족속/.test(r[5]||"");
-    return '<circle class="mpin'+(rg?' rg':'')+'" data-pl="'+i+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>';
+    return '<circle class="mpin'+(rg?' rg':'')+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>';
   }).join("");
-  $("mapbox").innerHTML='<svg xmlns="'+ns+'" viewBox="0 0 '+m.w+' '+m.h+'" preserveAspectRatio="xMidYMid meet">'+
+  $("mapbox").innerHTML='<svg class="mpbase" xmlns="'+ns+'" viewBox="0 0 '+m.w+' '+m.h+'" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'+
     '<rect x="-2000" y="-2000" width="'+(m.w+4000)+'" height="'+(m.h+4000)+'" fill="var(--mapsea)"/>'+
     '<path d="'+m.land+'" fill="var(--mapland)"/><path d="'+m.landd+'" fill="var(--mapland)"/>'+
     '<path class="mcoast" d="'+m.coast+'" fill="none" stroke="var(--mapcoast)"/><path class="mcoastd" d="'+m.coastd+'" fill="none" stroke="var(--mapcoast)"/>'+
     '<path class="mriver" d="'+m.rivers+'" fill="none" stroke="var(--mapriver)"/>'+
     '<path class="mlake" d="'+m.lakes+'" fill="var(--mapsea)" stroke="var(--mapcoast)"/>'+
-    '<g id="mppins" fill="var(--mappin)" fill-opacity=".75" stroke="var(--mapland)">'+pins+'</g><g id="mplabels"></g><g id="mpsel"></g></svg>';
-  MP.svg=$("mapbox").querySelector("svg");
+    '<g id="mppins" fill="var(--mappin)" fill-opacity=".75" stroke="var(--mapland)">'+pins+'</g></svg>'+
+    '<svg class="mpov" id="mpov" xmlns="'+ns+'" aria-hidden="true"></svg>'+
+    '<div class="maphint" id="maphint" hidden></div>'+
+    '<div class="mpcard" id="mpcard" hidden></div>';
+  MP.svg=$("mapbox").querySelector("svg.mpbase");
   MP.ready=true;
   mpBindPan();
 }
@@ -8597,101 +9050,250 @@ function mpView(which){
   var m=MP.map, d=m.det;
   if(which==="all") MP.vb=[0,0,m.w,m.h];
   else if(which==="land"){ var cx=(d[0]+d[2])/2+40, cy=(d[1]+d[3])/2-40, w=(d[2]-d[0])*0.55; MP.vb=[cx-w/2,cy-w*0.6,w,w*1.2]; }
+  else if(which==="theme" && MP.th>=0){ mpFitTheme(); return; }
   mpApply();
 }
 function mpApply(){
-  if(!MP.svg) return;
+  if(!MP.svg || !MP.vb) return;
   var vb=MP.vb, box=MP.svg.getBoundingClientRect(), pxw=Math.max(1,box.width), pxh=Math.max(1,box.height);
   /* 화면 비율에 맞게 */
   var asp=pxh/pxw, cx=vb[0]+vb[2]/2, cy=vb[1]+vb[3]/2, w=vb[2], h=vb[3];
   if(h/w<asp) h=w*asp; else w=h/asp;
-  MP.vb=[cx-w/2,cy-h/2,w,h];
-  MP.svg.setAttribute("viewBox",MP.vb.map(function(x){ return x.toFixed(1); }).join(" "));
+  MP.vb=[cx-w/2,cy-h/2,w,h]; MP.pxw=pxw; MP.pxh=pxh;
+  MP.svg.setAttribute("viewBox",MP.vb.map(function(x){ return x.toFixed(2); }).join(" "));
   var u=w/pxw;                     /* 화면 1px = 지도 몇 칸 */
   MP.u=u;
-  MP.svg.querySelectorAll(".mpin").forEach(function(c){
-    var rg=c.classList.contains("rg");
-    c.setAttribute("r",((rg?5.5:3.4)*u).toFixed(2)); c.setAttribute("stroke-width",((rg?1.6:0.8)*u).toFixed(2));
-  });
-  [["mcoast",1.1],["mcoastd",.9],["mriver",1.2],["mlake",.8]].forEach(function(x){
-    var el=MP.svg.querySelector("."+x[0]); if(el) el.setAttribute("stroke-width",(x[1]*u).toFixed(2));
-  });
-  mpLabels();
+  var pin=MP.svg.querySelector("#mppins");
+  if(pin && MP.pinU!==u){
+    MP.pinU=u;
+    pin.querySelectorAll(".mpin").forEach(function(c){
+      var rg=c.classList.contains("rg");
+      c.setAttribute("r",((rg?5.5:3.4)*u).toFixed(3)); c.setAttribute("stroke-width",((rg?1.6:0.8)*u).toFixed(3));
+    });
+    [["mcoast",1.1],["mcoastd",.9],["mriver",1.2],["mlake",.8]].forEach(function(x){
+      var el=MP.svg.querySelector("."+x[0]); if(el) el.setAttribute("stroke-width",(x[1]*u).toFixed(3));
+    });
+  }
+  MP.svg.classList.toggle("thm",MP.th>=0);
+  if(!MP.raf) MP.raf=requestAnimationFrame(function(){ MP.raf=0; mpDraw(); });
 }
-/* 이름표 — 확대할수록 많이. 많이 나오는 곳부터, 서로 겹치지 않게 */
-function mpLabels(){
-  var g=$("mplabels"); if(!g) return;
-  var vb=MP.vb, u=MP.u, fs=12.5*u, placed=[], out="", maxN=Math.max(6,Math.min(60,Math.round(240/((vb[2]/u)/40+1))));
-  var order=PLC.rows.map(function(_,i){ return i; }).filter(function(i){ var p=MP.pts[i]; return p && p[0]>vb[0] && p[0]<vb[0]+vb[2] && p[1]>vb[1] && p[1]<vb[1]+vb[3]; })
-    .sort(function(a,b){ return PLC.cnt[b]-PLC.cnt[a]; });
-  for(var k=0;k<order.length && placed.length<maxN;k++){
-    var i=order[k], p=MP.pts[i], name=PLC.rows[i][0], w=name.length*fs*1.02, x=p[0]+6*u, y=p[1]+fs*0.35;
-    var box=[x,y-fs,x+w,y+fs*0.3], hit=placed.some(function(b){ return !(box[2]<b[0]||box[0]>b[2]||box[3]<b[1]||box[1]>b[3]); });
-    if(hit) continue;
-    placed.push(box);
-    out+='<text class="mplabel" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="'+fs.toFixed(2)+'" stroke-width="'+(3*u).toFixed(2)+'" data-pl="'+i+'">'+esc(name)+'</text>';
-  }
-  g.innerHTML=out;
-  var s=$("mpsel");
-  if(s){
+/* 지도 좌표 → 화면 px */
+function mpSX(x){ return (x-MP.vb[0])/MP.vb[2]*MP.pxw; }
+function mpSY(y){ return (y-MP.vb[1])/MP.vb[3]*MP.pxh; }
+function mpLL(ll){ var p=mpXY(ll[0],ll[1]); return [mpSX(p[0]),mpSY(p[1])]; }
+function mpTxt(x,y,s,cls,extra){
+  return '<text class="'+cls+'" x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'"'+(extra||'')+'>'+esc(s)+'</text>';
+}
+function mpTW(s,fs){ var w=0; for(var i=0;i<s.length;i++){ var c=s.charCodeAt(i); w+= c>0x2e80 ? fs*0.98 : (c===32?fs*0.3:fs*0.58); } return w; }
+function mpHit(b,placed){ for(var i=0;i<placed.length;i++){ var a=placed[i]; if(!(b[2]<a[0]||b[0]>a[2]||b[3]<a[1]||b[1]>a[3])) return true; } return false; }
+function mpDraw(){
+  var ov=$("mpov"); if(!ov || !MP.vb) return;
+  var W=MP.pxw, H=MP.pxh, out="", placed=[], FS=12.5;
+  function inView(x,y,m){ m=m||40; return x>-m && x<W+m && y>-m && y<H+m; }
+  if(MP.th>=0 && MP.thm){
+    var T=MP.thm.th[MP.th];
+    /* 면 */
+    (T.ar||[]).forEach(function(a){
+      var d=a.p.map(function(poly){ return "M"+poly.map(function(ll){ var q=mpLL(ll); return q[0].toFixed(1)+" "+q[1].toFixed(1); }).join("L")+"Z"; }).join("");
+      out+='<path d="'+d+'" class="tar" style="--h:'+a.h+'"/>';
+    });
+    /* 선 — 바탕 테두리를 먼저, 그 위에 색 선 */
+    var lines=(T.ln||[]).map(function(l){
+      return {l:l, legs:l.legs.map(function(g){ return {k:g.k, p:g.p.map(mpLL)}; })};
+    });
+    lines.forEach(function(L){ L.legs.forEach(function(g){
+      out+='<polyline class="tlnb" points="'+g.p.map(function(q){ return q[0].toFixed(1)+","+q[1].toFixed(1); }).join(" ")+'"/>';
+    }); });
+    lines.forEach(function(L){
+      L.legs.forEach(function(g){
+        out+='<polyline class="tln'+(g.k==="s"?" sea":"")+'" style="--h:'+L.l.h+'" points="'+g.p.map(function(q){ return q[0].toFixed(1)+","+q[1].toFixed(1); }).join(" ")+'"/>';
+        if(L.l.dir){   /* 가는 방향 화살표 — 충분히 긴 마디 가운데 */
+          for(var i=1;i<g.p.length;i++){
+            var a=g.p[i-1], b=g.p[i], dx=b[0]-a[0], dy=b[1]-a[1], len=Math.hypot(dx,dy);
+            if(len<46) continue;
+            var mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2; if(!inView(mx,my,0)) continue;
+            var ux=dx/len, uy=dy/len, s=5.5;
+            out+='<path class="tarw" style="--h:'+L.l.h+'" d="M'+(mx+ux*s).toFixed(1)+" "+(my+uy*s).toFixed(1)+"L"+(mx-ux*s-uy*s*.8).toFixed(1)+" "+(my-uy*s+ux*s*.8).toFixed(1)+
+              "L"+(mx-ux*s+uy*s*.8).toFixed(1)+" "+(my-uy*s-ux*s*.8).toFixed(1)+'Z"/>';
+          }
+        }
+      });
+    });
+    /* 정류장 — 같은 자리는 한 동그라미에 번호를 이어서 */
+    var groups=[], byKey={};
+    T.st.forEach(function(s,i){
+      var k=s.ll[0]+","+s.ll[1];
+      if(byKey[k]===undefined){ byKey[k]=groups.length; groups.push({ll:s.ll, ids:[i]}); } else groups[byKey[k]].ids.push(i);
+    });
+    var marks="", dots="", labs="";
+    /* 번호 동그라미가 겹치면 — 고른 곳과 앞 번호를 살리고, 나머지는 작은 점으로(확대하면 번호가 보입니다) */
+    groups.forEach(function(g){ var q=mpLL(g.ll); g.x=q[0]; g.y=q[1]; g.small=false; });
+    groups.slice().sort(function(a,b){
+      var sa=a.ids.indexOf(MP.ts)>=0?0:1, sb=b.ids.indexOf(MP.ts)>=0?0:1; return sa-sb || a.ids[0]-b.ids[0];
+    }).forEach(function(g){
+      var s0=T.st[g.ids[0]], hue=mpStopHue(T,s0);
+      var txt=g.ids.map(function(i){ return i+1; }).join("·");
+      var sel=g.ids.indexOf(MP.ts)>=0;
+      var w=Math.max(18, mpTW(txt,10.5)+9), h=18;
+      g.box=[g.x-w/2-2,g.y-h/2-2,g.x+w/2+2,g.y+h/2+2];
+      if(!inView(g.x,g.y)) return;
+      if(!sel && mpHit(g.box,placed)){
+        g.small=true; g.box=[g.x-5,g.y-5,g.x+5,g.y+5];
+        dots+='<circle class="tsd" style="--h:'+hue+'" cx="'+g.x.toFixed(1)+'" cy="'+g.y.toFixed(1)+'" r="4.2"/>';
+        return;
+      }
+      marks+='<g class="tst'+(sel?' sel':'')+'" style="--h:'+hue+'"><rect x="'+(g.x-w/2).toFixed(1)+'" y="'+(g.y-h/2).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h+'" rx="9"/>'+
+        mpTxt(g.x,g.y+3.8,txt,"tstn",' text-anchor="middle"')+'</g>';
+      placed.push(g.box);
+    });
+    marks=dots+marks;
+    MP.tgroups=groups;
+    /* 정류장 이름 — 고른 곳 먼저, 그다음 번호 순서. 겹치면 오른쪽 → 왼쪽 → 아래 → 위 */
+    var order=groups.slice().sort(function(a,b){
+      var sa=a.ids.indexOf(MP.ts)>=0?0:1, sb=b.ids.indexOf(MP.ts)>=0?0:1; return sa-sb || a.ids[0]-b.ids[0]; });
+    order.forEach(function(g){
+      if(!inView(g.x,g.y,0) || g.small) return;
+      var name=T.st[g.ids[0]].n.replace(/\s*\(.*\)$/,"");
+      var sel=g.ids.indexOf(MP.ts)>=0, fs=sel?13.5:FS, w=mpTW(name,fs), hw=(g.box[2]-g.box[0])/2;
+      var tries=[[g.x+hw+3, g.y+fs*0.36, "start"],[g.x-hw-3, g.y+fs*0.36, "end"],[g.x, g.y+hw+fs+1, "middle"],[g.x, g.y-hw-5, "middle"]];
+      for(var t=0;t<tries.length;t++){
+        var tx=tries[t][0], ty=tries[t][1], an=tries[t][2];
+        var x0=an==="start"?tx:an==="end"?tx-w:tx-w/2, b=[x0-1,ty-fs,x0+w+1,ty+fs*0.3];
+        var off=(b[0]<2 || b[2]>W-2 || b[1]<2 || b[3]>H-2);          /* 지도 밖으로 잘리면 다른 쪽에 */
+        if(off && t<tries.length-1) continue;
+        if(!sel && mpHit(b,placed)) continue;
+        placed.push(b);
+        labs+=mpTxt(tx,ty,name,"tsl"+(sel?" sel":""),' text-anchor="'+an+'"'+(sel?' style="font-size:'+fs+'px"':''));
+        break;
+      }
+    });
+    /* 면 이름 · 지역 이름 (자리가 남으면) */
+    (T.ar||[]).forEach(function(a){
+      if(!a.lb) return;
+      var q0=mpLL(a.lb), w=mpTW(a.n,12);
+      if(!inView(q0[0],q0[1],0)) return;
+      var offs=[[0,0],[0,16],[0,-16],[0,30],[0,-30]];
+      for(var k=0;k<offs.length;k++){
+        var qx=q0[0]+offs[k][0], qy=q0[1]+offs[k][1], b=[qx-w/2-1,qy-12,qx+w/2+1,qy+4];
+        if(mpHit(b,placed)) continue;
+        placed.push(b); labs+=mpTxt(qx,qy,a.n,"tal",' text-anchor="middle" style="--h:'+a.h+'"'); break;
+      }
+    });
+    (T.lb||[]).forEach(function(x){
+      var q=mpLL([x[1],x[2]]), w=mpTW(x[0],11.5)*1.08, b=[q[0]-w/2-1,q[1]-11,q[0]+w/2+1,q[1]+3];
+      if(!inView(q[0],q[1],0) || mpHit(b,placed)) return;
+      placed.push(b); labs+=mpTxt(q[0],q[1],x[0],"trl",' text-anchor="middle"');
+    });
+    out+=marks+labs;
+  } else if(PLC.rows){
+    /* 기본 — 지명 이름표. 많이 나오는 곳부터, 서로 겹치지 않게 (화면 크기 그대로) */
+    var vb=MP.vb, cand=[];
+    for(var i in MP.pts){ var p=MP.pts[i]; if(p[0]>vb[0] && p[0]<vb[0]+vb[2] && p[1]>vb[1] && p[1]<vb[1]+vb[3]) cand.push(+i); }
+    cand.sort(function(a,b){ return PLC.cnt[b]-PLC.cnt[a]; });
+    var maxN=Math.min(70, Math.round(W*H/5200)), n=0, labs2="";
+    if(MP.sel>=0 && MP.pts[MP.sel]){ var qs=[mpSX(MP.pts[MP.sel][0]),mpSY(MP.pts[MP.sel][1])]; placed.push([qs[0]-10,qs[1]-10,qs[0]+12+mpTW(PLC.rows[MP.sel][0],15),qs[1]+10]); }
+    for(var k=0;k<cand.length && n<maxN;k++){
+      var j=cand[k]; if(j===MP.sel) continue;
+      var x=mpSX(MP.pts[j][0])+6, y=mpSY(MP.pts[j][1])+FS*0.36, nm=PLC.rows[j][0], wd=mpTW(nm,FS);
+      var bx=[x-1,y-FS,x+wd+1,y+FS*0.3];
+      if(mpHit(bx,placed)) continue;
+      placed.push(bx); n++;
+      labs2+=mpTxt(x,y,nm,"mplabel");
+    }
+    out+=labs2;
     if(MP.sel>=0 && MP.pts[MP.sel]){
-      var q=MP.pts[MP.sel], nm=PLC.rows[MP.sel][0];
-      s.innerHTML='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(9*u)+'" fill="none" stroke="var(--mapsel)" stroke-width="'+(2.5*u)+'"/>'+
-        '<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(4.5*u)+'" fill="var(--mapsel)"/>'+
-        '<text class="mplabel sel" x="'+(q[0]+11*u)+'" y="'+(q[1]+fs*0.4)+'" font-size="'+(fs*1.2)+'" stroke-width="'+(3.4*u)+'">'+esc(nm)+'</text>';
-    } else s.innerHTML="";
+      var sx=mpSX(MP.pts[MP.sel][0]), sy=mpSY(MP.pts[MP.sel][1]);
+      out+='<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="9" fill="none" stroke="var(--mapsel)" stroke-width="2.5"/>'+
+        '<circle cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="4.5" fill="var(--mapsel)"/>'+
+        mpTxt(sx+12,sy+5,PLC.rows[MP.sel][0],"mplabel sel");
+    }
   }
+  ov.innerHTML=out;
 }
 function mpZoom(f,cx,cy){
   var vb=MP.vb; if(!vb) return;
   if(cx===undefined){ cx=vb[0]+vb[2]/2; cy=vb[1]+vb[3]/2; }
   var w=vb[2]*f, h=vb[3]*f, m=MP.map;
-  if(w<8 || w>m.w*1.6) return;
+  if(w<4 || w>m.w*1.6) return;
   MP.vb=[cx-(cx-vb[0])*f, cy-(cy-vb[1])*f, w, h];
   mpApply();
 }
+function mpHint(msg){
+  var el=$("maphint"); if(!el) return;
+  el.textContent=msg; el.hidden=false; el.classList.add("on");
+  clearTimeout(MP.hintT); MP.hintT=setTimeout(function(){ el.classList.remove("on"); setTimeout(function(){ el.hidden=true; },250); },1500);
+}
 function mpBindPan(){
-  var box=$("mapbox"), pts={}, start=null, moved=false;
-  function toMap(e){ var r=MP.svg.getBoundingClientRect(); return [MP.vb[0]+(e.clientX-r.left)/r.width*MP.vb[2], MP.vb[1]+(e.clientY-r.top)/r.height*MP.vb[3]]; }
+  var box=$("mapbox"), P=null, T={};
+  function rect(){ return MP.svg.getBoundingClientRect(); }
+  function toMap(x,y){ var r=rect(); return [MP.vb[0]+(x-r.left)/r.width*MP.vb[2], MP.vb[1]+(y-r.top)/r.height*MP.vb[3]]; }
+  /* 마우스 · 펜 — 끌어서 옮기기 */
   box.addEventListener("pointerdown",function(e){
-    pts[e.pointerId]={x:e.clientX,y:e.clientY}; moved=false;
+    if(e.pointerType==="touch" || e.button!==0 || e.target.closest("#mpcard")) return;
+    P={id:e.pointerId, x:e.clientX, y:e.clientY, vb:MP.vb.slice()}; MP.moved=false;
     try{ box.setPointerCapture(e.pointerId); }catch(_){}
-    var ids=Object.keys(pts);
-    if(ids.length===1) start={vb:MP.vb.slice(), x:e.clientX, y:e.clientY};
-    else if(ids.length===2){ var a=pts[ids[0]], b=pts[ids[1]]; start={vb:MP.vb.slice(), d:Math.hypot(a.x-b.x,a.y-b.y), mx:(a.x+b.x)/2, my:(a.y+b.y)/2}; }
   });
   box.addEventListener("pointermove",function(e){
-    if(!pts[e.pointerId] || !start) return;
-    pts[e.pointerId]={x:e.clientX,y:e.clientY};
-    var ids=Object.keys(pts), r=MP.svg.getBoundingClientRect();
-    if(ids.length===1 && start.x!==undefined){
-      var dx=(e.clientX-start.x)/r.width*start.vb[2], dy=(e.clientY-start.y)/r.height*start.vb[3];
-      if(Math.abs(e.clientX-start.x)+Math.abs(e.clientY-start.y)>6) moved=true;
-      MP.vb=[start.vb[0]-dx,start.vb[1]-dy,start.vb[2],start.vb[3]]; mpApply();
-    } else if(ids.length===2 && start.d){
-      var a=pts[ids[0]], b=pts[ids[1]], d=Math.hypot(a.x-b.x,a.y-b.y); moved=true;
-      var f=start.d/Math.max(10,d), mx=start.vb[0]+(start.mx-r.left)/r.width*start.vb[2], my=start.vb[1]+(start.my-r.top)/r.height*start.vb[3];
-      var w=start.vb[2]*f, h=start.vb[3]*f;
-      if(w>=8 && w<=MP.map.w*1.6){ MP.vb=[mx-(mx-start.vb[0])*f, my-(my-start.vb[1])*f, w, h]; mpApply(); }
-    }
+    if(!P || e.pointerId!==P.id) return;
+    var r=rect(), dx=(e.clientX-P.x)/r.width*P.vb[2], dy=(e.clientY-P.y)/r.height*P.vb[3];
+    if(Math.abs(e.clientX-P.x)+Math.abs(e.clientY-P.y)>5) MP.moved=true;
+    if(MP.moved){ MP.vb=[P.vb[0]-dx,P.vb[1]-dy,P.vb[2],P.vb[3]]; mpApply(); box.classList.add("grabbing"); }
   });
-  function up(e){
-    var wasTap=!moved && Object.keys(pts).length===1;
-    delete pts[e.pointerId];
-    var ids=Object.keys(pts);
-    if(ids.length===1){ var p=pts[ids[0]]; start={vb:MP.vb.slice(), x:p.x, y:p.y}; } else if(!ids.length) start=null;
-    if(wasTap && e.type==="pointerup"){
-      /* 가장 가까운 핀 (손가락 크기만큼) */
-      var mp=toMap(e), best=-1, bd=1e9, lim=(MP.u||1)*18;
-      Object.keys(MP.pts).forEach(function(i){ var q=MP.pts[i], dd=Math.hypot(q[0]-mp[0],q[1]-mp[1]); if(dd<bd){ bd=dd; best=+i; } });
-      if(best>=0 && bd<=lim) mpSelect(best,false);
-    }
-  }
-  box.addEventListener("pointerup",up); box.addEventListener("pointercancel",up);
-  box.addEventListener("wheel",function(e){
-    e.preventDefault();
-    var mp=toMap(e); mpZoom(e.deltaY>0?1.2:1/1.2, mp[0], mp[1]);
+  function pend(e){ if(P && e.pointerId===P.id){ P=null; box.classList.remove("grabbing"); } }
+  box.addEventListener("pointerup",pend); box.addEventListener("pointercancel",pend);
+  /* 손가락 — 한 손가락은 화면 넘기기(브라우저에 맡김), 두 손가락은 옮기기 + 확대 */
+  function two(ts){ var a=ts[0], b=ts[1]; return {d:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY), x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2}; }
+  box.addEventListener("touchstart",function(e){
+    if(e.touches.length>=2){
+      if(e.cancelable) e.preventDefault();
+      var g=two(e.touches); T.pinch={d:g.d, x:g.x, y:g.y, vb:MP.vb.slice()};
+    } else { T.sx=e.touches[0].clientX; T.sy=e.touches[0].clientY; T.hinted=false; }
   },{passive:false});
+  box.addEventListener("touchmove",function(e){
+    if(e.touches.length>=2){
+      if(e.cancelable) e.preventDefault();
+      var g=two(e.touches);
+      if(!T.pinch){ T.pinch={d:g.d, x:g.x, y:g.y, vb:MP.vb.slice()}; return; }
+      var s=T.pinch, r=rect(), f=s.d/Math.max(10,g.d), w=s.vb[2]*f, h=s.vb[3]*f;
+      if(w<4 || w>MP.map.w*1.6){ f=Math.min(Math.max(f,4/s.vb[2]),MP.map.w*1.6/s.vb[2]); w=s.vb[2]*f; h=s.vb[3]*f; }
+      var mx=s.vb[0]+(s.x-r.left)/r.width*s.vb[2], my=s.vb[1]+(s.y-r.top)/r.height*s.vb[3];
+      MP.vb=[mx-(g.x-r.left)/r.width*w, my-(g.y-r.top)/r.height*h, w, h];
+      mpApply();
+    } else if(!T.pinch && !T.hinted && e.touches.length===1){
+      var dx=e.touches[0].clientX-T.sx, dy=e.touches[0].clientY-T.sy;
+      if(Math.abs(dx)>28 && Math.abs(dx)>Math.abs(dy)*1.3){ T.hinted=true; mpHint("두 손가락으로 지도를 옮기고 확대하세요"); }
+    }
+  },{passive:false});
+  function tend(e){ if(e.touches.length<2 && T.pinch){ T.pinch=null; MP.pinchAt=Date.now(); } }
+  box.addEventListener("touchend",tend); box.addEventListener("touchcancel",tend);
+  /* 휠 — Ctrl(⌘)과 함께일 때만 확대(트랙패드 오므리기 포함). 그냥 휠은 화면을 넘깁니다 */
+  box.addEventListener("wheel",function(e){
+    if(!(e.ctrlKey||e.metaKey)){ if(Date.now()-(MP.wheelHintAt||0)>4000){ MP.wheelHintAt=Date.now(); mpHint("Ctrl(⌘) + 휠로 확대 · ＋ − 단추도 됩니다"); } return; }
+    e.preventDefault();
+    var mp=toMap(e.clientX,e.clientY), k=Math.min(0.5,Math.abs(e.deltaY)/240)+0.08;
+    mpZoom(e.deltaY>0?1+k:1/(1+k), mp[0], mp[1]);
+  },{passive:false});
+  /* 누르기 — 가장 가까운 정류장(테마) 또는 핀 */
+  box.addEventListener("click",function(e){
+    var cb=e.target.closest("[data-mpcard]");
+    if(cb){ mpCardGo(cb.dataset.mpcard); return; }
+    if(e.target.closest("#mpcard")) return;
+    if(MP.moved){ MP.moved=false; return; }
+    if(Date.now()-MP.pinchAt<450) return;
+    var r=rect(), px=e.clientX-r.left, py=e.clientY-r.top;
+    if(MP.th>=0 && MP.tgroups){
+      var best=null, bd=1e9;
+      MP.tgroups.forEach(function(g){ var d=Math.hypot(g.x-px,g.y-py); if(d<bd){ bd=d; best=g; } });
+      if(best && bd<=24){
+        var cur=best.ids.indexOf(MP.ts), nx=best.ids[(cur+1)%best.ids.length];   /* 같은 자리를 다시 누르면 다음 번호 */
+        mpThemeStop(nx,false); return;
+      }
+      mpThemeStop(-1,false); return;
+    }
+    var mp=toMap(e.clientX,e.clientY), best2=-1, bd2=1e9, lim=(MP.u||1)*18;
+    Object.keys(MP.pts).forEach(function(i){ var q=MP.pts[i], dd=Math.hypot(q[0]-mp[0],q[1]-mp[1]); if(dd<bd2){ bd2=dd; best2=+i; } });
+    if(best2>=0 && bd2<=lim) mpSelect(best2,false);
+  });
   window.addEventListener("resize",function(){ if(screenNow==="smap") mpApply(); });
 }
 function confText(c){ return c>=700 ? ["위치 확실함","c3"] : c>=400 ? ["위치 유력함","c3"] : c>=150 ? ["위치 여러 설","c1"] : ["위치 불확실","c1"]; }
@@ -8703,19 +9305,27 @@ function mpSelect(i,center){
     if(center || !vb || p[0]<vb[0] || p[0]>vb[0]+vb[2] || p[1]<vb[1] || p[1]>vb[1]+vb[3]){
       var w=Math.min(vb?vb[2]:300, 260); MP.vb=[p[0]-w/2,p[1]-w*0.6,w,w*1.2];
     }
-    mpApply();
-  } else mpLabels();
+  }
+  mpApply();
   paintPlaceInfo();
+  if(MP.th<0) mpCard('<b>'+esc(r[0])+'</b><span>'+esc(r[1])+(r[5]?' · '+esc(r[5]):'')+' · '+PLC.cnt[i]+'절</span><button type="button" data-mpcard="info">자세히 ↓</button>');
+}
+function mpCard(html){
+  var c=$("mpcard"); if(!c) return;
+  if(!html){ c.hidden=true; c.innerHTML=""; return; }
+  c.innerHTML=html+'<button type="button" class="mpx" data-mpcard="x" aria-label="닫기">✕</button>'; c.hidden=false;
+}
+function mpCardGo(k){
+  if(k==="x"){ mpCard(""); if(MP.th>=0){ MP.ts=-1; mpApply(); mpThemePaint(); } return; }
+  var el = k==="info" ? $("mapinfo") : $("ths"+MP.ts);
+  if(el) el.scrollIntoView({block:"start",behavior:"smooth"});
 }
 function paintPlaceInfo(){
   var i=MP.sel, r=PLC.rows[i], box=$("mapinfo");
   if(!r){ box.hidden=true; return; }
   var refs=unpackRefs(r[6]), cf=confText(r[4]);
   var links='';
-  if(r[2]!=null){
-    links+='<a href="https://www.google.com/maps/search/?api=1&query='+r[3]+','+r[2]+'" target="_blank" rel="noopener">'+svg("pin")+'구글 지도</a>'+
-      '<a href="https://www.openstreetmap.org/?mlat='+r[3]+'&mlon='+r[2]+'#map=12/'+r[3]+'/'+r[2]+'" target="_blank" rel="noopener">'+svg("pin")+'OSM 지도</a>';
-  }
+  if(r[2]!=null) links+='<a href="https://www.google.com/maps/search/?api=1&query='+r[3]+','+r[2]+'" target="_blank" rel="noopener">'+svg("pin")+'구글 지도</a>';
   if(r[7]){ var ob=r[7].split("/"); links+='<a href="https://www.openbible.info/geo/ancient/'+ob[1]+'/'+ob[0]+'" target="_blank" rel="noopener">'+svg("search")+'OpenBible 자세히</a>'; }
   box.hidden=false;
   box.innerHTML='<p class="eyebrow">지명</p><h2 class="psn">'+esc(r[0])+'<em>'+esc(r[1])+'</em></h2>'+
@@ -8731,7 +9341,7 @@ function paintPlaceInfo(){
 function mpList(){
   if(!PLC.rows) return;
   var q=$("mpq").value.replace(/\s+/g," ").trim(), host=$("mpres");
-  if(!q){ host.innerHTML='<p class="rmeta" style="margin:10px 2px 0">지명 '+PLC.rows.length.toLocaleString()+'곳 · 핀을 누르거나 이름으로 찾으세요. 두 손가락으로 확대합니다.</p>'; return; }
+  if(!q){ host.innerHTML='<p class="rmeta" style="margin:10px 2px 0">지명 '+PLC.rows.length.toLocaleString()+'곳 · 핀을 누르거나 이름으로 찾으세요.</p>'; return; }
   if(MP.fold){ host.innerHTML='<button type="button" class="minemore" data-mpunfold="1">「'+esc(q)+'」 찾은 곳 다시 보기</button>'; return; }
   var ql=q.toLowerCase(), exact=[], rest=[];
   PLC.rows.forEach(function(r,i){
@@ -8746,6 +9356,104 @@ function mpList(){
       return '<li><button type="button" class="srow" data-pl="'+i+'"><span class="sa"><b>'+esc(r[0])+'</b><em>'+esc(r[1])+(r[5]?' · '+esc(r[5]):'')+
         (f?' · '+esc(BOOK_SHORT[f[0]-1]+" "+f[1]+":"+f[2]):'')+' · '+PLC.cnt[i]+'절'+(r[2]==null?' · 위치 모름':'')+'</em></span></button></li>';
     }).join("")+'</ul>':'<p class="mineempty">찾는 지명이 없습니다. 개역한글 표기로 써 보세요.</p>');
+}
+
+/* ── 테마 지도 ── */
+function mpThemeList(){
+  var host=$("mpthlist");
+  if(!MP.thm){
+    host.innerHTML='<p class="rmeta" style="margin:8px 2px 0">테마 지도를 불러오는 중…</p>';
+    loadThemes().then(function(){ if(MP.tab==="theme") mpThemeList(); },function(e){
+      host.innerHTML='<p class="mineempty">'+(netOff()?"인터넷이 없어 테마 지도를 불러오지 못했습니다.":esc(String(e&&e.message||e)))+'</p>'; });
+    return;
+  }
+  var by={};
+  MP.thm.th.forEach(function(t,i){ (by[t.g]=by[t.g]||[]).push(i); });
+  host.innerHTML=["구약","신약"].map(function(g){
+    return '<div class="thgrp"><p>'+g+'</p><div class="thchips">'+(by[g]||[]).map(function(i){
+      return '<button type="button" data-th="'+i+'" aria-pressed="'+(MP.th===i)+'">'+esc(MP.thm.th[i].n)+'</button>'; }).join("")+'</div></div>';
+  }).join("")+(MP.th>=0?'<button type="button" class="textlink" data-th="-1">테마 끄고 모든 지명 보기</button>':'');
+}
+function mpTools(){
+  var b=document.querySelector('#smap [data-mz="land"],#smap [data-mz="theme"]'); if(!b) return;
+  if(MP.th>=0){ b.dataset.mz="theme"; b.textContent="테마 전체"; } else { b.dataset.mz="land"; b.textContent="이스라엘"; }
+}
+function mpTheme(i){
+  MP.th=(MP.th===i)?-1:i; MP.ts=-1;
+  mpTools();
+  if(MP.th>=0){ MP.sel=-1; $("mapinfo").hidden=true; }
+  mpCard("");
+  mpThemeList();
+  if(MP.th>=0) mpFitTheme(); else mpApply();
+  mpThemePaint();
+  mpSrc();
+}
+function mpFitTheme(){
+  /* 경로 · 면이 다 들어가게 — 이름표 자리로 왼쪽 50px · 오른쪽 96px · 위아래 26px를 더 비워 둡니다 */
+  var T=MP.thm.th[MP.th], f=T.fit, a=mpXY(f[0],f[3]), b=mpXY(f[2],f[1]);
+  var cw=Math.max(30,b[0]-a[0]), ch=Math.max(30,b[1]-a[1]);
+  var box=MP.svg.getBoundingClientRect(), pw=Math.max(200,box.width), ph=Math.max(200,box.height), L=50, R=96, V=26;
+  var u=Math.max(cw/(pw-L-R), ch/(ph-V*2));
+  var w=pw*u, h=ph*u, cx=(a[0]+b[0])/2+(R-L)/2*u, cy=(a[1]+b[1])/2;
+  MP.vb=[cx-w/2,cy-h/2,w,h];
+  mpApply();
+}
+function mpStopHue(T,s){ return s.h!==undefined ? s.h : (T.ln&&T.ln[s.ln]) ? T.ln[s.ln].h : 22; }
+function mpRefLabel(s){ var r=xrParse(s); if(!r) return s; return BOOK_SHORT[r.bi]+" "+r.c+":"+r.v+(r.v2!==r.v?"-"+r.v2:""); }
+function mpThemePaint(){
+  var box=$("mapthm");
+  if(MP.th<0 || !MP.thm){ box.hidden=true; box.innerHTML=""; return; }
+  var T=MP.thm.th[MP.th], h='';
+  h+='<p class="eyebrow">테마 지도 · '+esc(T.g)+'</p><h2 class="psn">'+esc(T.n)+'</h2>'+
+    '<div class="plmeta2"><span>'+esc(T.s)+'</span><span>'+esc(T.yr)+'</span><span class="c3">'+T.st.length+'곳</span></div>'+
+    '<p class="thdesc">'+esc(T.d)+'</p>'+aiNote("경로와 경계는 대략 그린 것입니다.");
+  /* 범례 */
+  var leg=[];
+  if(T.ln){
+    if(T.oneline) leg.push('<span><i class="lgl" style="--h:'+T.ln[0].h+'"></i>'+esc(T.oneline)+'</span>');
+    else T.ln.forEach(function(l){ leg.push('<span><i class="lgl" style="--h:'+l.h+'"></i>'+esc(l.n)+'</span>'); });
+    if(T.ln.some(function(l){ return l.legs.some(function(g){ return g.k==="s"; }); })) leg.push('<span><i class="lgl sea"></i>바닷길</span>');
+  }
+  if(T.ar) T.ar.forEach(function(a){ leg.push('<span><i class="lga" style="--h:'+a.h+'"></i>'+esc(a.n)+(a.sub?' <small>('+esc(a.sub)+')</small>':'')+'</span>'); });
+  if(leg.length) h+='<div class="thleg">'+leg.join("")+'</div>';
+  if(T.note) h+='<p class="fixednote" style="margin-top:6px">'+esc(T.note)+'</p>';
+  /* 정류장 */
+  var need=[];
+  h+='<ol class="thst">'+T.st.map(function(s,i){
+    var hue=mpStopHue(T,s), sel=i===MP.ts;
+    var refs=(s.r||[]).map(function(x){ var r=xrParse(x); if(r && sel && need.indexOf(r.bi)<0) need.push(r.bi); return r?{s:x,r:r}:null; }).filter(Boolean);
+    var body='';
+    if(sel && refs.length){
+      body='<div class="thvs">'+refs.map(function(x){
+        var r=x.r, t=BIB.cache[r.bi] ? versesPlain(r.bi,r.c,r.v,r.v2) : "";
+        return '<button type="button" class="thv" data-plgo="'+r.bi+'|'+r.c+'|'+r.v+'|'+(r.v2!==r.v?r.v2:0)+'"><b>'+esc(BOOK_ORDER[r.bi]+" "+r.c+":"+r.v+(r.v2!==r.v?"-"+r.v2:""))+'</b>'+
+          (t?'<span>'+esc(t)+'</span>':'<span class="ld">본문 불러오는 중…</span>')+'</button>';
+      }).join("")+'</div>'+(s.pl!==undefined?'<button type="button" class="textlink" data-thpl="'+s.pl+'">「'+esc(PLC.rows&&PLC.rows[s.pl]?PLC.rows[s.pl][0]:s.n)+'」 지명 정보 · 나오는 절 모두</button>':'');
+    }
+    return '<li id="ths'+i+'" class="'+(sel?'on':'')+'"><button type="button" class="thsel" data-ts="'+i+'" aria-expanded="'+sel+'"><i style="--h:'+hue+'">'+(i+1)+'</i>'+
+      '<span><b>'+esc(s.n)+'</b>'+(s.t?'<em>'+esc(s.t)+'</em>':'')+'</span>'+
+      '<small>'+refs.map(function(x){ return esc(mpRefLabel(x.s)); }).join(" · ")+'</small></button>'+body+'</li>';
+  }).join("")+'</ol>';
+  box.hidden=false; box.innerHTML=h;
+  if(need.some(function(b){ return !BIB.cache[b]; })) bibMany(need).then(function(){ if(screenNow==="smap") mpThemePaint(); },function(){});
+}
+function versesPlain(bi,c,v,v2){
+  var out=[]; for(var x=v;x<=(v2||v);x++){ var t=bibVerse(bi,c,x); if(t) out.push((v2&&v2!==v?x+" ":"")+t); }
+  return out.join(" ");
+}
+function mpThemeStop(i,center){
+  MP.ts=i;
+  var T=MP.thm.th[MP.th];
+  if(i>=0){
+    var s=T.st[i];
+    if(center){   /* 지도 밖에 있으면 가운데로 */
+      var p=mpXY(s.ll[0],s.ll[1]), vb=MP.vb, m=vb[2]*0.08;
+      if(p[0]<vb[0]+m || p[0]>vb[0]+vb[2]-m || p[1]<vb[1]+m || p[1]>vb[1]+vb[3]-m) MP.vb=[p[0]-vb[2]/2,p[1]-vb[3]/2,vb[2],vb[3]];
+    }
+    mpCard('<b><i style="--h:'+mpStopHue(T,s)+'">'+(i+1)+'</i>'+esc(s.n)+'</b><span>'+esc(s.t||"")+'</span><button type="button" data-mpcard="stop">말씀 보기 ↓</button>');
+  } else mpCard("");
+  mpApply();
+  mpThemePaint();
 }
 
 /* ═══ 내 암송 · 순서 · 정렬 · 카드 공유 ═══ */
@@ -8914,6 +9622,249 @@ function myShareSheet(blobs,list){
     '<div class="shimgs">'+urls.map(function(u,i){
       return '<a href="'+u+'" download="암송카드_'+esc(list[i].addr.replace(/\s+/g,"_").replace(/[:,]/g,"-"))+'.png"><img src="'+u+'" alt="'+esc(list[i].addr)+'"></a>'; }).join("")+'</div>',
     function(){ urls.forEach(function(u){ try{ URL.revokeObjectURL(u); }catch(e){} }); });
+}
+/* ═══ 내 암송 · 외우며 치기 ═══
+   점검이 아니라 「외우도록 돕는」 타이핑입니다. 네 단계로 조금씩 덜 보면서 칩니다.
+     1 보며 치기       — 본문이 다 보이고 그대로 따라 칩니다
+     2 첫 글자 보며     — 어절마다 첫 글자만 보이고 나머지를 떠올려 칩니다
+     3 첫 글자만 치기   — 어절의 첫 글자(또는 첫 자음)만 치면 그 어절이 드러납니다
+     4 가리고 치기      — 절반 또는 모두 가린 채 칩니다
+   한글 입력기는 「간 → 가나」처럼 글자를 조합하는 동안 모양이 바뀌므로, 친 글자와 본문을 낱자(자모)로 풀어
+   앞에서부터 비교합니다. 조합 중에는 틀렸다고 하지 않고, 손을 멈춘 뒤에도 틀려 있으면 그 글자를 지우고 알려 줍니다.
+   기록은 서버에 남기지 않고 이 기기에만 단계별로 기억합니다(점검 타이핑 기록과 섞이지 않게).          */
+var MT_KEY="navfest.mtyp", MT_OPT_KEY="navfest.mtopt";
+var MT_STEPS=[
+  {n:"보며 치기",     s:"보며",   d:"본문을 보면서 그대로 따라 칩니다. 눈과 손으로 구절을 처음 익히는 단계입니다."},
+  {n:"첫 글자 보며",  s:"첫 글자", d:"어절마다 첫 글자만 보입니다. 첫 글자를 실마리로 나머지를 떠올려 칩니다."},
+  {n:"첫 글자만 치기", s:"첫 글자만", d:"어절의 첫 글자만 치면 그 어절이 드러납니다. 구절 전체를 빠르게 떠올리는 연습입니다."},
+  {n:"가리고 치기",   s:"가리고", d:"가려진 채 외운 대로 칩니다. 막히면 「힌트」로 지금 어절을 잠깐 봅니다."}];
+var MT={list:[], i:0, step:1, ver:"gae", round:0, opt:{ref:true, cho:false, hide:"half"}, prog:{}, cur:null,
+        composing:false, timer:null, label:""};
+(function(){
+  try{ var o=JSON.parse(localStorage.getItem(MT_OPT_KEY)||"null"); if(o){ MT.opt.ref=o.ref!==false; MT.opt.cho=!!o.cho; MT.opt.hide=o.hide==="all"?"all":"half"; if(o.step>=1&&o.step<=4) MT.step=o.step; } }catch(e){}
+  try{ MT.prog=JSON.parse(localStorage.getItem(MT_KEY)||"{}")||{}; }catch(e){ MT.prog={}; }
+})();
+function mtSaveOpt(){ try{ localStorage.setItem(MT_OPT_KEY,JSON.stringify({ref:MT.opt.ref, cho:MT.opt.cho, hide:MT.opt.hide, step:MT.step})); }catch(e){} }
+function mtSaveProg(){ try{ localStorage.setItem(MT_KEY,JSON.stringify(MT.prog)); }catch(e){} }
+
+/* ── 한글 낱자 ── */
+var MT_CHO="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ".split("");
+var MT_JUNG=["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅗㅏ","ㅗㅐ","ㅗㅣ","ㅛ","ㅜ","ㅜㅓ","ㅜㅔ","ㅜㅣ","ㅠ","ㅡ","ㅡㅣ","ㅣ"];
+var MT_JONG=["","ㄱ","ㄲ","ㄱㅅ","ㄴ","ㄴㅈ","ㄴㅎ","ㄷ","ㄹ","ㄹㄱ","ㄹㅁ","ㄹㅂ","ㄹㅅ","ㄹㅌ","ㄹㅍ","ㄹㅎ","ㅁ","ㅂ","ㅂㅅ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+var MT_CJ={"ㄳ":"ㄱㅅ","ㄵ":"ㄴㅈ","ㄶ":"ㄴㅎ","ㄺ":"ㄹㄱ","ㄻ":"ㄹㅁ","ㄼ":"ㄹㅂ","ㄽ":"ㄹㅅ","ㄾ":"ㄹㅌ","ㄿ":"ㄹㅍ","ㅀ":"ㄹㅎ","ㅄ":"ㅂㅅ",
+  "ㅘ":"ㅗㅏ","ㅙ":"ㅗㅐ","ㅚ":"ㅗㅣ","ㅝ":"ㅜㅓ","ㅞ":"ㅜㅔ","ㅟ":"ㅜㅣ","ㅢ":"ㅡㅣ"};
+function mtJamo(ch){
+  var c=ch.charCodeAt(0);
+  if(c>=0xAC00 && c<=0xD7A3){
+    c-=0xAC00; var t=c%28, v=Math.floor(c/28)%21, l=Math.floor(c/588);
+    return (MT_CHO[l]+MT_JUNG[v]+MT_JONG[t]).split("");
+  }
+  if(MT_CJ[ch]) return MT_CJ[ch].split("");
+  return [ch.toLowerCase()];
+}
+function mtCho(ch){
+  var c=ch.charCodeAt(0);
+  return (c>=0xAC00 && c<=0xD7A3) ? MT_CHO[Math.floor((c-0xAC00)/588)] : ch;
+}
+function mtClean(s){ return String(s||"").normalize("NFC").replace(/\s+/g,"").replace(TY_PUNCT,""); }
+
+/* ── 구절 → 어절 · 칠 단위 ── */
+function mtBuild(){
+  var it=MT.list[MT.i]; if(!it){ MT.cur=null; return; }
+  var m=lookup(it.a,it.pn)||{}, body=MT.ver==="han"?(m.h||m.g||""):(m.g||"");
+  var words=[];
+  function add(text,kind){ tyWords(text).forEach(function(w){ words.push({t:w, k:kind}); }); }
+  if(MT.opt.ref){ if(m.n) add(m.n,"title"); add(it.a,"ref"); }
+  add(body,"body");
+  if(MT.opt.ref) add(it.a,"ref");
+  var first=(MT.step===3), units=[], T=[], Tu=[], uStart=[], uEnd=[];
+  words.forEach(function(w,wi){
+    var chars=Array.from(w.t), unitChars=[];
+    chars.forEach(function(ch,ci){ if(mtClean(ch)) unitChars.push(ci); });
+    w.chars=chars; w.uc=unitChars; w.u0=units.length;
+    var list=first ? unitChars.slice(0,1) : unitChars;
+    list.forEach(function(ci){
+      var ch=chars[ci], key=(first && MT.opt.cho) ? mtCho(ch) : ch;
+      var js=mtJamo(key);
+      uStart.push(T.length);
+      js.forEach(function(j){ T.push(j); Tu.push(units.length); });
+      uEnd.push(T.length);
+      units.push({w:wi, c:ci, key:key});
+    });
+    w.u1=units.length;
+  });
+  /* 가리기(4단계) — 「절반」은 한 번 걸러 하나씩, 다시 할 때마다 반대쪽을 가립니다 */
+  words.forEach(function(w,wi){ w.hide = MT.step===4 && (MT.opt.hide==="all" || (wi+MT.round)%2===1); });
+  MT.cur={a:it.a, pn:it.pn, m:m, words:words, units:units, T:T, Tu:Tu, uStart:uStart, uEnd:uEnd,
+          done:0, part:false, err:false, miss:{}, peek:{}, just:{}, hints:0, fixes:0, t0:0, fin:false};
+}
+/* 지금 친 것과 비교 */
+function mtEval(){
+  var C=MT.cur; if(!C) return;
+  var U=[]; Array.from(mtClean($("mtin").value)).forEach(function(ch){ U=U.concat(mtJamo(ch)); });
+  var L=0, n=Math.min(U.length,C.T.length);
+  while(L<n && U[L]===C.T[L]) L++;
+  var done=0; while(done<C.units.length && C.uEnd[done]<=L) done++;
+  /* 이번에 막 다 친 어절 — 한 번만 반짝이게 */
+  if(done>C.done) C.words.forEach(function(w,wi){ if(w.u1>C.done && w.u1<=done) C.just[wi]=1; });
+  C.done=done;
+  C.part = done<C.units.length && L>C.uStart[done];
+  C.err = U.length>L && L<C.T.length;
+  if(U.length && !C.t0) C.t0=Date.now();
+  if(done>=C.units.length && C.units.length && !C.fin) mtFinish();
+}
+/* 손을 멈춘 뒤에도 틀려 있으면 — 틀린 글자를 지우고 그 어절을 한 번 흔들어 줍니다 */
+function mtSettle(){
+  clearTimeout(MT.timer);
+  MT.timer=setTimeout(function(){
+    var C=MT.cur; if(!C || C.fin || screenNow!=="mtyp") return;
+    if(MT.composing){ mtSettle(); return; }
+    mtEval();
+    if(!C.err) return;
+    var u=C.units[C.done]; if(!u) return;
+    C.fixes++; C.miss[u.w]=(C.miss[u.w]||0)+1;
+    /* 맞게 친 데까지만 남깁니다(조합 중이던 글자는 버림) */
+    $("mtin").value=mtKeepText(C);
+    mtEval();
+    mtPaintBox(u.w);
+  },650);
+}
+/* 맞게 친 데까지를 입력칸에 다시 써 줄 글 — 다 친 어절은 본문 모양(문장부호 포함)대로, 띄어쓰기도 살려서 */
+function mtKeepText(C){
+  if(MT.step===3){ var k=""; for(var i=0;i<C.done;i++) k+=C.units[i].key; return k; }
+  var out=[];
+  C.words.forEach(function(w){
+    if(w.u1<=C.done) out.push(w.t);
+    else if(w.u0<C.done){ var p=""; for(var j=w.u0;j<C.done;j++) p+=C.units[j].key; out.push(p); }
+  });
+  var t=out.join(" ");
+  var cu=C.units[C.done];
+  if(t && cu && C.words[cu.w].u0===C.done) t+=" ";
+  return t;
+}
+function mtFinish(){
+  var C=MT.cur; C.fin=true;
+  var k=pkey(C.a,C.pn), p=MT.prog[k]||(MT.prog[k]={});
+  var sec=C.t0?Math.round((Date.now()-C.t0)/1000):0;
+  var prev=p[MT.step];
+  p[MT.step]={d:fToday(), h:C.hints, f:C.fixes, s:sec, n:((prev&&prev.n)||0)+1};
+  mtSaveProg();
+  setTimeout(function(){ mtPaintDone(sec); },120);
+}
+
+/* ── 화면 ── */
+function mtOpen(list,i,label){
+  if(!list || !list.length) return;
+  MT.list=list.slice(); MT.i=Math.max(0,Math.min(list.length-1,i||0)); MT.label=label||"";
+  MT.ver=state.ver==="han"?"han":"gae"; MT.round=0;
+  mtStart();
+  show("mtyp");
+  try{ $("mtin").focus({preventScroll:true}); }catch(e){}
+}
+function mtStart(){
+  $("mtin").value=""; mtBuild(); mtEval();
+  $("mtdone").hidden=true; $("mtdone").innerHTML="";
+  $("mtbar").hidden=false;
+  if(screenNow==="mtyp") paintMt();
+}
+function paintMt(){
+  var C=MT.cur; if(!C){ mtBuild(); C=MT.cur; } if(!C) return;
+  var p=PART_BY_NAME[C.pn], k=pkey(C.a,C.pn), pr=MT.prog[k]||{};
+  $("mtpos").textContent=(MT.label?MT.label+" · ":"")+(MT.i+1)+"/"+MT.list.length;
+  $("mtaddr").textContent=MT.opt.ref && MT.step>=2 ? "구절 "+(MT.i+1) : C.a;
+  $("mtmeta").textContent=(MT.opt.ref && MT.step>=2 ? "제목 · 주소도 외워서 칩니다" : ((C.m.n?C.m.n+" · ":"")+C.pn))+" · "+(MT.ver==="han"?"개역한글":"개역개정");
+  [].forEach.call($("mtver").querySelectorAll("button"),function(b){ b.setAttribute("aria-pressed",String(b.dataset.ver===MT.ver)); });
+  $("mtsteps").innerHTML=MT_STEPS.map(function(s,i){
+    var n=i+1, d=pr[n];
+    return '<button type="button" role="tab" data-mts="'+n+'" aria-selected="'+(MT.step===n)+'" class="'+(d?'did':'')+'">'+
+      '<i>'+(d?svg("check2"):n)+'</i><span>'+s.n+'</span></button>';
+  }).join("");
+  $("mtdesc").textContent=MT_STEPS[MT.step-1].d;
+  var o='<button type="button" class="mtchip" data-mto="ref" aria-pressed="'+MT.opt.ref+'">제목 · 주소도 함께</button>';
+  if(MT.step===3) o+='<span class="mtseg"><button type="button" data-mto="syl" aria-pressed="'+(!MT.opt.cho)+'">첫 음절 (가)</button>'+
+                     '<button type="button" data-mto="cho" aria-pressed="'+MT.opt.cho+'">첫 자음 (ㄱ)</button></span>';
+  if(MT.step===4) o+='<span class="mtseg"><button type="button" data-mto="half" aria-pressed="'+(MT.opt.hide==="half")+'">절반 가리기</button>'+
+                     '<button type="button" data-mto="all" aria-pressed="'+(MT.opt.hide==="all")+'">모두 가리기</button></span>';
+  $("mtopts").innerHTML=o;
+  $("mthint").hidden=(MT.step===1);
+  $("mtin").placeholder = MT.step===3 ? (MT.opt.cho?"어절마다 첫 자음만 (예: ㅎㄴㄴㅇ)":"어절마다 첫 글자만 (예: 하나님이 → 하)")
+                        : MT.step===1 ? "위의 본문을 보며 그대로 치세요" : "떠오르는 대로 치세요 (띄어쓰기 · 부호는 생략 가능)";
+  mtPaintBox();
+}
+function mtPaintBox(shake){
+  var C=MT.cur, host=$("mtbox"); if(!C) return;
+  var cu=C.units[C.done], cw=cu?cu.w:-1, html="";
+  C.words.forEach(function(w,wi){
+    var wdone = w.u1<=C.done, cls="mw mw-"+w.k+(wi===cw?" cur":"")+(wdone?" ok":"")+(C.just[wi]?" pop":"")+(wi===shake?" shake":"");
+    if(wi>0 && w.k!==C.words[wi-1].k) html+='<br class="mtbr">';   /* 제목 · 주소 · 본문 · 주소 사이는 줄을 바꿉니다 */
+    if(MT.step===3){
+      /* 어절 칸 — 다 치면 어절이 드러납니다 */
+      if(wdone){ html+='<span class="'+cls+'">'+esc(w.t)+'</span> '; return; }
+      var len=Math.max(1,w.uc.length), hint=C.peek[wi] ? esc(w.t) : (C.miss[wi]>=2 ? esc(w.chars[w.uc[0]])+'…' : "");
+      html+='<span class="'+cls+' slot'+(wi===cw&&C.err?' bad':'')+(C.peek[wi]?' peek':'')+'" style="--len:'+len+'">'+(hint?'<em>'+hint+'</em>':'')+'</span> ';
+      return;
+    }
+    var s="";
+    w.chars.forEach(function(ch,ci){
+      var ui=w.uc.indexOf(ci), unitIdx=ui>=0 ? w.u0+ui : -1;
+      if(unitIdx<0){ s+='<b class="pc'+(wdone||C.done>w.u0?' on':'')+'">'+esc(ch)+'</b>'; return; }   /* 문장부호 */
+      var typed=unitIdx<C.done, isCur=unitIdx===C.done;
+      var show = typed || MT.step===1 || C.peek[wi] || (!w.hide && MT.step===4) || (MT.step===2 && ui===0) || (MT.step===4 && w.hide && C.miss[wi]>=2 && ui===0);
+      var c2=typed?"t":(isCur?(C.err?"x":"c"):"f");
+      s+= show ? '<b class="'+c2+(C.peek[wi]&&!typed?' pk':'')+'">'+esc(ch)+'</b>' : '<b class="'+c2+' ph">　</b>';
+    });
+    html+='<span class="'+cls+(w.hide?' hid':'')+'">'+s+'</span> ';
+  });
+  host.innerHTML=html;
+  C.just={};
+  var total=C.words.length, wd=0; C.words.forEach(function(w){ if(w.u1<=C.done) wd++; });
+  $("mtstat").innerHTML='<span><b>'+wd+'</b> / '+total+' 어절</span>'+(C.hints?'<span>힌트 '+C.hints+'</span>':'')+(C.fixes?'<span>고친 곳 '+C.fixes+'</span>':'')+
+    '<i style="width:'+(C.units.length?Math.round(C.done/C.units.length*100):0)+'%"></i>';
+  /* 지금 칠 어절이 화면 밖이면 보이게 */
+  var el=host.querySelector(".mw.cur");
+  if(el){ var r=el.getBoundingClientRect(), bar=$("mtbar").getBoundingClientRect().top||window.innerHeight;
+    if(r.top<70 || r.bottom>bar-10) window.scrollBy({top:r.top-Math.min(160,bar*0.3), behavior:"smooth"}); }
+}
+function mtHint(){
+  var C=MT.cur; if(!C || C.fin) return;
+  var u=C.units[C.done]; if(!u) return;
+  C.hints++;
+  if(MT.step===3){
+    /* 지금 어절을 드러내고 다음 어절로 넘어갑니다 */
+    $("mtin").value=mtKeepText(C)+u.key;
+    mtEval(); mtPaintBox();
+  } else { C.peek[u.w]=1; mtPaintBox(); }
+  try{ $("mtin").focus({preventScroll:true}); }catch(e){}
+}
+function mtPaintDone(sec){
+  var C=MT.cur; if(!C) return;
+  mtPaintBox();
+  var nextStep=MT.step<4, nextVerse=MT.i<MT.list.length-1;
+  var t=sec>=60 ? Math.floor(sec/60)+"분 "+(sec%60)+"초" : sec+"초";
+  var praise = (C.hints===0 && C.fixes===0) ? "막힘 없이 끝까지 쳤습니다" : "끝까지 쳤습니다";
+  var h='<div class="mtok">'+svg("check2")+'<div><b>'+praise+'</b><span>'+MT_STEPS[MT.step-1].n+' · '+t+(C.hints?' · 힌트 '+C.hints:'')+(C.fixes?' · 고친 곳 '+C.fixes:'')+'</span></div></div>';
+  if(MT.step===4 && MT.opt.hide==="half") h+='<p class="mttip">이제 「모두 가리기」로 한 번 더 해 보세요.</p>';
+  else if(MT.step===4) h+='<p class="mttip">다 외웠다면 암송 점검의 타이핑이나 리사이팅으로 확인해 보세요.</p>';
+  else if(C.hints>1 || C.fixes>2) h+='<p class="mttip">이 단계를 한 번 더 하면 훨씬 단단해집니다.</p>';
+  h+='<div class="mtacts">'+
+    '<button type="button" data-mtd="again">한 번 더</button>'+
+    (nextStep ? '<button type="button" class="main" data-mtd="step">다음 단계 · '+MT_STEPS[MT.step].n+' &#8250;</button>' :
+      (MT.opt.hide==="half" ? '<button type="button" class="main" data-mtd="all">모두 가리고 치기 &#8250;</button>' : '<button type="button" class="main" data-mtd="check">타이핑으로 점검</button>'))+
+    (nextVerse ? '<button type="button" data-mtd="next">다음 구절 &#8250;</button>' : '')+
+  '</div>';
+  $("mtdone").innerHTML=h; $("mtdone").hidden=false;
+  $("mtbar").hidden=true;
+  try{ $("mtin").blur(); }catch(e){}
+  setTimeout(function(){ $("mtdone").scrollIntoView({block:"nearest", behavior:"smooth"}); },60);
+  paintMt();
+  $("mtbar").hidden=true;
+}
+/* 내 암송 줄에 붙는 네 칸 — 어느 단계까지 해 봤는지 */
+function mtDots(k){
+  var p=MT.prog[k]; if(!p) return "";
+  var h='<span class="mtdots" aria-label="외우며 치기 단계">';
+  for(var i=1;i<=4;i++) h+='<i class="'+(p[i]?'on':'')+'"></i>';
+  return h+'</span>';
 }
 
 /* ═══ 다음에 할 것 ═══
@@ -9401,10 +10352,10 @@ function plNoteFlush(){
   if(ta) plSetNote(ta.dataset.plnote, ta.value);
 }
 
-var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","smap","speople","person","tract","tview"];
+var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","smap","speople","person","tract","tview"];
 var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
-                 tlist:"타이핑할 구절",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
+                 tlist:"타이핑할 구절",mtyp:"외우며 치기",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
                  crop:"암송현황", coop:"함께 거두기", field:"함께 거두는 밭",
                  partv:"파트 보기", vcard:"구절 카드",
                  mine:"내 암송", mypick:"구절 넣기", glance:"한눈에",
@@ -9432,6 +10383,8 @@ function applyScreen(which,restoreY){
   if((which==="result"||which==="done") && !state.person) which="home";
   if((which==="rank"||which==="detail") && !state.contest) which="home";
   if(which==="type" && !state.typing) which="tlist";
+  if(which==="mtyp" && !MT.cur) which="mine";
+  if(screenNow==="mtyp" && which!=="mtyp"){ clearTimeout(MT.timer); try{ $("mtin").blur(); }catch(e){} }
   if(which==="fcard" && !(state.f.queue && state.f.queue.length)) which="fsrs";
   if(screenNow==="fcard" && which!=="fcard"){ fFlush(); saveDays(); }
   /* 「마쳤습니다 · 다음에 할 것」은 그 화면을 떠나면 걷습니다 */
@@ -9468,6 +10421,7 @@ function applyScreen(which,restoreY){
     if(state.me && (!mineLoaded || Date.now()-mineAt>60000)) mineLoad();
   }
   if(which==="mypick") paintMyPick();
+  if(which==="mtyp") paintMt();
   if(which==="glance") paintGlance();
   if(which==="vcard") paintVerseCard();
   if(which==="crop") paintCrop();
@@ -9852,7 +10806,7 @@ $("myBody").addEventListener("click",function(e){
   if(!list.length){ setSync("「"+name+"」에 넣어 둔 구절이 없습니다 · 먼저 구절을 넣어 주세요",true); return; }
   if(w==="flip"){ openVerseList(list,0,"내 구절",true); return; }
   if(w==="recite"){ reciteFromList(list,"내 구절 · "+name); return; }
-  if(w==="type"){ typeFromList(list,"내 구절 · "+name); return; }
+  if(w==="type"){ mtOpen(list,0,"내 구절 · "+name); return; }
 });
 $("mpslot").addEventListener("click",function(e){
   var b=e.target.closest("[data-ps]"); if(!b) return;
@@ -9970,10 +10924,52 @@ $("pvlist").addEventListener("click",function(e){
 $("vcprev").addEventListener("click",function(){ vcStep(-1); });
 $("vcnext").addEventListener("click",function(){ vcStep(1); });
 $("vctype").addEventListener("click",function(){
-  var p=PART_BY_NAME[PV.pn]; if(!p) return;
-  tyCustom=[{a:PV.a, pn:PV.pn}]; tyLabel="";
-  tyRows=[{a:PV.a, p:p, rec:trecs[pkey(PV.a,PV.pn)]||null}];
-  openType(0);
+  if(!PART_BY_NAME[PV.pn]) return;
+  if(PV.list && PV.list.length) mtOpen(PV.list,PV.li,PV.label||"");
+  else mtOpen([{a:PV.a, pn:PV.pn}],0,"");
+});
+/* ── 외우며 치기 ── */
+$("mtin").addEventListener("compositionstart",function(){ MT.composing=true; });
+$("mtin").addEventListener("compositionend",function(){ MT.composing=false; mtEval(); mtPaintBox(); if(MT.cur && MT.cur.err) mtSettle(); });
+$("mtin").addEventListener("keydown",function(e){ if(e.key==="Enter" && !e.isComposing){ e.preventDefault(); } });
+$("mtin").addEventListener("input",function(){
+  var C=MT.cur; if(!C || C.fin) return;
+  if(/\n/.test(this.value)) this.value=this.value.replace(/\n+/g," ");
+  mtEval(); if(C.fin) return;
+  mtPaintBox();
+  if(C.err) mtSettle(); else clearTimeout(MT.timer);
+});
+$("mtbox").addEventListener("click",function(){ if(MT.cur && !MT.cur.fin) try{ $("mtin").focus({preventScroll:true}); }catch(e){} });
+$("mthint").addEventListener("click",function(){ mtHint(); });
+$("mtreset").addEventListener("click",function(){ MT.round++; mtStart(); try{ $("mtin").focus({preventScroll:true}); }catch(e){} });
+$("mtsteps").addEventListener("click",function(e){
+  var b=e.target.closest("[data-mts]"); if(!b) return;
+  MT.step=+b.dataset.mts; MT.round=0; mtSaveOpt(); mtStart();
+  try{ $("mtin").focus({preventScroll:true}); }catch(_){}
+});
+$("mtopts").addEventListener("click",function(e){
+  var b=e.target.closest("[data-mto]"); if(!b) return;
+  var o=b.dataset.mto;
+  if(o==="ref") MT.opt.ref=!MT.opt.ref;
+  else if(o==="syl") MT.opt.cho=false; else if(o==="cho") MT.opt.cho=true;
+  else if(o==="half"||o==="all") MT.opt.hide=o;
+  mtSaveOpt(); mtStart();
+  try{ $("mtin").focus({preventScroll:true}); }catch(_){}
+});
+$("mtver").addEventListener("click",function(e){
+  var b=e.target.closest("[data-ver]"); if(!b || b.dataset.ver===MT.ver) return;
+  MT.ver=b.dataset.ver; mtStart();
+});
+$("mtdone").addEventListener("click",function(e){
+  var b=e.target.closest("[data-mtd]"); if(!b) return;
+  var d=b.dataset.mtd;
+  if(d==="check"){ var C=MT.cur; if(C) typeFromList([{a:C.a, pn:C.pn}],"외운 구절 점검"); return; }
+  if(d==="again") MT.round++;
+  if(d==="step"){ MT.step=Math.min(4,MT.step+1); MT.round=0; mtSaveOpt(); }
+  if(d==="all"){ MT.opt.hide="all"; mtSaveOpt(); }
+  if(d==="next"){ MT.i=Math.min(MT.list.length-1,MT.i+1); MT.round=0; window.scrollTo(0,0); }
+  mtStart();
+  try{ $("mtin").focus({preventScroll:true}); }catch(_){}
 });
 $("cbadges").addEventListener("click",function(e){
   var li=e.target.closest("li[data-pn]"); if(li) openPartView(li.dataset.pn);
@@ -10142,9 +11138,31 @@ $("bvtabs").addEventListener("click",function(e){ var b=e.target.closest("[data-
 $("bvbooks").addEventListener("click",function(e){ var b=e.target.closest("[data-bvb]"); if(b) openBook(+b.dataset.bvb); });
 $("bvresume").addEventListener("click",function(){ var L=BV.last; if(L) openChapter(L.bi,L.c,{v:L.v>1?L.v:0}); });
 $("bcgrid").addEventListener("click",function(e){ var b=e.target.closest("[data-bcc]"); if(b) openChapter(BV.bi,+b.dataset.bcc); });
+$("bcintro").addEventListener("click",function(e){
+  var b;
+  if((b=e.target.closest("[data-bcfold]"))){ lsWrite(BV_INTRO_KEY, lsRead(BV_INTRO_KEY,"1")==="0"?"1":"0"); paintBookIntro(BV.bi,GUIDE.cache[BV.bi]); return; }
+  if((b=e.target.closest("[data-bcfl]"))){ bcJump(+b.dataset.bcfl); return; }
+  if((b=e.target.closest("[data-bck]"))){ var r=gdRef(b.dataset.bck); if(r) openChapter(r.bi,r.c,{hl:r.v, hl2:r.v2}); }
+});
+$("bcview").addEventListener("click",function(e){
+  var b=e.target.closest("[data-bcv]"); if(!b) return;
+  lsWrite(BV_VIEW_KEY,b.dataset.bcv); paintChapterList(BV.bi,GUIDE.cache[BV.bi]);
+});
+$("btguide").addEventListener("click",function(e){
+  var b;
+  if((b=e.target.closest("[data-btfold]"))){ lsWrite(BV_SUM_KEY, lsRead(BV_SUM_KEY,"1")==="0"?"1":"0"); paintBtGuide(); return; }
+  if((b=e.target.closest("[data-btfl]"))){
+    var i=+b.dataset.btfl;
+    if(depth>0 && screenLog[depth-1]==="bchap") goBack(); else { paintChapters(); replaceScreen("bchap"); }
+    setTimeout(function(){ bcJump(i); },220);
+  }
+});
 $("bvoffline").addEventListener("click",function(){
   var btn=this; btn.disabled=true;
   bibMany(bibAllList(),function(d,n){ $("bvoffnote").textContent="받는 중… "+d+" / "+n+"권"; }).then(function(){
+    $("bvoffnote").textContent="책 소개 · 장 요약을 받는 중…";
+    return guideAll().catch(function(){});
+  }).then(function(){
     $("bvoffnote").textContent="66권을 모두 받아 두었습니다. 이제 인터넷 없이도 성경보기 · 구절 찾기가 됩니다.";
     paintBible();
   },function(e){ btn.disabled=false; $("bvoffnote").textContent=(netOff()?"인터넷이 끊겨 다 받지 못했습니다 · 연결되면 다시 눌러 주세요":"받지 못했습니다 · "+String(e&&e.message||e)); });
@@ -10191,6 +11209,8 @@ $("smform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("s
 $("smq").addEventListener("input",function(){ clearTimeout(SM_INDEX_T); SM_INDEX_T=setTimeout(smRun,250); });
 var SM_INDEX_T=null;
 $("smchips").addEventListener("click",function(e){ var b=e.target.closest("[data-smw]"); if(!b) return; $("smq").value=b.dataset.smw; smRun(); });
+$("smmode").addEventListener("click",function(e){ var b=e.target.closest("[data-smm]"); if(b) smSetMode(b.dataset.smm); });
+$("smres").addEventListener("click",function(e){ var b=e.target.closest("[data-smm]"); if(b){ e.stopPropagation(); smSetMode(b.dataset.smm); window.scrollTo(0,0); } },true);
 $("smres").addEventListener("click",function(e){ var b=e.target.closest("[data-smgo]"); if(b) openVerseCard(b.dataset.smpn,b.dataset.smgo); });
 /* ── 관주 ── */
 $("sxform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("sxq").blur(); }catch(_){} xrRun(true); });
@@ -10215,10 +11235,22 @@ $("mpres").addEventListener("click",function(e){
   var b=e.target.closest("[data-pl]");
   if(b){ MP.fold=true; mpList(); mpSelect(+b.dataset.pl,true); var mp=$("mappanel"); if(mp) mp.scrollIntoView({block:"start",behavior:"smooth"}); }
 });
+$("mptabs").addEventListener("click",function(e){ var b=e.target.closest("[data-mptab]"); if(b) mpSetTab(b.dataset.mptab); });
+$("mpthlist").addEventListener("click",function(e){
+  var b=e.target.closest("[data-th]"); if(!b) return;
+  var i=+b.dataset.th;
+  loadThemes().then(function(){
+    if(i<0){ if(MP.th>=0) mpTheme(MP.th); return; }
+    mpTheme(i);
+    var mp=$("mappanel"); if(mp && MP.th>=0 && mp.getBoundingClientRect().top>window.innerHeight*0.45) mp.scrollIntoView({block:"start",behavior:"smooth"});
+  });
+});
 $("smap").addEventListener("click",function(e){
   var z=e.target.closest("[data-mz]");
   if(z){ var k=z.dataset.mz; if(k==="in") mpZoom(1/1.5); else if(k==="out") mpZoom(1.5); else mpView(k); return; }
   var g=e.target.closest("[data-plgo]"); if(g){ goRef(g.dataset.plgo); return; }
+  var ts=e.target.closest("[data-ts]"); if(ts){ var n=+ts.dataset.ts; mpThemeStop(MP.ts===n?-1:n,true); return; }
+  var tp=e.target.closest("[data-thpl]"); if(tp){ MP.sel=+tp.dataset.thpl; MP.more=10; paintPlaceInfo(); var mi=$("mapinfo"); if(mi) mi.scrollIntoView({block:"start",behavior:"smooth"}); return; }
   if(e.target.closest("[data-plmore]")){ MP.more+=100; paintPlaceInfo(); }
 });
 
