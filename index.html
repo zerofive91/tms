@@ -1479,7 +1479,7 @@ body.sheeting{overflow:hidden}
 
 /* ── 성경 지도 ── */
 .mapwrap{padding:10px}
-.mapbox{position:relative;height:min(62vh,460px);border-radius:12px;overflow:hidden;background:var(--mapsea);touch-action:pan-x pan-y;
+.mapbox{position:relative;height:min(56vh,440px);border-radius:12px;overflow:hidden;background:var(--mapsea);touch-action:none;
   user-select:none;-webkit-user-select:none;cursor:grab;-webkit-tap-highlight-color:transparent}
 .mapbox.grabbing{cursor:grabbing}
 .mapbox svg.mpbase{display:block;width:100%;height:100%}
@@ -1558,6 +1558,33 @@ body.sheeting{overflow:hidden}
 .plmeta2 span{font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--ink-soft);background:var(--bg);border-radius:999px;padding:2px 9px}
 .plmeta2 span.c3{color:var(--brand)}
 .plmeta2 span.c1{color:var(--accent-ink)}
+.pldesc{margin:2px 0 0;font-size:calc(14.5px * var(--fz));line-height:1.75;color:var(--ink);text-wrap:pretty}
+.plh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:22px 0 10px;font-size:calc(15.5px * var(--fz));font-weight:800;color:var(--ink)}
+.plh span{font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--ink-soft)}
+.pleras{margin-left:5px}
+.plera{position:relative;padding:0 0 16px 17px;border-left:2px solid var(--line)}
+.plera:last-child{border-left-color:transparent;padding-bottom:4px}
+.plera::before{content:"";position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--brand);box-sizing:border-box}
+.pleh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.pleh b{font-size:calc(14.5px * var(--fz));color:var(--ink)}
+.pleh span{font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+.pleh em{margin-left:auto;font-style:normal;font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums}
+.pleb{margin:4px 0 9px;font-size:calc(12.8px * var(--fz));line-height:1.65;color:var(--ink-soft)}
+ul.plst{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+ul.plst button{display:block;width:100%;text-align:left;border:0;border-radius:10px;background:var(--bg);color:var(--ink);padding:8px 11px;font:inherit;cursor:pointer}
+ul.plst button b{display:block;font-size:calc(12px * var(--fz));color:var(--brand);margin-bottom:2px;font-variant-numeric:tabular-nums}
+ul.plst button span{display:block;font-size:calc(14px * var(--fz));line-height:1.6}
+ul.plst button:hover b{text-decoration:underline}
+.plch{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.plch button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:2px 9px;
+  font:inherit;font-size:calc(11.5px * var(--fz));font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.plch button:hover{border-color:var(--brand);color:var(--brand)}
+.plch button.more{color:var(--brand)}
+.plloc{margin-top:0}
+.plloc div{grid-template-columns:calc(84px * var(--fz)) 1fr}
+.plloc dd small{color:var(--ink-soft);font-size:.86em}
+.plbar{display:inline-block;vertical-align:middle;width:64px;height:6px;border-radius:3px;background:var(--line);margin:-2px 7px 0 0;overflow:hidden}
+.plbar i{display:block;height:100%;border-radius:3px;background:var(--brand)}
 
 /* ── 성경 인물 ── */
 .psn{margin:0;font-family:"Gowun Batang",Georgia,serif;font-size:calc(27px * var(--fz));font-weight:700;color:var(--ink)}
@@ -2524,7 +2551,7 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
         <button type="button" data-mz="land">이스라엘</button>
         <button type="button" data-mz="all">전체</button>
       </div>
-      <p class="mapgest">한 손가락으로 밀면 화면이 넘어갑니다 · 지도는 두 손가락으로 옮기고 확대하세요 (PC는 끌기 · Ctrl+휠)</p>
+      <p class="mapgest">한 손가락으로 옮기고, 두 손가락으로 확대 · 축소합니다 (PC는 끌기 · Ctrl+휠). 아래 내용은 지도 바깥을 밀거나 「자세히 ↓」를 누르세요.</p>
     </div>
     <div class="panel" id="mapthm" hidden></div>
     <div class="panel" id="mapinfo" hidden></div>
@@ -9241,13 +9268,17 @@ function mpBindPan(){
   });
   function pend(e){ if(P && e.pointerId===P.id){ P=null; box.classList.remove("grabbing"); } }
   box.addEventListener("pointerup",pend); box.addEventListener("pointercancel",pend);
-  /* 손가락 — 한 손가락은 화면 넘기기(브라우저에 맡김), 두 손가락은 옮기기 + 확대 */
+  /* 손가락 — 한 손가락은 지도 옮기기, 두 손가락은 확대 · 축소(가운데를 기준으로 함께 옮김).
+     지도 아래 내용은 지도 바깥을 밀거나 「자세히 ↓」로 내려갑니다. */
   function two(ts){ var a=ts[0], b=ts[1]; return {d:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY), x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2}; }
   box.addEventListener("touchstart",function(e){
+    if(e.target.closest("#mpcard")){ T.one=null; return; }
     if(e.touches.length>=2){
       if(e.cancelable) e.preventDefault();
-      var g=two(e.touches); T.pinch={d:g.d, x:g.x, y:g.y, vb:MP.vb.slice()};
-    } else { T.sx=e.touches[0].clientX; T.sy=e.touches[0].clientY; T.hinted=false; }
+      var g=two(e.touches); T.pinch={d:g.d, x:g.x, y:g.y, vb:MP.vb.slice()}; T.one=null;
+    } else if(!T.pinch){
+      T.one={x:e.touches[0].clientX, y:e.touches[0].clientY, vb:MP.vb.slice()}; MP.moved=false;
+    }
   },{passive:false});
   box.addEventListener("touchmove",function(e){
     if(e.touches.length>=2){
@@ -9259,12 +9290,20 @@ function mpBindPan(){
       var mx=s.vb[0]+(s.x-r.left)/r.width*s.vb[2], my=s.vb[1]+(s.y-r.top)/r.height*s.vb[3];
       MP.vb=[mx-(g.x-r.left)/r.width*w, my-(g.y-r.top)/r.height*h, w, h];
       mpApply();
-    } else if(!T.pinch && !T.hinted && e.touches.length===1){
-      var dx=e.touches[0].clientX-T.sx, dy=e.touches[0].clientY-T.sy;
-      if(Math.abs(dx)>28 && Math.abs(dx)>Math.abs(dy)*1.3){ T.hinted=true; mpHint("두 손가락으로 지도를 옮기고 확대하세요"); }
+    } else if(!T.pinch && T.one && e.touches.length===1){
+      var t=e.touches[0], r2=rect(), ddx=t.clientX-T.one.x, ddy=t.clientY-T.one.y;
+      if(!MP.moved && Math.abs(ddx)+Math.abs(ddy)<6) return;          /* 살짝 닿은 것은 누르기로 */
+      if(e.cancelable) e.preventDefault();
+      MP.moved=true;
+      MP.vb=[T.one.vb[0]-ddx/r2.width*T.one.vb[2], T.one.vb[1]-ddy/r2.height*T.one.vb[3], T.one.vb[2], T.one.vb[3]];
+      mpApply();
     }
   },{passive:false});
-  function tend(e){ if(e.touches.length<2 && T.pinch){ T.pinch=null; MP.pinchAt=Date.now(); } }
+  function tend(e){
+    if(e.touches.length<2 && T.pinch){ T.pinch=null; MP.pinchAt=Date.now(); }
+    if(!e.touches.length){ T.one=null; if(MP.moved) setTimeout(function(){ MP.moved=false; },60); }
+    else if(e.touches.length===1 && !T.pinch){ T.one={x:e.touches[0].clientX, y:e.touches[0].clientY, vb:MP.vb.slice()}; }   /* 두 손가락 → 한 손가락: 이어서 옮기기 */
+  }
   box.addEventListener("touchend",tend); box.addEventListener("touchcancel",tend);
   /* 휠 — Ctrl(⌘)과 함께일 때만 확대(트랙패드 오므리기 포함). 그냥 휠은 화면을 넘깁니다 */
   box.addEventListener("wheel",function(e){
@@ -9320,21 +9359,102 @@ function mpCardGo(k){
   var el = k==="info" ? $("mapinfo") : $("ths"+MP.ts);
   if(el) el.scrollIntoView({block:"start",behavior:"smooth"});
 }
+/* ── 지명 자세히: 설명 · 시대별 이야기 · 위치 근거(오픈바이블 번역) ──
+   data/placeinfo.json 은 지도에서 지명을 처음 누를 때 받습니다. 바꾸면 PLI_VER 를 올리세요. */
+var PLI_VER="1";
+var PLI={data:null, loading:null, err:false, at:-1, exp:{}};
+function loadPlaceInfo(){
+  if(PLI.data) return Promise.resolve(PLI.data);
+  if(PLI.loading) return PLI.loading;
+  PLI.loading=fetch("data/placeinfo.json?v="+PLI_VER).then(function(r){ if(!r.ok) throw new Error("지명 설명 자료를 찾지 못했습니다 ("+r.status+")"); return r.json(); })
+    .then(function(j){ PLI.data=j; PLI.loading=null; PLI.err=false; return j; },function(e){ PLI.loading=null; PLI.err=true; throw e; });
+  return PLI.loading;
+}
+/* 책 · 장으로 성경 속 시대 나누기 (b: 1부터) */
+function eraOf(b,c){
+  if(b===1) return c<=11?"pri":"pat";
+  if(b<=5) return "exo";
+  if(b<=8) return "con";
+  if(b<=10) return "kin";
+  if(b===11) return c<=11?"kin":"div";
+  if(b===12) return "div";
+  if(b===13) return c<=9?"gen":"kin";
+  if(b===14) return c<=9?"kin":"div";
+  if(b<=17) return "exi";
+  if(b<=22) return "poe";
+  if(b<=24) return "div";
+  if(b<=27) return "exi";
+  if(b<=36) return "div";
+  if(b<=39) return "exi";
+  if(b<=43) return "gos";
+  if(b===44) return "chu";
+  return "epi";
+}
+function plRefName(s){   /* [b,c,v,c2,v2] → "창 12:6-8" */
+  var t=BOOK_SHORT[s[0]-1]+" "+s[1]+":"+s[2];
+  if(s[3]!==s[1]) t+="-"+s[3]+":"+s[4]; else if(s[4]!==s[2]) t+="-"+s[4];
+  return t;
+}
+function plEraHtml(refs,info){
+  var E=PLI.data.era, by={};
+  E.forEach(function(e){ by[e[0]]={e:e, refs:[], st:[]}; });
+  refs.forEach(function(x){ by[eraOf(x[0],x[1])].refs.push(x); });
+  (info.s||[]).forEach(function(s){ by[eraOf(s[0],s[1])].st.push(s); });
+  var h='';
+  E.forEach(function(e){
+    var g=by[e[0]]; if(!g.refs.length && !g.st.length) return;
+    var lim=PLI.exp[e[0]] ? g.refs.length : 8;
+    h+='<section class="plera"><div class="pleh"><b>'+esc(e[1])+'</b><span>'+esc(e[2])+'</span>'+(g.refs.length?'<em>'+g.refs.length+'절</em>':'')+'</div>'+
+      '<p class="pleb">'+esc(e[3])+'</p>'+
+      (g.st.length?'<ul class="plst">'+g.st.map(function(s){
+        return '<li><button type="button" data-plgo="'+(s[0]-1)+'|'+s[1]+'|'+s[2]+'|'+(s[3]===s[1]&&s[4]!==s[2]?s[4]:0)+'"><b>'+esc(plRefName(s))+'</b><span>'+esc(s[5])+'</span></button></li>';
+      }).join("")+'</ul>':'')+
+      (g.refs.length?'<div class="plch" aria-label="'+esc(e[1])+'에 나오는 구절">'+g.refs.slice(0,lim).map(function(x){
+        return '<button type="button" data-plgo="'+(x[0]-1)+'|'+x[1]+'|'+x[2]+'|0">'+esc(BOOK_SHORT[x[0]-1]+" "+x[1]+":"+x[2])+'</button>';
+      }).join("")+(g.refs.length>lim?'<button type="button" class="more" data-plex="'+e[0]+'">+'+(g.refs.length-lim)+'</button>':'')+'</div>':'')+
+      '</section>';
+  });
+  return '<h3 class="plh">시대별 이야기<span>성경 속 시대 · 시대 배경</span></h3><div class="pleras">'+h+'</div>';
+}
+function plLocHtml(L){
+  var cf=confText(L.c), pct=Math.max(2,Math.min(100,Math.round(L.c/10)));
+  return '<h3 class="plh">위치 근거<span>오픈바이블 자료 번역</span></h3><dl class="bvmeta plloc">'+
+    '<div><dt>가장 유력한 곳</dt><dd>'+esc(L.m)+'</dd></div>'+
+    '<div><dt>확실성</dt><dd><i class="plbar" aria-hidden="true"><i style="width:'+pct+'%"></i></i>'+L.c+' / 1000 · '+cf[0]+(L.k>1?' · 후보 '+L.k+'곳':'')+'</dd></div>'+
+    (L.a&&L.a.length?'<div><dt>다른 후보</dt><dd>'+L.a.map(function(a){ return esc(a[0])+' <small>('+a[1]+')</small>'; }).join(" · ")+'</dd></div>':'')+
+    (L.t?'<div><dt>메모</dt><dd>'+esc(L.t)+'</dd></div>':'')+
+    '</dl><p class="srcnote" style="margin-top:8px">오픈바이블은 여러 성경 사전 · 지도 · 연구서가 이 지명을 어디로 보는지 모아 점수(1000점 만점)를 매깁니다. 점수가 높을수록 자료들의 의견이 한곳으로 모입니다. 현대 지명은 원문 표기를 그대로 두었습니다.</p>';
+}
 function paintPlaceInfo(){
   var i=MP.sel, r=PLC.rows[i], box=$("mapinfo");
   if(!r){ box.hidden=true; return; }
+  if(PLI.at!==i){ PLI.at=i; PLI.exp={}; }
+  if(!PLI.data && !PLI.loading && !PLI.err) loadPlaceInfo().then(function(){ if(MP.sel===i) paintPlaceInfo(); },function(){ if(MP.sel===i) paintPlaceInfo(); });
   var refs=unpackRefs(r[6]), cf=confText(r[4]);
+  var info=PLI.data ? (PLI.data.p[i]||{}) : null;
   var links='';
   if(r[2]!=null) links+='<a href="https://www.google.com/maps/search/?api=1&query='+r[3]+','+r[2]+'" target="_blank" rel="noopener">'+svg("pin")+'구글 지도</a>';
-  if(r[7]){ var ob=r[7].split("/"); links+='<a href="https://www.openbible.info/geo/ancient/'+ob[1]+'/'+ob[0]+'" target="_blank" rel="noopener">'+svg("search")+'OpenBible 자세히</a>'; }
+  if(r[7]){ var ob=r[7].split("/"); links+='<a href="https://www.openbible.info/geo/ancient/'+ob[1]+'/'+ob[0]+'" target="_blank" rel="noopener">'+svg("search")+'OpenBible 원문</a>'; }
+  var kind=(r[5]||"지명").split("·")[0];
+  var body;
+  if(info){
+    body='<p class="pldesc">'+esc(info.d||info.q||('성경에 '+refs.length+'번 나오는 '+kind+'입니다.'))+'</p>'+
+      '<div class="shacts" style="margin-top:12px">'+links+'</div>'+
+      plEraHtml(refs,info)+
+      (info.l?plLocHtml(info.l):'');
+  } else {
+    body='<div class="shacts" style="margin-top:8px">'+links+'</div>'+
+      '<p class="rmeta" style="margin:12px 2px 0">'+(PLI.err?(netOff()?"인터넷이 없어 지명 설명을 불러오지 못했습니다. 한 번 연 뒤로는 인터넷 없이도 열립니다.":"지명 설명을 불러오지 못했습니다."):"지명 설명을 불러오는 중…")+'</p>';
+  }
   box.hidden=false;
   box.innerHTML='<p class="eyebrow">지명</p><h2 class="psn">'+esc(r[0])+'<em>'+esc(r[1])+'</em></h2>'+
     '<div class="plmeta2">'+(r[5]?'<span>'+esc(r[5])+'</span>':'')+(r[2]!=null?'<span class="'+cf[1]+'">'+cf[0]+'</span>':'<span class="c1">위치 모름</span>')+
     '<span class="c3">'+refs.length+'절에 나옴</span></div>'+
-    (r[8]?'<p class="rmeta" style="margin:0 0 4px">현재 위치(영문) · '+esc(r[8])+'</p>':'')+
-    '<div class="shacts" style="margin-top:8px">'+links+'</div>'+
+    body+
+    '<h3 class="plh" id="plall">나오는 구절 전체<span>'+refs.length+'절</span></h3>'+
     '<div id="plrefs">'+refListHtml(refs,MP.more,"data-plgo")+'</div>'+
-    (refs.length>MP.more?'<button type="button" class="minemore" data-plmore="1">'+(refs.length-MP.more)+'절 더 보기</button>':'');
+    (refs.length>MP.more?'<button type="button" class="minemore" data-plmore="1">'+(refs.length-MP.more)+'절 더 보기</button>':'')+
+    (info?aiNote()+'<p class="srcnote">'+esc(PLI.data.src)+'</p>':'');
   var need=[]; refs.slice(0,MP.more).forEach(function(x){ if(need.indexOf(x[0]-1)<0) need.push(x[0]-1); });
   if(need.some(function(b){ return !BIB.cache[b]; })) bibMany(need).then(function(){ if(MP.sel===i && $("plrefs")) $("plrefs").innerHTML=refListHtml(refs,MP.more,"data-plgo"); },function(){});
 }
@@ -11251,6 +11371,7 @@ $("smap").addEventListener("click",function(e){
   var g=e.target.closest("[data-plgo]"); if(g){ goRef(g.dataset.plgo); return; }
   var ts=e.target.closest("[data-ts]"); if(ts){ var n=+ts.dataset.ts; mpThemeStop(MP.ts===n?-1:n,true); return; }
   var tp=e.target.closest("[data-thpl]"); if(tp){ MP.sel=+tp.dataset.thpl; MP.more=10; paintPlaceInfo(); var mi=$("mapinfo"); if(mi) mi.scrollIntoView({block:"start",behavior:"smooth"}); return; }
+  var px=e.target.closest("[data-plex]"); if(px){ PLI.exp[px.dataset.plex]=1; paintPlaceInfo(); return; }
   if(e.target.closest("[data-plmore]")){ MP.more+=100; paintPlaceInfo(); }
 });
 
