@@ -1741,6 +1741,180 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
 .mtdots{flex:0 0 auto;display:inline-flex;gap:3px;margin-left:auto;margin-right:2px}
 .mtdots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
 .mtdots i.on{background:var(--core)}
+
+/* ══ 성경보기 · 해설 / 자료 태그 · 여러 절 고르기 ══ */
+:root{--tg-p:#2F6FB0;--tg-l:#2E8B57;--tg-u:#B26A15;--tg-pb:color-mix(in srgb,#2F6FB0 12%,transparent);--tg-lb:color-mix(in srgb,#2E8B57 12%,transparent);--tg-ub:color-mix(in srgb,#C98A1B 16%,transparent)}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--tg-p:#8CB8EE;--tg-l:#86D6A8;--tg-u:#F0B866;--tg-pb:color-mix(in srgb,#8CB8EE 16%,transparent);--tg-lb:color-mix(in srgb,#86D6A8 14%,transparent);--tg-ub:color-mix(in srgb,#F0B866 16%,transparent)} }
+:root[data-theme="dark"]{--tg-p:#8CB8EE;--tg-l:#86D6A8;--tg-u:#F0B866;--tg-pb:color-mix(in srgb,#8CB8EE 16%,transparent);--tg-lb:color-mix(in srgb,#86D6A8 14%,transparent);--tg-ub:color-mix(in srgb,#F0B866 16%,transparent)}
+.btmodes{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:10px}
+.btmodes button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:5px 13px;
+  font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
+.btmodes button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--hi)}
+.btmhint{flex:1 1 160px;min-width:0;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);line-height:1.45}
+.rdv p.v .tg,.stver .tg{font-weight:inherit;border-radius:4px;padding:0 1px;cursor:pointer;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+.tg.p{color:var(--tg-p);text-decoration-color:color-mix(in srgb,var(--tg-p) 55%,transparent)}
+.tg.l{color:var(--tg-l);text-decoration-color:color-mix(in srgb,var(--tg-l) 55%,transparent)}
+.tg.u{color:var(--tg-u);text-decoration-style:dotted;text-decoration-color:var(--tg-u)}
+.vtg{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 6px 18px}
+.vtg button{border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:999px;padding:1px 9px;
+  font:inherit;font-size:calc(11.5px * var(--fz));font-weight:700;line-height:1.7;cursor:pointer}
+.vtg button.p{color:var(--tg-p);background:var(--tg-pb);border-color:transparent}
+.vtg button.l{color:var(--tg-l);background:var(--tg-lb);border-color:transparent}
+.vtg button.u{color:var(--tg-u);background:var(--tg-ub);border-color:transparent}
+.vtg button:hover{border-color:var(--brand)}
+.rdv.study p.v{margin-bottom:6px}
+.selbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;gap:10px;max-width:640px;margin:0 auto;
+  padding:10px max(14px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));
+  background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.12);border-radius:16px 16px 0 0}
+.selbar[hidden]{display:none}
+.selref{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;line-height:1.3}
+.selref b{font-size:calc(14px * var(--fz));color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.selref span{font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+.selacts{display:flex;gap:6px;flex:0 0 auto}
+.selacts span{display:flex;gap:6px}
+.selacts span[hidden]{display:none}
+.selacts button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;
+  font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer;white-space:nowrap}
+.selacts button.main{background:var(--brand);border-color:var(--brand);color:var(--hi)}
+body.selbar{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.rlink{display:inline;border:0;background:none;padding:0 1px;margin:0;font:inherit;color:var(--brand);font-weight:700;cursor:pointer;
+  text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--brand) 40%,transparent);text-underline-offset:2px}
+/* 이 절 자료 창 */
+.shback{display:inline-flex;align-items:center;gap:4px;margin:0 0 8px;border:0;background:var(--tint);color:var(--brand);border-radius:999px;
+  padding:4px 12px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
+.stnav{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.stnav button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 11px;
+  font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
+.stnav button i{font-style:normal;color:var(--ink-soft);font-weight:600;margin-left:4px}
+.stver .kw{cursor:pointer;border-radius:4px}
+.stver .kw.on{background:var(--mark)}
+.stlegend{display:flex;gap:10px;margin:-2px 2px 4px;font-size:calc(11px * var(--fz))}
+.stlegend .tg{cursor:default}
+.sth{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;margin:18px 0 8px;font-size:calc(14.5px * var(--fz));color:var(--ink)}
+.sth em{font-style:normal;font-weight:500;font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+section[id^="st-"]{scroll-margin-top:8px}
+.iwl{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.iwl li button{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"o k" "r r" "g g" "m m";gap:1px 10px;width:100%;
+  text-align:left;border:1.5px solid transparent;background:var(--bg);border-radius:12px;padding:9px 12px;font:inherit;color:var(--ink);cursor:pointer}
+.iwl li button:hover{border-color:var(--core)}
+.iwl li.on button{border-color:var(--brand);background:color-mix(in srgb,var(--mark) 60%,var(--bg))}
+.iwl li button:disabled{cursor:default;opacity:.8}
+.iwo{grid-area:o;font-family:"SBL Hebrew","Ezra SIL","Noto Serif Hebrew","Noto Serif","Gentium Plus","Times New Roman",serif;font-size:calc(22px * var(--fz));line-height:1.35;color:var(--ink);min-width:0}
+.iwo[dir="rtl"]{text-align:right;font-size:calc(24px * var(--fz))}
+.iwk{grid-area:k;align-self:center;font-size:calc(14px * var(--fz));font-weight:700;color:var(--brand);white-space:nowrap}
+.iwk i{font-style:normal;color:var(--deep);font-weight:500}
+.iwr{grid-area:r;font-size:calc(12.5px * var(--fz));color:var(--ink-soft)}
+.iwg{grid-area:g;font-size:calc(13px * var(--fz));color:var(--ink)}
+.iwg b{font-weight:700}
+.iwm{grid-area:m;font-size:calc(11.5px * var(--fz));color:var(--deep)}
+.stnote{margin:8px 2px 0;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);line-height:1.5}
+.stxg{padding:8px 0;border-top:1px solid var(--line-soft)}
+.stxg:first-of-type{border-top:0}
+.stxg p{margin:0 0 4px;display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:calc(13px * var(--fz))}
+.stxg p span{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--tint);color:var(--brand);font-size:calc(11px * var(--fz));font-weight:800}
+.stxg div{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:calc(13px * var(--fz))}
+.stxg div em{font-style:normal;color:var(--ink-soft);font-size:calc(12px * var(--fz))}
+.stchips{display:flex;flex-wrap:wrap;gap:6px}
+.stchips button{display:flex;flex-direction:column;align-items:flex-start;gap:0;max-width:100%;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);
+  border-radius:12px;padding:6px 11px;font:inherit;text-align:left;cursor:pointer}
+.stchips button b{font-size:calc(13.5px * var(--fz))}
+.stchips button span{font-size:calc(11px * var(--fz));color:var(--ink-soft);line-height:1.4}
+.stchips button:hover{border-color:var(--brand)}
+.stun{display:block;width:100%;text-align:left;border:1.5px solid transparent;background:var(--tg-ub);border-radius:12px;padding:10px 12px;margin-bottom:6px;font:inherit;color:var(--ink);cursor:pointer}
+.stunl{display:block;margin-bottom:4px}
+.stun b{font-size:calc(15px * var(--fz));margin-right:8px}
+.stun span{font-size:calc(15px * var(--fz));font-weight:700;color:var(--tg-u)}
+.stun em{display:block;font-style:normal;font-size:calc(12.5px * var(--fz));color:var(--ink);margin-top:2px}
+.stun p{margin:6px 0 0;font-size:calc(12.5px * var(--fz));line-height:1.6;color:var(--ink)}
+.stun small{display:block;margin-top:4px;font-size:calc(11px * var(--fz));color:var(--ink-soft)}
+.stun:hover{border-color:var(--tg-u)}
+/* 원어 사전 */
+.lxlang{margin-top:10px}
+.lxlang .cbtn{padding:8px 4px;font-size:calc(13px * var(--fz))}
+.lxchips button b{font-family:"SBL Hebrew","Noto Serif Hebrew","Noto Serif",serif;font-weight:500;font-size:calc(14px * var(--fz));color:var(--ink)}
+.lxhelp{margin:0;padding-left:18px;font-size:calc(13px * var(--fz));color:var(--ink-soft);line-height:1.6}
+.lxlist,.dclist,.unvl{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.lxrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;text-align:left;border:1.5px solid transparent;
+  background:var(--bg);border-radius:12px;padding:9px 12px;font:inherit;color:var(--ink);cursor:pointer}
+.lxrow:hover{border-color:var(--core)}
+.lxo{font-family:"SBL Hebrew","Ezra SIL","Noto Serif Hebrew","Noto Serif","Gentium Plus",serif;font-size:calc(20px * var(--fz));min-width:2.4em}
+.lxm{min-width:0;display:flex;flex-direction:column}
+.lxm b{font-size:calc(14px * var(--fz))}
+.lxm em{font-style:normal;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lxn{display:flex;flex-direction:column;align-items:flex-end;font-size:calc(11px * var(--fz));font-weight:700;color:var(--brand)}
+.lxn i{font-style:normal;font-weight:500;color:var(--ink-soft)}
+.lxhead{display:flex;align-items:center;gap:14px;margin:0 40px 6px 0}
+.lxbig{font-family:"SBL Hebrew","Ezra SIL","Noto Serif Hebrew","Noto Serif","Gentium Plus",serif;font-size:calc(38px * var(--fz));line-height:1.2;color:var(--ink)}
+.lxhead div{display:flex;flex-direction:column;min-width:0}
+.lxhead div b{font-size:calc(17px * var(--fz))}
+.lxhead div span{font-size:calc(12px * var(--fz));color:var(--ink-soft)}
+.lxgl{margin:0 0 8px;font-size:calc(14px * var(--fz));color:var(--ink)}
+.lxgl i{font-style:normal;font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--brand);background:var(--tint);border-radius:999px;padding:1px 8px;margin-right:4px}
+.lxcur{margin:8px 0;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--mark) 55%,var(--bg))}
+.lxcur em{display:block;font-style:normal;font-size:calc(11px * var(--fz));font-weight:800;color:var(--ink-soft);margin-bottom:2px}
+.lxcur b{font-family:"SBL Hebrew","Noto Serif Hebrew","Noto Serif",serif;font-size:calc(20px * var(--fz));font-weight:500;margin-right:6px}
+.lxcur span{margin-left:6px;font-weight:700;color:var(--brand)}
+.lxcur p{margin:4px 0 0;font-size:calc(12.5px * var(--fz));color:var(--ink)}
+.lxcur small{display:block;color:var(--ink-soft);font-size:calc(11.5px * var(--fz))}
+.lxbars{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.lxbars li{display:grid;grid-template-columns:minmax(4.5em,auto) minmax(0,1fr) auto;align-items:center;gap:8px;font-size:calc(13px * var(--fz))}
+.lxbars i{display:block;height:8px;border-radius:99px;background:var(--line-soft);overflow:hidden}
+.lxbars i b{display:block;height:100%;background:var(--core);border-radius:99px}
+.lxbars em{font-style:normal;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.lxdef{font-size:calc(13px * var(--fz));line-height:1.65;color:var(--ink);background:var(--bg);border-radius:12px;padding:10px 12px;word-break:break-word;overflow-wrap:anywhere}
+/* 성경 사전 */
+.dckind{margin-top:10px}
+.dckind .cbtn{padding:8px 4px;font-size:calc(13px * var(--fz));min-width:48px}
+.dcini{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+.dcini button{min-width:32px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:8px;padding:4px 6px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
+.dcini button.on{background:var(--secondary);border-color:var(--secondary);color:#1F3D18}
+.dclist button{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;width:100%;text-align:left;border:1.5px solid transparent;background:var(--bg);border-radius:12px;
+  padding:9px 12px;font:inherit;color:var(--ink);cursor:pointer}
+.dclist button:hover{border-color:var(--core)}
+.dclist b{font-size:calc(14.5px * var(--fz))}
+.dclist span{font-size:calc(12px * var(--fz));color:var(--ink-soft)}
+.dk{margin-left:auto;font-style:normal;font-size:calc(10.5px * var(--fz));font-weight:800;padding:1px 7px;border-radius:999px;background:var(--tint);color:var(--brand)}
+.dk.p{background:var(--tg-pb);color:var(--tg-p)} .dk.l{background:var(--tg-lb);color:var(--tg-l)} .dk.u{background:var(--tg-ub);color:var(--tg-u)}
+.dcbody{font-size:calc(14px * var(--fz));line-height:1.75;color:var(--ink);word-break:break-word}
+.dcbody p{margin:0 0 10px}
+.dcgt{margin:4px 0 0;font-size:calc(13px * var(--fz))}
+.dcgt a{color:var(--brand);font-weight:700}
+/* 도량형 */
+.untabs .cbtn{padding:9px 4px;font-size:calc(13px * var(--fz));min-width:52px}
+.unhier{margin:-4px 0 12px;font-size:calc(13px * var(--fz));line-height:1.6;color:var(--ink);background:var(--bg);border-radius:10px;padding:8px 12px}
+.unladder{display:grid;gap:4px}
+.unlad{display:grid;grid-template-columns:minmax(0,7.2em) minmax(0,1fr) 6.4em;align-items:center;gap:8px;width:100%;border:0;background:none;padding:3px 0;font:inherit;color:var(--ink);cursor:pointer;text-align:left}
+.unln{font-size:calc(13px * var(--fz));font-weight:700;line-height:1.3}
+.unlb{display:block;height:10px;border-radius:99px;background:var(--line-soft);overflow:hidden}
+.unlb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--core),var(--secondary))}
+.unla{font-size:calc(12px * var(--fz));color:var(--ink-soft);text-align:right;line-height:1.3;font-variant-numeric:tabular-nums}
+.uncv{display:flex;gap:8px}
+.uncv input{flex:1 1 40%;min-width:0;font-size:calc(16px * var(--fz))}
+.uncv select{flex:1 1 60%;min-width:0;font:inherit;font-size:calc(15px * var(--fz));border:1.5px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);color:var(--ink)}
+.uncvout{margin-top:10px}
+.uncvmain{margin:0;font-size:calc(16px * var(--fz))}
+.uncvmain b{color:var(--brand);font-size:calc(19px * var(--fz))}
+.uncvfeel{margin:4px 0 0;font-size:calc(13px * var(--fz));color:var(--ink)}
+.uncvout ul{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.uncvout li{font-size:calc(12.5px * var(--fz));background:var(--bg);border-radius:999px;padding:3px 10px;color:var(--ink-soft)}
+.uncvout li b{color:var(--ink)}
+.uncard{display:block}
+.unhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.unhead h4{margin:0;font-family:"Gowun Batang",Georgia,serif;font-size:calc(19px * var(--fz));color:var(--ink)}
+.unhead span{font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+.unval{margin:6px 0 8px;padding:10px 12px;border-radius:12px;background:var(--tg-ub)}
+.unval b{display:block;font-size:calc(16px * var(--fz));color:var(--ink)}
+.unval span{display:block;font-size:calc(12.5px * var(--fz));color:var(--ink-soft);margin-top:2px}
+.unrel{margin:0 0 8px;font-size:calc(13px * var(--fz));color:var(--ink)}
+.unrel i,.unkeys i{font-style:normal;font-size:calc(11px * var(--fz));font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:1px 8px;margin-right:6px}
+.unorgs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.unorg{display:grid;grid-template-columns:auto auto;grid-template-areas:"o n" "r r";gap:0 8px;align-items:baseline;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:5px 10px;font:inherit;color:var(--ink);cursor:pointer;text-align:left}
+.unorg b{grid-area:o;font-family:"SBL Hebrew","Noto Serif Hebrew","Noto Serif",serif;font-weight:500;font-size:calc(18px * var(--fz))}
+.unorg span{grid-area:r;font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+.unorg em{grid-area:n;font-style:normal;font-size:calc(11px * var(--fz));font-weight:700;color:var(--brand)}
+.undesc{margin:0 0 8px;font-size:calc(14px * var(--fz));line-height:1.75;color:var(--ink)}
+.unkeys{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:calc(13px * var(--fz))}
+.whog h4 em{font-style:normal;font-weight:500;margin-left:4px}
 </style>
 </head>
 <body>
@@ -2507,17 +2681,26 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
         <div class="btnav2"><button type="button" id="btprev2" aria-label="앞 장">&#8249;</button><button type="button" id="btnext2" aria-label="다음 장">&#8250;</button></div>
       </div>
       <p class="rdsum" id="btsub"></p>
+      <div class="btmodes" id="btmodes" role="group" aria-label="함께 볼 것"></div>
       <div class="btguide" id="btguide" hidden></div>
     </div>
     <div class="panel btbody"><div class="rdv" id="btverses"></div></div>
     <div class="panel" id="btwho">
-      <button type="button" class="go soft" id="btwhobtn">이 장에 나오는 인물 · 지명</button>
+      <button type="button" class="go soft" id="btwhobtn">이 장의 자료 · 원어 · 인물 · 지명 · 단위 · 사전</button>
       <div id="btwholist"></div>
     </div>
     <div class="rdnav">
       <button type="button" id="btprev">&#8249; 앞 장</button>
       <button type="button" class="mid" id="btlist">장 목록</button>
       <button type="button" id="btnext">다음 장 &#8250;</button>
+    </div>
+    <div class="selbar" id="btsel" hidden>
+      <div class="selref" id="btselref"></div>
+      <div class="selacts">
+        <button type="button" class="main" data-bs="copy">복사</button>
+        <span id="btselone"><button type="button" data-bs="xref">관주</button><button type="button" data-bs="study">자료</button></span>
+        <button type="button" data-bs="clear" aria-label="선택 해제">해제</button>
+      </div>
     </div>
   </div>
 
@@ -2564,6 +2747,45 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
       <p class="fixednote" id="sxnote">성경을 읽다가 절을 눌러도 그 절의 관주가 나옵니다.</p>
     </div>
     <div id="sxres"></div>
+  </div>
+
+  <!-- ===== 성경 검색 · 원어 사전 ===== -->
+  <div id="slex" hidden>
+    <div class="panel">
+      <p class="eyebrow">원어 사전 · 히브리어 · 헬라어</p>
+      <form class="sbox" id="lxform" autocomplete="off">
+        <input type="search" id="lxq" placeholder="사랑 · agape · ἀγάπη · G26" enterkeyhint="search">
+        <button type="submit">찾기</button>
+      </form>
+      <div class="counts lxlang" id="lxlang" role="group" aria-label="구약 · 신약"></div>
+      <p class="eyebrow" style="margin:14px 0 0">자주 찾는 말</p>
+      <div class="schips lxchips" id="lxchips"></div>
+    </div>
+    <div id="lxres"></div>
+  </div>
+
+  <!-- ===== 성경 검색 · 성경 사전 ===== -->
+  <div id="sdict" hidden>
+    <div class="panel">
+      <p class="eyebrow">성경 사전 · Easton's Bible Dictionary</p>
+      <form class="sbox" id="dcform" autocomplete="off">
+        <input type="search" id="dcq" placeholder="성막 · 유월절 · 바울 · Tabernacle" enterkeyhint="search">
+        <button type="submit">찾기</button>
+      </form>
+      <div class="counts dckind" id="dckind" role="group" aria-label="갈래"></div>
+      <div class="dcini" id="dcini"></div>
+      <p class="fixednote">표제어 3,964개 · 본문은 영어 원문(1897)입니다. 항목 안의 성경 구절을 누르면 개역한글 본문으로 갑니다.</p>
+    </div>
+    <div id="dcres"></div>
+  </div>
+
+  <!-- ===== 성경 검색 · 도량형 ===== -->
+  <div id="sunit" hidden>
+    <div class="panel">
+      <p class="eyebrow">도량형 · 성경의 단위와 오늘의 크기</p>
+      <div class="counts untabs" id="untabs" role="group" aria-label="단위 갈래"></div>
+    </div>
+    <div id="unres"></div>
   </div>
 
   <!-- ===== 성경 검색 · 성경 지도 ===== -->
@@ -3070,6 +3292,20 @@ var ICON = {
   xref:
     '<path d="M10.1 13.9a4.2 4.2 0 0 1 0-5.9l2.6-2.6a4.2 4.2 0 0 1 5.9 5.9l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>'+
     '<path d="M13.9 10.1a4.2 4.2 0 0 1 0 5.9l-2.6 2.6a4.2 4.2 0 0 1-5.9-5.9l1.4-1.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>',
+  /* 원어 사전 — 두루마리 위 알파 */
+  lex:
+    '<path d="M5.4 2.8h11.2c1.5 0 2.6 1.2 2.6 2.6v13.4c0 1.4-1.1 2.4-2.4 2.4H6.6c-1.4 0-2.4-1-2.4-2.4V4c0-.7.5-1.2 1.2-1.2z"/>'+
+    '<path d="M14.6 8.2c-.6 2.9-1.6 6.6-4 6.6-1.6 0-2.5-1.3-2.5-2.9 0-1.9 1.2-3.7 3-3.7 2.1 0 2.6 2.5 3.6 6.6" fill="none" style="stroke:var(--hi)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>',
+  /* 성경 사전 — 펼친 책과 글줄 */
+  dict:
+    '<path d="M2.4 5.2c3.2-1 6.3-.8 9 1v14.1c-2.7-1.7-5.8-1.9-9-1z"/>'+
+    '<path d="M21.6 5.2c-3.2-1-6.3-.8-9 1v14.1c2.7-1.7 5.8-1.9 9-1z" opacity=".6"/>'+
+    '<path d="M4.6 9.2c1.7-.3 3.3-.1 4.8.6M4.6 12.4c1.7-.3 3.3-.1 4.8.6" fill="none" style="stroke:var(--hi)" stroke-width="1.3" stroke-linecap="round"/>',
+  /* 도량형 — 저울 */
+  unit:
+    '<path d="M11 3.4h2v15.4h-2z"/><path d="M4.4 5.6h15.2v1.9H4.4z"/><path d="M7.6 20.6h8.8v-1.9H7.6z"/>'+
+    '<path d="M5.6 7.4 2.8 13h5.6zM18.4 7.4 15.6 13h5.6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'+
+    '<path d="M2.6 13.4h6c-.3 1.6-1.5 2.6-3 2.6s-2.7-1-3-2.6zM15.4 13.4h6c-.3 1.6-1.5 2.6-3 2.6s-2.7-1-3-2.6z"/>',
   /* 공유 */
   share:
     '<circle cx="17.6" cy="5.4" r="3"/><circle cx="6.4" cy="12" r="3"/><circle cx="17.6" cy="18.6" r="3"/>'+
@@ -3501,7 +3737,10 @@ var MODES=[
     {k:"smemo",   icon:"cardfind",n:"암송카드", d:"제목·내용"},
     {k:"smap",    icon:"pin",     n:"성경지도", d:"지명·테마 지도"},
     {k:"speople", icon:"people",  n:"성경인물", d:"가족·사건"},
-    {k:"sxref",   icon:"xref",    n:"관주",     d:"TSK 교차참조"}]},
+    {k:"sxref",   icon:"xref",    n:"관주",     d:"TSK 교차참조"},
+    {k:"slex",    icon:"lex",     n:"원어사전", d:"히브리어·헬라어"},
+    {k:"sdict",   icon:"dict",    n:"성경사전", d:"Easton 사전"},
+    {k:"sunit",   icon:"unit",    n:"도량형",   d:"단위·환산"}]},
   {g:"check",   n:"암송 점검", cols:2, subs:[
     {k:"personal",icon:"recite",  n:"리사이팅",  d:"입으로 외우고 네 단계로"},
     {k:"typing",  icon:"type",    n:"타이핑",    d:"외워 치고 틀린 곳 확인"},
@@ -8432,7 +8671,7 @@ function paintOrderDay(){
    신약(복음서 · 역사서 · 바울서신 · 공동서신 · 예언서). 마지막으로 읽던 장과 자리를 이 기기에 기억합니다.
    암송 구절은 초록 줄과 꼬리표로 표시하고, 누르면 개역개정 · 개역한글을 함께 봅니다.                    */
 var BV_KEY="navfest.bv";
-var BV={bi:42, c:1, tab:"ot", hl:0, hl2:0, last:null, whoOpen:false, sel:null};
+var BV={bi:42, c:1, tab:"ot", hl:0, hl2:0, last:null, whoOpen:false, sel:null, guide:false, study:false};   /* guide · study: 「해설」 · 「자료 태그」 — 앱을 새로 열면 본문만 */
 (function(){
   try{ var o=JSON.parse(localStorage.getItem(BV_KEY)||"null"); if(o && o.bi>=0 && o.bi<66){ BV.last=o; BV.tab=o.bi>=39?"nt":"ot"; } }catch(e){}
 })();
@@ -8541,7 +8780,7 @@ function paintBookIntro(bi,g,failed){
     return;
   }
   $("bctag").textContent=g.tag;
-  var open=lsRead(BV_INTRO_KEY,"1")!=="0";
+  var open=lsRead(BV_INTRO_KEY,"0")==="1";   /* 처음에는 한 줄 소개만 — 펼치면 누가 · 누구에게 · 흐름 */
   var fl=g.fl.map(function(f,i){
     return '<li><button type="button" data-bcfl="'+i+'"><i>'+(i+1)+'</i><span><em>'+gdRange(bi,f[0],f[1])+'</em>'+esc(f[2])+'</span></button></li>';
   }).join("");
@@ -8569,7 +8808,7 @@ function bcKeyTexts(bi){
   });
 }
 function paintChapterList(bi,g){
-  var n=CH_V[bi].length, mc=memoChapters(), L=BV.last, list=!!g && lsRead(BV_VIEW_KEY,"list")==="list";
+  var n=CH_V[bi].length, mc=memoChapters(), L=BV.last, list=!!g && lsRead(BV_VIEW_KEY,"grid")==="list";   /* 처음에는 번호만 */
   $("bcview").hidden=!g;
   $("bcview").innerHTML='<button type="button" data-bcv="list" aria-pressed="'+list+'">제목 · 요약</button><button type="button" data-bcv="grid" aria-pressed="'+(!list)+'">번호만</button>';
   $("bclisthead").textContent=(bi===18?"편":"장")+" 고르기 · "+n+chWord(bi);
@@ -8606,17 +8845,18 @@ function bcJump(i){
 /* 장 화면 맨 위 — 이 장이 책의 흐름에서 어디쯤인지 · 장 제목과 요약 */
 function paintBtGuide(){
   var bi=BV.bi, c=BV.c, g=GUIDE.cache[bi], box=$("btguide");
+  if(!BV.guide){ box.hidden=true; return; }      /* 처음에는 본문만 — 「해설」을 켜면 흐름 · 장 요약 */
   if(!g){
     box.hidden=true;
     guideBook(bi).then(function(){ if(screenNow==="btext" && BV.bi===bi && BV.c===c) paintBtGuide(); }).catch(function(){});
     return;
   }
   var x=g.ch[c-1]; if(!x || !x[0]){ box.hidden=true; return; }
-  var i=gdFlowAt(g,c), f=g.fl[i], open=lsRead(BV_SUM_KEY,"1")!=="0";
+  var i=gdFlowAt(g,c), f=g.fl[i], open=true;
   box.hidden=false;
   box.innerHTML=(f?'<button type="button" class="btgflow" data-btfl="'+i+'"><span>흐름 '+(i+1)+'/'+g.fl.length+' · <b>'+esc(f[2])+'</b> <em>'+gdRange(bi,f[0],f[1])+'</em></span>'+gdBar(bi,g,i,c)+'</button>':'')+
     '<div class="btgmain"><div class="btgt"><b>'+esc(x[0])+'</b>'+
-      '<button type="button" class="btgfold" data-btfold="1" aria-expanded="'+open+'">'+(open?"요약 접기":"요약 보기")+'</button></div>'+
+      '</div>'+
       (open?'<p>'+esc(x[1])+'</p>'+aiNote():'')+'</div>';
 }
 /* 장 열기. opt.hl: 강조할 절(검색 · 관주 · 인물에서) · opt.v: 그 절로 · opt.stay: 지금 화면에서 바꾸기(앞 · 다음 장) */
@@ -8632,18 +8872,21 @@ function paintBText(){
   $("btbook").textContent=chName(bi,c);
   var cat=bookCat(bi);
   $("btsub").textContent=(cat?cat.t.n+" · "+cat.c[0]+" · ":"")+CH_V[bi][c-1]+"절 · 개역한글";
+  bvModesPaint();
   paintBtGuide();
   $("btprev").disabled=$("btprev2").disabled=(bi===0 && c===1);
   $("btnext").disabled=$("btnext2").disabled=(bi===65 && c===n);
   if(!BV.whoOpen){ $("btwholist").innerHTML=""; $("btwhobtn").hidden=false; }
   var host=$("btverses");
-  if(host.dataset.key===key && host.querySelector("p.v")) return;       /* 돌아왔을 때는 그대로 */
-  host.dataset.key="";
+  if(host.dataset.key===key && host.querySelector("p.v")){ bsPaint(); return; }       /* 돌아왔을 때는 그대로 */
+  host.dataset.key=""; BSEL={}; bsPaint();
   if(!BIB.cache[bi]) host.innerHTML='<p class="mineempty">본문을 불러오는 중…</p>';
   bibBook(bi).then(function(){
     if(screenNow!=="btext" || BV.bi!==bi || BV.c!==c) return;
     host.innerHTML=versesHtml(bi,c,0,0,{hl:BV.hl, hl2:BV.hl2, idp:"bv"});
     host.dataset.key=key;
+    bvTagsPaint();
+    if(BV.study && !BV.whoOpen) bvChapterData();
     bvRemember(BV.go||1);
     if(BV.go){
       var el=$("bv"+c+"_"+BV.go); BV.go=0;
@@ -9032,6 +9275,843 @@ function xrRun(fromInput){
   });
 }
 
+/* 원어 음역(STEPBible 표기) → 한글 읽기(대략). lang: "H"(히브리어·아람어) | "G"(헬라어) */
+function origHangul(tr,lang){
+  if(!tr) return "";
+  var CHO="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ", JUNG="ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ", JONG=["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+  function syl(c,v,f){ var ci=CHO.indexOf(c), vi=JUNG.indexOf(v), fi=f?JONG.indexOf(f):0; if(ci<0) ci=11; if(vi<0) vi=18; if(fi<0) fi=0; return String.fromCharCode(0xAC00+(ci*21+vi)*28+fi); }
+  /* 자음 → [초성, 홀로 쓸 때(ㅡ 붙여)] · 모음 → 중성 (y/w 반모음과 합침) */
+  var CON={b:"ㅂ",v:"ㅂ",g:"ㄱ",d:"ㄷ",h:"ㅎ",z:"ㅈ",t:"ㅌ",k:"ㅋ",l:"ㄹ",m:"ㅁ",n:"ㄴ",s:"ㅅ",p:"ㅍ",f:"ㅍ",q:"ㅋ",r:"ㄹ",c:"ㅋ",x:"ㅋ",
+           ch:"ㅎ",kh:"ㅎ",sh:"ㅅ",tz:"ㅊ",ts:"ㅊ",th:"ㅌ",ph:"ㅍ",ps:"ㅍ",rh:"ㄹ",j:"ㅈ",w:"ㅇ",y:"ㅇ"};
+  if(lang==="G"){ CON.ch="ㅋ"; CON.h="ㅎ"; }
+  var V1={a:"ㅏ",e:"ㅔ",i:"ㅣ",o:"ㅗ",u:lang==="G"?"ㅟ":"ㅜ",y:"ㅣ"};
+  var YV={"ㅏ":"ㅑ","ㅔ":"ㅖ","ㅗ":"ㅛ","ㅜ":"ㅠ","ㅣ":"ㅣ","ㅟ":"ㅠ","ㅡ":"ㅡ"}, WV={"ㅏ":"ㅘ","ㅔ":"ㅞ","ㅣ":"ㅟ","ㅗ":"ㅝ","ㅜ":"ㅜ"};
+  var s=tr.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,function(m){ return m==="̄"?"":""; });
+  s=s.replace(/ē/g,"e").replace(/ō/g,"o");
+  s=s.replace(/[̄]/g,"");
+  /* 음절 나누기: 히브리어는 점(.)이 음절, 헬라어는 모음 무리마다 */
+  s=s.replace(/[\/\-\[\]·᾽’`]/g,"").replace(/'/g,"");
+  if(lang==="G") s=s.replace(/x/g,"ks");
+  var out="";
+  function consTok(str,i){   /* 이 자리의 자음 하나(두 글자 자음 먼저) */
+    var two=str.substr(i,2);
+    if(["ch","kh","sh","tz","ts","th","ph","ps","rh"].indexOf(two)>=0) return two;
+    return str.charAt(i);
+  }
+  function isV(c){ return "aeiou".indexOf(c)>=0; }
+  /* 낱말 전체를 자음 · 모음 조각으로 */
+  var toks=[], i=0, raw=s.replace(/\./g,"|");
+  while(i<raw.length){
+    var c=raw.charAt(i);
+    if(c==="|"){ toks.push({b:1}); i++; continue; }
+    if(isV(c)){
+      var two=raw.substr(i,2), vv;
+      if(lang==="G" && ["ou","au","eu","ai","ei","oi","ui"].indexOf(two)>=0){ vv=two; i+=2; }
+      else if(lang==="H" && ["ai","ei","oi","ui"].indexOf(two)>=0 && !isV(raw.charAt(i+2))){ vv=two; i+=2; }
+      else { vv=c; i++; }
+      toks.push({v:vv}); continue;
+    }
+    if(/[a-z]/.test(c)){ var t=consTok(raw,i); toks.push({c:t}); i+=t.length; continue; }
+    i++;
+  }
+  function vowelJamo(vv,glide){
+    var map={ou:"ㅜ",au:"ㅏ우",eu:"ㅠ",ai:"ㅏ이",ei:"ㅔ이",oi:"ㅗ이",ui:"ㅟ"};
+    var j=map[vv]||V1[vv]||"ㅡ";
+    return j;
+  }
+  function addFin(f){   /* 바로 앞 글자에 받침이 없으면 받침을 붙임 */
+    if(!out) return false;
+    var code=out.charCodeAt(out.length-1)-0xAC00;
+    if(code<0 || code>11171 || code%28!==0) return false;
+    out=out.slice(0,-1)+String.fromCharCode(0xAC00+code+JONG.indexOf(f)); return true;
+  }
+  function prevTok(k){ for(var q=k-1;q>=0;q--){ if(!toks[q].b) return toks[q]; } return null; }
+  function nextCons(k){ for(var q=k+1;q<toks.length;q++){ if(toks[q].b) continue; return toks[q].c?toks[q]:null; } return null; }
+  /* 조각을 음절로 */
+  var k=0;
+  while(k<toks.length){
+    var tk=toks[k];
+    if(tk.b){ k++; continue; }
+    if(tk.c){
+      /* 다음이 모음이면 초성, 아니면 홀로(ㅡ) — 받침이 될 수 있는 것(m n l)은 앞 음절 받침으로 */
+      var nx=toks[k+1];
+      if(nx && nx.v){
+        var onset=tk.c, vv=nx.v, jam=vowelJamo(vv);
+        var first=jam.charAt(0), rest=jam.slice(1);
+        if(onset==="y"){ first=YV[first]||first; onset=""; }
+        else if(onset==="w"){ first=WV[first]||first; onset=""; }
+        else if(onset==="sh" && "ㅏㅔㅗㅜ".indexOf(first)>=0){ first={"ㅏ":"ㅑ","ㅔ":"ㅞ","ㅗ":"ㅛ","ㅜ":"ㅠ"}[first]; if(first==="ㅞ"){ first="ㅞ"; onset="sh2"; } }
+        else if(onset==="sh" && first==="ㅣ"){ first="ㅟ"; }
+        if(onset==="l"){ var pv=toks[k-1]; if(pv && (pv.v || pv.c || (pv.b && toks[k-2] && (toks[k-2].v || toks[k-2].c)))) addFin("ㄹ"); }
+        if(onset==="ps"){ out+="프"; onset="s"; }
+        var cj = onset==="" ? "ㅇ" : onset==="sh2" ? "ㅅ" : (CON[onset]||"ㅇ");
+        /* 받침: 뒤에 자음이 오고 그 뒤가 모음이 아니거나 음절 끝(|)일 때, m n l 이면 받침 */
+        var fin="", adv=2;
+        var n2=toks[k+2], n3=toks[k+3];
+        if(n2 && n2.c && ["m","n","l"].indexOf(n2.c)>=0 && (!n3 || n3.b || n3.c)){ fin={m:"ㅁ",n:"ㄴ",l:"ㄹ"}[n2.c]; adv=3; }
+        else if(lang==="G" && n2 && n2.c==="g" && n3 && n3.c && "gkcx".indexOf(n3.c.charAt(0))>=0){ fin="ㅇ"; adv=3; }
+        out+=syl(cj,first,fin);
+        if(rest){ for(var r=0;r<rest.length;r++){ var ch2=rest.charAt(r); if(JUNG.indexOf(ch2)>=0) out+=syl("ㅇ",ch2,""); else { var code=ch2.charCodeAt(0)-0xAC00; out+=ch2; } } }
+        k+=adv; continue;
+      }
+      /* 홀로 남은 자음 */
+      var c2=tk.c;
+      var pt=prevTok(k), ncs=nextCons(k);
+      /* 받침으로: 히브리어는 음절 끝 자음, 헬라어는 겹자음(κκ · ππ · ττ)일 때만 — παράκλητος 파라클레토스 · ἐκκλησία 엑클레시아 */
+      if(pt && pt.v && ncs && ({k:"ㄱ",q:"ㄱ",t:"ㅅ",p:"ㅂ"})[c2] && (lang!=="G" || ncs.c===c2) && addFin(({k:"ㄱ",q:"ㄱ",t:"ㅅ",p:"ㅂ"})[c2])){ k++; continue; }
+      if(c2==="h" && lang==="H"){ k++; continue; }          /* 끝의 h 는 소리 없음 */
+      if(c2==="y" || c2==="w"){ out+=syl("ㅇ",c2==="y"?"ㅣ":"ㅜ",""); k++; continue; }
+      if(c2==="sh"){ out+=syl("ㅅ","ㅟ",""); k++; continue; }
+      if(c2==="x"){ out+="크스"; k++; continue; }
+      if(c2==="ps"){ out+="프스"; k++; continue; }
+      out+=syl(CON[c2]||"ㅇ","ㅡ","");
+      k++; continue;
+    }
+    if(tk.v){
+      var jm=vowelJamo(tk.v), f2="", ad=1, m2=toks[k+1], m3=toks[k+2];
+      if(m2 && m2.c && ["m","n","l"].indexOf(m2.c)>=0 && (!m3 || m3.b || m3.c)){ f2={m:"ㅁ",n:"ㄴ",l:"ㄹ"}[m2.c]; ad=2; }
+      /* 헬라어 거친 숨표 h + 모음은 위에서 자음으로 처리됨 */
+      out+=syl("ㅇ",jm.charAt(0),jm.length===1?f2:"");
+      if(jm.length>1){ var rr=jm.slice(1); out+=rr.replace("우","우").replace("이","이"); if(f2){ /* 받침은 마지막 글자에 */ var last=out.charCodeAt(out.length-1)-0xAC00; if(last>=0 && last%28===0){ out=out.slice(0,-1)+String.fromCharCode(0xAC00+last+JONG.indexOf(f2)); } } }
+      k+=ad; continue;
+    }
+    k++;
+  }
+  return out;
+}
+
+/* ═══ 원어 · 성경 사전 · 도량형 — 성경 검색 메뉴와 성경보기의 「자료」 ═══
+   data/orig/oNN.json   책마다 {"장:절":[[원어, 음역, 스트롱, 형태, 개역한글 어절 번호(-1: 맞춘 말 없음)]…]}  (STEPBible TAHOT · TAGNT)
+   data/lex/index.json  [스트롱, 원형, 음역, 품사, 영어 뜻, "개역한글 번역어 3", 나온 횟수]
+   data/lex/d/H000.json 스트롱 100번씩 {스트롱:[[번역어, 횟수]…, 정의(영문), "나온 절"]}
+   data/dict/index.json Easton 사전 표제어 · e00.json 본문 400개씩 · vNN.json 책마다 {"장:절":[표제어 번호]}
+   data/units.json      도량형 해설 · 구절 태그
+   자료를 바꾸면 아래 버전을 올리세요(서비스 워커가 ?v= 로 새로 받습니다). */
+var ORIG_VER="1", LEX_VER="1", DICT_VER="1", UNIT_VER="1";
+function p3(n){ return (n<10?"00":n<100?"0":"")+n; }
+function soft(p){ return p.then(function(x){ return x; },function(){ return null; }); }
+function getJson(url,what){
+  return fetch(url).then(function(r){ if(!r.ok) throw new Error(what+" 자료를 찾지 못했습니다 ("+r.status+")"); return r.json(); });
+}
+function lazy(store,key,url,what){
+  if(store.cache[key]) return Promise.resolve(store.cache[key]);
+  if(store.wait[key]) return store.wait[key];
+  store.wait[key]=getJson(url,what).then(function(j){ store.cache[key]=j; delete store.wait[key]; return j; },function(e){ delete store.wait[key]; throw e; });
+  return store.wait[key];
+}
+var OG={cache:{}, wait:{}};
+function ogBook(bi){ return lazy(OG,bi,"data/orig/o"+p2(bi+1)+".json?v="+ORIG_VER,"원어"); }
+var LX={idx:null, map:null, base:null, wait:null, d:{cache:{}, wait:{}}, q:"", lang:"", res:null, show:60};
+function lexIndex(){
+  if(LX.map) return Promise.resolve(LX);
+  if(LX.wait) return LX.wait;
+  LX.wait=getJson("data/lex/index.json?v="+LEX_VER,"원어 사전").then(function(j){
+    LX.idx=j.i; LX.src=j.src; LX.map={}; LX.base={};
+    j.i.forEach(function(r){ LX.map[r[0]]=r; var b=r[0].slice(0,5); (LX.base[b]=LX.base[b]||[]).push(r[0]); });
+    LX.wait=null; return LX;
+  },function(e){ LX.wait=null; throw e; });
+  return LX.wait;
+}
+function lexRow(key){
+  if(!LX.map || !key) return null;
+  if(LX.map[key]) return LX.map[key];
+  var b=LX.base[key.slice(0,5)]; return b?LX.map[b[0]]:null;
+}
+function lexDetail(key){
+  var ch=key.charAt(0)+p3(Math.floor(+key.slice(1,5)/100));
+  return lazy(LX.d,ch,"data/lex/d/"+ch+".json?v="+LEX_VER,"원어 사전").then(function(j){ return j[key]||null; });
+}
+function lexLang(key){ return key && key.charAt(0)==="G" ? "G" : "H"; }
+function lexNum(key){ return key.charAt(0)+(+key.slice(1,5))+(key.length>5?key.slice(5):""); }   /* H0157G → H157G */
+/* 개역한글 번역어 — 한 번만 나온 것은 다른 번역이 넉넉하면 뺍니다 */
+function lexRen(list){
+  list=list||[];
+  var many=list.filter(function(x){ return x[1]>1; });
+  return many.length>=2 ? many : list;
+}
+function rtl(lang){ return lang==="H"?' lang="he" dir="rtl"':' lang="el"'; }
+
+/* ── 형태 읽기: 히브리어(OSHB 표기) · 헬라어(Robinson 표기) → 우리말 ── */
+var HB_STEM={q:"칼",N:"니팔",p:"피엘",P:"푸알",h:"히필",H:"호팔",t:"히트파엘",o:"포엘",O:"포알",r:"히트포엘",m:"포엘",M:"포알",k:"팔렐",K:"풀랄",Q:"칼 수동",l:"필펠",L:"폴팔",f:"히트팔펠",D:"니트파엘",j:"페알랄",i:"필렐",u:"호트파알",c:"티필",v:"히쉬타펠",w:"니트팔렐",y:"니트포엘",z:"히트포엘"};
+var AR_STEM={q:"페알",Q:"페일",u:"히트페엘",p:"파엘",P:"이트파알",M:"히트파알",a:"아펠",h:"하펠",s:"사펠",e:"샤펠",H:"호팔",i:"이트페엘",t:"히쉬타펠",v:"이쉬타펠",w:"히트아펠",o:"폴렐",z:"이트포엘",r:"히트폴렐",f:"히트팔펠",b:"헤팔",c:"티펠",m:"포엘",l:"팔펠",L:"이트팔펠",O:"이트폴렐",G:"이타팔"};
+var HB_STEM_HINT={q:"기본형 · 단순 능동",N:"수동 · 재귀",p:"강조 · 반복",P:"강조의 수동",h:"사역(~하게 하다)",H:"사역의 수동",t:"재귀 · 서로(스스로 ~하다)"};
+var HB_ASP={p:"완료",q:"바브 연속 완료",i:"미완료",w:"바브 연속 미완료",h:"청유형",j:"지시형",v:"명령형",r:"능동 분사",s:"수동 분사",a:"부정사 절대형",c:"부정사 연계형"};
+var HB_ASP_HINT={p:"끝난 일 · 사실로 말함",q:"(그리고) ~할 것이다 · 앞 일에 이어지는 일",i:"끝나지 않은 일 · 앞으로 · 되풀이",w:"이야기 속의 과거(그리고 ~하였다)",h:"~하자 · 하겠다",j:"~하기를 · 간접 명령",v:"명령",r:"~하는 (이)",s:"~된 · ~받은",a:"동작 자체 · 강조(정녕)",c:"~하는 것 · ~할 때"};
+function hbGns(r){
+  var G={m:"남성",f:"여성",c:"공성",b:"양성"}, N={s:"단수",p:"복수",d:"쌍수"}, S={a:"절대형",c:"연계형",d:"한정형"}, o=[], st=0;
+  for(var i=0;i<r.length;i++){
+    var ch=r.charAt(i);
+    if(st===0){ st=1; if(G[ch]){ o.push(G[ch]); continue; } }
+    if(st===1){ st=2; if(N[ch]){ o.push(N[ch]); continue; } }
+    if(st===2 && S[ch]){ o.push(S[ch]); st=3; }
+  }
+  return o;
+}
+function hbPer(r,o){ if(r && "123".indexOf(r.charAt(0))>=0){ o.push(r.charAt(0)+"인칭"); return r.slice(1); } return r; }
+function hbSeg(s,aram){
+  var p=s.charAt(0), r=s.slice(1), o=[];
+  if(p==="c") return "접속사(바브)";
+  if(p==="C") return "접속사";
+  if(p==="D") return "부사";
+  if(p==="R") return r.charAt(0)==="d"?"전치사 + 관사":"전치사";
+  if(p==="N"){
+    var t=r.charAt(0);
+    if(t==="p") return {m:"고유명사(인명)",f:"고유명사(인명, 여)",l:"고유명사(지명)",t:"하나님의 이름 · 칭호"}[r.charAt(1)]||"고유명사";
+    o.push(t==="g"?"민족 명사":t==="t"?"칭호":"명사");
+    return o.concat(hbGns(r.slice(1))).join(" ");
+  }
+  if(p==="A"){ o.push({a:"형용사",c:"수사(기수)",o:"수사(서수)",g:"민족 형용사"}[r.charAt(0)]||"형용사"); return o.concat(hbGns(r.slice(1))).join(" "); }
+  if(p==="V"){
+    var asp=r.charAt(1), rest=r.slice(2);
+    o.push("동사",(aram?AR_STEM:HB_STEM)[r.charAt(0)]||"",HB_ASP[asp]||"");
+    if(asp!=="r" && asp!=="s") rest=hbPer(rest,o);
+    return o.concat(hbGns(rest)).filter(Boolean).join(" ");
+  }
+  if(p==="P"){ o.push({d:"지시 대명사",f:"부정 대명사",i:"의문 대명사",p:"인칭 대명사",r:"관계 대명사"}[r.charAt(0)]||"대명사"); return o.concat(hbGns(hbPer(r.slice(1),o))).join(" "); }
+  if(p==="S"){
+    var t3=r.charAt(0);
+    if(t3==="d") return "방향 어미(~로)";
+    if(t3==="h"||t3==="n") return "강조 어미";
+    o.push("소유 · 목적 어미"); return o.concat(hbGns(hbPer(r.slice(1),o))).join(" ");
+  }
+  if(p==="T") return {a:"긍정 불변사",d:"관사",e:"권유 불변사",i:"의문 불변사",j:"감탄사",m:"지시 불변사",n:"부정어",o:"목적어 표지(에트)",r:"관계사",c:"접속 불변사"}[r.charAt(0)]||"불변사";
+  return s;
+}
+function hbMorph(code){
+  code=String(code||""); if(!code) return {t:"",h:""};
+  var aram=code.charAt(0)==="A", segs=code.slice(1).split("/").filter(Boolean), hint="";
+  segs.forEach(function(s){ if(s.charAt(0)==="V"){ var st=s.charAt(1), as=s.charAt(2); hint=[aram?"":HB_STEM_HINT[st],HB_ASP_HINT[as]].filter(Boolean).join(" · "); } });
+  return {t:(aram?"아람어 · ":"")+segs.map(function(s){ return hbSeg(s,aram); }).join(" + "), h:hint};
+}
+var GK_CASE={N:"주격",G:"속격",D:"여격",A:"대격",V:"호격"}, GK_NUM={S:"단수",P:"복수"}, GK_GEN={M:"남성",F:"여성",N:"중성"};
+var GK_TENSE={P:"현재",I:"미완료",F:"미래",A:"부정과거",R:"완료",L:"과거완료"};
+var GK_TENSE_HINT={P:"지금 · 계속 · 되풀이되는 동작",I:"과거에 계속되던 동작",F:"앞으로 일어날 일",A:"일어난 일을 한 덩어리 사건으로 봄(주로 과거)",R:"이미 일어나 그 결과가 지금도 이어짐",L:"과거 어느 때에 이미 끝나 있던 일"};
+var GK_VOICE={A:"능동",M:"중간태",P:"수동",E:"중간 · 수동",D:"중간태(디포넌트)",O:"수동(디포넌트)",N:"중간 · 수동(디포넌트)",Q:"비인칭 능동",X:""};
+var GK_MOOD={I:"직설법",S:"가정법",O:"희구법",M:"명령법",N:"부정사",P:"분사",R:"분사(명령의 뜻)"};
+var GK_MOOD_HINT={S:"가능성 · 목적(~하도록)",O:"바람(~하기를)",M:"명령 · 권면",N:"~하는 것 · ~하기 위해",P:"~하는 (이) · ~하면서"};
+var GK_POS={N:"명사",A:"형용사",T:"관사",P:"인칭 대명사",R:"관계 대명사",C:"상호 대명사",D:"지시 대명사",K:"상관 대명사",I:"의문사",X:"부정 대명사",Q:"상관 의문사",F:"재귀 대명사",S:"소유 대명사",V:"동사"};
+var GK_W={ADV:"부사",CONJ:"접속사",COND:"조건 접속사",PREP:"전치사",PRT:"불변사","PRT-N":"부정어","PRT-I":"의문 불변사",INJ:"감탄사",HEB:"히브리어 낱말",ARAM:"아람어 낱말","ADV-I":"의문 부사","ADV-N":"부정 부사","CONJ-N":"부정 접속사","ADV-S":"최상급 부사","ADV-C":"비교급 부사"};
+function gkCase(q){ return (GK_CASE[q.charAt(0)]||"")+" "+(GK_NUM[q.charAt(1)]||"")+(q.charAt(2)?" "+(GK_GEN[q.charAt(2)]||""):""); }
+function grkMorph(code){
+  code=String(code||"").split(" + ")[0].trim(); if(!code) return {t:"",h:""};
+  if(GK_W[code]) return {t:GK_W[code],h:""};
+  var p=code.split("-"), head=p[0], o=[], hint="";
+  if(head==="V"){
+    var m=/^(2?)([PIFARL])([A-Z])([A-Z])$/.exec(p[1]||"");
+    o.push("동사");
+    if(m){ o.push((m[1]?"제2 ":"")+GK_TENSE[m[2]], GK_VOICE[m[3]]||"", GK_MOOD[m[4]]||""); hint=[GK_TENSE_HINT[m[2]],GK_MOOD_HINT[m[4]]].filter(Boolean).join(" · "); }
+    var rest=p[2]||"";
+    if(/^[123][SP]$/.test(rest)) o.push(rest.charAt(0)+"인칭 "+GK_NUM[rest.charAt(1)]);
+    else if(/^[NGDAV][SP][MFN]$/.test(rest)) o.push(gkCase(rest));
+    return {t:o.filter(Boolean).join(" "), h:hint};
+  }
+  if(!GK_POS[head]) return {t:code,h:""};
+  o.push(GK_POS[head]);
+  p.slice(1).forEach(function(x){
+    var m2;
+    if((m2=/^([123])([SP])([NGDAV][SP][MFN])$/.exec(x))) o.push(m2[1]+"인칭 "+GK_NUM[m2[2]]+"의 · "+gkCase(m2[3]));
+    else if((m2=/^([123]?)([NGDAV][SP][MFN]?)$/.exec(x))) o.push((m2[1]?m2[1]+"인칭 ":"")+gkCase(m2[2]));
+    else if(x==="T") o.push("(칭호)");
+    else if(x==="P") o.push("(인명)");
+    else if(x==="L"||x==="LI") o.push("(지명)");
+    else if(x==="PG"||x==="LG"||x==="G") o.push("(민족)");
+    else if(x==="NUI"||x==="UI") o.push("(수사)");
+    else if(x==="C") o.push("비교급");
+    else if(x==="S") o.push("최상급");
+    else if(x==="PRI") o.push("(고유명사)");
+  });
+  return {t:o.join(" "), h:""};
+}
+function morphKo(code,lang){ return lang==="G"?grkMorph(code):hbMorph(code); }
+function lexPos(pos){   /* TBESH · TBESG 품사 "H:V" "G:N-M" "N:N-M-P" → 우리말 */
+  var x=String(pos||"").split(/\s*\/\s*G:|\+/)[0], pre=x.slice(0,2), t=x.slice(2);
+  if(pre==="N:"){
+    if(/L/.test(t)) return /G/.test(t)?"고유명사(지명 · 민족)":"고유명사(지명)";
+    if(/PG|TG/.test(t)) return "고유명사(민족)";
+    if(/T/.test(t)) return "고유명사(칭호)";
+    return /-F-/.test(t)?"고유명사(인명, 여)":"고유명사(인명)";
+  }
+  var m={V:"동사",N:"명사","N-M":"남성 명사","N-F":"여성 명사","N-N":"중성 명사","N-M/F":"명사","N-M/N":"명사",A:"형용사","A-M":"형용사","A-NUI":"수사",ADV:"부사",Adv:"부사","ADV-C":"비교 부사","ADV-T":"부사","ADV-N":"부정 부사",
+    PREP:"전치사",Prep:"전치사",CONJ:"접속사",Conj:"접속사",COND:"조건 접속사",Cond:"조건 접속사",PRT:"불변사",Part:"불변사","PRT-N":"부정어",Neg:"부정어",INJ:"감탄사",Intj:"감탄사",Intg:"의문사",DemP:"지시 대명사",D:"지시 대명사",P:"대명사",PerP:"인칭 대명사",RelP:"관계사",T:"관사"};
+  return (pre==="A:"?"아람어 ":"")+(m[t]||t);
+}
+function lexContent(r){   /* 내용어인가(이름 · 기능어 빼고) */
+  var t=String(r&&r[3]||""); if(/^N:/.test(t)) return false;
+  return !/^(CONJ|Conj|PREP|Prep|PRT|Part|Neg|DemP|D|P|PerP|RelP|T|Cond|COND|ADV|Adv|Intg|Intj|INJ)\b/.test(t.slice(2));
+}
+
+/* ── 성경 구절 링크(본문 글 속의 「창 6:15」 · 「(16:33)」) ── */
+var BOOK_RX=null;
+function refLinkify(text,bi0){
+  if(!BOOK_RX){
+    var names=BOOK_SHORT.slice().sort(function(a,b){ return b.length-a.length; });
+    BOOK_RX=new RegExp("(?:("+names.join("|")+")\\s?)?(\\d{1,3}):(\\d{1,3})(?:-(\\d{1,3}))?","g");
+  }
+  var last=bi0===undefined?-1:bi0, out="", at=0, s=String(text||"");
+  s.replace(BOOK_RX,function(m,bk,c,v,v2,pos){
+    var bi=bk?BOOK_SHORT.indexOf(bk):last;
+    out+=esc(s.slice(at,pos)); at=pos+m.length;
+    if(bi<0 || !CH_V[bi] || +c>CH_V[bi].length){ out+=esc(m); return m; }
+    last=bi;
+    out+='<button type="button" class="rlink" data-rgo="'+bi+'|'+c+'|'+v+'|'+(v2||0)+'">'+esc(m)+'</button>';
+    return m;
+  });
+  return out+esc(s.slice(at));
+}
+function refName(bi,c,v,v2){ return BOOK_SHORT[bi]+" "+c+":"+v+(v2&&v2!==v?"-"+v2:""); }
+
+/* ═══ 도량형 ═══ */
+var UN={d:null, wait:null, map:{}, cat:"len", cv:{n:"1", u:"cubit"}};
+function loadUnits(){
+  if(UN.d) return Promise.resolve(UN);
+  if(UN.wait) return UN.wait;
+  UN.wait=getJson("data/units.json?v="+UNIT_VER,"도량형").then(function(j){ UN.d=j; j.u.forEach(function(u){ UN.map[u.id]=u; }); UN.wait=null; return UN; },function(e){ UN.wait=null; throw e; });
+  return UN.wait;
+}
+function numKo(x){
+  if(x>=100) return Math.round(x).toLocaleString("ko-KR");
+  if(x>=10) return (Math.round(x*10)/10).toLocaleString("ko-KR");
+  return (Math.round(x*100)/100).toLocaleString("ko-KR");
+}
+function unAmount(v,vu){   /* 기본 단위 값 → 사람이 읽는 말 */
+  if(vu==="m") return v<1 ? numKo(v*100)+"cm" : v<1000 ? numKo(v)+"m" : numKo(v/1000)+"km";
+  if(vu==="kg") return v<1 ? numKo(v*1000)+"g" : v<1000 ? numKo(v)+"kg" : numKo(v/1000)+"톤";
+  if(vu==="L") return v<1 ? numKo(v*1000)+"mL" : numKo(v)+"L";
+  if(vu==="d"){
+    if(v<1) return "하루 품삯의 "+numKo(1/v)+"분의 1";
+    if(v<300) return numKo(v)+"일 치 품삯";
+    return numKo(v)+"일 치 품삯(약 "+numKo(v/300)+"년)";
+  }
+  return numKo(v);
+}
+function unFeel(v,vu){   /* 체감 비유 */
+  if(vu==="m"){
+    if(v>=2000) return "서울–부산(약 400km)의 "+numKo(v/400000)+"배";
+    if(v>=1000) return "걸어서 약 "+Math.round(v/1000*15)+"분";
+    if(v>=60) return "축구장 길이(105m)의 "+numKo(v/105)+"배";
+    if(v>=5) return "아파트 약 "+Math.round(v/2.8)+"층 높이";
+    if(v>=1.2) return "어른 키(1.7m)의 "+numKo(v/1.7)+"배";
+    return "";
+  }
+  if(vu==="kg"){
+    if(v>=1000) return "1톤 트럭 "+numKo(v/1000)+"대 분량";
+    if(v>=20) return "20kg 쌀 포대 "+numKo(v/20)+"개";
+    if(v>=1) return "1.5L 생수병 약 "+numKo(v/1.5)+"개 무게";
+    return "";
+  }
+  if(vu==="L"){
+    if(v>=400) return "욕조(약 200L) "+numKo(v/200)+"개";
+    if(v>=2) return "2L 생수병 "+numKo(v/2)+"개";
+    return "";
+  }
+  if(vu==="d"){
+    if(v>=300) return "한 사람이 "+numKo(v/300)+"년 동안 일해야 버는 돈";
+    if(v>=25) return "약 "+numKo(v/25)+"달 치 품삯(한 달 25일로 셈)";
+    return "";
+  }
+  return "";
+}
+function unTagText(t,u){   /* 구절 태그 하나 → {q:"삼백 규빗", a:"약 133.5m", f:"축구장…"} */
+  var term=t[1], num=t[2], q, a="", f="";
+  var lo=Array.isArray(num)?num[0]:num, hi=Array.isArray(num)?num[1]:num;
+  q=(num===null||num===undefined?"":(Array.isArray(num)?num[0]+"~"+num[1]:numKo(num))+" ")+term;
+  if(lo!==null && lo!==undefined){
+    if(term==="리" && (u.id==="stadion"||u.id==="mile")){
+      a="개역한글의 「리」로 약 "+unAmount(lo*(UN.d.li||393),"m")+(hi!==lo?"~"+unAmount(hi*(UN.d.li||393),"m"):"");
+    } else {
+      a="약 "+unAmount(lo*u.val,u.vu)+(hi!==lo?" ~ "+unAmount(hi*u.val,u.vu):"");
+      f=unFeel(hi*u.val,u.vu);
+    }
+  }
+  return {q:q, a:a, f:f, n:t[4]||""};
+}
+function unCardHtml(u,opt){
+  opt=opt||{};
+  var cat=(UN.d.cats.filter(function(c){ return c[0]===u.cat; })[0]||["","",""]);
+  var org=u.s.map(function(k){
+    var r=lexRow(k); if(!r) return "";
+    var L=lexLang(k);
+    return '<button type="button" class="unorg" data-lx="'+r[0]+'"><b'+rtl(L)+'>'+esc(r[1])+'</b><span>'+esc(r[2])+' · '+esc(origHangul(r[2],L))+'</span><em>'+lexNum(r[0])+'</em></button>';
+  }).join("");
+  var keys=(u.key||[]).map(function(r){ var x=r.split("."); return '<button type="button" class="rlink" data-rgo="'+(x[0]-1)+'|'+x[1]+'|'+x[2]+'|0">'+refName(x[0]-1,+x[1],+x[2])+'</button>'; }).join("");
+  return '<div class="uncard">'+(opt.sheet?'':'<div class="unhead"><h4>'+esc(u.n)+'</h4><span>'+esc(cat[1])+'</span></div>')+
+    '<div class="unval"><b>'+esc(u.rng)+'</b>'+(u.cmp?'<span>'+esc(u.cmp)+'</span>':'')+'</div>'+
+    (u.rel?'<p class="unrel"><i>관계</i>'+esc(u.rel)+'</p>':'')+
+    (org?'<div class="unorgs">'+org+'</div>':'')+
+    '<p class="undesc">'+refLinkify(u.d)+'</p>'+
+    (keys?'<div class="unkeys"><i>대표 구절</i>'+keys+'</div>':'')+
+    (opt.list && u.cnt?'<button type="button" class="textlink" data-unv="'+u.id+'">이 단위가 나오는 구절 '+u.cnt+'곳 보기 ›</button>':'')+
+  '</div>';
+}
+/* 단위 하나를 창으로 — 나오는 구절과 환산까지 */
+function unVersesHtml(u){
+  var rows=[];
+  Object.keys(UN.d.tags).forEach(function(r){ var ts=UN.d.tags[r].filter(function(t){ return t[0]===u.id; }); if(ts.length) rows.push([r,ts]); });
+  rows.sort(function(a,b){ var x=a[0].split(".").map(Number), y=b[0].split(".").map(Number); return x[0]-y[0]||x[1]-y[1]||x[2]-y[2]; });
+  return '<h4 class="sth">이 단위가 나오는 구절 <em>'+rows.length+'곳 · 원어로 찾은 것</em></h4><ul class="unvl">'+rows.map(function(x){
+    var p=x[0].split("."), bi=p[0]-1;
+    var qs=x[1].map(function(t){ var tt=unTagText(t,u); return esc(tt.q)+(tt.a?' → '+esc(tt.a.replace(/^약 /,"약 ")):''); }).join(" · ");
+    return '<li><button type="button" class="srow" data-rgo="'+bi+'|'+p[1]+'|'+p[2]+'|0"><span class="sa"><b>'+refName(bi,+p[1],+p[2])+'</b><em>'+qs+'</em></span>'+
+      '<span class="st" data-unvt="'+x[0]+'"></span></button></li>';
+  }).join("")+'</ul>';
+}
+function unFillTexts(host){
+  var need=[];
+  host.querySelectorAll("[data-unvt]").forEach(function(el){ var b=+el.dataset.unvt.split(".")[0]-1; if(need.indexOf(b)<0 && !BIB.cache[b]) need.push(b); });
+  function fill(){ host.querySelectorAll("[data-unvt]").forEach(function(el){ var p=el.dataset.unvt.split(".").map(Number); var t=BIB.cache[p[0]-1]?bibVerse(p[0]-1,p[1],p[2]):""; if(t) el.textContent=t; }); }
+  fill();
+  if(need.length) bibMany(need).then(fill,function(){});
+}
+function openUnitSheet(id,back){
+  loadUnits().then(function(){ return soft(lexIndex()); }).then(function(){
+    var u=UN.map[id]; if(!u) return;
+    var cat=(UN.d.cats.filter(function(c){ return c[0]===u.cat; })[0]||["",""]);
+    openSheet((back?back:'')+'<h3 class="shtitle">'+esc(u.n)+'</h3><p class="shsub">성경의 단위 · '+esc(cat[1])+' · 현대 환산은 대략값입니다</p>'+unCardHtml(u,{sheet:true})+unVersesHtml(u)+
+      '<p class="srcnote">'+esc(UN.d.src)+'</p>');
+    $("sheetbody").onclick=stClick;
+    unFillTexts($("sheetbody"));
+  },function(e){ setSync("도량형 자료를 불러오지 못했습니다",true); });
+}
+/* 도량형 화면 */
+function openUnits(id){
+  show("sunit");
+  $("unres").innerHTML='<div class="panel"><p class="mineempty">도량형 자료를 불러오는 중…</p></div>';
+  Promise.all([loadUnits(),soft(lexIndex())]).then(function(){
+    if(id && UN.map[id]) UN.cat=UN.map[id].cat;
+    paintUnits();
+    if(id) setTimeout(function(){ var el=$("un-"+id); if(el) el.scrollIntoView({block:"start"}); },60);
+  },function(e){ $("unres").innerHTML='<div class="panel"><p class="mineempty">'+esc(String(e&&e.message||e))+'</p></div>'; });
+}
+function paintUnits(){
+  var D=UN.d;
+  $("untabs").innerHTML=D.cats.map(function(c){ return '<button type="button" class="cbtn" data-unc="'+c[0]+'" aria-pressed="'+(UN.cat===c[0])+'">'+esc(c[1].replace(/\s*\(.+\)$/,"").replace(" · 거리","").replace("부피 · ",""))+'</button>'; }).join("");
+  var cat=D.cats.filter(function(c){ return c[0]===UN.cat; })[0];
+  var us=D.u.filter(function(u){ return u.cat===UN.cat; });
+  /* 단위 사다리 — 작은 것부터 큰 것까지 막대로 */
+  var mx=Math.max.apply(null,us.map(function(u){ return u.val; })), mn=Math.min.apply(null,us.map(function(u){ return u.val; }));
+  var lad=us.slice().sort(function(a,b){ return a.val-b.val; }).filter(function(u,i,a){ return !i || a[i-1].val!==u.val || a[i-1].n!==u.n; }).map(function(u){
+    var w=mx===mn?100:Math.max(4,Math.round((Math.log(u.val)-Math.log(mn))/(Math.log(mx)-Math.log(mn))*100));
+    return '<button type="button" class="unlad" data-unj="'+u.id+'"><span class="unln">'+esc(u.n)+'</span><span class="unlb"><i style="width:'+w+'%"></i></span><span class="unla">'+esc(unAmount(u.val,u.vu))+'</span></button>';
+  }).join("");
+  var h='<div class="panel"><p class="eyebrow">'+esc(cat[1])+'</p><p class="unhier">'+esc(cat[2])+'</p><div class="unladder">'+lad+'</div><p class="fixednote">막대는 크기를 한눈에 견주도록 로그 눈금으로 그렸습니다. 누르면 그 단위 설명으로 갑니다.</p></div>';
+  /* 환산기 */
+  var opts=us.map(function(u){ return '<option value="'+u.id+'"'+(UN.cv.u===u.id?' selected':'')+'>'+esc(u.n)+'</option>'; }).join("");
+  if(!us.some(function(u){ return u.id===UN.cv.u; })) UN.cv.u=us[0].id;
+  h+='<div class="panel"><p class="eyebrow">환산해 보기</p><div class="uncv"><input type="number" inputmode="decimal" min="0" step="any" id="uncvn" value="'+esc(UN.cv.n)+'" aria-label="수"><select id="uncvu" aria-label="단위">'+opts+'</select></div><div id="uncvout" class="uncvout"></div></div>';
+  h+=us.map(function(u){ return '<div class="panel" id="un-'+u.id+'">'+unCardHtml(u,{list:true})+'</div>'; }).join("");
+  h+='<p class="srcnote" style="margin:0 4px 16px">'+esc(D.src)+' 단위 크기는 시대와 지역, 학자에 따라 다르며 여기 적은 값은 널리 쓰이는 대략값입니다. 「리」 · 「말」 · 「되」 · 「석」 · 「자」처럼 개역한글이 우리 옛 단위로 옮긴 곳은 원어 단위를 함께 적었습니다.</p>';
+  $("unres").innerHTML=h;
+  unCvPaint();
+}
+function unCvPaint(){
+  var n=parseFloat($("uncvn")&&$("uncvn").value), u=UN.map[$("uncvu")&&$("uncvu").value];
+  if(!u || !$("uncvout")) return;
+  UN.cv={n:$("uncvn").value, u:u.id};
+  if(!(n>=0)){ $("uncvout").innerHTML=""; return; }
+  var v=n*u.val, same=UN.d.u.filter(function(x){ return x.cat===u.cat && x.id!==u.id && x.vu===u.vu; });
+  var rows=same.filter(function(x){ var k=v/x.val; return k>=0.01 && k<1e7; }).sort(function(a,b){ return b.val-a.val; }).slice(0,6).map(function(x){ return '<li><b>'+numKo(v/x.val)+'</b> '+esc(x.n)+'</li>'; }).join("");
+  var f=unFeel(v,u.vu);
+  $("uncvout").innerHTML='<p class="uncvmain">'+numKo(n)+' '+esc(u.n)+' ≈ <b>'+esc(unAmount(v,u.vu))+'</b></p>'+(f?'<p class="uncvfeel">'+esc(f)+'</p>':'')+(rows?'<ul>'+rows+'</ul>':'');
+}
+
+/* ═══ 성경 사전 (Easton) ═══ */
+var DC={idx:null, n:400, wait:null, e:{cache:{}, wait:{}}, v:{cache:{}, wait:{}}, q:"", kind:"", ini:"", show:80};
+function loadDict(){
+  if(DC.idx) return Promise.resolve(DC);
+  if(DC.wait) return DC.wait;
+  DC.wait=getJson("data/dict/index.json?v="+DICT_VER,"성경 사전").then(function(j){ DC.idx=j.i; DC.n=j.n||400; DC.src=j.src; DC.wait=null; return DC; },function(e){ DC.wait=null; throw e; });
+  return DC.wait;
+}
+function dictEntry(id){
+  var ch=Math.floor(id/DC.n);
+  return lazy(DC.e,ch,"data/dict/e"+p2(ch)+".json?v="+DICT_VER,"성경 사전").then(function(rows){ return rows[id%DC.n]||null; });
+}
+function dictVerses(bi){ return lazy(DC.v,bi,"data/dict/v"+p2(bi+1)+".json?v="+DICT_VER,"성경 사전"); }
+var DC_KIND={p:"인물",l:"지명",t:"낱말",b:"성경 책",u:"단위"};
+function dictName(r){ return r[1] ? r[1] : r[0]; }
+function dictBody(t){
+  return esc(t).replace(/⟦(\d+)\.(\d+)\.(\d+)\|([^⟧]*)⟧/g,function(m,b,c,v,lab){
+    return '<button type="button" class="rlink" data-rgo="'+(b-1)+'|'+c+'|'+v+'|0">'+lab+'</button>';
+  }).split("\n").map(function(p){ return '<p>'+p+'</p>'; }).join("");
+}
+function dictEntryHtml(id,row,back){
+  var r=DC.idx[id], en=row[0], body=row[2]||"", plain=body.replace(/⟦[^|]*\|([^⟧]*)⟧/g,"$1");
+  var gt="https://translate.google.com/?sl=en&tl=ko&op=translate&text="+encodeURIComponent(en+". "+plain.slice(0,4500));
+  var rel="";
+  if(r[2]==="p" && r[1]) rel+='<button type="button" data-dcpp="'+esc(r[1].split(" · ")[0])+'">'+svg("people")+'성경인물에서 보기</button>';
+  if(r[2]==="l" && r[1]) rel+='<button type="button" data-dcpl="'+esc(r[1].split(" · ")[0])+'">'+svg("pin")+'지도에서 보기</button>';
+  if(row[3]) rel+='<button type="button" data-un="'+row[3]+'">'+svg("unit")+'도량형 · 환산</button>';
+  var refs=(body.match(/⟦/g)||[]).length;
+  return (back||'')+'<h3 class="shtitle">'+esc(dictName(r))+'</h3>'+
+    '<p class="shsub">'+(r[1]?esc(en)+' · ':'')+(DC_KIND[r[2]]||"")+(refs?' · 구절 '+refs+'곳':'')+(r[4]==="a"?' · 우리말 표제어는 자동 대응(추정)':'')+'</p>'+
+    (rel?'<div class="shacts">'+rel+'</div>':'')+
+    '<div class="dcbody" lang="en">'+dictBody(body)+'</div>'+
+    '<p class="dcgt"><a href="'+gt+'" target="_blank" rel="noopener">구글 번역으로 우리말로 읽기 ↗</a></p>'+
+    '<p class="srcnote">Easton\'s Bible Dictionary(1897) 영어 원문 · 퍼블릭 도메인. 정리본: Theographic Bible Metadata (CC BY-SA 4.0). 구절 번호는 개역한글에 맞추었습니다.</p>';
+}
+function openDictSheet(id,back){
+  Promise.all([loadDict()]).then(function(){ return dictEntry(id); }).then(function(row){
+    if(!row) return;
+    openSheet(dictEntryHtml(id,row,back));
+    $("sheetbody").onclick=stClick;
+  },function(){ setSync("성경 사전을 불러오지 못했습니다",true); });
+}
+var CHO="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+function choOf(s){ var c=String(s||"").charCodeAt(0)-0xAC00; if(c<0||c>11171) return ""; var x=CHO.charAt(Math.floor(c/588)); return {"ㄲ":"ㄱ","ㄸ":"ㄷ","ㅃ":"ㅂ","ㅆ":"ㅅ","ㅉ":"ㅈ"}[x]||x; }
+function openDict(q){
+  show("sdict");
+  if(q!==undefined){ $("dcq").value=q; DC.q=q; DC.ini=""; }
+  $("dcres").innerHTML='<div class="panel"><p class="mineempty">성경 사전을 불러오는 중…</p></div>';
+  loadDict().then(function(){ paintDictOpts(); dcRun(); },function(e){ $("dcres").innerHTML='<div class="panel"><p class="mineempty">'+esc(String(e&&e.message||e))+'</p></div>'; });
+}
+function paintDictOpts(){
+  $("dckind").innerHTML=[["","전체"],["p","인물"],["l","지명"],["t","낱말"],["b","성경 책"],["u","단위"]].map(function(k){ return '<button type="button" class="cbtn" data-dck="'+k[0]+'" aria-pressed="'+(DC.kind===k[0])+'">'+k[1]+'</button>'; }).join("");
+  $("dcini").innerHTML="ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ".split("").map(function(c){ return '<button type="button" data-dci="'+c+'"'+(DC.ini===c?' class="on"':'')+'>'+c+'</button>'; }).join("")+'<button type="button" data-dci="A"'+(DC.ini==="A"?' class="on"':'')+'>A–Z</button>';
+}
+function dcRun(){
+  var q=($("dcq").value||"").trim(); DC.q=q;
+  var L=q.toLowerCase(), ko=/[가-힣]/.test(q), hits=[];
+  DC.idx.forEach(function(r,i){
+    if(DC.kind && r[2]!==DC.kind) return;
+    var s=-1;
+    if(q){
+      var a=(r[1]||"").replace(/\s*\(.+?\)/g,""), e=r[0].toLowerCase();
+      if(ko){ if(a===q) s=3; else if(a.indexOf(q)===0) s=2; else if(a.indexOf(q)>=0) s=1; }
+      else { if(e===L) s=3; else if(e.indexOf(L)===0) s=2; else if(e.indexOf(L)>=0) s=1; }
+    } else if(DC.ini){
+      if(DC.ini==="A"){ if(!r[1]) s=1; } else if(choOf(r[1])===DC.ini) s=1;
+    } else s=0;
+    if(s>=0) hits.push([s,i]);
+  });
+  hits.sort(function(a,b){ return b[0]-a[0] || (q||DC.ini? (DC.ini&&DC.ini!=="A" ? String(DC.idx[a[1]][1]).localeCompare(String(DC.idx[b[1]][1]),"ko") : DC.idx[b[1]][3]-DC.idx[a[1]][3]) : DC.idx[b[1]][3]-DC.idx[a[1]][3]); });
+  DC.res=hits.map(function(x){ return x[1]; }); DC.show=80;
+  paintDcRes();
+}
+function paintDcRes(){
+  var q=DC.q, res=DC.res||[], h='<div class="panel">';
+  h+='<div class="shead"><b>'+(q?'「'+esc(q)+'」 '+res.length+'개':DC.ini?(DC.ini==="A"?'영어 표제어':DC.ini)+' '+res.length+'개':'긴 항목부터 · '+res.length+'개')+'</b><span>누르면 사전 본문</span></div>';
+  if(!res.length) h+='<p class="mineempty">찾은 표제어가 없습니다. 우리말로 없으면 영어(예: Tabernacle)로 찾아 보세요.</p>';
+  h+='<ul class="dclist">'+res.slice(0,DC.show).map(function(i){
+    var r=DC.idx[i];
+    return '<li><button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b>'+(r[1]?'<span lang="en">'+esc(r[0])+'</span>':'')+'<i class="dk '+r[2]+'">'+(DC_KIND[r[2]]||"")+'</i></button></li>';
+  }).join("")+'</ul>';
+  if(res.length>DC.show) h+='<button type="button" class="go soft" data-dcmore="1" style="margin-top:12px">더 보기 ('+(res.length-DC.show)+'개 남음)</button>';
+  h+='<p class="srcnote">'+esc(DC.src||"")+'</p></div>';
+  $("dcres").innerHTML=h;
+}
+
+/* ═══ 원어 사전 ═══ */
+var LX_PICKS=["G0026","G0025","G5368","G4102G","G5485","G1680","G3056","G4151G","G1577","G2098","G1343","G3341","G1515","G2222","G0266","G4991",
+  "H2617A","H0157G","H7965G","H0539","H3068G","H0430G","H1285","H6944G","H7307G","H5315G","H8451","H6666","H0571G","H3519","H7725G","H3444"];
+function openLex(q){
+  show("slex");
+  if(q!==undefined){ $("lxq").value=q; }
+  $("lxres").innerHTML='<div class="panel"><p class="mineempty">원어 사전을 불러오는 중…</p></div>';
+  lexIndex().then(function(){ paintLexOpts(); lxRun(); },function(e){ $("lxres").innerHTML='<div class="panel"><p class="mineempty">'+esc(String(e&&e.message||e))+'</p></div>'; });
+}
+function paintLexOpts(){
+  $("lxlang").innerHTML=[["","전체"],["H","구약 · 히브리어"],["G","신약 · 헬라어"]].map(function(k){ return '<button type="button" class="cbtn" data-lxl="'+k[0]+'" aria-pressed="'+(LX.lang===k[0])+'">'+k[1]+'</button>'; }).join("");
+  $("lxchips").innerHTML=LX_PICKS.filter(function(k){ return LX.map[k] && (!LX.lang || k.charAt(0)===LX.lang); }).map(function(k){
+    var r=LX.map[k], L=lexLang(k);
+    return '<button type="button" data-lx="'+k+'"><b'+rtl(L)+'>'+esc(r[1])+'</b> '+esc((r[5]||"").split(",")[0]||r[4])+'</button>';
+  }).join("");
+}
+function plain(s){ return String(s||"").normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05C7]/g,"").toLowerCase().replace(/[.\-'ʼ’ʾʿ\/ ]/g,""); }
+function lxRun(){
+  var q=($("lxq").value||"").trim(); LX.q=q;
+  if(!q){ LX.res=null; paintLxRes(); return; }
+  var hits=[], m=/^([hgHG])\s*0*(\d{1,4})([a-zA-Z]?)$/.exec(q);
+  if(m){
+    var pre=m[1].toUpperCase()+("0000"+m[2]).slice(-4)+(m[3]?m[3].toUpperCase():"");
+    LX.idx.forEach(function(r){ if(r[0].indexOf(pre)===0) hits.push([2,r]); });
+  } else {
+    var ko=/[가-힣]/.test(q), orig=/[\u0370-\u03FF\u1F00-\u1FFF\u0590-\u05FF]/.test(q), P=plain(q), L=q.toLowerCase();
+    LX.idx.forEach(function(r){
+      if(LX.lang && r[0].charAt(0)!==LX.lang) return;
+      var s=-1;
+      if(ko){
+        var ren=(r[5]||"").split(","), rd=origHangul(r[2],lexLang(r[0]));
+        if(ren[0]===q) s=4; else if(ren.indexOf(q)>=0) s=3; else if(ren.some(function(w){ return w.indexOf(q)===0; })) s=2; else if(rd===q) s=3; else if(rd.indexOf(q)===0) s=1;
+      } else if(orig){
+        var lp=plain(r[1]); if(lp===P) s=4; else if(lp.indexOf(P)===0) s=2; else if(lp.indexOf(P)>=0) s=1;
+      } else {
+        var tp=plain(r[2]), gl=String(r[4]||"").toLowerCase();
+        if(tp===P) s=4; else if(tp.indexOf(P)===0) s=2; else if(new RegExp("\\b"+L.replace(/[^a-z ]/g,"")+"\\b").test(gl)) s=3; else if(gl.indexOf(L)>=0) s=1;
+      }
+      if(s>=0) hits.push([s,r]);
+    });
+  }
+  hits.sort(function(a,b){ return b[0]-a[0] || b[1][6]-a[1][6]; });
+  LX.res=hits.map(function(x){ return x[1]; }); LX.show=60;
+  paintLxRes();
+}
+function lxRowHtml(r){
+  var L=lexLang(r[0]);
+  return '<li><button type="button" class="lxrow" data-lx="'+r[0]+'"><span class="lxo"'+rtl(L)+'>'+esc(r[1])+'</span>'+
+    '<span class="lxm"><b>'+esc((r[5]||"").split(",").filter(Boolean).join(" · ")||"—")+'</b><em>'+esc(r[2])+' · '+esc(origHangul(r[2],L))+' · '+esc(r[4])+'</em></span>'+
+    '<span class="lxn">'+lexNum(r[0])+'<i>'+r[6]+'회</i></span></button></li>';
+}
+function paintLxRes(){
+  var h='<div class="panel">';
+  if(!LX.res){
+    h+='<div class="shead"><b>원어 사전 사용법</b></div><ul class="lxhelp"><li>우리말 번역어(사랑 · 은혜), 원어 글자(ἀγάπη · חסד), 음역(agape · chesed), 영어 뜻(love), 스트롱 번호(G26 · H2617)로 찾을 수 있습니다.</li>'+
+      '<li>성경보기에서 「자료」를 켜고 절을 누르면 그 절의 원어를 낱말마다 볼 수 있습니다.</li></ul>';
+  } else {
+    h+='<div class="shead"><b>「'+esc(LX.q)+'」 '+LX.res.length+'개</b><span>많이 나오는 순 · 누르면 자세히</span></div>';
+    if(!LX.res.length) h+='<p class="mineempty">찾은 낱말이 없습니다. 다른 번역어나 영어 뜻으로 찾아 보세요.</p>';
+    h+='<ul class="lxlist">'+LX.res.slice(0,LX.show).map(lxRowHtml).join("")+'</ul>';
+    if(LX.res.length>LX.show) h+='<button type="button" class="go soft" data-lxmore2="1" style="margin-top:12px">더 보기 ('+(LX.res.length-LX.show)+'개 남음)</button>';
+  }
+  h+='<p class="srcnote">원어 · 형태 · 사전: STEPBible.org (Tyndale House, Cambridge) — TAHOT · TAGNT · TBESH · TBESG, CC BY 4.0. 개역한글 번역어는 원어와 개역한글 낱말을 통계로 자동으로 맞춘 것이라 틀린 짝이 섞여 있을 수 있습니다. 한글 발음은 음역을 우리말로 옮긴 대략의 읽기입니다.</p></div>';
+  $("lxres").innerHTML=h;
+}
+/* 원어 낱말 하나 — 창으로 */
+function lexEntryHtml(key,det,back,cur){
+  var r=lexRow(key)||[key,"","","","","",0], L=lexLang(key), ren=lexRen(det&&det[0]), tot=ren.reduce(function(a,x){ return a+x[1]; },0)||1;
+  var bars=ren.slice(0,6).map(function(x){ return '<li><span>'+esc(x[0])+'</span><i><b style="width:'+Math.max(3,Math.round(x[1]/tot*100))+'%"></b></i><em>'+x[1]+'</em></li>'; }).join("");
+  var occ=det?unpackRefs(det[2]):[];
+  return (back||'')+
+    '<div class="lxhead"><span class="lxbig"'+rtl(L)+'>'+esc(r[1])+'</span><div><b>'+esc(r[2])+'</b><span>'+esc(origHangul(r[2],L))+' · '+(L==="G"?"헬라어":"히브리어")+' · '+lexNum(r[0])+'</span></div></div>'+
+    '<p class="lxgl"><i>'+esc(lexPos(r[3]))+'</i> '+esc(r[4])+'</p>'+
+    (cur?'<div class="lxcur"><em>이 절에서</em><b'+rtl(L)+'>'+esc(cur[0])+'</b> '+esc(cur[1])+' · '+esc(origHangul(cur[1],L))+(cur[5]?'<span>개역한글 「'+esc(cur[5])+'」</span>':'')+'<p>'+esc(cur[6].t)+(cur[6].h?'<small>'+esc(cur[6].h)+'</small>':'')+'</p></div>':'')+
+    (bars?'<h4 class="sth">개역한글은 이렇게 옮겼습니다 <em>자동으로 맞춘 짝 · 횟수</em></h4><ul class="lxbars">'+bars+'</ul>':'')+
+    (det&&det[1]?'<h4 class="sth">사전 풀이 <em>영어 · STEPBible</em></h4><div class="lxdef" lang="en">'+det[1]+'</div>':'')+
+    '<h4 class="sth">나오는 곳 <em>'+r[6]+'번 · '+occ.length+'절</em></h4><div class="lxocc" data-lxocc="'+key+'"></div>'+
+    '<p class="srcnote">STEPBible.org (Tyndale House, Cambridge) — CC BY 4.0. 번역어 짝은 자동으로 맞춘 것이라 틀릴 수 있습니다.</p>';
+}
+function lxOccPaint(host,key,det,lim){
+  if(!host) return;
+  var occ=det?unpackRefs(det[2]):[], ren=lexRen(det&&det[0]).map(function(x){ return x[0]; });
+  lim=lim||30;
+  var list=occ.slice(0,lim), need=[];
+  list.forEach(function(x){ if(need.indexOf(x[0]-1)<0 && !BIB.cache[x[0]-1]) need.push(x[0]-1); });
+  function draw(){
+    var h='<ul class="slist">'+list.map(function(x){
+      var bi=x[0]-1, t=BIB.cache[bi]?bibVerse(bi,x[1],x[2]):"";
+      return '<li><button type="button" class="srow" data-rgo="'+bi+'|'+x[1]+'|'+x[2]+'|0"><span class="sa"><b>'+refName(bi,x[1],x[2])+'</b></span><span class="st">'+(t?xrMark(t,ren):'<em>불러오는 중…</em>')+'</span></button></li>';
+    }).join("")+'</ul>';
+    if(occ.length>lim) h+='<button type="button" class="go soft" data-lxmore="'+key+'" data-lim="'+(lim+60)+'" style="margin-top:10px">더 보기 ('+(occ.length-lim)+'절 남음)</button>';
+    host.innerHTML=h;
+  }
+  draw();
+  if(need.length) bibMany(need).then(function(){ if(document.body.contains(host)) draw(); },function(){});
+}
+function openLexSheet(key,back,cur){
+  Promise.all([lexIndex(),lexDetail(key)]).then(function(rs){
+    var det=rs[1];
+    openSheet(lexEntryHtml(key,det,back,cur));
+    $("sheetbody").onclick=stClick;
+    LX.cur={key:key, det:det};
+    lxOccPaint($("sheetbody").querySelector("[data-lxocc]"),key,det,30);
+  },function(e){ setSync(netOff()?"인터넷이 없어 원어 사전을 불러오지 못했습니다":"원어 사전을 불러오지 못했습니다",true); });
+}
+
+/* ═══ 성경보기 · 「자료」 — 절마다 태그와 「이 절 자료」 창 ═══ */
+var ST={bi:-1,c:0,v:0, data:null, sec:""};
+function stLoad(bi){
+  return Promise.all([bibBook(bi), soft(ogBook(bi)), soft(lexIndex()), soft(xrBook(bi)), soft(loadPeople()), soft(loadPlaces()), soft(loadUnits()), soft(loadDict()), soft(dictVerses(bi))]);
+}
+function xrCount(raw){ if(!raw) return 0; var n=0; raw.split("|").forEach(function(g){ var b=g.slice(g.lastIndexOf("~")+1); b=b.slice(b.indexOf("^")+1); n+=b.split(";").filter(Boolean).length; }); return n; }
+function clean2(t){ return String(t||"").replace(/[^가-힣]/g,""); }
+/* 이 절에서 인물 · 지명 · 단위가 있는 어절 */
+function stMarks(bi,c,v,toks){
+  var b=bi+1, key=b+"."+c+"."+v, at={};
+  function put(j,cls,attr,title){ if(j>=0 && j<toks.length && !at[j]) at[j]={cls:cls, attr:attr, title:title}; }
+  function find(name){ if(!name) return -1; for(var j=0;j<toks.length;j++){ var w=clean2(toks[j]); if(w.indexOf(name)===0 && w.length-name.length<=4) return j; } return -1; }
+  var pp=(PPL.byV&&PPL.byV[key])||[], pl=(PLC.byV&&PLC.byV[key])||[], un=(UN.d&&UN.d.tags[key])||[];
+  un.forEach(function(t){ var u=UN.map[t[0]]; if(u) put(t[3]>=0?t[3]:find(t[1]),"u",'data-un="'+u.id+'"',u.n); });
+  pp.forEach(function(i){ put(find(PPL.rows[i][0]),"p",'data-pp="'+i+'"',"인물"); });
+  pl.forEach(function(i){ put(find(PLC.rows[i][0]),"l",'data-pl="'+i+'"',"지명"); });
+  return {at:at, pp:pp, pl:pl, un:un};
+}
+function stTextHtml(toks,at,sel){
+  return toks.map(function(t,j){
+    var a=at[j], s=sel&&sel.indexOf(j)>=0;
+    var inner='<span class="kw'+(s?' on':'')+'" data-ke="'+j+'">'+esc(t)+'</span>';
+    return a?'<b class="tg '+a.cls+'" '+a.attr+'>'+esc(t)+'</b>':inner;
+  }).join(" ");
+}
+function openStudy(bi,c,v,sec){
+  ST={bi:bi,c:c,v:v,sec:sec||"",ke:-1};
+  openSheet('<h3 class="shtitle">'+esc(refName(bi,c,v))+' · 이 절 자료</h3><p class="mineempty">자료를 불러오는 중…</p>',function(){ bsClearMarks(); });
+  $("sheetbody").onclick=stClick;
+  stLoad(bi).then(function(){ if(ST.bi===bi && ST.c===c && ST.v===v && SHEET.open) paintStudy(); },function(e){
+    $("sheetbody").innerHTML='<h3 class="shtitle">'+esc(refName(bi,c,v))+'</h3><p class="mineempty">'+(netOff()?"인터넷이 없어 자료를 불러오지 못했습니다.":"자료를 불러오지 못했습니다 · "+esc(String(e&&e.message||e)))+'</p>';
+  });
+}
+function stBack(){ return '<button type="button" class="shback" data-shback="1">‹ '+esc(refName(ST.bi,ST.c,ST.v))+' 자료로</button>'; }
+function paintStudy(){
+  var bi=ST.bi, c=ST.c, v=ST.v, b=bi+1, src=bibVerse(bi,c,v)||"", toks=src.trim().split(/\s+/);
+  var mk=stMarks(bi,c,v,toks), words=(OG.cache[bi]||{})[c+":"+v]||[], L=bi>=39?"G":"H";
+  var raw=(XR.cache[bi]||{})[c+":"+v]||"", groups=raw?raw.split("|").map(xrGroup).filter(function(g){ return g.refs.length; }):[];
+  groups.forEach(function(g){ g.idx=xrIdx(g,toks); g.phr=g.idx.length?xrPhrase(g.idx,toks):""; });
+  var dcs=((DC.v.cache[bi]||{})[c+":"+v]||[]).filter(function(i){ return DC.idx && DC.idx[i]; });
+  var memo=(memoAt()[BOOK_ORDER[bi]+"|"+c+"|"+v]||[]);
+  var sel=[];
+  if(ST.ke>=0) words.forEach(function(w,i){ if(w[4]===ST.ke) sel.push(i); });
+  var secs=[["og","원어",words.length],["xr","관주",groups.reduce(function(a,g){ return a+g.refs.length; },0)],["pp","인물",mk.pp.length],["pl","지명",mk.pl.length],["un","단위",mk.un.length],["dc","사전",dcs.length],["mm","암송",memo.length]];
+  var h='<h3 class="shtitle">'+esc(refName(bi,c,v))+' · 이 절 자료</h3>'+
+    '<div class="stnav">'+secs.filter(function(s){ return s[2]; }).map(function(s){ return '<button type="button" data-stj="'+s[0]+'">'+s[1]+'<i>'+s[2]+'</i></button>'; }).join("")+'</div>'+
+    '<div class="shver stver"><em>개역한글 · 낱말을 누르면 맞는 원어를 칠합니다</em><p>'+stTextHtml(toks,mk.at,ST.ke>=0?[ST.ke]:null)+'</p></div>'+
+    '<div class="stlegend"><span class="tg p">인물</span><span class="tg l">지명</span><span class="tg u">단위</span></div>';
+  /* 원어 */
+  if(words.length){
+    h+='<section id="st-og"><h4 class="sth">원어 <em>'+(L==="G"?"헬라어":"히브리어")+' · 낱말 '+words.length+' · 누르면 원어 사전</em></h4><ol class="iwl">'+words.map(function(w,i){
+      var r=lexRow(w[2]), m=morphKo(w[3],L), ko=w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"";
+      var ren=r&&lexContent(r)?(r[5]||"").split(",").filter(Boolean).slice(0,3).join(" · "):"";   /* 기능어(접속사 · 관사 …)는 번역어 짝이 흐려서 뺍니다 */
+      return '<li class="'+(sel.indexOf(i)>=0?'on':'')+'"><button type="button" data-ow="'+i+'"'+(w[2]?'':' disabled')+'>'+
+        '<span class="iwo"'+rtl(L)+'>'+esc(w[0])+'</span>'+
+        '<span class="iwr">'+esc(w[1])+' · '+esc(origHangul(w[1],L))+'</span>'+
+        '<span class="iwk">'+(ko?'「'+esc(ko)+'」':'<i>—</i>')+'</span>'+
+        '<span class="iwg"><b>'+esc(r?r[4]:"")+'</b>'+(ren?' · '+esc(ren):'')+'</span>'+
+        '<span class="iwm">'+esc(m.t)+(w[2]?' · '+lexNum(w[2]):'')+'</span></button></li>';
+    }).join("")+'</ol><p class="stnote">「 」는 개역한글에서 그 원어에 맞춘 말입니다(자동 · 맞춘 말이 없으면 —). 히브리어는 오른쪽에서 왼쪽으로 읽습니다.</p></section>';
+  } else if(OG.cache[bi]) h+='<section id="st-og"><h4 class="sth">원어</h4><p class="mineempty">이 절의 원어 자료가 없습니다.</p></section>';
+  /* 관주 */
+  if(groups.length){
+    h+='<section id="st-xr"><h4 class="sth">관주 <em>'+groups.length+'묶음 · TSK</em></h4>'+groups.slice(0,8).map(function(g,gi){
+      var k=g.kind||(g.w.length&&!g.th?"s":g.w.length?"t":"m");
+      return '<div class="stxg"><p><span>'+(gi+1)+'</span>'+(g.phr?'<b>「'+esc(g.phr)+'」</b>':'')+'<i class="xk '+k+'">'+{s:"같은 말",t:"같은 주제",m:"뜻으로"}[k]+'</i></p><div>'+
+        g.refs.slice(0,8).map(function(r){ return '<button type="button" class="rlink" data-rgo="'+r.bi+'|'+r.c+'|'+r.v+'|'+(r.c2===r.c&&r.v2!==r.v?r.v2:0)+'">'+refName(r.bi,r.c,r.v,r.c2===r.c?r.v2:0)+'</button>'; }).join("")+(g.refs.length>8?'<em>외 '+(g.refs.length-8)+'</em>':'')+'</div></div>';
+    }).join("")+'<button type="button" class="textlink" data-xrall="1">관주 전체 · 구절 본문까지 보기 ›</button></section>';
+  }
+  /* 인물 · 지명 */
+  if(mk.pp.length) h+='<section id="st-pp"><h4 class="sth">인물 <em>누르면 가족 · 사건</em></h4><div class="stchips">'+mk.pp.map(function(i){ var r=PPL.rows[i]; return '<button type="button" data-pp="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc(r[4]||"")+'</span></button>'; }).join("")+'</div></section>';
+  if(mk.pl.length) h+='<section id="st-pl"><h4 class="sth">지명 <em>누르면 지도</em></h4><div class="stchips">'+mk.pl.map(function(i){ var r=PLC.rows[i]; return '<button type="button" data-pl="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc(r[5]||"")+(r[8]?' · 오늘날 '+esc(r[8]):'')+'</span></button>'; }).join("")+'</div></section>';
+  /* 단위 */
+  if(mk.un.length){
+    var ug={}, uo=[];
+    mk.un.forEach(function(t){ if(!UN.map[t[0]]) return; if(!ug[t[0]]){ ug[t[0]]=[]; uo.push(t[0]); } ug[t[0]].push(t); });
+    h+='<section id="st-un"><h4 class="sth">단위 · 환산 <em>대략값</em></h4>'+uo.map(function(id){
+      var u=UN.map[id], notes=[];
+      var lines=ug[id].map(function(t){ var tt=unTagText(t,u); if(tt.n) notes.push(tt.n);
+        return '<span class="stunl"><b>'+esc(tt.q)+'</b>'+(tt.a?'<span>≈ '+esc(tt.a)+'</span>':'')+(tt.f?'<em>'+esc(tt.f)+'</em>':'')+'</span>'; }).join("");
+      return '<button type="button" class="stun" data-un="'+u.id+'">'+lines+notes.map(function(n){ return '<p>'+esc(n)+'</p>'; }).join("")+'<small>'+esc(u.n)+' — '+esc(u.rng)+' · 자세히 ›</small></button>';
+    }).join("")+'</section>';
+  }
+  /* 사전 */
+  if(dcs.length) h+='<section id="st-dc"><h4 class="sth">성경 사전 <em>이 절을 인용한 표제어 · Easton</em></h4><div class="stchips">'+dcs.slice(0,30).map(function(i){ var r=DC.idx[i]; return '<button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b><span>'+(r[1]?esc(r[0])+' · ':'')+(DC_KIND[r[2]]||"")+'</span></button>'; }).join("")+'</div></section>';
+  /* 암송 */
+  if(memo.length) h+='<section id="st-mm"><h4 class="sth">암송 카드</h4><div class="stchips">'+memo.map(function(t){ return '<button type="button" data-ma="'+esc(t.a)+'" data-mp="'+esc(t.pn)+'"><b>'+esc(t.a)+'</b><span>'+esc(t.pn)+'</span></button>'; }).join("")+'</div></section>';
+  h+='<div class="shacts"><button type="button" class="main" data-stcopy="1">'+svg("copy")+'이 절 복사</button><button type="button" data-xrall="1">'+svg("xref")+'관주 전체</button></div>'+
+    '<p class="srcnote">원어: STEPBible (CC BY 4.0) · 관주: TSK (CC BY 4.0) · 인물: STEPBible · Theographic · 지명: OpenBible.info · 사전: Easton(퍼블릭 도메인). 원어와 개역한글 낱말의 짝, 이름과 단위 표시는 자동으로 맞춘 것이라 틀릴 수 있습니다.</p>';
+  $("sheetbody").innerHTML=h;
+  $("sheetbody").onclick=stClick;
+  if(ST.sec && ST.sec!=="og"){ var el=$("st-"+ST.sec); ST.sec=""; if(el) setTimeout(function(){ el.scrollIntoView({block:"start"}); },20); }   /* 원어는 본문 바로 아래라 맨 위에서 */
+  ST.sec="";
+}
+function stClick(e){
+  var t;
+  if((t=e.target.closest("[data-rgo]"))){ var d=t.dataset.rgo; sheetThen(function(){ goRef(d); }); return; }
+  if((t=e.target.closest("[data-shback]"))){ paintStudy(); return; }
+  if((t=e.target.closest("[data-stj]"))){ var el=$("st-"+t.dataset.stj); if(el) el.scrollIntoView({block:"start",behavior:"smooth"}); return; }
+  if((t=e.target.closest("[data-ke]"))){ var j=+t.dataset.ke; ST.ke=(ST.ke===j?-1:j); var y=$("sheet").querySelector(".sheetbox").scrollTop; paintStudy(); $("sheet").querySelector(".sheetbox").scrollTop=y;
+    if(ST.ke>=0){ var on=$("sheetbody").querySelector(".iwl li.on"); if(on) on.scrollIntoView({block:"nearest",behavior:"smooth"}); } return; }
+  if((t=e.target.closest("[data-ow]"))){
+    var w=((OG.cache[ST.bi]||{})[ST.c+":"+ST.v]||[])[+t.dataset.ow]; if(!w || !w[2]) return;
+    var toks=(bibVerse(ST.bi,ST.c,ST.v)||"").trim().split(/\s+/), L=ST.bi>=39?"G":"H";
+    openLexSheet(w[2],stBack(),[w[0],w[1],w[2],w[3],w[4],w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"",morphKo(w[3],L)]); return;
+  }
+  if((t=e.target.closest("[data-lx]"))){ openLexSheet(t.dataset.lx,(SHEET.open&&ST.bi>=0&&$("sheetbody").querySelector("[data-shback],.stnav"))?stBack():""); return; }
+  if((t=e.target.closest("[data-lxmore]"))){ if(LX.cur && LX.cur.key===t.dataset.lxmore) lxOccPaint($("sheetbody").querySelector("[data-lxocc]"),LX.cur.key,LX.cur.det,+t.dataset.lim); return; }
+  if((t=e.target.closest("[data-dc]"))){ openDictSheet(+t.dataset.dc,($("sheetbody").querySelector("[data-shback],.stnav"))?stBack():""); return; }
+  if((t=e.target.closest("[data-un]"))){ openUnitSheet(t.dataset.un,($("sheetbody").querySelector("[data-shback],.stnav"))?stBack():""); return; }
+  if((t=e.target.closest("[data-unv]"))){ openUnitSheet(t.dataset.unv); return; }
+  if((t=e.target.closest("[data-pp]"))){ var i=+t.dataset.pp; sheetThen(function(){ openPerson(i); }); return; }
+  if((t=e.target.closest("[data-pl]"))){ var k=+t.dataset.pl; sheetThen(function(){ openMap(k); }); return; }
+  if((t=e.target.closest("[data-dcpp]"))){ var nm=t.dataset.dcpp; loadPeople().then(function(){ var best=-1; PPL.rows.forEach(function(r,i){ if(r[0]===nm && (best<0 || PPL.cnt[i]>PPL.cnt[best])) best=i; }); if(best>=0) sheetThen(function(){ openPerson(best); }); else setSync("성경인물에서 찾지 못했습니다",true); }); return; }
+  if((t=e.target.closest("[data-dcpl]"))){ var nl=t.dataset.dcpl; loadPlaces().then(function(){ var best=-1; PLC.rows.forEach(function(r,i){ if(r[0]===nl && best<0) best=i; }); if(best>=0) sheetThen(function(){ openMap(best); }); else setSync("지도에서 찾지 못했습니다",true); }); return; }
+  if((t=e.target.closest("[data-xrall]"))){ var a=ST; sheetThen(function(){ openXref(a.bi,a.c,a.v); }); return; }
+  if((t=e.target.closest("[data-ma]"))){ openMemoSheet(t.dataset.ma,t.dataset.mp); return; }
+  if((t=e.target.closest("[data-stcopy]"))){ var ref=BOOK_ORDER[ST.bi]+" "+ST.c+":"+ST.v; copyText((bibVerse(ST.bi,ST.c,ST.v)||"")+" ("+ref+", 개역한글)",function(ok){ setSync(ok?"절을 복사했습니다":"복사하지 못했습니다",!ok); }); return; }
+}
+
+/* ── 성경보기 · 해설 / 자료 켜기 ── */
+function bvModesPaint(){
+  $("btmodes").innerHTML='<button type="button" data-btm="guide" aria-pressed="'+!!BV.guide+'">해설</button><button type="button" data-btm="study" aria-pressed="'+!!BV.study+'">자료 태그</button>'+
+    '<span class="btmhint">'+(BV.guide||BV.study?(BV.study?'절 아래 태그를 누르면 원어 · 관주 · 인물 · 지명 · 단위 · 사전':'장의 흐름과 요약'):'본문만 보는 중 · 절을 누르면 선택 · 복사')+'</span>';
+}
+/* 장 안의 절마다 태그 */
+function bvTagsPaint(){
+  var bi=BV.bi, c=BV.c, host=$("btverses");
+  host.classList.toggle("study",!!BV.study);
+  host.querySelectorAll(".vtg").forEach(function(x){ x.remove(); });
+  host.querySelectorAll("p.v .vt[data-raw]").forEach(function(x){ x.textContent=x.dataset.raw; x.removeAttribute("data-raw"); });
+  if(!BV.study) return;
+  stLoad(bi).then(function(){
+    if(screenNow!=="btext" || BV.bi!==bi || BV.c!==c || !BV.study) return;
+    var og=OG.cache[bi]||{}, xr=XR.cache[bi]||{}, dv=DC.v.cache[bi]||{};
+    host.querySelectorAll("p.v[data-k]").forEach(function(p){
+      if(p.querySelector(".vtg")) return;
+      var v=+p.dataset.k.split("|")[2], src=bibVerse(bi,c,v)||"", toks=src.trim().split(/\s+/), mk=stMarks(bi,c,v,toks);
+      var vt=p.querySelector(".vt");
+      if(vt && Object.keys(mk.at).length){ vt.dataset.raw=vt.textContent; vt.innerHTML=toks.map(function(t,j){ var a=mk.at[j]; return a?'<b class="tg '+a.cls+'" '+a.attr+'>'+esc(t)+'</b>':esc(t); }).join(" "); }
+      var n=(og[c+":"+v]||[]).length, x=xrCount(xr[c+":"+v]), d=(dv[c+":"+v]||[]).length;
+      var chips=(n?'<button type="button" data-vtg="og">원어</button>':'')+(x?'<button type="button" data-vtg="xr">관주 '+x+'</button>':'')+
+        (mk.pp.length?'<button type="button" data-vtg="pp" class="p">인물 '+mk.pp.length+'</button>':'')+(mk.pl.length?'<button type="button" data-vtg="pl" class="l">지명 '+mk.pl.length+'</button>':'')+
+        (mk.un.length?'<button type="button" data-vtg="un" class="u">단위 '+mk.un.length+'</button>':'')+(d?'<button type="button" data-vtg="dc">사전 '+d+'</button>':'');
+      if(chips){ var div=document.createElement("span"); div.className="vtg"; div.innerHTML=chips; p.appendChild(div); }
+    });
+  });
+}
+
+/* ── 절 여러 개 고르기 · 복사 ── */
+var BSEL={};
+function bsList(){ return Object.keys(BSEL).map(Number).sort(function(a,b){ return a-b; }); }
+function bsClearMarks(){ document.querySelectorAll("p.v.sel").forEach(function(p){ if(!(screenNow==="btext" && BSEL[+String(p.dataset.k||"").split("|")[2]] && p.closest("#btverses"))) p.classList.remove("sel"); }); }
+function bsClear(){ BSEL={}; document.querySelectorAll("#btverses p.v.sel").forEach(function(p){ p.classList.remove("sel"); }); bsPaint(); }
+function bsRanges(vs){ var out=[], s=null, p=null; vs.forEach(function(v){ if(s===null){ s=p=v; } else if(v===p+1){ p=v; } else { out.push([s,p]); s=p=v; } }); if(s!==null) out.push([s,p]); return out; }
+function bsLabel(vs){ return BOOK_SHORT[BV.bi]+" "+BV.c+":"+bsRanges(vs).map(function(r){ return r[0]===r[1]?r[0]:r[0]+"-"+r[1]; }).join(", "); }
+function bsPaint(){
+  var vs=bsList(), bar=$("btsel");
+  bar.hidden=!vs.length || screenNow!=="btext";
+  document.body.classList.toggle("selbar",!bar.hidden);
+  if(!vs.length) return;
+  $("btselref").innerHTML='<b>'+esc(bsLabel(vs))+'</b><span>'+vs.length+'절 선택</span>';
+  $("btselone").hidden=(vs.length!==1);
+}
+function bsCopy(){
+  var vs=bsList(); if(!vs.length) return;
+  var bi=BV.bi, c=BV.c, t;
+  if(vs.length===1) t=(bibVerse(bi,c,vs[0])||"")+" ("+BOOK_ORDER[bi]+" "+c+":"+vs[0]+", 개역한글)";
+  else {
+    var head=BOOK_ORDER[bi]+" "+c+":"+bsRanges(vs).map(function(r){ return r[0]===r[1]?r[0]:r[0]+"-"+r[1]; }).join(", ")+" (개역한글)";
+    t=head+"\n"+vs.map(function(v){ return v+" "+(bibVerse(bi,c,v)||""); }).join("\n");
+  }
+  copyText(t,function(ok){ setSync(ok?vs.length+"절을 복사했습니다":"복사하지 못했습니다",!ok); if(ok) bsClear(); });
+}
+
+/* ── 이 장의 자료 (인물 · 지명 · 단위 · 사전 · 핵심 원어) ── */
+function bvChapterData(){
+  BV.whoOpen=true; $("btwhobtn").hidden=true;
+  $("btwholist").innerHTML='<p class="mineempty">이 장의 자료를 불러오는 중…</p>';
+  var bi=BV.bi, c=BV.c;
+  stLoad(bi).then(function(){
+    if(screenNow!=="btext" || BV.bi!==bi || BV.c!==c) return;
+    var key=(bi+1)+"."+c, pp=((PPL.byCh||{})[key]||[]).slice(), pl=((PLC.byCh||{})[key]||[]).slice(), h='';
+    if(PPL.rows){ pp.sort(function(a,b){ return PPL.cnt[b]-PPL.cnt[a]; }); }
+    if(PLC.rows){ pl.sort(function(a,b){ return PLC.cnt[b]-PLC.cnt[a]; }); }
+    /* 핵심 원어: 이 장에 여러 번 나오고 성경 전체에서는 드문 낱말 */
+    var og=OG.cache[bi]||{}, cnt={}, nv=CH_V[bi][c-1];
+    for(var v=1; v<=nv; v++) (og[c+":"+v]||[]).forEach(function(w){ var s=w[2]; if(!s || s==="G3588" || s==="H0853" || /^H9/.test(s)) return; cnt[s]=(cnt[s]||0)+1; });
+    var keys=Object.keys(cnt).filter(function(k){ var r=lexRow(k); return r && cnt[k]>=2 && lexContent(r); });
+    keys.sort(function(a,b){ function sc(k){ var r=lexRow(k); return cnt[k]*Math.log(400000/((r&&r[6])||1)); } return sc(b)-sc(a); });
+    if(keys.length) h+='<div class="whog"><h4>핵심 원어 <em>이 장에 여러 번 나오는 낱말</em></h4><div>'+keys.slice(0,10).map(function(k){ var r=lexRow(k), L=lexLang(k); return '<button type="button" data-lx="'+r[0]+'"><span'+rtl(L)+'>'+esc(r[1])+'</span> '+esc((r[5]||"").split(",")[0]||r[4])+'<em>×'+cnt[k]+'</em></button>'; }).join("")+'</div></div>';
+    if(pp.length) h+='<div class="whog"><h4>인물 '+pp.length+'</h4><div>'+pp.slice(0,60).map(function(i){ return '<button type="button" data-who-p="'+i+'">'+esc(PPL.rows[i][0])+'</button>'; }).join("")+'</div></div>';
+    if(pl.length) h+='<div class="whog"><h4>지명 '+pl.length+'</h4><div>'+pl.slice(0,60).map(function(i){ return '<button type="button" data-who-l="'+i+'">'+esc(PLC.rows[i][0])+'</button>'; }).join("")+'</div></div>';
+    if(UN.d){
+      var us=[]; for(var v2=1; v2<=nv; v2++) (UN.d.tags[(bi+1)+"."+c+"."+v2]||[]).forEach(function(t){ var u=UN.map[t[0]]; if(u) us.push([v2,t,u]); });
+      if(us.length) h+='<div class="whog"><h4>단위 '+us.length+' <em>누르면 환산</em></h4><div>'+us.slice(0,30).map(function(x){ var tt=unTagText(x[1],x[2]); return '<button type="button" data-un="'+x[2].id+'">'+x[0]+'절 '+esc(tt.q)+(tt.a?'<em>'+esc(tt.a.replace(/^약 /,"≈ "))+'</em>':'')+'</button>'; }).join("")+'</div></div>';
+    }
+    var dv=DC.v.cache[bi]||{}, dn={};
+    for(var v3=1; v3<=nv; v3++) (dv[c+":"+v3]||[]).forEach(function(i){ dn[i]=(dn[i]||0)+1; });
+    var dk=Object.keys(dn).map(Number).filter(function(i){ return DC.idx && DC.idx[i]; }).sort(function(a,b){ return dn[b]-dn[a] || DC.idx[b][3]-DC.idx[a][3]; });
+    if(dk.length) h+='<div class="whog"><h4>성경 사전 '+dk.length+' <em>이 장을 인용한 표제어</em></h4><div>'+dk.slice(0,40).map(function(i){ return '<button type="button" data-dc="'+i+'">'+esc(dictName(DC.idx[i]))+(dn[i]>1?'<em>'+dn[i]+'절</em>':'')+'</button>'; }).join("")+'</div></div>';
+    if(!h) h='<p class="mineempty">이 장에는 실린 자료가 없습니다.</p>';
+    $("btwholist").innerHTML=h+'<p class="srcnote">원어: STEPBible · 인물: STEPBible · Theographic · 지명: OpenBible.info · 단위: 원어 태그로 찾음 · 사전: Easton — 개역한글 본문에서 확인하거나 자동으로 맞춘 것이라 틀릴 수 있습니다.</p>';
+  },function(e){ $("btwholist").innerHTML='<p class="mineempty">자료를 불러오지 못했습니다 · '+esc(String(e&&e.message||e))+'</p>'; });
+}
+
 /* ═══ 인물 · 지명 자료 ═══ */
 var PPL={rows:null, byCh:{}, cnt:[], loading:null}, PLC={rows:null, byCh:{}, cnt:[], loading:null};
 function unpackRefs(s){   /* "1:11.26,27,12.1,40:1.2" → [[책,장,절]…] */
@@ -9049,7 +10129,10 @@ function indexRows(D,col){
   D.rows.forEach(function(r,i){
     var refs=unpackRefs(r[col]), seen={};
     D.cnt[i]=refs.length;
-    refs.forEach(function(x){ var k=x[0]+"."+x[1]; if(seen[k]) return; seen[k]=1; (D.byCh[k]=D.byCh[k]||[]).push(i); });
+    D.byV=D.byV||{};
+    refs.forEach(function(x){
+      var k3=x[0]+"."+x[1]+"."+x[2], a=(D.byV[k3]=D.byV[k3]||[]); if(a[a.length-1]!==i) a.push(i);
+      var k=x[0]+"."+x[1]; if(seen[k]) return; seen[k]=1; (D.byCh[k]=D.byCh[k]||[]).push(i); });
   });
 }
 function loadPeople(){
@@ -10738,7 +11821,7 @@ function plNoteFlush(){
   if(ta) plSetNote(ta.dataset.plnote, ta.value);
 }
 
-var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","smap","speople","person","tract","tview"];
+var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview"];
 var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",mtyp:"외우며 치기",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
@@ -10747,7 +11830,7 @@ var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",resul
                  mine:"내 암송", mypick:"구절 넣기", glance:"한눈에",
                  read:"성경읽기표", rday:"오늘 분량", rnotes:"묵상 모아 보기",
                  order:"성경순서로", oday:"하루 분량", bible:"성경보기", bchap:"장 고르기", btext:"성경 본문",
-                 sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", smap:"성경 지도", speople:"성경 인물", person:"인물",
+                 sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", slex:"원어 사전", sdict:"성경 사전", sunit:"도량형", smap:"성경 지도", speople:"성경 인물", person:"인물",
                  tract:"전도지", tview:"하나님께 가는 다리"};
 var screenNow="home", screenLog=["home"], depth=0;
 
@@ -10778,6 +11861,7 @@ function applyScreen(which,restoreY){
   if(screenNow==="tlist" && which!=="tlist") tyDone=null;
   if(screenNow==="rday" && which!=="rday") rdMemoSave();   /* 묵상을 쓰다 나가도 남깁니다 */
   if(screenNow==="oday" && which!=="oday") odMemoSave();
+  if(screenNow==="btext" && which!=="btext"){ BSEL={}; document.querySelectorAll("#btverses p.v.sel").forEach(function(p){ p.classList.remove("sel"); }); $("btsel").hidden=true; document.body.classList.remove("selbar"); }
   if(screenNow==="tview" && which!=="tview") trCloseFrame();  /* 전도지를 닫으면 소리 · 움직임도 멈춥니다 */
   if(screenNow==="tract" && which!=="tract") plNoteFlush();
   if(screenNow==="mine" && which!=="mine" && which!=="vcard" && which!=="mypick"){ MY.share=false; MY.sel={}; }
@@ -10932,6 +12016,9 @@ $("modes").addEventListener("click",function(e){
   if(m==="smap"){ openMap(); return; }
   if(m==="speople"){ openPeople(); return; }
   if(m==="sxref"){ openXref(); return; }
+  if(m==="slex"){ openLex(); return; }
+  if(m==="sdict"){ openDict(); return; }
+  if(m==="sunit"){ openUnits(); return; }
   if(m==="personal"){
     state.mode="personal"; state.review=false;
     paintMe(); show("me"); return;
@@ -11531,7 +12618,7 @@ $("bvresume").addEventListener("click",function(){ var L=BV.last; if(L) openChap
 $("bcgrid").addEventListener("click",function(e){ var b=e.target.closest("[data-bcc]"); if(b) openChapter(BV.bi,+b.dataset.bcc); });
 $("bcintro").addEventListener("click",function(e){
   var b;
-  if((b=e.target.closest("[data-bcfold]"))){ lsWrite(BV_INTRO_KEY, lsRead(BV_INTRO_KEY,"1")==="0"?"1":"0"); paintBookIntro(BV.bi,GUIDE.cache[BV.bi]); return; }
+  if((b=e.target.closest("[data-bcfold]"))){ lsWrite(BV_INTRO_KEY, lsRead(BV_INTRO_KEY,"0")==="1"?"0":"1"); paintBookIntro(BV.bi,GUIDE.cache[BV.bi]); return; }
   if((b=e.target.closest("[data-bcfl]"))){ bcJump(+b.dataset.bcfl); return; }
   if((b=e.target.closest("[data-bck]"))){ var r=gdRef(b.dataset.bck); if(r) openChapter(r.bi,r.c,{hl:r.v, hl2:r.v2}); }
 });
@@ -11567,8 +12654,35 @@ $("btnext2").addEventListener("click",function(){ bvStep(1); });
 $("btverses").addEventListener("click",function(e){
   var t=e.target.closest(".memotag");
   if(t){ openMemoSheet(t.dataset.ma,t.dataset.mp); return; }
+  var g=e.target.closest("[data-vtg]");
+  if(g){ var pv=g.closest("p.v[data-k]"); if(pv) openStudy(BV.bi,BV.c,+pv.dataset.k.split("|")[2],g.dataset.vtg); return; }
+  var tg=e.target.closest(".tg");
+  if(tg){
+    if(tg.dataset.pp) openPerson(+tg.dataset.pp);
+    else if(tg.dataset.pl) openMap(+tg.dataset.pl);
+    else if(tg.dataset.un) openUnitSheet(tg.dataset.un);
+    return;
+  }
   var v=e.target.closest("p.v[data-k]");
-  if(v){ var p=v.dataset.k.split("|"); v.classList.add("sel"); openVerseSheet(BV.bi,+p[1],+p[2]); }
+  if(v){                                   /* 누르면 고르고, 다시 누르면 풉니다 — 여러 절을 골라 한꺼번에 복사 */
+    var n=+v.dataset.k.split("|")[2];
+    if(BSEL[n]){ delete BSEL[n]; v.classList.remove("sel"); } else { BSEL[n]=1; v.classList.add("sel"); }
+    bsPaint();
+  }
+});
+$("btmodes").addEventListener("click",function(e){
+  var b=e.target.closest("[data-btm]"); if(!b) return;
+  if(b.dataset.btm==="guide"){ BV.guide=!BV.guide; paintBtGuide(); }
+  else { BV.study=!BV.study; bvTagsPaint(); if(BV.study && !BV.whoOpen) bvChapterData(); }
+  bvModesPaint();
+});
+$("btsel").addEventListener("click",function(e){
+  var b=e.target.closest("[data-bs]"); if(!b) return;
+  var a=b.dataset.bs, vs=bsList();
+  if(a==="copy") bsCopy();
+  else if(a==="clear") bsClear();
+  else if(a==="xref" && vs.length===1){ var v1=vs[0]; bsClear(); openXref(BV.bi,BV.c,v1); }
+  else if(a==="study" && vs.length===1){ openStudy(BV.bi,BV.c,vs[0]); }
 });
 (function(){
   var x0=null, y0=0;
@@ -11579,11 +12693,41 @@ $("btverses").addEventListener("click",function(e){
     if(Math.abs(dx)>80 && Math.abs(dy)<40) bvStep(dx<0?1:-1);
   },{passive:true});
 })();
-$("btwhobtn").addEventListener("click",bvWho);
+$("btwhobtn").addEventListener("click",bvChapterData);
 $("btwholist").addEventListener("click",function(e){
   var p=e.target.closest("[data-who-p]"); if(p){ openPerson(+p.dataset.whoP); return; }
-  var l=e.target.closest("[data-who-l]"); if(l){ openMap(+l.dataset.whoL); }
+  var l=e.target.closest("[data-who-l]"); if(l){ openMap(+l.dataset.whoL); return; }
+  var x=e.target.closest("[data-lx]"); if(x){ openLexSheet(x.dataset.lx); return; }
+  var u=e.target.closest("[data-un]"); if(u){ openUnitSheet(u.dataset.un); return; }
+  var d=e.target.closest("[data-dc]"); if(d){ openDictSheet(+d.dataset.dc); }
 });
+/* ── 원어 사전 ── */
+$("lxform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("lxq").blur(); }catch(_){} if(LX.map) lxRun(); });
+$("lxlang").addEventListener("click",function(e){ var b=e.target.closest("[data-lxl]"); if(!b) return; LX.lang=b.dataset.lxl; paintLexOpts(); if(LX.q) lxRun(); });
+$("lxchips").addEventListener("click",function(e){ var b=e.target.closest("[data-lx]"); if(b) openLexSheet(b.dataset.lx); });
+$("lxres").addEventListener("click",function(e){
+  var b=e.target.closest("[data-lx]"); if(b){ openLexSheet(b.dataset.lx); return; }
+  if(e.target.closest("[data-lxmore2]")){ LX.show+=100; paintLxRes(); }
+});
+/* ── 성경 사전 ── */
+$("dcform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("dcq").blur(); }catch(_){} DC.ini=""; if(DC.idx){ paintDictOpts(); dcRun(); } });
+$("dckind").addEventListener("click",function(e){ var b=e.target.closest("[data-dck]"); if(!b) return; DC.kind=b.dataset.dck; paintDictOpts(); if(DC.idx) dcRun(); });
+$("dcini").addEventListener("click",function(e){ var b=e.target.closest("[data-dci]"); if(!b) return; DC.ini=(DC.ini===b.dataset.dci?"":b.dataset.dci); $("dcq").value=""; paintDictOpts(); if(DC.idx) dcRun(); });
+$("dcres").addEventListener("click",function(e){
+  var b=e.target.closest("[data-dc]"); if(b){ openDictSheet(+b.dataset.dc); return; }
+  if(e.target.closest("[data-dcmore]")){ DC.show+=150; paintDcRes(); }
+});
+/* ── 도량형 ── */
+$("untabs").addEventListener("click",function(e){ var b=e.target.closest("[data-unc]"); if(!b) return; UN.cat=b.dataset.unc; paintUnits(); });
+$("unres").addEventListener("click",function(e){
+  var t;
+  if((t=e.target.closest("[data-unj]"))){ var el=$("un-"+t.dataset.unj); if(el) el.scrollIntoView({block:"start",behavior:"smooth"}); return; }
+  if((t=e.target.closest("[data-rgo]"))){ goRef(t.dataset.rgo); return; }
+  if((t=e.target.closest("[data-lx]"))){ openLexSheet(t.dataset.lx); return; }
+  if((t=e.target.closest("[data-unv]"))){ openUnitSheet(t.dataset.unv); return; }
+});
+$("unres").addEventListener("input",function(e){ if(e.target.id==="uncvn"||e.target.id==="uncvu") unCvPaint(); });
+$("unres").addEventListener("change",function(e){ if(e.target.id==="uncvu") unCvPaint(); });
 
 /* ── 성경 구절 찾기 ── */
 $("svform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("svq").blur(); }catch(_){} svRun(); });
