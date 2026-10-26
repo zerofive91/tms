@@ -898,8 +898,7 @@ footer{color:var(--ink-soft);font-size:calc(11px * var(--fz));margin-top:18px;le
 .hubic{flex:0 0 52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;
   background:color-mix(in srgb,var(--brand) 12%,var(--surface));color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 22%,transparent)}
 .hubic svg{width:28px;height:28px}
-.hubhead h2{margin:0;font-size:calc(24px * var(--fz));line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
-.hubhead p{margin:3px 0 0;font-size:calc(12.5px * var(--fz));color:var(--ink-soft);line-height:1.45}
+.hubhead h2{margin:0;font-size:calc(26px * var(--fz));line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
 body.hubbing .navhere{display:none}
 .hubmodes{gap:16px}
 .modegroup{min-width:0}
@@ -919,13 +918,14 @@ body.hubbing .navhere{display:none}
 .modecard .modeicon{flex-basis:42px;height:42px}
 /* 처음 화면 — 묵상 한 줄 + 2칸 타일 넷 (v12) */
 #modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-#modes .modecard{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:14px;min-width:0;min-height:128px;padding:16px 16px 15px;border-width:1px;border-radius:20px}
-#modes .modecard:first-child{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:flex-start;min-height:0}
-#modes .modeicon{display:flex;margin:0;flex:0 0 auto;width:44px;height:44px;border-radius:14px;
+#modes .modecard{flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:132px;padding:18px 12px;border-width:1px;border-radius:20px;text-align:center}
+#modes .modecard:first-child{grid-column:1 / -1;flex-direction:row;gap:16px;min-height:84px}
+#modes .modeicon{display:flex;margin:0;flex:0 0 auto;width:52px;height:52px;border-radius:16px;
   background:color-mix(in srgb,var(--brand) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--brand) 18%,transparent)}
 #modes .modecard:hover .modeicon{background:var(--core);color:#123B2D}
 #modes .modecard>span:last-child{min-width:0}
-#modes .modecard b{font-size:calc(20px * var(--fz))}
+#modes .modecard b{font-size:calc(19px * var(--fz));letter-spacing:-.01em}
+#modes .modeicon svg{width:30px;height:30px}
 .modecard.off{opacity:.55;cursor:default}
 .modecard.off:hover{border-color:var(--line-soft)}
 .modesub.off{opacity:.55;cursor:default}
@@ -4066,11 +4066,11 @@ var MODES=[
   {k:"hubr",   icon:"plan",   n:"읽기", d:"성경읽기표 · 성경순서로", count:"readcount"},
   {k:"hubl",   icon:"listen", n:"듣기", d:"전도지 「하나님께 가는 다리」 · 말씀 듣기는 준비 중", count:"tractcount"}
 ];
-/* 2단계 메뉴 화면 머리 — 큰 제목과 한 줄 설명 */
+/* 2단계 메뉴 화면 머리 — 그림과 큰 제목 */
 var HUB_HEAD={
-  hubm:{icon:"mine",   n:"암송", d:"외우고 · 되새기고 · 함께 겨룹니다"},
-  hubr:{icon:"plan",   n:"읽기", d:"성경읽기표 · 성경순서로"},
-  hubl:{icon:"listen", n:"듣기", d:"전도지 · 말씀 듣기"}
+  hubm:{icon:"mine",   n:"암송"},
+  hubr:{icon:"plan",   n:"읽기"},
+  hubl:{icon:"listen", n:"듣기"}
 };
 var HUBS={
   hubm:[
@@ -4467,7 +4467,7 @@ function buildModes(){
   }).join("");
   Object.keys(HUBS).forEach(function(h){
     var hd=HUB_HEAD[h];
-    $(h+"head").innerHTML='<span class="hubic">'+svg(hd.icon)+'</span><div><h2>'+esc(hd.n)+'</h2><p>'+esc(hd.d)+'</p></div>';
+    $(h+"head").innerHTML='<span class="hubic">'+svg(hd.icon)+'</span><h2>'+esc(hd.n)+'</h2>';
     $(h+"modes").innerHTML=HUBS[h].map(function(g){
       return '<div class="modegroup"><div class="mghead"><b>'+g.n+'</b></div>'+
         '<div class="mgsubs">'+g.subs.map(function(s){
