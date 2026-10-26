@@ -422,6 +422,36 @@ create policy "본인 묵상 · 형광펜만" on public.verse_notes
   with check (owner = 'g:' || auth.uid()::text);
 
 
+-- ── 3-7-1b. 경건의 시간 노트 (v12) ─────────────────────────────
+-- 묵상 화면의 「경건의 시간」. 한 사람 · 노트 하나에 한 줄입니다.
+--   id        : 앱이 만든 노트 번호 'q…'
+--   day       : 노트 날짜 · ref : 말씀 주소(쓴 그대로) · passage : 그 주소의 개역한글 본문
+--   content · medi · apply · prayer : 내용 · 묵상 · 적용 · 기도
+--   plan_day  : 「읽기표 함께 보기」로 고른 읽기표 날(0~299, 없으면 null)
+create table if not exists public.qt_notes (
+  owner      text not null,                -- 'g:' || auth.uid()
+  id         text not null,
+  day        date not null default current_date,
+  title      text not null default '',
+  ref        text not null default '',
+  passage    text not null default '',
+  content    text not null default '',
+  medi       text not null default '',
+  apply      text not null default '',
+  prayer     text not null default '',
+  plan_day   int  check (plan_day between 0 and 299),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (owner, id)
+);
+alter table public.qt_notes enable row level security;
+drop policy if exists "본인 경건의 시간만" on public.qt_notes;
+create policy "본인 경건의 시간만" on public.qt_notes
+  for all to authenticated
+  using      (owner = 'g:' || auth.uid()::text)
+  with check (owner = 'g:' || auth.uid()::text);
+
+
 -- ── 3-7-2. 성경순서로 ──────────────────────────────────────────
 -- 성경 순서대로 장 단위로 읽는 계획표입니다. 한 사람에 한 줄(지금 계획).
 --   plan : 계획 설정 {id, scope(all·ot·nt), unit(m·y), num, rounds, rest(none·sun·weekend), start, end, pre}
@@ -559,6 +589,7 @@ revoke all on public.reading_settings from anon, authenticated;
 revoke all on public.reading_checks   from anon, authenticated;
 revoke all on public.reading_notes    from anon, authenticated;
 revoke all on public.verse_notes      from anon, authenticated;
+revoke all on public.qt_notes         from anon, authenticated;
 revoke all on public.order_plans      from anon, authenticated;
 revoke all on public.prayer_list      from anon, authenticated;
 revoke all on public.harvest_rooms    from anon, authenticated;
@@ -602,6 +633,7 @@ grant select, insert, update, delete on public.reading_settings to authenticated
 grant select, insert, update, delete on public.reading_checks   to authenticated;
 grant select, insert, update, delete on public.reading_notes    to authenticated;
 grant select, insert, update, delete on public.verse_notes      to authenticated;
+grant select, insert, update, delete on public.qt_notes         to authenticated;
 grant select, insert, update, delete on public.order_plans      to authenticated;
 grant select, insert, update, delete on public.prayer_list      to authenticated;
 
@@ -644,6 +676,7 @@ notify pgrst, 'reload schema';
 --   reading_notes        1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   reading_settings     1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   verse_notes          1     1   없음                      DELETE, INSERT, SELECT, UPDATE
+--   qt_notes             1     1   없음                      DELETE, INSERT, SELECT, UPDATE
 --   harvest_players      1     1   INSERT, SELECT, UPDATE(일부 칸만)  (로그인도 같음)
 --   harvest_rooms        1     1   INSERT, SELECT, UPDATE(일부 칸만)  (로그인도 같음)
 --   harvest_rounds       1     1   INSERT, SELECT, UPDATE(일부 칸만)  (로그인도 같음)
@@ -701,7 +734,7 @@ select t.table_name as "표",
  where t.table_schema='public'
    and t.table_name in ('contests','contest_entries','contest_verses',
                         'personal_records','typing_records','fsrs_cards','fsrs_settings',
-                        'study_days','my_verses','reading_settings','reading_checks','reading_notes','verse_notes',
+                        'study_days','my_verses','reading_settings','reading_checks','reading_notes','verse_notes','qt_notes',
                         'order_plans','prayer_list',
                         'harvest_rooms','harvest_players','harvest_rounds','harvest_votes')
  order by t.table_name;

@@ -1287,6 +1287,52 @@ html[data-fz="120"] .plhead b,html[data-fz="130"] .plhead b{grid-column:1;grid-r
 html[data-fz="120"] .plhead .plmeta,html[data-fz="130"] .plhead .plmeta{grid-column:1;grid-row:2;text-align:left}
 html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:2;grid-row:1 / span 2;align-self:center}
 
+/* 경건의 시간 (v12) */
+.qtlist .qtlh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.qtlist .qtlh .eyebrow{margin:0}
+.qtlist .qtlh span{font-size:calc(12.5px * var(--fz));color:var(--ink-soft)}
+.qtlist .go{display:flex;align-items:center;justify-content:center;gap:8px}
+.qtlist .go svg{width:20px;height:20px}
+.qtrows{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.qtrows button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);
+  border-radius:12px;padding:10px 12px;font:inherit;color:var(--ink);cursor:pointer;min-width:0}
+.qtrows button:hover{border-color:var(--core)}
+.qtrows .qtrd{font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--brand)}
+.qtrows b{font-size:calc(15px * var(--fz));overflow-wrap:anywhere}
+.qtrows em{font-style:normal;font-size:calc(12.5px * var(--fz));color:var(--deep)}
+.qtrows .qtrm{font-size:calc(13px * var(--fz));color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.qted textarea{display:block;width:100%;box-sizing:border-box;padding:12px 13px;font:inherit;font-size:calc(15px * var(--fz));border:1.5px solid var(--line);
+  border-radius:11px;background:var(--bg);color:var(--ink);resize:vertical;line-height:1.6}
+.qted textarea:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:transparent}
+.qtp:empty{display:none}
+.qtp{margin-top:8px;padding:10px 12px;border-radius:11px;background:color-mix(in srgb,var(--tint) 55%,var(--bg))}
+.qtph{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 0 4px}
+.qtph b{font-size:calc(13.5px * var(--fz))}
+.qtph span{font-size:calc(11px * var(--fz));color:var(--ink-soft)}
+.qtpv{margin:0 0 4px;font-size:calc(14.5px * var(--fz));line-height:1.7;color:var(--ink)}
+.qtpv sup{font-size:.7em;color:var(--brand);font-weight:700;margin-right:3px}
+.qtplanbtn{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.qtplanbtn span{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
+.qtplanbtn b{font-size:calc(15px * var(--fz))}
+.qtplanbtn em{font-style:normal;font-size:calc(12px * var(--fz));color:var(--ink-soft)}
+.qtsw{flex:0 0 auto;width:44px;height:26px;border-radius:999px;background:var(--line);position:relative;transition:background .15s}
+.qtsw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.qtplanbtn[aria-pressed="true"] .qtsw{background:var(--brand)}
+.qtplanbtn[aria-pressed="true"] .qtsw::after{left:21px}
+.qtplan{margin-top:12px}
+.qtpick{display:flex;gap:6px;align-items:center}
+.qtpick select{flex:1 1 0;min-width:0;padding:10px 8px}
+.qtstep{flex:0 0 auto;width:42px;height:44px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;font:inherit;font-size:20px;cursor:pointer}
+.qtstep:disabled{opacity:.35;cursor:default}
+.qtpv2{max-height:55vh;overflow:auto;margin-top:8px;padding-right:2px}
+.qtslot{margin:0 0 12px}
+.qtslh{display:flex;align-items:baseline;gap:8px;margin:6px 0 4px;position:sticky;top:0;background:var(--surface);padding:4px 0;z-index:1}
+.qtslh span{font-size:calc(11.5px * var(--fz));font-weight:800;color:var(--accent-ink);background:var(--tint);border-radius:999px;padding:1px 8px}
+.qtslh b{font-size:calc(13.5px * var(--fz))}
+.qtslot p.v{cursor:pointer;border-radius:8px}
+.qtslot p.v.qton{background:color-mix(in srgb,var(--mark) 70%,transparent)}
+.qtslot h4{margin:8px 0 4px;font-size:calc(13px * var(--fz));color:var(--ink-soft)}
+.qtacts{display:grid;gap:8px;margin-top:14px}
 /* ── 공통 · 찾기 칸 ── */
 input[type=search],input[type=date]{width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);
   border-radius:10px;background:var(--bg);color:var(--ink);-webkit-appearance:none;appearance:none}
@@ -2769,12 +2815,32 @@ section[id^="st-"]{scroll-margin-top:8px}
 
   <!-- ===== 성경 읽기 · 묵상 모아 보기 ===== -->
   <div id="rnotes" hidden>
+    <div id="qthost"></div>
     <div class="panel">
-      <p class="eyebrow">묵상</p>
+      <p class="eyebrow">절마다 적은 묵상</p>
       <p class="rmeta" style="margin:0" id="rnotesub"></p>
       <div class="counts" id="rnsort" style="margin-top:12px"></div>
     </div>
     <div id="rnotelist"></div>
+  </div>
+
+  <!-- ===== 경건의 시간 쓰기 ===== -->
+  <div id="qt" hidden>
+    <div class="panel qted">
+      <button type="button" class="qtplanbtn" id="qtplanbtn" aria-pressed="false"><span><b>읽기표 함께 보기</b><em>그날 시가서 · 복음서 본문을 위에 띄웁니다</em></span><i class="qtsw" aria-hidden="true"></i></button>
+      <div class="qtplan" id="qtplan" hidden></div>
+    </div>
+    <div class="panel qted">
+      <div class="field"><label for="qtd">날짜</label><input type="date" id="qtd"></div>
+      <div class="field"><label for="qtti">제목</label><input type="text" id="qtti" maxlength="80" placeholder="오늘 말씀에 붙이는 제목"></div>
+      <div class="field"><label for="qtr">말씀 주소</label><input type="text" id="qtr" maxlength="40" placeholder="예: 요 3:16-21" autocomplete="off"><p class="fixednote" id="qtrnote"></p><div class="qtp" id="qtp"></div></div>
+      <div class="field"><label for="qtc">내용</label><textarea id="qtc" rows="3" maxlength="3000"></textarea></div>
+      <div class="field"><label for="qtm">묵상</label><textarea id="qtm" rows="4" maxlength="3000"></textarea></div>
+      <div class="field"><label for="qta">적용</label><textarea id="qta" rows="3" maxlength="2000"></textarea></div>
+      <div class="field"><label for="qtg">기도</label><textarea id="qtg" rows="3" maxlength="2000"></textarea></div>
+      <p class="fixednote" id="qtsave"></p>
+      <div class="qtacts"><button type="button" class="go" id="qtdone">다 썼습니다</button><button type="button" class="go soft" id="qtdel">이 노트 지우기</button></div>
+    </div>
   </div>
 
   <!-- ===== 성경순서로 ===== -->
@@ -8477,8 +8543,197 @@ function paintReadNotes(){
     items.sort(function(a,b){ return String(b.t).localeCompare(String(a.t)); });
     h=items.map(card).join("");
   }
+  $("qthost").innerHTML=qtListHtml();
   $("rnotelist").innerHTML=h;
   if(need.length) bibMany(need).then(function(){ if(screenNow==="rnotes") paintReadNotes(); },function(){});
+}
+
+/* ═══ 경건의 시간 노트 (v12 · qt_notes 표) ═══
+   노트 하나 {d:날짜, ti:제목, r:말씀 주소, p:본문, c:내용, m:묵상, a:적용, g:기도, pd:읽기표 날(-1 없음), t:고친 때}. 키는 만들 때 붙인 id.
+   말씀 주소를 쓰면 개역한글 본문이 붙고, 「읽기표 함께 보기」를 켜면 그날 읽기표의 시가서 → 복음서 칸이 노트 위에 뜹니다.
+   로그인 전에는 이 기기에만 두고, 로그인하면 계정으로 올립니다(묵상 · 형광펜과 같은 방식). */
+var QT_KEY="navfest.qt";
+var QT={map:{}, owner:"", pend:{}, noTable:false, busy:null, flushing:null, again:false, id:"", timer:null, plan:false, day:-1, show:5};
+var QT_FIELDS=[["c","내용","말씀이 무엇을 말하는지 — 사건 · 인물 · 반복되는 말"],["m","묵상","하나님은 어떤 분이신가, 나에게 무엇을 말씀하시는가"],["a","적용","오늘 구체적으로 할 한 가지"],["g","기도","이 말씀으로 드리는 기도"]];
+(function(){
+  try{ var o=JSON.parse(localStorage.getItem(QT_KEY)||"null"); if(o){ QT.map=o.map||{}; QT.owner=o.owner||""; QT.pend=o.pend||{}; QT.plan=!!o.plan; } }catch(e){}
+})();
+function qtSave(){ try{ localStorage.setItem(QT_KEY,JSON.stringify({map:QT.map,owner:QT.owner,pend:QT.pend,plan:QT.plan})); }catch(e){} }
+function qtEmpty(x){ return !x || !(x.ti||x.r||x.c||x.m||x.a||x.g); }
+function qtSet(id,x){
+  var empty=qtEmpty(x);
+  if(empty) delete QT.map[id]; else { x.t=new Date().toISOString(); QT.map[id]=x; }
+  if(state.me){ QT.pend[id]=empty?null:x; if(!QT.owner) QT.owner=state.me.owner; }
+  qtSave(); qtFlush();
+}
+function qtRow(x){ return {d:x.day||"", ti:x.title||"", r:x.ref||"", p:x.passage||"", c:x.content||"", m:x.medi||"", a:x.apply||"", g:x.prayer||"", pd:(typeof x.plan_day==="number"?x.plan_day:-1), t:x.updated_at||""}; }
+function qtLoad(){
+  if(!state.me || !online()) return Promise.resolve();
+  if(QT.busy) return QT.busy;
+  var owner=state.me.owner;
+  QT.busy=sbAll(function(){ return SB.from("qt_notes").select("id,day,title,ref,passage,content,medi,apply,prayer,plan_day,updated_at").eq("owner",owner).order("id"); }).then(function(r){
+    if(r.error) throw r.error;
+    if(!state.me || state.me.owner!==owner) return;
+    var map={};
+    (r.data||[]).forEach(function(x){ map[x.id]=qtRow(x); });
+    if(QT.owner===owner){
+      Object.keys(QT.pend).forEach(function(k){ var v=QT.pend[k]; if(v) map[k]=v; else delete map[k]; });
+    } else if(!QT.owner){
+      Object.keys(QT.map).forEach(function(k){ if(!map[k]){ map[k]=QT.map[k]; QT.pend[k]=QT.map[k]; } });   /* 로그인 전에 이 기기에서 쓴 것을 계정으로 */
+    } else QT.pend={};
+    QT.map=map; QT.owner=owner; QT.noTable=false; qtSave();
+    if(screenNow==="rnotes") paintReadNotes();
+    return qtFlush();
+  }).catch(function(e){
+    if(myNoTable(e)){ QT.noTable=true; if(!QT.owner){ Object.keys(QT.map).forEach(function(k){ QT.pend[k]=QT.map[k]; }); } QT.owner=owner; qtSave(); }
+    else if(!netOff()) setSync("경건의 시간 노트를 불러오지 못했습니다 · "+failText(e),true);
+  }).then(function(){ QT.busy=null; });
+  return QT.busy;
+}
+function qtFlush(){
+  if(!state.me || QT.owner!==state.me.owner || QT.noTable || !canSave()) return Promise.resolve();
+  if(QT.flushing){ QT.again=true; return QT.flushing; }
+  var keys=Object.keys(QT.pend); if(!keys.length) return Promise.resolve();
+  var owner=state.me.owner, snap={}, ups=[], jobs=[];
+  keys.forEach(function(k){
+    var v=QT.pend[k]; snap[k]=v;
+    if(v) ups.push({owner:owner, id:k, day:v.d||fToday(), title:v.ti||"", ref:v.r||"", passage:v.p||"", content:v.c||"", medi:v.m||"", apply:v.a||"", prayer:v.g||"", plan_day:(v.pd>=0?v.pd:null), updated_at:v.t||new Date().toISOString()});
+    else jobs.push(SB.from("qt_notes").delete().eq("owner",owner).eq("id",k));
+  });
+  if(ups.length) jobs.push(SB.from("qt_notes").upsert(ups,{onConflict:"owner,id"}));
+  QT.flushing=Promise.all(jobs).then(function(rs){
+    rs.forEach(function(r){ if(r && r.error) throw r.error; });
+    keys.forEach(function(k){ if(QT.pend[k]===snap[k]) delete QT.pend[k]; });
+    qtSave();
+  }).catch(function(e){
+    if(myNoTable(e)) QT.noTable=true;
+    else setSync("경건의 시간 노트를 저장하지 못했습니다 · "+failText(e),true);
+  }).then(function(){ QT.flushing=null; if(QT.again){ QT.again=false; qtFlush(); } });
+  return QT.flushing;
+}
+function qtReset(){ QT.map={}; QT.owner=""; QT.pend={}; QT.noTable=false; qtSave(); }
+function qtDateText(d){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(d||"")) return "";
+  var dt=new Date(d+"T12:00:00");
+  return (+d.slice(5,7))+"월 "+(+d.slice(8,10))+"일 ("+"일월화수목금토".charAt(dt.getDay())+")";
+}
+/* 묵상 화면 맨 위 — 경건의 시간 목록 */
+function qtListHtml(){
+  var ids=Object.keys(QT.map).sort(function(a,b){ var x=QT.map[a], y=QT.map[b]; return String(y.d).localeCompare(String(x.d)) || String(y.t).localeCompare(String(x.t)); });
+  var h='<div class="panel qtlist"><div class="qtlh"><p class="eyebrow">경건의 시간</p><span>'+(ids.length?ids.length+'개':'')+'</span></div>'+
+    '<button type="button" class="go" data-qtnew="1">'+svg("medi")+'오늘 경건의 시간 쓰기</button>';
+  if(ids.length){
+    h+='<ul class="qtrows">'+ids.slice(0,QT.show).map(function(id){
+      var x=QT.map[id], first=String(x.m||x.c||x.a||x.g||"").split("\n")[0];
+      return '<li><button type="button" data-qt="'+esc(id)+'"><span class="qtrd">'+esc(qtDateText(x.d))+'</span>'+
+        '<b>'+esc(x.ti||x.r||"제목 없음")+'</b>'+(x.ti&&x.r?'<em>'+esc(x.r)+'</em>':'')+(first?'<span class="qtrm">'+esc(first)+'</span>':'')+'</button></li>';
+    }).join("")+'</ul>';
+    if(ids.length>QT.show) h+='<button type="button" class="go soft" data-qtmore="1" style="margin-top:10px">더 보기 ('+(ids.length-QT.show)+'개 남음)</button>';
+  }
+  return h+'</div>';
+}
+/* ── 쓰기 화면 ── */
+function qtNewId(){ return "q"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function openQt(id){
+  if(!id || !QT.map[id]){ QT.id=qtNewId(); QT.cur={d:fToday(), ti:"", r:"", p:"", c:"", m:"", a:"", g:"", pd:-1}; }
+  else { QT.id=id; QT.cur=JSON.parse(JSON.stringify(QT.map[id])); }
+  QT.day=-1;
+  paintQt(); show("qt");
+  if(QT.plan) qtPlanPaint();
+}
+function qtFromDom(){
+  var x=QT.cur||{};
+  x.d=$("qtd").value||fToday(); x.ti=$("qtti").value.trim(); x.r=$("qtr").value.trim();
+  QT_FIELDS.forEach(function(f){ x[f[0]]=$("qt"+f[0]).value.trim(); });
+  return x;
+}
+function qtKeep(now){
+  clearTimeout(QT.timer); QT.timer=null;
+  var go=function(){ if(!QT.id || !QT.cur) return; var x=qtFromDom(); qtSet(QT.id,JSON.parse(JSON.stringify(x)));
+    $("qtsave").textContent = qtEmpty(x) ? "쓰는 대로 저장됩니다"+(state.me?"":" · 로그인 전에는 이 기기에만") : "저장했습니다"+(state.me?"":" · 이 기기에 둡니다(로그인하면 계정으로)"); };
+  if(now) go(); else QT.timer=setTimeout(go,600);
+}
+function paintQt(){
+  var x=QT.cur||{};
+  if(!$("qtd")) return;
+  $("qtd").value=x.d||fToday(); $("qtti").value=x.ti||""; $("qtr").value=x.r||"";
+  QT_FIELDS.forEach(function(f){ var el=$("qt"+f[0]); el.value=x[f[0]]||""; el.placeholder=f[2]; });
+  $("qtplanbtn").setAttribute("aria-pressed",QT.plan?"true":"false");
+  $("qtplan").hidden=!QT.plan;
+  $("qtdel").hidden=!QT.map[QT.id];
+  $("qtsave").textContent="쓰는 대로 저장됩니다"+(state.me?"":" · 로그인 전에는 이 기기에만");
+  qtPassagePaint();
+}
+/* 말씀 주소 → 개역한글 본문 */
+function qtParse(){ var a=parseAddr(($("qtr")||{}).value||""); return a; }
+function qtPassagePaint(){
+  var host=$("qtp"), note=$("qtrnote"), q=$("qtr").value.trim(), a=qtParse(), x=QT.cur||{};
+  if(!q){ host.innerHTML=""; note.textContent="예: 요 3:16-21 · 시 23 — 쓰면 본문이 아래에 들어갑니다"; x.p=""; return; }
+  if(!a){ host.innerHTML=""; note.textContent="주소를 알아보지 못했습니다 · 「책 장:절-절」로 써 주세요"; return; }
+  note.textContent="";
+  bibBook(a.bi).then(function(){
+    if(qtParse()===null || $("qtr").value.trim()!==q) return;
+    var n=CH_V[a.bi][a.c-1], v1=a.v||1, v2=a.v?(a.v2||a.v):n, lines=[];
+    for(var v=v1; v<=v2; v++) lines.push(v+" "+(bibVerse(a.bi,a.c,v)||""));
+    x.p=lines.join("\n");
+    host.innerHTML='<p class="qtph"><b>'+esc(BOOK_ORDER[a.bi]+" "+a.c+chWord(a.bi)+(a.v?" "+v1+(v2!==v1?"-"+v2:"")+"절":""))+'</b><span>개역한글</span></p>'+
+      lines.map(function(l,j){ return '<p class="qtpv"><sup>'+(v1+j)+'</sup>'+esc(l.replace(/^\d+ /,""))+'</p>'; }).join("");
+    qtPlanMark();
+    if(!qtEmpty(qtFromDom())) qtKeep();
+  },function(){ note.textContent=netOff()?"인터넷이 없어 본문을 불러오지 못했습니다":"본문을 불러오지 못했습니다"; });
+}
+/* ── 읽기표 함께 보기 ── 날: 노트에 적어 둔 날 → 읽기표 진도 → 노트 날짜(1~25일). 26일~말일은 고르기 */
+function qtPlanDefault(){
+  var x=QT.cur||{};
+  if(x.pd>=0) return x.pd;
+  if(RD.start){ var nx=rdNextDay(rdSummary()); if(nx>=0) return nx; }
+  var d=x.d||fToday(), dd=+d.slice(8,10);
+  return dd<=25 ? (+d.slice(5,7)-1)*25+dd-1 : -1;
+}
+function qtPlanPaint(){
+  var host=$("qtplan"); if(!host) return;
+  if(QT.day<0) QT.day=qtPlanDefault();
+  var i=QT.day, mo="", da="";
+  for(var m=1;m<=12;m++) mo+='<option value="'+m+'"'+(i>=0&&Math.floor(i/25)+1===m?' selected':'')+'>'+m+'월</option>';
+  for(var d=1;d<=25;d++) da+='<option value="'+d+'"'+(i>=0&&i%25+1===d?' selected':'')+'>'+d+'일</option>';
+  var head='<div class="qtpick"><button type="button" class="qtstep" data-qtstep="-1" aria-label="전날"'+(i<=0?' disabled':'')+'>&#8249;</button>'+
+    '<select id="qtpm" aria-label="읽기표 달">'+(i<0?'<option value="" selected>달</option>':'')+mo+'</select>'+
+    '<select id="qtpd" aria-label="읽기표 날">'+(i<0?'<option value="" selected>날</option>':'')+da+'</select>'+
+    '<button type="button" class="qtstep" data-qtstep="1" aria-label="다음 날"'+(i>=299?' disabled':'')+'>&#8250;</button></div>';
+  var src=(QT.cur&&QT.cur.pd>=0)?"이 노트에 적어 둔 날":(RD.start?"읽기표 진도":"노트 날짜");
+  if(i<0){ host.innerHTML=head+'<p class="fixednote">읽기표는 한 달 25일입니다. 26일부터는 읽을 날을 골라 주세요.</p>'; return; }
+  host.innerHTML=head+'<p class="fixednote">'+esc(rdPlanText(i))+' · '+src+' · 절을 누르면 말씀 주소에 들어갑니다</p><div class="qtpv2 rdv"><p class="fixednote">본문을 불러오는 중…</p></div>';
+  rdDayData(i).then(function(){
+    if(QT.day!==i || !$("qtplan")) return;
+    var h="";
+    [2,0].forEach(function(s){
+      var r=RD_RANGE[i][s], bi=r[0];
+      h+='<section class="qtslot"><p class="qtslh"><span>'+(s===2?"시가서":"복음서")+'</span><b>'+esc(READ_PLAN.days[i][s])+'</b></p>';
+      for(var c=r[1]; c<=r[3]; c++) h+=versesHtml(bi,c,c===r[1]?r[2]:1,c===r[3]?r[4]:CH_V[bi][c-1],{head:r[1]!==r[3],idp:"qv"+s+"_"});
+      h+='</section>';
+    });
+    host.querySelector(".qtpv2").innerHTML=h;
+    qtPlanMark();
+  },function(){ var b=host.querySelector(".qtpv2"); if(b) b.innerHTML='<p class="fixednote">본문을 불러오지 못했습니다</p>'; });
+}
+/* 말씀 주소에 든 절을 읽기표 본문에서 표시 */
+function qtPlanMark(){
+  var a=qtParse(), host=$("qtplan"); if(!host) return;
+  host.querySelectorAll("p.v.qton").forEach(function(p){ p.classList.remove("qton"); });
+  if(!a) return;
+  var v1=a.v||1, v2=a.v?(a.v2||a.v):CH_V[a.bi][a.c-1];
+  for(var v=v1; v<=v2; v++){ var p=host.querySelector('p.v[data-k="'+BOOK_ORDER[a.bi]+"|"+a.c+"|"+v+'"]'); if(p) p.classList.add("qton"); }
+}
+/* 절을 누르면 주소로 — 같은 장에서 한 절을 더 누르면 그 사이를 범위로 */
+function qtPickVerse(k){
+  var p=String(k).split("|"), bi=BOOK_ORDER.indexOf(p[0]), c=+p[1], v=+p[2]; if(bi<0) return;
+  var a=qtParse(), ref;
+  if(a && a.bi===bi && a.c===c && a.v && !a.v2 && v!==a.v) ref=shortRef(bi,c,Math.min(a.v,v),Math.max(a.v,v));
+  else ref=shortRef(bi,c,v);
+  $("qtr").value=ref;
+  if(QT.cur) QT.cur.pd=QT.day;
+  qtPassagePaint(); qtKeep();
+  setSync(ref+" · 한 절을 더 누르면 그 사이까지 범위가 됩니다");
 }
 
 /* ═══ 성경 본문 (책별 파일) ═══
@@ -12251,7 +12506,7 @@ function afterAuth(u){
   authReady=true;
   if(u) setMe(u);
   else { state.me=null; state.progress={}; pending={}; mineLoaded=false; }
-  if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); }
+  if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); qtLoad(); }
   if(screenNow==="mine") paintMy();
   paintAcct();
   if(screenNow==="my") paintMy2(true);
@@ -12574,7 +12829,7 @@ function plNoteFlush(){
   if(ta) plSetNote(ta.dataset.plnote, ta.value);
 }
 
-var SCREENS=["home","my","hubm","hubr","hubl","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview"];
+var SCREENS=["home","my","hubm","hubr","hubl","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview","qt"];
 var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"읽기",hubl:"듣기",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",mtyp:"외우며 치기",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
@@ -12584,7 +12839,7 @@ var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"�
                  read:"성경읽기표", rday:"오늘 분량", rnotes:"묵상",
                  order:"성경순서로", oday:"하루 분량", bible:"공부", bchap:"장 고르기", btext:"성경 본문",
                  sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", slex:"원어 사전", sdict:"성경 사전", sunit:"도량형", smap:"성경 지도", speople:"성경 인물", person:"인물",
-                 tract:"전도지", tview:"하나님께 가는 다리"};
+                 tract:"전도지", tview:"하나님께 가는 다리", qt:"경건의 시간"};
 var screenNow="home", screenLog=["home"], depth=0;
 
 /* 리사이팅 화면은 로그인하기 전에는 로그인 화면입니다 */
@@ -12614,6 +12869,7 @@ function applyScreen(which,restoreY){
   if(screenNow==="tlist" && which!=="tlist") tyDone=null;
   if(screenNow==="rday" && which!=="rday") rdMemoSave();   /* 묵상을 쓰다 나가도 남깁니다 */
   if(screenNow==="oday" && which!=="oday") odMemoSave();
+  if(screenNow==="qt" && which!=="qt" && QT.timer) qtKeep(true);   /* 쓰다 나가도 남깁니다 */
   if(SEL.scr && which!==SEL.scr){ SEL.scr=""; SEL.keys={}; document.querySelectorAll("p.v.sel").forEach(function(p){ p.classList.remove("sel"); }); $("selbar").hidden=true; document.body.classList.remove("selon"); }
   if(screenNow==="tview" && which!=="tview") trCloseFrame();  /* 전도지를 닫으면 소리 · 움직임도 멈춥니다 */
   if(screenNow==="tract" && which!=="tract") plNoteFlush();
@@ -12641,6 +12897,7 @@ function applyScreen(which,restoreY){
   if(which==="person" && PS.i>=0 && PPL.rows) paintPerson();
   if(which==="smap" && MP.ready) setTimeout(mpApply,0);
   if(which==="rnotes") paintReadNotes();
+  if(which==="qt") paintQt();
   if(which==="mine"){                 /* 암송지갑에 올 때마다 지금 셈으로 */
     paintMy();
     if(state.me && (!mineLoaded || Date.now()-mineAt>60000)) mineLoad();
@@ -12740,12 +12997,12 @@ window.addEventListener("popstate",function(e){
    새로고침하면 그대로 다시 엽니다. 대회 · 채점처럼 이어 갈 수 없는 화면은 그 앞 화면까지만 엽니다. */
 var NAV_SS="navfest.nav";
 var NAV_OK={home:1,my:1,hubm:1,hubr:1,hubl:1,fsrs:1,crop:1,mine:1,glance:1,read:1,rday:1,rnotes:1,order:1,oday:1,
-            bible:1,bchap:1,btext:1,smemo:1,tract:1,vcard:1,tlist:1};
+            bible:1,bchap:1,btext:1,smemo:1,tract:1,vcard:1,tlist:1,qt:1};
 function navSave(){
   try{
     var ys=scrollLog.slice(0,depth); ys[depth]=window.scrollY||0;
     sessionStorage.setItem(NAV_SS,JSON.stringify({log:screenLog.slice(0,depth+1), d:depth, ys:ys,
-      bv:[BV.bi,BV.c], rd:RD.day, od:OD.day, pv:[PV.pn,PV.a]}));
+      bv:[BV.bi,BV.c], rd:RD.day, od:OD.day, pv:[PV.pn,PV.a], qt:QT.id}));
   }catch(e){}
 }
 var navSaveT=null;
@@ -12759,11 +13016,13 @@ function navRestore(){
   if(typeof o.rd==="number") RD.day=o.rd;
   if(typeof o.od==="number") OD.day=o.od;
   if(o.pv){ PV.pn=o.pv[0]||""; PV.a=o.pv[1]||""; PV.list=null; }
+  if(o.qt && QT.map[o.qt]){ QT.id=o.qt; QT.cur=JSON.parse(JSON.stringify(QT.map[o.qt])); QT.day=-1; }
   var ok=function(id){
     if(!NAV_OK[id]) return false;
     if(id==="vcard") return !!(PV.a && VERSE_BOOK[PV.a]);
     if(id==="oday") return !!(OD.plan && odBuild(OD.plan));
     if(id==="rday") return RD.day>=0 && RD.day<300;
+    if(id==="qt") return !!(o.qt && QT.map[o.qt]);   /* 아직 아무것도 안 쓴 새 노트는 묵상 화면으로 */
     return true;
   };
   var log=[], ys=[];
@@ -12777,6 +13036,7 @@ function navRestore(){
   if(top==="rnotes"){ RN.from="read"; paintReadNotes(); }
   applyScreen(top, topKept ? ys[depth] : 0);
   if(top==="vcard") pvLoad();
+  if(top==="qt" && QT.plan) qtPlanPaint();
   return true;
 }
 
@@ -12813,7 +13073,7 @@ function modeClick(e){
   var m=b.dataset.mode;
   if(m==="hubm"||m==="hubr"||m==="hubl"){ show(m); return; }
   if(m==="study"){ openBible(); return; }
-  if(m==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); } paintReadNotes(); show("rnotes"); return; }
+  if(m==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); qtLoad(); } paintReadNotes(); show("rnotes"); return; }
   if(m==="mine"){ openMine(); return; }
   if(m==="read"){ openRead(); return; }
   if(m==="order"){ openOrder(); return; }
@@ -13010,6 +13270,38 @@ $("read").addEventListener("click",function(e){
 $("rdnotesbtn").addEventListener("click",function(){ RN.from="read"; paintReadNotes(); show("rnotes"); });
 $("rdrestart").addEventListener("click",function(){ RD.setup=true; paintRead(); window.scrollTo(0,0); });
 $("rnsort").addEventListener("click",function(e){ var b=e.target.closest("[data-rnsort]"); if(!b) return; RN.sort=b.dataset.rnsort; try{ localStorage.setItem("navfest.rnsort",RN.sort); }catch(_){} paintReadNotes(); });
+$("qthost").addEventListener("click",function(e){
+  if(e.target.closest("[data-qtnew]")){ openQt(""); return; }
+  if(e.target.closest("[data-qtmore]")){ QT.show+=20; $("qthost").innerHTML=qtListHtml(); return; }
+  var b=e.target.closest("[data-qt]"); if(b) openQt(b.dataset.qt);
+});
+["qtti","qtc","qtm","qta","qtg"].forEach(function(id){ $(id).addEventListener("input",function(){ qtKeep(); }); });
+$("qtd").addEventListener("change",function(){ if(QT.cur){ QT.cur.d=$("qtd").value||fToday(); if(QT.cur.pd<0 && QT.plan){ QT.day=-1; qtPlanPaint(); } } qtKeep(); });
+var qtRefT=null;
+$("qtr").addEventListener("input",function(){ clearTimeout(qtRefT); qtRefT=setTimeout(qtPassagePaint,350); qtKeep(); });
+$("qtplanbtn").addEventListener("click",function(){
+  QT.plan=!QT.plan; qtSave();
+  this.setAttribute("aria-pressed",QT.plan?"true":"false"); $("qtplan").hidden=!QT.plan;
+  if(QT.plan) qtPlanPaint();
+});
+$("qtplan").addEventListener("click",function(e){
+  var st=e.target.closest("[data-qtstep]");
+  if(st){ QT.day=Math.max(0,Math.min(299,(QT.day<0?0:QT.day)+(+st.dataset.qtstep))); qtPlanPaint(); return; }
+  if(e.target.closest("button")) return;
+  var p=e.target.closest("p.v[data-k]"); if(p) qtPickVerse(p.dataset.k);
+});
+$("qtplan").addEventListener("change",function(e){
+  if(e.target.id!=="qtpm" && e.target.id!=="qtpd") return;
+  var m=+$("qtpm").value||1, d=+$("qtpd").value||1;
+  QT.day=(m-1)*25+d-1; qtPlanPaint();
+});
+$("qtdone").addEventListener("click",function(){ qtKeep(true); goBack(); });
+$("qtdel").addEventListener("click",function(){
+  var b=this;
+  if(b.dataset.sure!=="1"){ b.dataset.sure="1"; b.textContent="한 번 더 누르면 지웁니다"; setTimeout(function(){ b.dataset.sure=""; b.textContent="이 노트 지우기"; },4000); return; }
+  b.dataset.sure=""; b.textContent="이 노트 지우기";
+  clearTimeout(QT.timer); QT.timer=null; qtSet(QT.id,{}); QT.cur=null; QT.id=""; goBack();
+});
 $("rnotelist").addEventListener("click",function(e){
   var r=e.target.closest("[data-rgo]"); if(r){ goRef(r.dataset.rgo); return; }
   var o=e.target.closest("[data-ogo2]"); if(o){ openOrderDay(+o.dataset.ogo2); return; }
@@ -13333,7 +13625,7 @@ $("tygrade").addEventListener("click",function(e){
 function signOutAll(){
   if(online()) SB.auth.signOut();
   state.me=null; state.progress={}; pending={};
-  myReset(); paintHomeCount(); rdReset(); odReset(); paintReadCount(); plReset(); paintTractCount(); vnReset();
+  myReset(); paintHomeCount(); rdReset(); odReset(); paintReadCount(); plReset(); paintTractCount(); vnReset(); qtReset();
   setSync(""); pollStop();
   paintMe(); paintAcct();
   if(screenNow==="my") paintMy2();
@@ -13354,7 +13646,7 @@ $("mystats").addEventListener("click",function(e){
   else if(g==="me"){ state.mode="personal"; state.review=false; paintMe(); show("me"); }
   else if(g==="read") openRead();
   else if(g==="order") openOrder();
-  else if(g==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); } paintReadNotes(); show("rnotes"); }
+  else if(g==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); qtLoad(); } paintReadNotes(); show("rnotes"); }
 });
 $("meDraw").addEventListener("click",function(){
   setMode("personal"); show("setup");
