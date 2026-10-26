@@ -1980,6 +1980,18 @@ section[id^="st-"]{scroll-margin-top:8px}
 .lxhead div span{font-size:calc(12px * var(--fz));color:var(--ink-soft)}
 .lxgl{margin:0 0 8px;font-size:calc(14px * var(--fz));color:var(--ink)}
 .lxgl i{font-style:normal;font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--brand);background:var(--tint);border-radius:999px;padding:1px 8px;margin-right:4px}
+.lxfact{list-style:none;margin:0 0 6px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.lxfact li{background:var(--bg);border-radius:10px;padding:7px 10px;min-width:0}
+.lxfact em{display:block;font-style:normal;font-size:calc(11px * var(--fz));font-weight:700;color:var(--ink-soft)}
+.lxfact b{font-size:calc(13.5px * var(--fz));font-weight:700;color:var(--ink);overflow-wrap:anywhere}
+.lxfgo{border:0;background:none;padding:0;font:inherit;font-weight:700;color:var(--brand);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.lxmedi{background:var(--bg);border-radius:12px;padding:10px 12px 12px;border-left:3px solid var(--core)}
+.lxmedi p{margin:0 0 8px;font-size:calc(13.5px * var(--fz));line-height:1.65;color:var(--ink)}
+.lxmedi p em{display:block;font-style:normal;font-size:calc(11px * var(--fz));font-weight:800;color:var(--brand);margin-bottom:1px}
+.lxmedi .lxq{font-weight:600}
+.lxmedi .ainote{margin-top:4px}
+.iwmd{font-weight:700;color:var(--brand)}
+.lxn .lxmd{display:block;margin-top:2px;font-style:normal;font-weight:700;color:var(--brand)}
 .lxcur{margin:8px 0;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--mark) 55%,var(--bg))}
 .lxcur em{display:block;font-style:normal;font-size:calc(11px * var(--fz));font-weight:800;color:var(--ink-soft);margin-bottom:2px}
 .lxcur b{font-family:"SBL Hebrew","Noto Serif Hebrew","Noto Serif",serif;font-size:calc(20px * var(--fz));font-weight:500;margin-right:6px}
@@ -9939,8 +9951,9 @@ function origHangul(tr,lang){
    data/lex/d/H000.json 스트롱 100번씩 {스트롱:[[번역어, 횟수]…, 정의(영문), "나온 절"]}
    data/dict/index.json Easton 사전 표제어 · e00.json 본문 400개씩 · vNN.json 책마다 {"장:절":[표제어 번호]}
    data/units.json      도량형 해설 · 구절 태그
+   data/lex/medi.json   {w:{스트롱:[뜻의 결, 성경의 쓰임, 묵상 질문]}} 암송 구절 핵심 낱말 약 300개 AI 묵상 풀이(v12)
    자료를 바꾸면 아래 버전을 올리세요(서비스 워커가 ?v= 로 새로 받습니다). */
-var ORIG_VER="3", LEX_VER="3", DICT_VER="3", UNIT_VER="2";   /* v2: 원어 맞춤 다시 함(확신도 · 우리말 뜻) · 도량형 본문 전수 조사 · 성경 사전 우리말 요약
+var ORIG_VER="3", LEX_VER="3", DICT_VER="3", UNIT_VER="2", LEXM_VER="1";   /* v2: 원어 맞춤 다시 함(확신도 · 우리말 뜻) · 도량형 본문 전수 조사 · 성경 사전 우리말 요약
                                                                v3: 확실한 짝만 남김 · 원어 사전 영어 풀이 뺌 · 성경 사전은 우리말 요약 598개만 */
 function p3(n){ return (n<10?"00":n<100?"0":"")+n; }
 function soft(p){ return p.then(function(x){ return x; },function(){ return null; }); }
@@ -9965,6 +9978,13 @@ function lexIndex(){
     LX.wait=null; return LX;
   },function(e){ LX.wait=null; throw e; });
   return LX.wait;
+}
+/* 묵상 풀이 — 없어도 사전은 그대로 열립니다 */
+function lexMedi(){
+  if(LX.medi) return Promise.resolve(LX.medi);
+  if(LX.mwait) return LX.mwait;
+  LX.mwait=getJson("data/lex/medi.json?v="+LEXM_VER,"원어 묵상 풀이").then(function(j){ LX.medi=j.w||{}; LX.mwait=null; return LX.medi; },function(e){ LX.mwait=null; throw e; });
+  return LX.mwait;
 }
 function lexRow(key){
   if(!LX.map || !key) return null;
@@ -10413,7 +10433,7 @@ function lxRowHtml(r){
   var L=lexLang(r[0]);
   return '<li><button type="button" class="lxrow" data-lx="'+r[0]+'"><span class="lxo"'+rtl(L)+'>'+esc(r[1])+'</span>'+
     '<span class="lxm"><b>'+esc(lexKo(r)||"—")+'</b><em>'+esc(r[2])+' · '+esc(origHangul(r[2],L))+(r[5]?' · 개역 '+esc(String(r[5]).split(",").filter(Boolean).join(" · ")):'')+(lexKo(r)?'':' · '+esc(r[4]))+'</em></span>'+
-    '<span class="lxn">'+lexNum(r[0])+'<i>'+r[6]+'회</i></span></button></li>';
+    '<span class="lxn">'+lexNum(r[0])+'<i>'+r[6]+'회</i>'+(LX.medi&&LX.medi[r[0]]?'<i class="lxmd">묵상</i>':'')+'</span></button></li>';
 }
 function paintLxRes(){
   var h='<div class="panel">';
@@ -10438,10 +10458,33 @@ function lexEntryHtml(key,det,back,cur){
     '<div class="lxhead"><span class="lxbig"'+rtl(L)+'>'+esc(r[1])+'</span><div><b>'+esc(r[2])+'</b><span>'+esc(origHangul(r[2],L))+' · '+(L==="G"?"헬라어":"히브리어")+' · '+lexNum(r[0])+'</span></div></div>'+
     '<p class="lxgl"><i>'+esc(lexPos(r[3]))+'</i> '+(lexKo(r)?'<b>'+esc(lexKo(r))+'</b>':esc(r[4]))+'</p>'+
     (cur?'<div class="lxcur"><em>이 절에서</em><b'+rtl(L)+'>'+esc(cur[0])+'</b> '+esc(cur[1])+' · '+esc(origHangul(cur[1],L))+(cur[5]?'<span>'+(cur[7]===1?'개역한글 「'+esc(cur[5])+'」의 조사 · 어미에 담김':'개역한글 「'+esc(cur[5])+'」')+'</span>':'')+'<p>'+esc(cur[6].t)+(cur[6].h?'<small>'+esc(cur[6].h)+'</small>':'')+'</p></div>':'')+
+    lexFactHtml(r,det,occ)+lexMediHtml(key)+
     (bars?'<h4 class="sth">개역한글은 이렇게 옮겼습니다 <em>횟수</em></h4><ul class="lxbars">'+bars+'</ul>':'')+
     '<h4 class="sth">나오는 곳 <em>'+r[6]+'번 · '+occ.length+'절</em></h4><div class="lxocc" data-lxocc="'+key+'"></div>'+
     (r[7]&&!/^N:/.test(String(r[3]))?aiNote("맨 위 굵은 글씨의 우리말 뜻이 해당합니다."):'')+
     '<p class="srcnote">STEPBible.org (Tyndale House, Cambridge) — CC BY 4.0.</p>';
+}
+/* 한눈에 — 사전 자료(나온 절 · 번역어)로 셈한 사실 */
+function lexFactHtml(r,det,occ){
+  if(!occ.length) return "";
+  var per={}, order=[], first=occ[0];
+  occ.forEach(function(x){ if(!per[x[0]]){ per[x[0]]=0; order.push(x[0]); } per[x[0]]++;
+    if(x[0]<first[0] || (x[0]===first[0] && (x[1]<first[1] || (x[1]===first[1] && x[2]<first[2])))) first=x; });
+  var top=order.slice().sort(function(a,b){ return per[b]-per[a] || a-b; }).slice(0,3);
+  var nren=(det&&det[0]||[]).length;
+  var li=function(k,v){ return '<li><em>'+k+'</em><b>'+v+'</b></li>'; };
+  return '<h4 class="sth">한눈에 <em>사전 자료로 셈함</em></h4><ul class="lxfact">'+
+    li("나오는 횟수",r[6]+'번 · '+occ.length+'절')+
+    li("나오는 책",order.length+'권')+
+    li("처음 나오는 곳",'<button type="button" class="lxfgo" data-rgo="'+(first[0]-1)+'|'+first[1]+'|'+first[2]+'|0">'+esc(refName(first[0]-1,first[1],first[2]))+'</button>')+
+    li("많이 나오는 책",top.map(function(b){ return esc(BOOK_SHORT[b-1])+' '+per[b]; }).join(" · "))+
+    (nren?li("개역한글 번역어",nren+'가지'):"")+'</ul>';
+}
+/* 묵상으로 읽기 — 암송 구절 핵심 낱말에만 있음(AI 작성) */
+function lexMediHtml(key){
+  var m=LX.medi&&LX.medi[key]; if(!m) return "";
+  return '<h4 class="sth">묵상으로 읽기</h4><div class="lxmedi"><p><em>뜻의 결</em>'+esc(m[0])+'</p><p><em>성경의 쓰임</em>'+esc(m[1])+'</p><p class="lxq"><em>묵상 질문</em>'+esc(m[2])+'</p>'+
+    aiNote("교리에 관한 풀이는 여러 견해 가운데 하나로 읽어 주세요. 「 」 인용은 개역한글입니다.")+'</div>';
 }
 function lxOccPaint(host,key,det,lim){
   if(!host) return;
@@ -10461,7 +10504,7 @@ function lxOccPaint(host,key,det,lim){
   if(need.length) bibMany(need).then(function(){ if(document.body.contains(host)) draw(); },function(){});
 }
 function openLexSheet(key,back,cur){
-  Promise.all([lexIndex(),lexDetail(key)]).then(function(rs){
+  Promise.all([lexIndex(),lexDetail(key),soft(lexMedi())]).then(function(rs){
     var det=rs[1];
     openSheet(lexEntryHtml(key,det,back,cur));
     $("sheetbody").onclick=stClick;
@@ -10473,7 +10516,7 @@ function openLexSheet(key,back,cur){
 /* ═══ 성경보기 · 「자료」 — 절마다 태그와 「이 절 자료」 창 ═══ */
 var ST={bi:-1,c:0,v:0, data:null, sec:""};
 function stLoad(bi){
-  return Promise.all([bibBook(bi), soft(ogBook(bi)), soft(lexIndex()), soft(xrBook(bi)), soft(loadPeople()), soft(loadPlaces()), soft(loadUnits()), soft(loadDict()), soft(dictVerses(bi))]);
+  return Promise.all([bibBook(bi), soft(ogBook(bi)), soft(lexIndex()), soft(xrBook(bi)), soft(loadPeople()), soft(loadPlaces()), soft(loadUnits()), soft(loadDict()), soft(dictVerses(bi)), soft(lexMedi())]);
 }
 function xrCount(raw){ if(!raw) return 0; var n=0; raw.split("|").forEach(function(g){ var b=g.slice(g.lastIndexOf("~")+1); b=b.slice(b.indexOf("^")+1); n+=b.split(";").filter(Boolean).length; }); return n; }
 function clean2(t){ return String(t||"").replace(/[^가-힣]/g,""); }
@@ -10571,7 +10614,7 @@ function paintStudy(){
         '<span class="iwr">'+esc(w[1])+' · '+esc(origHangul(w[1],L))+'</span>'+
         '<span class="iwk">'+k2+'</span>'+
         '<span class="iwg">'+g2+'</span>'+
-        '<span class="iwm">'+esc(m.t)+(w[2]?' · '+lexNum(w[2]):'')+'</span></button></li>';
+        '<span class="iwm">'+esc(m.t)+(w[2]?' · '+lexNum(w[2]):'')+(LX.medi&&LX.medi[w[2]]?' · <b class="iwmd">묵상 풀이</b>':'')+'</span></button></li>';
     };
     var gA=[], gB=[];
     words.forEach(function(w,i){ (ogConf(w)===2 && w[4]>=0 ? gA : gB).push(i); });
