@@ -9072,7 +9072,7 @@ function openMemoSheet(addr,pn){
    그린 뒤에 scrollSettle() 을 불러 한 번 더 맞춥니다.                                      */
 var scrollLog=[0], SCROLL_WANT=null;
 /* 기록 칸마다 이번에 연 앱의 표(gen)를 붙입니다. 새로고침 전 칸(표가 다름)은 화면 길을 줄여 되살렸을 때 NAV_SHIFT 만큼 당겨 읽습니다. */
-var NAV_GEN=String(Date.now()), NAV_SHIFT=0;
+var NAV_GEN=String(Date.now()), NAV_SHIFT=0, NAV_GOING=false;
 function hst(o){ o.gen=NAV_GEN; return o; }
 function scrollSettle(){
   if(SCROLL_WANT && SCROLL_WANT.s===screenNow && Date.now()-SCROLL_WANT.t<5000){
@@ -13188,6 +13188,7 @@ window.addEventListener("popstate",function(e){
     if(d===depth){ if(after) after(); return; }
     if(after){ setTimeout(after,0); }
   }
+  NAV_GOING=false;
   if(d<0) d=0;
   if(d>=screenLog.length) d=screenLog.length-1;
   var back=(d<depth);
@@ -13250,6 +13251,18 @@ function goHome(){
   state.typing=null;
   state.f.queue=[]; state.f.qi=0; state.f.opened="";
   setSync("");
+  if(screenNow==="home"){ if(SHEET.open) closeSheet(); paintNav(); return; }
+  /* 지나온 길을 접고 처음 화면으로 — 여기서 폰 뒤로가기를 누르면 앱이 닫힙니다(v12) */
+  var steps=depth+NAV_SHIFT+((SHEET.open&&SHEET.pushed)?1:0);
+  if(NAV_GOING) return;                         /* 접는 중에 또 누른 것은 흘려보냅니다 */
+  if(steps>0){
+    try{
+      NAV_GOING=true;
+      history.go(-steps);
+      setTimeout(function(){ NAV_GOING=false; if(screenNow!=="home") show("home"); },400);
+      return;
+    }catch(e){ NAV_GOING=false; }
+  }
   show("home");
 }
 
