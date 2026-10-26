@@ -35,7 +35,8 @@ var EXTRA = [
   "./icon-192.png",
   "./icon-512.png",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.js",
-  "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+  "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap",
+  "https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
 ];
 
 self.addEventListener("install", function(e){
