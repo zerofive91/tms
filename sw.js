@@ -22,7 +22,7 @@
                      같은 파일의 새 판(?v=)을 받으면 옛 판은 그때 지웁니다.
    앱 화면은 ① 때문에 숫자를 올리지 않아도 늘 최신이 나옵니다.        */
 
-var CACHE   = "navfest-shell-v4"; /* v4: 앱 셸과 자료를 나눔(v3까지는 한 곳에 담았음) */
+var CACHE   = "navfest-shell-v5"; /* v4: 앱 셸과 자료를 나눔(v3까지는 한 곳에 담았음) · v5: 글꼴 Noto Sans KR(v12) */
 var DATA    = "navfest-data-v1";  /* 자료 — 이 이름은 바꾸지 않습니다 */
 var OLD     = ["navfest-v3"];     /* 한 곳에 담던 옛 캐시 — 자료만 DATA로 한 번 옮기고 지웁니다 */
 var PAGE_KEY = "./index.html";       /* 앱 화면은 늘 이 이름으로 한 벌만 담습니다 */
@@ -35,7 +35,7 @@ var EXTRA = [
   "./icon-192.png",
   "./icon-512.png",
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.115.0/dist/umd/supabase.js",
-  "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap"
+  "https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
 ];
 
 self.addEventListener("install", function(e){

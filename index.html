@@ -18,7 +18,7 @@
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
 
 <style>
 /* ── 색상 토큰 ───────────────────────────────────────────────
@@ -90,7 +90,7 @@ html[data-fz="130"]{--fz:1.3}
 html,body{margin:0;padding:0}
 body{
   background:var(--bg); color:var(--ink);
-  font-family:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-family:"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   font-size:calc(15px * var(--fz)); line-height:1.62; padding:0 0 40px; word-break:keep-all;
 }
 body.docked{padding-bottom:calc(96px * var(--fz))}
@@ -1210,7 +1210,7 @@ html[data-fz="120"] .rdmc,html[data-fz="130"] .rdmc{grid-column:2;grid-row:1}
 .rdsech b{font-family:"Gowun Batang",Georgia,serif;font-size:calc(19px * var(--fz));color:var(--ink)}
 .rdv h4{margin:14px 0 6px;font-size:calc(13px * var(--fz));font-weight:700;color:var(--brand)}
 .rdv h4:first-child{margin-top:4px}
-.rdv p.v{margin:0 0 3px;padding:3px 5px;border-radius:7px;font-size:calc(16.5px * var(--fz));line-height:1.85;color:var(--ink);
+.rdv p.v{margin:0 0 3px;padding:3px 5px;border-radius:7px;font-size:calc(16.5px * var(--fz));line-height:1.85;color:var(--ink);font-weight:500;
   word-break:keep-all;cursor:pointer}
 .rdv p.v sup{font-size:calc(10.5px * var(--fz));font-weight:700;color:var(--brand);margin-right:4px;vertical-align:.45em}
 .rdv p.v .vt{padding:0 1px}
@@ -1333,6 +1333,9 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtslot p.v.qton{background:color-mix(in srgb,var(--mark) 70%,transparent)}
 .qtslot h4{margin:8px 0 4px;font-size:calc(13px * var(--fz));color:var(--ink-soft)}
 .qtacts{display:grid;gap:8px;margin-top:14px}
+.qtshare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qtshare .go{padding:13px 8px;font-size:calc(14px * var(--fz))}
+.qtdel{border:0;background:none;color:var(--ink-soft);font:inherit;font-size:calc(13px * var(--fz));text-decoration:underline;text-underline-offset:3px;padding:8px;cursor:pointer;justify-self:center}
 /* 함께 읽기 (v12) */
 body.nolk .lkrow{display:none}
 .lkrow:empty{display:none}
@@ -1354,6 +1357,37 @@ body.nolk .lkrow{display:none}
 .lkref span{color:var(--brand);font-weight:700}
 .lkref em{font-style:normal;font-size:calc(11px * var(--fz));color:var(--ink-soft)}
 .lkref.here{border-style:dashed;cursor:default;opacity:.85}
+/* 도량형 견주기 · 접기 (v12) */
+.uncmpsel{display:flex;align-items:center;gap:8px}
+.uncmpsel select{flex:1 1 0;min-width:0}
+.uncmpsel span{flex:0 0 auto;color:var(--ink-soft);font-size:calc(13px * var(--fz))}
+.uncmpline{margin:12px 0 8px;font-size:calc(15px * var(--fz));color:var(--ink)}
+.uncmpline b{color:var(--brand);font-size:calc(18px * var(--fz))}
+.uncmpbar{display:grid;grid-template-columns:minmax(0,5.5em) minmax(0,1fr) auto;align-items:center;gap:8px;margin:6px 0}
+.uncmpbar span{font-weight:700;font-size:calc(13px * var(--fz));overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.uncmpbar i{display:block;height:14px;border-radius:7px;background:var(--bg);overflow:hidden}
+.uncmpbar i b{display:block;height:100%;border-radius:7px;background:var(--brand)}
+.uncmpbar em{font-style:normal;font-size:calc(12px * var(--fz));color:var(--ink-soft);white-space:nowrap}
+.unfoldn{font-style:normal;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink-soft);margin-left:4px}
+.unfolds{display:grid;gap:6px}
+.unfold{border:1.5px solid var(--line);border-radius:12px;background:var(--bg)}
+.unfold>summary{display:flex;align-items:baseline;gap:8px;padding:11px 12px;cursor:pointer;list-style:none}
+.unfold>summary::-webkit-details-marker{display:none}
+.unfold>summary b{font-size:calc(15px * var(--fz))}
+.unfold>summary span{flex:1 1 auto;min-width:0;font-size:calc(12.5px * var(--fz));color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unfold>summary::after{content:"\203A";color:var(--brand);font-weight:700;transition:transform .15s}
+.unfold[open]>summary::after{transform:rotate(90deg)}
+.unfold .uncard{padding:0 12px 12px}
+/* 간략히 · 자세히 (v12) */
+.foldbtn{border:0;background:none;padding:0 2px;font:inherit;font-size:.92em;font-weight:700;color:var(--brand);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+details.fold{margin:6px 0}
+details.fold>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;font-weight:700;font-size:calc(13.5px * var(--fz));color:var(--brand);padding:6px 0}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"\203A";transition:transform .15s}
+details.fold[open]>summary::after{transform:rotate(90deg)}
+details.fold>summary em{font-style:normal;font-weight:500;color:var(--ink-soft);font-size:.9em}
+.lxoccd{margin-top:12px}
+.lxoccd>summary{font-size:calc(14.5px * var(--fz));color:var(--ink)}
 /* ── 공통 · 찾기 칸 ── */
 input[type=search],input[type=date]{width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);
   border-radius:10px;background:var(--bg);color:var(--ink);-webkit-appearance:none;appearance:none}
@@ -1694,15 +1728,15 @@ sup.xn{font-size:.62em;font-weight:800;color:var(--brand);margin-left:1px;vertic
 .tarw{fill:hsl(var(--h) 75% var(--lnl));stroke:var(--mapland);stroke-width:1}
 .tst rect{fill:var(--surface);stroke:hsl(var(--h) 70% var(--lnl));stroke-width:2}
 .tst.sel rect{fill:hsl(var(--h) 70% var(--lnl));stroke:var(--surface);stroke-width:2.5}
-.tstn{font:700 10.5px "IBM Plex Sans KR",sans-serif;fill:hsl(var(--h) 70% var(--lnl))}
+.tstn{font:700 10.5px "Noto Sans KR",sans-serif;fill:hsl(var(--h) 70% var(--lnl))}
 .tst.sel .tstn{fill:#fff}
 .tsd{fill:var(--surface);stroke:hsl(var(--h) 70% var(--lnl));stroke-width:2.4}
 .tld{stroke:hsl(var(--h) 70% var(--lnl));stroke-width:1.4;opacity:.9}
 .tdot{fill:hsl(var(--h) 70% var(--lnl));stroke:var(--mapland);stroke-width:1.2}
-.tsl{font:700 12.5px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3.2px;stroke-linejoin:round;fill:var(--ink)}
+.tsl{font:700 12.5px "Noto Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3.2px;stroke-linejoin:round;fill:var(--ink)}
 .tsl.sel{fill:var(--mapsel)}
-.tal{font:800 12px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;stroke-linejoin:round;fill:hsl(var(--h) 60% calc(var(--arl) - 14%))}
-.trl{font:600 11.5px "IBM Plex Sans KR",sans-serif;letter-spacing:.12em;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;fill:var(--ink-soft);opacity:.85}
+.tal{font:800 12px "Noto Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;stroke-linejoin:round;fill:hsl(var(--h) 60% calc(var(--arl) - 14%))}
+.trl{font:600 11.5px "Noto Sans KR",sans-serif;letter-spacing:.12em;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;fill:var(--ink-soft);opacity:.85}
 :root{--mapsea:#cfe3ea;--mapland:#efe6d2;--mapcoast:#b9a98a;--mapriver:#7fa7b8;--mappin:#3C7C67;--mapsel:#C2662B;--lnl:40%;--arl:46%}
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--mapsea:#13303a;--mapland:#26352c;--mapcoast:#4d6457;--mapriver:#3f7489;--mappin:#90E4C1;--mapsel:#F0925F;--lnl:68%;--arl:64%} }
 :root[data-theme="dark"]{--mapsea:#13303a;--mapland:#26352c;--mapcoast:#4d6457;--mapriver:#3f7489;--mappin:#90E4C1;--mapsel:#F0925F;--lnl:68%;--arl:64%}
@@ -1710,7 +1744,7 @@ sup.xn{font-size:.62em;font-weight:800;color:var(--brand);margin-left:1px;vertic
 .maptools button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;
   padding:8px 4px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
 .maptools button[data-mz="in"],.maptools button[data-mz="out"]{flex:0 0 44px;font-size:18px}
-.mplabel{font:700 12.5px "IBM Plex Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)}
+.mplabel{font:700 12.5px "Noto Sans KR",sans-serif;paint-order:stroke;stroke:var(--mapland);stroke-width:3px;stroke-linejoin:round;fill:var(--ink)}
 .mplabel.sel{fill:var(--mapsel);font-size:15px}
 .mpin.rg{fill:none;stroke:var(--mappin);stroke-opacity:.7}
 .plmeta2{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 10px}
@@ -1831,7 +1865,7 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
 .mtpanel{padding:18px 16px 14px}
 .mtbox{font-family:"Gowun Batang",Georgia,serif;font-size:calc(19px * var(--fz));line-height:2.15;color:var(--ink);word-break:keep-all;cursor:text;min-height:4em}
 .mtbox .mw{display:inline;white-space:nowrap;border-radius:6px}
-.mtbox .mw-title,.mtbox .mw-ref{font-family:"IBM Plex Sans KR",sans-serif;font-weight:700;font-size:.86em}
+.mtbox .mw-title,.mtbox .mw-ref{font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:.86em}
 .mtbox .mw-ref{color:var(--brand)}
 .mtbox b{font-weight:400}
 .mtbox .mw-title b,.mtbox .mw-ref b{font-weight:700}
@@ -2866,7 +2900,9 @@ section[id^="st-"]{scroll-margin-top:8px}
       <div class="field"><label for="qta">적용</label><textarea id="qta" rows="3" maxlength="2000"></textarea></div>
       <div class="field"><label for="qtg">기도</label><textarea id="qtg" rows="3" maxlength="2000"></textarea></div>
       <p class="fixednote" id="qtsave"></p>
-      <div class="qtacts"><button type="button" class="go" id="qtdone">다 썼습니다</button><button type="button" class="go soft" id="qtdel">이 노트 지우기</button></div>
+      <div class="qtacts"><button type="button" class="go" id="qtdone">다 썼습니다</button>
+        <div class="qtshare"><button type="button" class="go soft" id="qtshare">공유 (카톡 등)</button><button type="button" class="go soft" id="qtcopy">글로 복사</button></div>
+        <button type="button" class="qtdel" id="qtdel">이 노트 지우기</button></div>
     </div>
   </div>
 
@@ -2954,6 +2990,7 @@ section[id^="st-"]{scroll-margin-top:8px}
       <div class="stdlinks">
         <button type="button" data-std="map">지도</button>
         <button type="button" data-std="people">인물</button>
+        <button type="button" data-std="unit">도량형</button>
       </div>
       <p class="fixednote">궁금한 것은 본문에서 절을 누르면 관주 · 원어 · 사전 · 인물 · 지명 · 도량형을 볼 수 있습니다.</p>
     </div>
@@ -8659,6 +8696,22 @@ function qtListHtml(){
   }
   return h+'</div>';
 }
+/* 공유할 글 — 빈 칸은 뺍니다 */
+function qtText(x){
+  var d=x.d||fToday(), out=["[경건의 시간] "+(+d.slice(0,4))+"년 "+qtDateText(d)];
+  if(x.ti) out.push("제목: "+x.ti);
+  if(x.r) out.push("말씀: "+x.r);
+  if(x.p) out.push("", x.p);
+  QT_FIELDS.forEach(function(f){ if(x[f[0]]) out.push("", "■ "+f[1], x[f[0]]); });
+  return out.join("\n");
+}
+function qtShare(copyOnly){
+  var x=qtFromDom(); qtKeep(true);
+  if(qtEmpty(x)){ setSync("아직 쓴 내용이 없습니다",true); return; }
+  var t=qtText(x);
+  if(!copyOnly && navigator.share){ try{ navigator.share({text:t}).catch(function(){}); return; }catch(e){} }
+  copyText(t,function(ok){ setSync(ok?"경건의 시간을 글로 복사했습니다 · 카톡 등에 붙여 넣으세요":"복사하지 못했습니다",!ok); });
+}
 /* ── 쓰기 화면 ── */
 function qtNewId(){ return "q"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
 function openQt(id){
@@ -10510,7 +10563,7 @@ function refLinkify(text,bi0){
 function refName(bi,c,v,v2){ return BOOK_SHORT[bi]+" "+c+":"+v+(v2&&v2!==v?"-"+v2:""); }
 
 /* ═══ 도량형 ═══ */
-var UN={d:null, wait:null, map:{}, cat:"len", cv:{n:"1", u:"cubit"}};
+var UN={d:null, wait:null, map:{}, cat:"len", cv:{n:"1", u:"cubit"}, cmp:{}};
 function loadUnits(){
   if(UN.d) return Promise.resolve(UN);
   if(UN.wait) return UN.wait;
@@ -10583,7 +10636,7 @@ function unCardHtml(u,opt){
     return '<button type="button" class="unorg" data-lx="'+r[0]+'"><b'+rtl(L)+'>'+esc(r[1])+'</b><span>'+esc(r[2])+' · '+esc(origHangul(r[2],L))+'</span><em>'+lexNum(r[0])+'</em></button>';
   }).join("");
   var keys=(u.key||[]).map(function(r){ var x=r.split("."); return '<button type="button" class="rlink" data-rgo="'+(x[0]-1)+'|'+x[1]+'|'+x[2]+'|0">'+refName(x[0]-1,+x[1],+x[2])+'</button>'; }).join("");
-  return '<div class="uncard">'+(opt.sheet?'':'<div class="unhead"><h4>'+esc(u.n)+'</h4><span>'+esc(cat[1])+'</span></div>')+
+  return '<div class="uncard">'+(opt.sheet||opt.fold?'':'<div class="unhead"><h4>'+esc(u.n)+'</h4><span>'+esc(cat[1])+'</span></div>')+
     '<div class="unval"><b>'+esc(u.rng)+'</b>'+(u.cmp?'<span>'+esc(u.cmp)+'</span>':'')+'</div>'+
     (u.rel?'<p class="unrel"><i>관계</i>'+esc(u.rel)+'</p>':'')+
     (org?'<div class="unorgs">'+org+'</div>':'')+
@@ -10629,7 +10682,7 @@ function openUnits(id){
   Promise.all([loadUnits(),soft(lexIndex())]).then(function(){
     if(id && UN.map[id]) UN.cat=UN.map[id].cat;
     paintUnits();
-    if(id) setTimeout(function(){ var el=$("un-"+id); if(el) el.scrollIntoView({block:"start"}); },60);
+    if(id) setTimeout(function(){ var el=$("un-"+id); if(el){ el.open=true; el.scrollIntoView({block:"start"}); } },60);
   },function(e){ $("unres").innerHTML='<div class="panel"><p class="mineempty">'+esc(String(e&&e.message||e))+'</p></div>'; });
 }
 function paintUnits(){
@@ -10648,11 +10701,34 @@ function paintUnits(){
   var opts=us.map(function(u){ return '<option value="'+u.id+'"'+(UN.cv.u===u.id?' selected':'')+'>'+esc(u.n)+'</option>'; }).join("");
   if(!us.some(function(u){ return u.id===UN.cv.u; })) UN.cv.u=us[0].id;
   h+='<div class="panel"><p class="eyebrow">환산해 보기</p><div class="uncv"><input type="number" inputmode="decimal" min="0" step="any" id="uncvn" value="'+esc(UN.cv.n)+'" aria-label="수"><select id="uncvu" aria-label="단위">'+opts+'</select></div><div id="uncvout" class="uncvout"></div></div>';
-  h+=us.map(function(u){ return '<div class="panel" id="un-'+u.id+'">'+unCardHtml(u,{list:true})+'</div>'; }).join("");
+  /* 두 단위 견주기 — 같은 잣대(길이 · 무게 …)끼리 */
+  var cm=UN.cmp[UN.cat]||{}, sorted=us.slice().sort(function(a,b){ return a.val-b.val; });
+  var mid=Math.floor(sorted.length/2);   /* 처음엔 가운데 이웃한 두 단위 */
+  if(!UN.map[cm.a] || UN.map[cm.a].cat!==UN.cat) cm.a=sorted[Math.max(0,mid-1)].id;
+  if(!UN.map[cm.b] || UN.map[cm.b].cat!==UN.cat) cm.b=sorted[mid].id;
+  UN.cmp[UN.cat]=cm;
+  var sel=function(id,cur){ return '<select id="'+id+'" aria-label="견줄 단위">'+sorted.map(function(u){ return '<option value="'+u.id+'"'+(u.id===cur?' selected':'')+'>'+esc(u.n)+'</option>'; }).join("")+'</select>'; };
+  h+='<div class="panel"><p class="eyebrow">두 단위 견주기</p><div class="uncmpsel">'+sel("uncmpa",cm.a)+'<span>와</span>'+sel("uncmpb",cm.b)+'</div><div id="uncmpout"></div></div>';
+  h+='<div class="panel"><p class="eyebrow">단위 하나씩 <em class="unfoldn">'+us.length+'개 · 누르면 자세히</em></p><div class="unfolds">'+us.map(function(u){
+    return '<details class="unfold" id="un-'+u.id+'"><summary><b>'+esc(u.n)+'</b><span>'+esc(u.rng)+'</span></summary>'+unCardHtml(u,{list:true,fold:true})+'</details>'; }).join("")+'</div></div>';
   h+='<div style="margin:0 4px">'+aiNote("단위마다 붙인 해설과 견주는 예가 해당합니다.")+'</div>';
   h+='<p class="srcnote" style="margin:0 4px 16px">'+esc(D.src)+' 단위 크기는 시대와 지역, 학자에 따라 다르며 여기 적은 값은 널리 쓰이는 대략값입니다. 「자」 · 「척」 · 「간」 · 「리」 · 「길」 · 「말」 · 「석」 · 「되」 · 「통」 · 「근」처럼 개역한글이 우리 옛 단위로 옮긴 곳과 「은 천개」처럼 세겔이 생략된 곳도 원어 단위로 셈했습니다.</p>';
   $("unres").innerHTML=h;
-  unCvPaint();
+  unCvPaint(); unCmpPaint(); foldNotes($("unres"));
+}
+function unCmpPaint(){
+  var a=UN.map[$("uncmpa")&&$("uncmpa").value], b=UN.map[$("uncmpb")&&$("uncmpb").value], out=$("uncmpout");
+  if(!a || !b || !out) return;
+  UN.cmp[UN.cat]={a:a.id, b:b.id};
+  if(a.vu!==b.vu){ out.innerHTML='<p class="fixednote">두 단위의 잣대가 달라 견줄 수 없습니다.</p>'; return; }
+  var big=a.val>=b.val?a:b, small=big===a?b:a, k=big.val/small.val;
+  var w=function(u){ return Math.max(0.6,u.val/big.val*100); };
+  var line=a.id===b.id ? "같은 단위입니다" : '1 '+esc(big.n)+' = <b>'+numKo(k)+'</b> '+esc(small.n);
+  var bar=function(u){ return '<div class="uncmpbar"><span>'+esc(u.n)+'</span><i><b style="width:'+w(u)+'%"></b></i><em>'+esc(unAmount(u.val,u.vu))+'</em></div>'; };
+  var fa=unFeel(big.val,big.vu);
+  out.innerHTML='<p class="uncmpline">'+line+'</p>'+bar(a)+bar(b)+
+    (k>200?'<p class="fixednote">작은 쪽은 너무 작아 막대가 점처럼 보입니다(실제 비율 그대로).</p>':'')+
+    (fa?'<p class="uncvfeel">'+esc(big.n)+' 하나 ≈ '+esc(fa)+'</p>':'');
 }
 function unCvPaint(){
   var n=parseFloat($("uncvn")&&$("uncvn").value), u=UN.map[$("uncvu")&&$("uncvu").value];
@@ -10831,7 +10907,7 @@ function lexEntryHtml(key,det,back,cur){
     (cur?'<div class="lxcur"><em>이 절에서</em><b'+rtl(L)+'>'+esc(cur[0])+'</b> '+esc(cur[1])+' · '+esc(origHangul(cur[1],L))+(cur[5]?'<span>'+(cur[7]===1?'개역한글 「'+esc(cur[5])+'」의 조사 · 어미에 담김':'개역한글 「'+esc(cur[5])+'」')+'</span>':'')+'<p>'+esc(cur[6].t)+(cur[6].h?'<small>'+esc(cur[6].h)+'</small>':'')+'</p></div>':'')+
     lexFactHtml(r,det,occ)+lexMediHtml(key)+
     (bars?'<h4 class="sth">개역한글은 이렇게 옮겼습니다 <em>횟수</em></h4><ul class="lxbars">'+bars+'</ul>':'')+
-    '<h4 class="sth">나오는 곳 <em>'+r[6]+'번 · '+occ.length+'절</em></h4><div class="lxocc" data-lxocc="'+key+'"></div>'+
+    '<details class="fold lxoccd"><summary>나오는 곳 <em>'+r[6]+'번 · '+occ.length+'절</em></summary><div class="lxocc" data-lxocc="'+key+'"></div></details>'+
     (r[7]&&!/^N:/.test(String(r[3]))?aiNote("맨 위 굵은 글씨의 우리말 뜻이 해당합니다."):'')+
     '<p class="srcnote">STEPBible.org (Tyndale House, Cambridge) — CC BY 4.0.</p>';
 }
@@ -10854,7 +10930,8 @@ function lexFactHtml(r,det,occ){
 /* 묵상으로 읽기 — 암송 구절 핵심 낱말에만 있음(AI 작성) */
 function lexMediHtml(key){
   var m=LX.medi&&LX.medi[key]; if(!m) return "";
-  return '<h4 class="sth">묵상으로 읽기</h4><div class="lxmedi"><p><em>뜻의 결</em>'+esc(m[0])+'</p><p><em>성경의 쓰임</em>'+esc(m[1])+'</p><p class="lxq"><em>묵상 질문</em>'+esc(m[2])+'</p>'+
+  return '<h4 class="sth">묵상으로 읽기</h4><div class="lxmedi"><p><em>뜻의 결</em>'+esc(m[0])+'</p>'+
+    '<details class="fold"><summary>성경의 쓰임 · 묵상 질문</summary><p><em>성경의 쓰임</em>'+esc(m[1])+'</p><p class="lxq"><em>묵상 질문</em>'+esc(m[2])+'</p></details>'+
     aiNote("교리에 관한 풀이는 여러 견해 가운데 하나로 읽어 주세요. 「 」 인용은 개역한글입니다.")+'</div>';
 }
 function lxOccPaint(host,key,det,lim){
@@ -10880,7 +10957,8 @@ function openLexSheet(key,back,cur){
     openSheet(lexEntryHtml(key,det,back,cur));
     $("sheetbody").onclick=stClick;
     LX.cur={key:key, det:det};
-    lxOccPaint($("sheetbody").querySelector("[data-lxocc]"),key,det,30);
+    var od=$("sheetbody").querySelector(".lxoccd");   /* 나오는 곳은 펼칠 때 본문을 받습니다 */
+    if(od) od.addEventListener("toggle",function(){ var h=od.querySelector("[data-lxocc]"); if(od.open && h && !h.childNodes.length) lxOccPaint(h,key,det,30); });
   },function(e){ setSync(netOff()?"인터넷이 없어 원어 사전을 불러오지 못했습니다":"원어 사전을 불러오지 못했습니다",true); });
 }
 
@@ -12148,7 +12226,7 @@ function drawVerseCard(v){
   x.save(); x.shadowColor="rgba(35,69,58,.16)"; x.shadowBlur=40; x.shadowOffsetY=14;
   rr(70,80,W-140,H-200,48); x.fillStyle="#FFFFFF"; x.fill(); x.restore();
   x.fillStyle=C.core; rr(70,80,W-140,20,10); x.fill();
-  var serif='"Gowun Batang", "Nanum Myeongjo", serif', sans='"IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
+  var serif='"Gowun Batang", "Nanum Myeongjo", serif', sans='"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
   var L=140, R=W-140, y=210;
   x.fillStyle=C.soft; x.font='700 34px '+sans; x.textBaseline="alphabetic";
   var part=v.part_name+(PART_BY_NAME[v.part_name]&&PART_BY_NAME[v.part_name].title?" · "+PART_BY_NAME[v.part_name].title:"");
@@ -12188,7 +12266,7 @@ function myShareGo(){
   if(list.length>10){ setSync("한 번에 10장까지 보낼 수 있습니다 · 나눠서 보내 주세요",true); return; }
   setSync("카드 이미지를 만드는 중…");
   var fontReady=(document.fonts && document.fonts.load) ? Promise.all([
-      document.fonts.load('700 60px "Gowun Batang"'), document.fonts.load('400 54px "Gowun Batang"'), document.fonts.load('700 34px "IBM Plex Sans KR"')
+      document.fonts.load('700 60px "Gowun Batang"'), document.fonts.load('400 54px "Gowun Batang"'), document.fonts.load('700 34px "Noto Sans KR"')
     ]).catch(function(){}) : Promise.resolve();
   fontReady.then(function(){
     return Promise.all(list.map(function(v){ return canvasBlob(drawVerseCard(v)); }));
@@ -13019,6 +13097,7 @@ function applyScreen(which,restoreY){
   if(which==="person" && PS.i>=0 && PPL.rows) paintPerson();
   if(which==="smap" && MP.ready) setTimeout(mpApply,0);
   if(which==="rnotes") paintReadNotes();
+  setTimeout(function(){ foldNotes($(which)); },60);   /* 그려진 긴 안내 글 접기 */
   if(which==="qt") paintQt();
   if(which==="mine"){                 /* 암송지갑에 올 때마다 지금 셈으로 */
     paintMy();
@@ -13225,7 +13304,7 @@ $("hubmmodes").addEventListener("click",modeClick);
 $("hubrmodes").addEventListener("click",modeClick);
 $("hublmodes").addEventListener("click",modeClick);
 $("stdform").addEventListener("submit",function(e){ e.preventDefault(); var q=($("stdq").value||"").trim(); if(!q) return; try{ $("stdq").blur(); }catch(_){} openSearchVerse(q); });
-$("bible").addEventListener("click",function(e){ var b=e.target.closest("[data-std]"); if(!b) return; if(b.dataset.std==="map") openMap(); else openPeople(); });
+$("bible").addEventListener("click",function(e){ var b=e.target.closest("[data-std]"); if(!b) return; if(b.dataset.std==="map") openMap(); else if(b.dataset.std==="unit") openUnits(); else openPeople(); });
 
 $("parts").addEventListener("click",function(e){
   var tab=e.target.closest("#ctabs [data-ct]");
@@ -13418,6 +13497,8 @@ $("qtplan").addEventListener("change",function(e){
   QT.day=(m-1)*25+d-1; qtPlanPaint();
 });
 $("qtdone").addEventListener("click",function(){ qtKeep(true); goBack(); });
+$("qtshare").addEventListener("click",function(){ qtShare(false); });
+$("qtcopy").addEventListener("click",function(){ qtShare(true); });
 $("qtdel").addEventListener("click",function(){
   var b=this;
   if(b.dataset.sure!=="1"){ b.dataset.sure="1"; b.textContent="한 번 더 누르면 지웁니다"; setTimeout(function(){ b.dataset.sure=""; b.textContent="이 노트 지우기"; },4000); return; }
@@ -13759,6 +13840,24 @@ $("mysigninK").addEventListener("click",function(){ signIn("kakao"); });
 $("acctbtn").addEventListener("click",function(){ if(screenNow!=="my") show("my"); });
 $("lkpick").addEventListener("click",function(e){ var b=e.target.closest("[data-lk]"); if(b) lkSetOn(b.dataset.lk==="on"); });
 document.addEventListener("click",function(e){ var b=e.target.closest("[data-lkopen]"); if(b){ e.preventDefault(); openLinks(b.dataset.lkopen); } });
+/* 긴 안내 글은 첫 문장만 — 「자세히」를 누르면 나머지(v12) */
+function foldNotes(root){
+  (root||document).querySelectorAll("p.rmeta,p.fixednote,p.mapgest,p.srcnote").forEach(function(p){
+    if(p.id || p.dataset.fold || p.closest("#sheet")) return;
+    var h=p.innerHTML, t=p.textContent.replace(/\s+/g," ").trim();
+    if(t.length<60) return;
+    var m=/^([\s\S]*?[다요]\.)(\s+)([\s\S]+)$/.exec(h);
+    if(!m || m[3].replace(/<[^>]+>/g,"").trim().length<12) return;
+    p.dataset.fold="1";
+    p.innerHTML=m[1]+'<span class="foldrest" hidden> '+m[3]+'</span> <button type="button" class="foldbtn" aria-expanded="false">자세히</button>';
+  });
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest(".foldbtn"); if(!b) return;
+  var r=b.parentNode.querySelector(".foldrest"), on=r.hidden;
+  r.hidden=!on; b.textContent=on?"접기":"자세히"; b.setAttribute("aria-expanded",String(on));
+});
+foldNotes(document);
 document.body.classList.toggle("nolk",!LK.on);
 $("themepick").addEventListener("click",function(e){
   var b=e.target.closest("button[data-theme]"); if(!b) return;
@@ -13943,13 +14042,13 @@ $("dcres").addEventListener("click",function(e){
 $("untabs").addEventListener("click",function(e){ var b=e.target.closest("[data-unc]"); if(!b) return; UN.cat=b.dataset.unc; paintUnits(); });
 $("unres").addEventListener("click",function(e){
   var t;
-  if((t=e.target.closest("[data-unj]"))){ var el=$("un-"+t.dataset.unj); if(el) el.scrollIntoView({block:"start",behavior:"smooth"}); return; }
+  if((t=e.target.closest("[data-unj]"))){ var el=$("un-"+t.dataset.unj); if(el){ el.open=true; el.scrollIntoView({block:"start",behavior:"smooth"}); } return; }
   if((t=e.target.closest("[data-rgo]"))){ goRef(t.dataset.rgo); return; }
   if((t=e.target.closest("[data-lx]"))){ openLexSheet(t.dataset.lx); return; }
   if((t=e.target.closest("[data-unv]"))){ openUnitSheet(t.dataset.unv); return; }
 });
 $("unres").addEventListener("input",function(e){ if(e.target.id==="uncvn"||e.target.id==="uncvu") unCvPaint(); });
-$("unres").addEventListener("change",function(e){ if(e.target.id==="uncvu") unCvPaint(); });
+$("unres").addEventListener("change",function(e){ if(e.target.id==="uncvu") unCvPaint(); if(e.target.id==="uncmpa"||e.target.id==="uncmpb") unCmpPaint(); });
 
 /* ── 성경 구절 찾기 ── */
 $("svform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("svq").blur(); }catch(_){} svRun(); });
