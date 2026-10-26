@@ -1855,9 +1855,21 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
 .selacts button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 12px;
   font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer;white-space:nowrap}
 .selacts button.main{background:var(--brand);border-color:var(--brand);color:var(--hi)}
-body.selbar{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+body.selon{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}   /* v12: 예전 이름 body.selbar 는 .selbar(고정 막대) 규칙과 겹쳐 화면이 맨 아래로 튀었음 */
 .rlink{display:inline;border:0;background:none;padding:0 1px;margin:0;font:inherit;color:var(--brand);font-weight:700;cursor:pointer;
   text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--brand) 40%,transparent);text-underline-offset:2px}
+/* 절 메뉴 (v12) — 절을 누르면 먼저 */
+.vmver p{margin:0;font-size:calc(15px * var(--fz));line-height:1.75;color:var(--ink)}
+.sheet .vned{margin:12px 0 4px}
+.vmenu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0 6px}
+.vmenu button{display:flex;align-items:center;gap:10px;min-width:0;min-height:58px;padding:10px 12px;text-align:left;
+  border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;font:inherit;cursor:pointer}
+.vmenu button:hover{border-color:var(--brand);background:var(--tint)}
+.vmenu svg{flex:0 0 22px;width:22px;height:22px;color:var(--brand)}
+.vmenu span{min-width:0}
+.vmenu b{display:block;font-size:calc(14.5px * var(--fz));line-height:1.3}
+.vmenu em{display:block;font-style:normal;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);line-height:1.35;margin-top:1px;overflow-wrap:anywhere}
+html[data-fz="130"] .vmenu{grid-template-columns:minmax(0,1fr)}
 /* 이 절 자료 창 */
 .shback{display:inline-flex;align-items:center;gap:4px;margin:0 0 8px;border:0;background:var(--tint);color:var(--brand);border-radius:999px;
   padding:4px 12px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
@@ -2888,14 +2900,6 @@ section[id^="st-"]{scroll-margin-top:8px}
       <button type="button" class="mid" id="btlist">장 목록</button>
       <button type="button" id="btnext">다음 장 &#8250;</button>
     </div>
-    <div class="selbar" id="btsel" hidden>
-      <div class="selref" id="btselref"></div>
-      <div class="selacts">
-        <button type="button" class="main" data-bs="copy">복사</button>
-        <span id="btselone"><button type="button" data-bs="xref">관주</button><button type="button" data-bs="study">자료</button></span>
-        <button type="button" data-bs="clear" aria-label="선택 해제">해제</button>
-      </div>
-    </div>
   </div>
 
   <!-- ===== 성경 검색 · 성경 구절 ===== -->
@@ -3154,6 +3158,15 @@ section[id^="st-"]{scroll-margin-top:8px}
 </div>
 
 <!-- ===== 아래에서 올라오는 창 (절 · 암송 구절 · 공유) ===== -->
+<!-- 절 고르기 · 복사 · 공유 (공부 · 성경읽기표 · 성경순서로 공통) -->
+<div class="selbar" id="selbar" hidden>
+  <div class="selref" id="selref"></div>
+  <div class="selacts">
+    <button type="button" class="main" data-sel="copy">복사</button>
+    <button type="button" id="selshare" data-sel="share">공유</button>
+    <button type="button" data-sel="clear" aria-label="고른 절 풀기">해제</button>
+  </div>
+</div>
 <div class="sheet" id="sheet" hidden>
   <div class="sheetbg" data-sclose></div>
   <div class="sheetbox" role="dialog" aria-modal="true">
@@ -8340,11 +8353,15 @@ function vnReset(){ VN.map={}; VN.owner=""; VN.pend={}; VN.noTable=false; vnSave
 /* 암송 카드 주소 → 키: "요한일서 5:11-12" → "요한일서|5|11-12" */
 function memoVKey(addr){ var m=/^(.+?)\s+(\d+):(.+)$/.exec(String(addr||"")); return m ? m[1]+"|"+m[2]+"|"+m[3] : "암송|0|"+addr; }
 /* 형광펜 · 묵상 쓰기 묶음 — 이 절 자료 창과 암송 카드 창이 같이 씁니다 */
-function vnEditorHtml(k,withColor){
-  var x=VN.map[k]||{}, h='<div class="vned" data-vnk="'+esc(k)+'">';
-  if(withColor) h+='<div class="vncol"><span>형광펜</span>'+VN_COLORS.map(function(c){
+function vnColorHtml(k){
+  var x=VN.map[k]||{};
+  return '<div class="vncol"><span>형광펜</span>'+VN_COLORS.map(function(c){
       return '<button type="button" class="sw fp-'+c[0]+'" data-vncol="'+c[0]+'" aria-pressed="'+(x.c===c[0])+'" aria-label="'+c[1]+'"></button>'; }).join("")+
     (x.c?'<button type="button" class="swx" data-vncol="">지우기</button>':'')+'</div>';
+}
+function vnEditorHtml(k,withColor){
+  var x=VN.map[k]||{}, h='<div class="vned" data-vnk="'+esc(k)+'">';
+  if(withColor) h+=vnColorHtml(k);
   h+='<details class="vnnote"'+(x.n?' open':'')+'><summary>'+svg("medi")+(x.n?'묵상 고치기':'묵상 쓰기')+'</summary>'+
     '<textarea rows="3" maxlength="1000" placeholder="이 말씀에서 마음에 남은 것">'+esc(x.n||"")+'</textarea>'+
     '<div class="vnrow"><span class="vnsaved">'+(x.n?'적어 둔 묵상 · 「묵상」에서 모아 봅니다':(state.me?'':'로그인 전에는 이 기기에만 남습니다'))+'</span><button type="button" data-vnsave="1">저장</button></div></details></div>';
@@ -8566,7 +8583,7 @@ function openSheet(html,onClose){
   $("sheetbody").innerHTML=html;
   if(!SHEET.open){
     SHEET.open=true; $("sheet").hidden=false; document.body.classList.add("sheeting");
-    try{ history.pushState({nav:depth, sheet:1},""); SHEET.pushed=true; }catch(e){ SHEET.pushed=false; }
+    try{ history.pushState(hst({nav:depth, sheet:1}),""); SHEET.pushed=true; }catch(e){ SHEET.pushed=false; }
   }
   SHEET.onClose=onClose||null;
   $("sheet").querySelector(".sheetbox").scrollTop=0;
@@ -8625,6 +8642,9 @@ function openMemoSheet(addr,pn){
    다른 화면에 갔다가 뒤로 오면 떠날 때의 스크롤 자리로 돌아갑니다. 본문을 늦게 그리는 화면은
    그린 뒤에 scrollSettle() 을 불러 한 번 더 맞춥니다.                                      */
 var scrollLog=[0], SCROLL_WANT=null;
+/* 기록 칸마다 이번에 연 앱의 표(gen)를 붙입니다. 새로고침 전 칸(표가 다름)은 화면 길을 줄여 되살렸을 때 NAV_SHIFT 만큼 당겨 읽습니다. */
+var NAV_GEN=String(Date.now()), NAV_SHIFT=0;
+function hst(o){ o.gen=NAV_GEN; return o; }
 function scrollSettle(){
   if(SCROLL_WANT && SCROLL_WANT.s===screenNow && Date.now()-SCROLL_WANT.t<5000){
     window.scrollTo(0,SCROLL_WANT.y);
@@ -9382,8 +9402,8 @@ function paintBText(){
   $("btnext").disabled=$("btnext2").disabled=(bi===65 && c===n);
   if(!BV.whoOpen){ $("btwholist").innerHTML=""; $("btwhobtn").hidden=false; }
   var host=$("btverses");
-  if(host.dataset.key===key && host.querySelector("p.v")){ bsPaint(); return; }       /* 돌아왔을 때는 그대로 */
-  host.dataset.key=""; BSEL={}; bsPaint();
+  if(host.dataset.key===key && host.querySelector("p.v")){ selPaint(); return; }       /* 돌아왔을 때는 그대로 */
+  host.dataset.key=""; if(SEL.scr==="btext") selClear();
   if(!BIB.cache[bi]) host.innerHTML='<p class="mineempty">본문을 불러오는 중…</p>';
   bibBook(bi).then(function(){
     if(screenNow!=="btext" || BV.bi!==bi || BV.c!==c) return;
@@ -10475,27 +10495,51 @@ function stTextHtml(toks,at,sel){
     return a?'<b class="tg '+a.cls+'" '+a.attr+'>'+esc(t)+'</b>':inner;
   }).join(" ");
 }
-/* 절을 누르면 — 세 읽기 화면(읽기표 · 순서로 · 공부)이 모두 이 창을 엽니다.
-   ctx.mark(k) : 밑줄을 긋거나 지우고 그은 뒤 상태(true/false)를 돌려줌 · ctx.marked(k) : 지금 그어져 있나
-   ctx.multi   : 「여러 절 고르기」(복사) — 공부 화면에서만 */
+/* 절을 누르면 — 세 읽기 화면(읽기표 · 순서로 · 공부)이 모두 먼저 작은 메뉴(openVerseMenu)를 엽니다(v12).
+   메뉴에서 고른 것만 엽니다: 형광펜(메뉴에서 바로) · 묵상 쓰기 · 복사 · 공유 · 암송 카드 · 원어 · 관주 · 자료 더보기.
+   ctx.mark(k) : 옛 밑줄을 지우고 그 뒤 상태(true/false)를 돌려줌 · ctx.marked(k) : 지금 그어져 있나 · ctx.src : 묵상을 쓴 곳 */
 var VCTX=null;
-function openStudy(bi,c,v,sec,ctx){
+function stKey(){ return BOOK_ORDER[ST.bi]+"|"+ST.c+"|"+ST.v; }
+function openVerseMenu(bi,c,v,ctx){
   VCTX=ctx||null;
-  ST={bi:bi,c:c,v:v,sec:sec||"",ke:-1};
-  openSheet('<h3 class="shtitle">'+esc(refName(bi,c,v))+' · 이 절 자료</h3><p class="mineempty">자료를 불러오는 중…</p>',function(){ bsClearMarks(); });
+  ST={bi:bi,c:c,v:v,sec:"",ke:-1,only:""};
+  openSheet(verseMenuHtml(),function(){ selMarkDom(); });
   $("sheetbody").onclick=stClick;
+}
+function verseMenuHtml(){
+  var k=stKey(), x=VN.map[k]||{}, memo=memoAt()[k]||[];
+  var b=function(a,ic,t,sub){ return '<button type="button" data-vm="'+a+'">'+svg(ic)+'<span><b>'+t+'</b>'+(sub?'<em>'+sub+'</em>':'')+'</span></button>'; };
+  return '<h3 class="shtitle">'+esc(refName(ST.bi,ST.c,ST.v))+'</h3>'+
+    '<div class="shver vmver"><p>'+esc(bibVerse(ST.bi,ST.c,ST.v)||"")+'</p></div>'+
+    '<div class="vned" data-vnk="'+esc(k)+'">'+vnColorHtml(k)+'</div>'+
+    '<div class="vmenu">'+
+      b("note","medi",x.n?"묵상 고치기":"묵상 쓰기",x.n?"적어 둔 묵상이 있습니다":"")+
+      b("copy","copy","복사 · 공유","절을 더 고를 수 있습니다")+
+      (memo.length?b("memo","mine","암송 카드",esc(memo[0].a)):"")+
+      b("og","lex","원어","낱말 뜻 · 원어 사전")+
+      b("xr","xref","관주","이어지는 구절")+
+      b("all","bible","자료 더보기","인물 · 지명 · 단위 · 사전")+
+    '</div>'+
+    (VCTX && VCTX.mark && VCTX.marked(k) ? '<button type="button" class="textlink" data-stmark="1">예전 밑줄 지우기</button>' : '');
+}
+function paintVerseMenu(){ $("sheetbody").innerHTML=verseMenuHtml(); $("sheet").querySelector(".sheetbox").scrollTop=0; }
+function vmBack(){ return '<button type="button" class="shback" data-vmback="1">‹ '+esc(refName(ST.bi,ST.c,ST.v))+' 메뉴로</button>'; }
+/* 메뉴에서 원어 · 관주 · 자료 더보기를 고르면 그 부분만 그립니다(only: "og" · "xr" · "" = 모두) */
+function stOpen(only){
+  ST.only=only; ST.sec="";
+  var bi=ST.bi, c=ST.c, v=ST.v;
+  $("sheetbody").innerHTML=vmBack()+'<h3 class="shtitle">'+esc(refName(bi,c,v))+'</h3><p class="mineempty">자료를 불러오는 중…</p>';
   stLoad(bi).then(function(){ if(ST.bi===bi && ST.c===c && ST.v===v && SHEET.open) paintStudy(); },function(e){
-    $("sheetbody").innerHTML='<h3 class="shtitle">'+esc(refName(bi,c,v))+'</h3><p class="mineempty">'+(netOff()?"인터넷이 없어 자료를 불러오지 못했습니다.":"자료를 불러오지 못했습니다 · "+esc(String(e&&e.message||e)))+'</p>';
+    $("sheetbody").innerHTML=vmBack()+'<h3 class="shtitle">'+esc(refName(bi,c,v))+'</h3><p class="mineempty">'+(netOff()?"인터넷이 없어 자료를 불러오지 못했습니다.":"자료를 불러오지 못했습니다 · "+esc(String(e&&e.message||e)))+'</p>';
   });
 }
-/* 창 위쪽 단추 줄 — 밑줄 · 복사 · 여러 절 */
-function stActs(){
-  var k=BOOK_ORDER[ST.bi]+"|"+ST.c+"|"+ST.v, h='';
-  /* 읽기표 · 순서로의 옛 밑줄은 지우기만(새로 칠하는 것은 형광펜) */
-  if(VCTX && VCTX.mark && VCTX.marked(k)) h+='<button type="button" data-stmark="1" aria-pressed="true">'+svg("check2")+'밑줄 지우기</button>';
-  h+='<button type="button" data-stcopy="1">'+svg("copy")+'복사</button>';
-  if(VCTX && VCTX.multi) h+='<button type="button" data-stmulti="1">'+svg("plus")+'여러 절 고르기</button>';
-  return '<div class="stacts">'+h+'</div>'+vnEditorHtml(k,true);
+/* 절 아래 자료 태그(원어 · 관주 · 인물 …)를 누르면 메뉴를 거치지 않고 그 부분만 */
+function openStudy(bi,c,v,sec,ctx){
+  VCTX=ctx||null;
+  ST={bi:bi,c:c,v:v,sec:"",ke:-1,only:sec||""};
+  openSheet('<h3 class="shtitle">'+esc(refName(bi,c,v))+'</h3>',function(){ selMarkDom(); });
+  $("sheetbody").onclick=stClick;
+  stOpen(sec||"");
 }
 function stBack(){ return '<button type="button" class="shback" data-shback="1">‹ '+esc(refName(ST.bi,ST.c,ST.v))+' 자료로</button>'; }
 function paintStudy(){
@@ -10508,13 +10552,13 @@ function paintStudy(){
   var sel=[];
   if(ST.ke>=0) words.forEach(function(w,i){ if(w[4]===ST.ke) sel.push(i); });
   var secs=[["og","원어",words.length],["xr","관주",groups.reduce(function(a,g){ return a+g.refs.length; },0)],["pp","인물",mk.pp.length],["pl","지명",mk.pl.length],["un","단위",mk.un.length],["dc","사전",dcs.length],["mm","암송",memo.length]];
-  var h='<h3 class="shtitle">'+esc(refName(bi,c,v))+' · 이 절 자료</h3>'+
-    '<div class="stnav">'+secs.filter(function(s){ return s[2]; }).map(function(s){ return '<button type="button" data-stj="'+s[0]+'">'+s[1]+'<i>'+s[2]+'</i></button>'; }).join("")+'</div>'+
+  var O=ST.only||"", inc=function(k){ return !O || O===k; }, onm={og:"원어",xr:"관주",pp:"인물",pl:"지명",un:"단위",dc:"사전",mm:"암송 카드"};
+  var h=vmBack()+'<h3 class="shtitle">'+esc(refName(bi,c,v))+' · '+(O?onm[O]||"이 절 자료":"이 절 자료")+'</h3>'+
+    (O?'':'<div class="stnav">'+secs.filter(function(s){ return s[2]; }).map(function(s){ return '<button type="button" data-stj="'+s[0]+'">'+s[1]+'<i>'+s[2]+'</i></button>'; }).join("")+'</div>')+
     '<div class="shver stver"><em>개역한글 · 낱말을 누르면 맞는 원어를 칠합니다</em><p>'+stTextHtml(toks,mk.at,ST.ke>=0?[ST.ke]:null)+'</p></div>'+
-    '<div class="stlegend"><span class="tg p">인물</span><span class="tg l">지명</span><span class="tg u">단위</span></div>'+
-    stActs();
+    (!O||O==="pp"||O==="pl"||O==="un"?'<div class="stlegend"><span class="tg p">인물</span><span class="tg l">지명</span><span class="tg u">단위</span></div>':'');
   /* 원어 */
-  if(words.length){
+  if(inc("og") && words.length){
     /* 본문 어절과 맞춘 원어 / 문맥 · 문법 원어 — 맞춤이 불확실한 낱말은 억지로 짝짓지 않고 직역 뜻으로 보여 줍니다 */
     var wRow=function(i){
       var w=words[i], r=lexRow(w[2]), m=morphKo(w[3],L), cf=ogConf(w), ko=w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"";
@@ -10535,9 +10579,10 @@ function paintStudy(){
       (gA.length?'<p class="iwh">본문과 맞춘 원어 <em>'+gA.length+' · 「 」는 개역한글 낱말</em></p><ol class="iwl">'+gA.map(wRow).join("")+'</ol>':'')+
       (gB.length?'<p class="iwh">문맥 · 문법 원어 <em>'+gB.length+' · 본문에 따로 대응하는 낱말 없이 뜻이나 문법으로 들어간 말 · 우리말 직역 뜻</em></p><ol class="iwl iwl2">'+gB.map(wRow).join("")+'</ol>':'')+
       '<p class="stnote">낱말은 원문 순서대로 놓았고, 히브리어는 오른쪽에서 왼쪽으로 읽습니다. 위 본문의 낱말을 누르면 그 낱말에 맞춘 원어를 칠합니다.</p>'+aiNote("원어마다 붙인 우리말 뜻이 해당합니다.")+'</section>';
-  } else if(OG.cache[bi]) h+='<section id="st-og"><h4 class="sth">원어</h4><p class="mineempty">이 절의 원어 자료가 없습니다.</p></section>';
+  } else if(inc("og") && OG.cache[bi]) h+='<section id="st-og"><h4 class="sth">원어</h4><p class="mineempty">이 절의 원어 자료가 없습니다.</p></section>';
   /* 관주 */
-  if(groups.length){
+  if(O==="xr" && !groups.length) h+='<section id="st-xr"><p class="mineempty">이 절에 이어진 관주가 없습니다.</p></section>';
+  if(inc("xr") && groups.length){
     h+='<section id="st-xr"><h4 class="sth">관주 <em>'+groups.length+'묶음 · TSK</em></h4>'+groups.slice(0,8).map(function(g,gi){
       var k=g.kind||(g.w.length&&!g.th?"s":g.w.length?"t":"m");
       return '<div class="stxg"><p><span>'+(gi+1)+'</span>'+(g.phr?'<b>「'+esc(g.phr)+'」</b>':'')+'<i class="xk '+k+'">'+{s:"같은 말",t:"같은 주제",m:"뜻으로"}[k]+'</i></p><div>'+
@@ -10545,10 +10590,10 @@ function paintStudy(){
     }).join("")+'<button type="button" class="textlink" data-xrall="1">관주 전체 · 구절 본문까지 보기 ›</button></section>';
   }
   /* 인물 · 지명 */
-  if(mk.pp.length) h+='<section id="st-pp"><h4 class="sth">인물 <em>누르면 가족 · 사건</em></h4><div class="stchips">'+mk.pp.map(function(i){ var r=PPL.rows[i]; return '<button type="button" data-pp="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc(r[4]||"")+'</span></button>'; }).join("")+'</div></section>';
-  if(mk.pl.length) h+='<section id="st-pl"><h4 class="sth">지명 <em>누르면 지도</em></h4><div class="stchips">'+mk.pl.map(function(i){ var r=PLC.rows[i]; return '<button type="button" data-pl="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc(r[5]||"")+(r[8]?' · 오늘날 '+esc(r[8]):'')+'</span></button>'; }).join("")+'</div></section>';
+  if(inc("pp") && mk.pp.length) h+='<section id="st-pp"><h4 class="sth">인물 <em>누르면 가족 · 사건</em></h4><div class="stchips">'+mk.pp.map(function(i){ var r=PPL.rows[i]; return '<button type="button" data-pp="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc(r[4]||"")+'</span></button>'; }).join("")+'</div></section>';
+  if(inc("pl") && mk.pl.length) h+='<section id="st-pl"><h4 class="sth">지명 <em>누르면 지도</em></h4><div class="stchips">'+mk.pl.map(function(i){ var r=PLC.rows[i]; return '<button type="button" data-pl="'+i+'"><b>'+esc(r[0])+'</b><span>'+esc(r[5]||"")+(r[8]?' · 오늘날 '+esc(r[8]):'')+'</span></button>'; }).join("")+'</div></section>';
   /* 단위 */
-  if(mk.un.length){
+  if(inc("un") && mk.un.length){
     var ug={}, uo=[];
     mk.un.forEach(function(t){ if(!UN.map[t[0]]) return; if(!ug[t[0]]){ ug[t[0]]=[]; uo.push(t[0]); } ug[t[0]].push(t); });
     h+='<section id="st-un"><h4 class="sth">단위 · 환산 <em>대략값</em></h4>'+uo.map(function(id){
@@ -10559,10 +10604,11 @@ function paintStudy(){
     }).join("")+'</section>';
   }
   /* 사전 */
-  if(dcs.length) h+='<section id="st-dc"><h4 class="sth">성경 사전 <em>이 절을 인용한 표제어 · Easton</em></h4><div class="stchips">'+dcs.slice(0,30).map(function(i){ var r=DC.idx[i]; return '<button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b><span>'+(r[1]?esc(r[0])+' · ':'')+(DC_KIND[r[2]]||"")+(r[5]?' · 우리말 요약':'')+'</span></button>'; }).join("")+'</div></section>';
+  if(inc("dc") && dcs.length) h+='<section id="st-dc"><h4 class="sth">성경 사전 <em>이 절을 인용한 표제어 · Easton</em></h4><div class="stchips">'+dcs.slice(0,30).map(function(i){ var r=DC.idx[i]; return '<button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b><span>'+(r[1]?esc(r[0])+' · ':'')+(DC_KIND[r[2]]||"")+(r[5]?' · 우리말 요약':'')+'</span></button>'; }).join("")+'</div></section>';
   /* 암송 */
-  if(memo.length) h+='<section id="st-mm"><h4 class="sth">암송 카드</h4><div class="stchips">'+memo.map(function(t){ return '<button type="button" data-ma="'+esc(t.a)+'" data-mp="'+esc(t.pn)+'"><b>'+esc(t.a)+'</b><span>'+esc(t.pn)+'</span></button>'; }).join("")+'</div></section>';
-  h+='<div class="shacts"><button type="button" class="main" data-stcopy="1">'+svg("copy")+'이 절 복사</button><button type="button" data-xrall="1">'+svg("xref")+'관주 전체</button></div>'+
+  if(inc("mm") && memo.length) h+='<section id="st-mm"><h4 class="sth">암송 카드</h4><div class="stchips">'+memo.map(function(t){ return '<button type="button" data-ma="'+esc(t.a)+'" data-mp="'+esc(t.pn)+'"><b>'+esc(t.a)+'</b><span>'+esc(t.pn)+'</span></button>'; }).join("")+'</div></section>';
+  h+='<div class="shacts">'+(O?'<button type="button" class="main" data-stall="1">'+svg("bible")+'이 절 자료 모두 보기</button>':'')+
+      (inc("xr") && groups.length?'<button type="button" data-xrall="1">'+svg("xref")+'관주 전체 · 본문까지</button>':'')+'</div>'+
     '<p class="srcnote">원어: STEPBible (CC BY 4.0) · 관주: TSK (CC BY 4.0) · 인물: STEPBible · Theographic · 지명: OpenBible.info · 사전: Easton(퍼블릭 도메인).</p>';
   $("sheetbody").innerHTML=h;
   $("sheetbody").onclick=stClick;
@@ -10571,6 +10617,20 @@ function paintStudy(){
 }
 function stClick(e){
   var t;
+  if((t=e.target.closest("[data-vmback]"))){ paintVerseMenu(); return; }
+  if((t=e.target.closest("[data-stall]"))){ ST.only=""; paintStudy(); $("sheet").querySelector(".sheetbox").scrollTop=0; return; }
+  if((t=e.target.closest("[data-vm]"))){
+    var a=t.dataset.vm, k=stKey();
+    if(a==="note"){
+      $("sheetbody").innerHTML=vmBack()+'<h3 class="shtitle">'+esc(refName(ST.bi,ST.c,ST.v))+' · 묵상</h3><div class="shver vmver"><p>'+esc(bibVerse(ST.bi,ST.c,ST.v)||"")+'</p></div>'+vnEditorHtml(k,false);
+      var d=$("sheetbody").querySelector("details.vnnote"); if(d) d.open=true;
+      var ta=$("sheetbody").querySelector("textarea"); if(ta) setTimeout(function(){ try{ ta.focus(); }catch(_){} },60);
+      return;
+    }
+    if(a==="copy"){ sheetThen(function(){ selStart(k); setSync("함께 고를 절을 더 누르세요 · 아래에서 복사 · 공유"); }); return; }
+    if(a==="memo"){ var m=(memoAt()[k]||[])[0]; if(m) openMemoSheet(m.a,m.pn); return; }
+    stOpen(a==="all"?"":a); return;
+  }
   if((t=e.target.closest("[data-rgo]"))){ var d=t.dataset.rgo; sheetThen(function(){ goRef(d); }); return; }
   if((t=e.target.closest("[data-shback]"))){ paintStudy(); return; }
   if((t=e.target.closest("[data-stj]"))){ var el=$("st-"+t.dataset.stj); if(el) el.scrollIntoView({block:"start",behavior:"smooth"}); return; }
@@ -10599,16 +10659,12 @@ function stClick(e){
     if(!on) t.remove();
     setSync(on?"밑줄을 그었습니다":"밑줄을 지웠습니다"); return;
   }
-  if((t=e.target.closest("[data-stmulti]"))){
-    var v0=ST.v; BSEL={}; BSEL[v0]=1;
-    sheetThen(function(){ var p=document.querySelector('#btverses p.v[data-k$="|'+v0+'"]'); if(p) p.classList.add("sel"); bsPaint(); setSync("고를 절을 더 누르세요 · 다 고르면 아래 「복사」"); });
-    return;
-  }
-  if((t=e.target.closest("[data-stcopy]"))){ var ref=BOOK_ORDER[ST.bi]+" "+ST.c+":"+ST.v; copyText((bibVerse(ST.bi,ST.c,ST.v)||"")+" ("+ref+", 개역한글)",function(ok){ setSync(ok?"절을 복사했습니다":"복사하지 못했습니다",!ok); }); return; }
 }
 
-/* ── 세 읽기 화면 공통: 절을 누르면 「이 절 자료」 ── */
+/* ── 세 읽기 화면 공통: 절을 누르면 작은 메뉴 · 고르는 중이면 더하거나 빼기 ── */
 function verseClick(e,ctx){
+  var pv=e.target.closest("p.v[data-k]");
+  if(pv && selOn() && pv.closest("#"+SEL.scr) && !e.target.closest(".memotag,[data-vtg],.tg")){ selToggle(pv.dataset.k); return true; }
   var t=e.target.closest(".memotag");
   if(t){ openMemoSheet(t.dataset.ma,t.dataset.mp); return true; }
   var g=e.target.closest("[data-vtg]");
@@ -10620,13 +10676,12 @@ function verseClick(e,ctx){
     else if(tg.dataset.un) openUnitSheet(tg.dataset.un);
     return true;
   }
-  var v=e.target.closest("p.v[data-k]");
-  if(!v) return false;
-  var k=v.dataset.k.split("|"), bi=BOOK_ORDER.indexOf(k[0]);
+  if(!pv) return false;
+  var k=pv.dataset.k.split("|"), bi=BOOK_ORDER.indexOf(k[0]);
   if(bi<0) return false;
-  document.querySelectorAll("p.v.sel").forEach(function(p){ if(!p.closest("#btverses") || !Object.keys(BSEL).length) p.classList.remove("sel"); });
-  v.classList.add("sel");
-  openStudy(bi,+k[1],+k[2],"",ctx);
+  selMarkDom();
+  pv.classList.add("sel");
+  openVerseMenu(bi,+k[1],+k[2],ctx);
   return true;
 }
 /* 읽기표 · 순서로의 밑줄 — 창에서 긋고 지웁니다 */
@@ -10692,30 +10747,45 @@ function tagsPaint(host){
   });
 }
 
-/* ── 절 여러 개 고르기 · 복사 ── */
-var BSEL={};
-function bsList(){ return Object.keys(BSEL).map(Number).sort(function(a,b){ return a-b; }); }
-function bsClearMarks(){ document.querySelectorAll("p.v.sel").forEach(function(p){ if(!(screenNow==="btext" && BSEL[+String(p.dataset.k||"").split("|")[2]] && p.closest("#btverses"))) p.classList.remove("sel"); }); }
-function bsClear(){ BSEL={}; document.querySelectorAll("#btverses p.v.sel").forEach(function(p){ p.classList.remove("sel"); }); bsPaint(); }
-function bsRanges(vs){ var out=[], s=null, p=null; vs.forEach(function(v){ if(s===null){ s=p=v; } else if(v===p+1){ p=v; } else { out.push([s,p]); s=p=v; } }); if(s!==null) out.push([s,p]); return out; }
-function bsLabel(vs){ return BOOK_SHORT[BV.bi]+" "+BV.c+":"+bsRanges(vs).map(function(r){ return r[0]===r[1]?r[0]:r[0]+"-"+r[1]; }).join(", "); }
-function bsPaint(){
-  var vs=bsList(), bar=$("btsel");
-  bar.hidden=!vs.length || screenNow!=="btext";
-  document.body.classList.toggle("selbar",!bar.hidden);
-  if(!vs.length) return;
-  $("btselref").innerHTML='<b>'+esc(bsLabel(vs))+'</b><span>'+vs.length+'절 선택</span>';
-  $("btselone").hidden=(vs.length!==1);
+/* ── 절 고르기 · 복사 · 공유 (v12) — 공부 · 성경읽기표 · 성경순서로 ──
+   절 메뉴의 「복사 · 공유」를 누르면 그 절이 골라진 채 시작하고, 본문의 절을 더 누르면 더하거나 뺍니다.
+   열쇠는 "책|장|절" — 하루 분량처럼 여러 장 · 여러 책에 걸쳐도 됩니다. 그 화면을 떠나면 풀립니다. */
+var SEL={scr:"", keys:{}};
+function selOn(){ return !!SEL.scr && SEL.scr===screenNow && Object.keys(SEL.keys).length>0; }
+function selKeys(){ return Object.keys(SEL.keys).sort(function(a,b){ return rnKeyPos(a)-rnKeyPos(b); }); }
+/* 본문의 칠한 표시를 고른 것과 맞춥니다(창을 열 때 잠시 칠한 절도 여기서 걷힘) */
+function selMarkDom(){
+  document.querySelectorAll("p.v.sel").forEach(function(p){ if(!(selOn() && SEL.keys[p.dataset.k] && p.closest("#"+SEL.scr))) p.classList.remove("sel"); });
+  if(selOn()) $(SEL.scr).querySelectorAll("p.v[data-k]").forEach(function(p){ if(SEL.keys[p.dataset.k]) p.classList.add("sel"); });
 }
-function bsCopy(){
-  var vs=bsList(); if(!vs.length) return;
-  var bi=BV.bi, c=BV.c, t;
-  if(vs.length===1) t=(bibVerse(bi,c,vs[0])||"")+" ("+BOOK_ORDER[bi]+" "+c+":"+vs[0]+", 개역한글)";
-  else {
-    var head=BOOK_ORDER[bi]+" "+c+":"+bsRanges(vs).map(function(r){ return r[0]===r[1]?r[0]:r[0]+"-"+r[1]; }).join(", ")+" (개역한글)";
-    t=head+"\n"+vs.map(function(v){ return v+" "+(bibVerse(bi,c,v)||""); }).join("\n");
-  }
-  copyText(t,function(ok){ setSync(ok?vs.length+"절을 복사했습니다":"복사하지 못했습니다",!ok); if(ok) bsClear(); });
+function selStart(k){ SEL.scr=screenNow; SEL.keys={}; SEL.keys[k]=1; selMarkDom(); selPaint(); }
+function selToggle(k){ if(SEL.keys[k]) delete SEL.keys[k]; else SEL.keys[k]=1; if(!Object.keys(SEL.keys).length) SEL.scr=""; selMarkDom(); selPaint(); }
+function selClear(){ SEL.scr=""; SEL.keys={}; selMarkDom(); selPaint(); }
+function bsRanges(vs){ var out=[], s=null, p=null; vs.forEach(function(v){ if(s===null){ s=p=v; } else if(v===p+1){ p=v; } else { out.push([s,p]); s=p=v; } }); if(s!==null) out.push([s,p]); return out; }
+function selRange(vs){ return bsRanges(vs).map(function(r){ return r[0]===r[1]?r[0]:r[0]+"-"+r[1]; }).join(", "); }
+function selGroups(){
+  var g=[], last=null;
+  selKeys().forEach(function(k){ var p=k.split("|"), id=p[0]+"|"+p[1]; if(!last || last.id!==id){ last={id:id, b:p[0], bi:BOOK_ORDER.indexOf(p[0]), c:+p[1], vs:[]}; g.push(last); } last.vs.push(+p[2]); });
+  return g;
+}
+function selLabel(){ var lastB=""; return selGroups().map(function(g){ var t=(g.b!==lastB?BOOK_SHORT[g.bi]+" ":"")+g.c+":"+selRange(g.vs); lastB=g.b; return t; }).join(" · "); }
+function selText(){
+  var gs=selGroups();
+  if(gs.length===1 && gs[0].vs.length===1){ var g=gs[0]; return (bibVerse(g.bi,g.c,g.vs[0])||"")+" ("+g.b+" "+g.c+":"+g.vs[0]+", 개역한글)"; }
+  return gs.map(function(g){ return g.b+" "+g.c+":"+selRange(g.vs)+" (개역한글)\n"+g.vs.map(function(v){ return v+" "+(bibVerse(g.bi,g.c,v)||""); }).join("\n"); }).join("\n\n");
+}
+function selPaint(){
+  var on=selOn(), bar=$("selbar");
+  bar.hidden=!on;
+  document.body.classList.toggle("selon",on);
+  if(!on) return;
+  $("selref").innerHTML='<b>'+esc(selLabel())+'</b><span>'+selKeys().length+'절 · 절을 눌러 더하거나 빼기</span>';
+  $("selshare").hidden=!navigator.share;
+}
+function selCopy(){ var n=selKeys().length; copyText(selText(),function(ok){ setSync(ok?n+"절을 복사했습니다":"복사하지 못했습니다",!ok); if(ok) selClear(); }); }
+function selShare(){
+  if(!navigator.share){ selCopy(); return; }
+  try{ navigator.share({text:selText()}).then(function(){ selClear(); },function(){}); }catch(e){ selCopy(); }
 }
 
 /* ── 이 장의 자료 (인물 · 지명 · 단위 · 사전 · 핵심 원어) ── */
@@ -12501,7 +12571,7 @@ function applyScreen(which,restoreY){
   if(screenNow==="tlist" && which!=="tlist") tyDone=null;
   if(screenNow==="rday" && which!=="rday") rdMemoSave();   /* 묵상을 쓰다 나가도 남깁니다 */
   if(screenNow==="oday" && which!=="oday") odMemoSave();
-  if(screenNow==="btext" && which!=="btext"){ BSEL={}; document.querySelectorAll("#btverses p.v.sel").forEach(function(p){ p.classList.remove("sel"); }); $("btsel").hidden=true; document.body.classList.remove("selbar"); }
+  if(SEL.scr && which!==SEL.scr){ SEL.scr=""; SEL.keys={}; document.querySelectorAll("p.v.sel").forEach(function(p){ p.classList.remove("sel"); }); $("selbar").hidden=true; document.body.classList.remove("selon"); }
   if(screenNow==="tview" && which!=="tview") trCloseFrame();  /* 전도지를 닫으면 소리 · 움직임도 멈춥니다 */
   if(screenNow==="tract" && which!=="tract") plNoteFlush();
   if(screenNow==="mine" && which!=="mine" && which!=="vcard" && which!=="mypick"){ MY.share=false; MY.sel={}; }
@@ -12548,6 +12618,7 @@ function applyScreen(which,restoreY){
     ? "묵상 · 암송 · 공부 · 읽기 · 듣기" : "";
   paintNav();
   armPoll();
+  setTimeout(navSave,0);
   if(typeof restoreY==="number"){
     SCROLL_WANT={s:which, y:restoreY, t:Date.now()};
     window.scrollTo(0,restoreY);
@@ -12586,14 +12657,14 @@ function show(which){
   screenLog.length=depth;
   screenLog[depth]=which;
   applyScreen(which);
-  try{ history.pushState({nav:depth},""); }catch(e){}
+  try{ history.pushState(hst({nav:depth}),""); }catch(e){}
 }
 
 /* 지금 화면 자리를 다른 화면으로 바꿉니다(뒤로 가기 길에 끼어들지 않게) */
 function replaceScreen(which){
   screenLog[depth]=which;
   applyScreen(which);
-  try{ history.replaceState({nav:depth},""); }catch(e){}
+  try{ history.replaceState(hst({nav:depth}),""); }catch(e){}
 }
 /* 마친 뒤 그 화면으로: 바로 앞이 그 화면이면 뒤로, 아니면 자리를 바꿉니다 */
 function landOn(which){
@@ -12607,6 +12678,7 @@ function goBack(){
 
 window.addEventListener("popstate",function(e){
   var d=(e.state && typeof e.state.nav==="number") ? e.state.nav : 0;
+  if(NAV_SHIFT && e.state && e.state.gen!==NAV_GEN) d=Math.max(0,d-NAV_SHIFT);   /* 새로고침 전 칸 */
   if(SHEET.open){                          /* 열린 창만 닫습니다 */
     sheetClosed();
     var after=SHEET.after; SHEET.after=null;
@@ -12619,6 +12691,51 @@ window.addEventListener("popstate",function(e){
   depth=d;
   applyScreen(screenLog[d]||"home", back ? (scrollLog[d]||0) : undefined);
 });
+
+/* ═══ 새로고침해도 보던 화면 · 자리로 (v12) ═══
+   지나온 화면 길(screenLog) · 자리 · 열어 둔 장/날을 이 탭(sessionStorage)에 적어 두었다가, 같은 기록 칸에서
+   새로고침하면 그대로 다시 엽니다. 대회 · 채점처럼 이어 갈 수 없는 화면은 그 앞 화면까지만 엽니다. */
+var NAV_SS="navfest.nav";
+var NAV_OK={home:1,my:1,hubm:1,hubr:1,hubl:1,fsrs:1,crop:1,mine:1,glance:1,read:1,rday:1,rnotes:1,order:1,oday:1,
+            bible:1,bchap:1,btext:1,smemo:1,tract:1,vcard:1,tlist:1};
+function navSave(){
+  try{
+    var ys=scrollLog.slice(0,depth); ys[depth]=window.scrollY||0;
+    sessionStorage.setItem(NAV_SS,JSON.stringify({log:screenLog.slice(0,depth+1), d:depth, ys:ys,
+      bv:[BV.bi,BV.c], rd:RD.day, od:OD.day, pv:[PV.pn,PV.a]}));
+  }catch(e){}
+}
+var navSaveT=null;
+window.addEventListener("scroll",function(){ clearTimeout(navSaveT); navSaveT=setTimeout(navSave,500); },{passive:true});
+window.addEventListener("pagehide",navSave);
+function navRestore(){
+  var o=null, hs=history.state;
+  try{ o=JSON.parse(sessionStorage.getItem(NAV_SS)||"null"); }catch(e){}
+  if(!o || !o.log || !hs || typeof hs.nav!=="number" || hs.nav!==o.d || o.log.length!==o.d+1 || o.log[0]!=="home") return false;
+  if(o.bv && o.bv[0]>=0 && o.bv[0]<66){ BV.bi=o.bv[0]; BV.c=Math.max(1,Math.min(CH_V[o.bv[0]].length,o.bv[1]||1)); }
+  if(typeof o.rd==="number") RD.day=o.rd;
+  if(typeof o.od==="number") OD.day=o.od;
+  if(o.pv){ PV.pn=o.pv[0]||""; PV.a=o.pv[1]||""; PV.list=null; }
+  var ok=function(id){
+    if(!NAV_OK[id]) return false;
+    if(id==="vcard") return !!(PV.a && VERSE_BOOK[PV.a]);
+    if(id==="oday") return !!(OD.plan && odBuild(OD.plan));
+    if(id==="rday") return RD.day>=0 && RD.day<300;
+    return true;
+  };
+  var log=[], ys=[];
+  o.log.forEach(function(id,i){ if(ok(id)){ log.push(id); ys.push((o.ys||[])[i]||0); } });   /* 이어 갈 수 없는 화면은 건너뜀 */
+  if(log.length<2) return false;
+  var topKept=ok(o.log[o.d]);
+  screenLog=log; depth=log.length-1; NAV_SHIFT=o.d-depth;
+  for(var j=0;j<depth;j++) scrollLog[j]=ys[j];
+  try{ history.replaceState(hst({nav:depth}),""); }catch(e){}
+  var top=log[depth];
+  if(top==="rnotes"){ RN.from="read"; paintReadNotes(); }
+  applyScreen(top, topKept ? ys[depth] : 0);
+  if(top==="vcard") pvLoad();
+  return true;
+}
 
 function goHome(){
   flushSave();                     /* 채점하던 것이 있으면 먼저 보냅니다 */
@@ -13317,28 +13434,17 @@ $("btprev").addEventListener("click",function(){ bvStep(-1); });
 $("btnext").addEventListener("click",function(){ bvStep(1); });
 $("btprev2").addEventListener("click",function(){ bvStep(-1); });
 $("btnext2").addEventListener("click",function(){ bvStep(1); });
-$("btverses").addEventListener("click",function(e){
-  var v=e.target.closest("p.v[data-k]");
-  if(v && Object.keys(BSEL).length && !e.target.closest(".memotag,[data-vtg],.tg")){   /* 「여러 절 고르기」 중 — 누르면 고르고, 다시 누르면 풉니다 */
-    var n=+v.dataset.k.split("|")[2];
-    if(BSEL[n]){ delete BSEL[n]; v.classList.remove("sel"); } else { BSEL[n]=1; v.classList.add("sel"); }
-    bsPaint(); return;
-  }
-  verseClick(e,{multi:true, src:"study"});
-});
+$("btverses").addEventListener("click",function(e){ verseClick(e,{src:"study"}); });
 $("btmodes").addEventListener("click",function(e){
   var b=e.target.closest("[data-btm]"); if(!b) return;
   if(b.dataset.btm==="guide"){ BV.guide=!BV.guide; paintBtGuide(); }
   else { BV.study=!BV.study; bvTagsPaint(); if(BV.study && !BV.whoOpen) bvChapterData(); }
   bvModesPaint();
 });
-$("btsel").addEventListener("click",function(e){
-  var b=e.target.closest("[data-bs]"); if(!b) return;
-  var a=b.dataset.bs, vs=bsList();
-  if(a==="copy") bsCopy();
-  else if(a==="clear") bsClear();
-  else if(a==="xref" && vs.length===1){ var v1=vs[0]; bsClear(); openXref(BV.bi,BV.c,v1); }
-  else if(a==="study" && vs.length===1){ openStudy(BV.bi,BV.c,vs[0]); }
+$("selbar").addEventListener("click",function(e){
+  var b=e.target.closest("[data-sel]"); if(!b) return;
+  var a=b.dataset.sel;
+  if(a==="copy") selCopy(); else if(a==="share") selShare(); else selClear();
 });
 (function(){
   var x0=null, y0=0;
@@ -13852,22 +13958,27 @@ paintVerPick();
 paintFzPick();
 paintThemePick();
 paintAcct();
-try{ history.replaceState({nav:0},""); }catch(e){}
+/* 새로고침이면 보던 화면으로(로그인에서 돌아왔거나 주소로 연 경우는 빼고) */
+var NAV_BACK=false;
+if(!URL_CODE && URL_FIELD.length!==4 && !AUTH_ERR && !URL_VIEW && !/[?&#](code|access_token)=/.test(location.href)){
+  try{ NAV_BACK=navRestore(); }catch(e){ NAV_BACK=false; }
+}
+if(!NAV_BACK){ try{ history.replaceState(hst({nav:0}),""); }catch(e){} }
 if(AUTH_ERR){
   setSync(authErrText(),true);
-  try{ history.replaceState({nav:0},"",BASE_URL+(URL_CODE?"?c="+encodeURIComponent(URL_CODE):"")); }catch(e){}
+  try{ history.replaceState(hst({nav:0}),"",BASE_URL+(URL_CODE?"?c="+encodeURIComponent(URL_CODE):"")); }catch(e){}
 }
 if(Q.has("demo")) loadDemo(); else initAuth();
 setMode("practice");
 paintHomeCount();
 paintReadCount();
 paintTractCount();
-applyScreen("home");
+if(!NAV_BACK) applyScreen("home");
 if(URL_CODE) joinContest(URL_CODE,{fromUrl:true});
 /* 바로가기로 열었거나, 「앱을 열면 한눈에부터」를 켜 둔 경우 (로그인에서 돌아온 때는 빼고) */
-if(!URL_CODE && URL_FIELD.length!==4 && !AUTH_ERR &&
+if(!NAV_BACK && !URL_CODE && URL_FIELD.length!==4 && !AUTH_ERR &&
    !/[?&#](code|access_token)=/.test(location.href) && (URL_VIEW || startPref()==="glance")){
-  try{ if(URL_VIEW) history.replaceState({nav:0},"",BASE_URL); }catch(e){}
+  try{ if(URL_VIEW) history.replaceState(hst({nav:0}),"",BASE_URL); }catch(e){}
   var v0=URL_VIEW||"glance";
   if(v0==="mine") openMine(); else if(v0==="cards") openFsrs(); else if(v0==="tract") openTract();
   else if(v0==="bible") openBible(); else if(v0==="order") openOrder(); else if(v0==="read") openRead(); else openGlance();
