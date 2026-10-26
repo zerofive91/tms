@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<script>try{var z=localStorage.getItem("navfest.fz");if(z==="110"||z==="120"||z==="130")document.documentElement.setAttribute("data-fz",z);}catch(e){}</script>
+<script>try{var z=localStorage.getItem("navfest.fz");if(z==="110"||z==="120"||z==="130")document.documentElement.setAttribute("data-fz",z);var t=localStorage.getItem("navfest.theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <meta name="theme-color" content="#3C7C67">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234E9A80%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232B6150%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22lf%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23B8F0D6%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237DD6B0%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22rf%22%20x1%3D%221%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23D2F2A6%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%239ED36E%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22url%28%23bg%29%22%2F%3E%20%3Cpath%20d%3D%22M31%2044.5c-4.6-3-10.2-4.3-16.5-3.9V51c6.3-.4%2011.9.9%2016.5%203.9z%22%20fill%3D%22%23FFF8EC%22%2F%3E%20%3Cpath%20d%3D%22M33%2044.5c4.6-3%2010.2-4.3%2016.5-3.9V51c-6.3-.4-11.9.9-16.5%203.9z%22%20fill%3D%22%23F4E7D2%22%2F%3E%20%3Cpath%20d%3D%22M31%2044.5v10.4h2V44.5z%22%20fill%3D%22%23E2CFB2%22%2F%3E%20%3Cpath%20d%3D%22M30.9%2045V29.5h2.2V45z%22%20fill%3D%22%23DFF6ED%22%2F%3E%20%3Cpath%20d%3D%22M31.2%2032.2C22.4%2032.3%2017.2%2026.6%2017.5%2017.3c9.4-.6%2014%204.9%2013.7%2014.9z%22%20fill%3D%22url%28%23lf%29%22%2F%3E%20%3Cpath%20d%3D%22M32.8%2035.6c-.4-10.1%204.2-15.6%2013.7-14.9.3%209.3-4.9%2014.9-13.7%2014.9z%22%20fill%3D%22url%28%23rf%29%22%2F%3E%20%3Cpath%20d%3D%22M21.2%2020.7c3.4%202.1%206%204.9%207.7%208.6%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.55%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M42.8%2024.2c-3.4%202.1-6%204.9-7.7%208.6%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.5%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Cpath%20d%3D%22M49.5%208.5l1.35%203.15%203.15%201.35-3.15%201.35-1.35%203.15-1.35-3.15-3.15-1.35%203.15-1.35z%22%20fill%3D%22%23F7D46A%22%2F%3E%20%3C%2Fsvg%3E%20">
 <link rel="apple-touch-icon" href="data:image/png;base64,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">
-<meta name="apple-mobile-web-app-title" content="암송 Festival">
+<meta name="apple-mobile-web-app-title" content="말씀의 손">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
-<title>네비게이토 암송 Festival</title>
+<title>네비게이토 말씀의 손</title>
 <meta name="description" content="암송할 구절을 뽑고 채점합니다. 대회를 만들어 함께 겨루고, 개인 기록으로 자라는 과정을 봅니다.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="네비게이토 암송 Festival">
+<meta property="og:title" content="네비게이토 말씀의 손">
 <meta property="og:description" content="암송할 구절을 뽑고 채점합니다. 대회를 만들어 함께 겨루고, 개인 기록으로 자라는 과정을 봅니다.">
 <meta property="og:locale" content="ko_KR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,8 +97,8 @@ body.docked{padding-bottom:calc(96px * var(--fz))}
 .wrap{max-width:640px;margin:0 auto;padding:0 18px}
 
 /* ── 헤더 ── */
-header{padding:28px 0 20px}
-.brand{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;
+header{padding:28px 0 20px;display:flex;align-items:flex-start;gap:10px}
+.brand{display:flex;gap:14px;align-items:flex-start;flex:1 1 auto;min-width:0;text-align:left;
   background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
 .logo{flex:0 0 auto;width:50px;height:auto;background:var(--surface);
   border-radius:50%;padding:3px;box-shadow:var(--shadow)}
@@ -109,6 +109,40 @@ header{padding:28px 0 20px}
 .brand h1 em{font-style:normal;color:var(--brand)}
 .lede{margin:8px 0 0;font-size:calc(13.5px * var(--fz));color:var(--ink-soft)}
 body.compact header{padding:18px 0 14px}
+
+/* ── 오른쪽 위 로그인 · 마이페이지 ── */
+.acctbtn{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;margin-top:2px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;
+  padding:5px 12px 5px 5px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer;
+  box-shadow:var(--shadow);white-space:nowrap}
+.acctbtn .av{width:24px;height:24px;border-radius:50%;background:var(--tint);color:var(--brand);
+  display:inline-flex;align-items:center;justify-content:center;overflow:hidden;font-size:12px}
+.acctbtn .av img{width:100%;height:100%;object-fit:cover}
+.acctbtn .av .ic{width:16px;height:16px}
+.acctbtn[aria-current="page"]{border-color:var(--brand);color:var(--brand)}
+/* ── 마이페이지 ── */
+.mystats{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.mystats button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);border-radius:12px;padding:11px 12px;font:inherit;cursor:pointer}
+.mystats .ic{flex:0 0 auto;width:26px;height:26px;color:var(--brand)}
+.mystats b{display:block;font-size:calc(14px * var(--fz))}
+.mystats span{display:block;font-size:calc(12px * var(--fz));color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.mystats .bar{display:block;height:5px;border-radius:9px;background:var(--tint);margin-top:6px;overflow:hidden}
+.mystats .bar i{display:block;height:100%;background:var(--brand);border-radius:9px}
+.mystats .txt{flex:1 1 auto;min-width:0}
+.mystats .chev{flex:0 0 auto;color:var(--ink-soft)}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px}
+.badge{border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--surface);min-width:0}
+.badge .ic{width:26px;height:26px;color:var(--ink-soft);opacity:.45}
+.badge b{display:block;font-size:calc(13px * var(--fz));margin-top:4px;color:var(--ink-soft)}
+.badge span{display:block;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);margin-top:2px;line-height:1.4}
+.badge.got{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 8%,var(--surface))}
+.badge.got .ic{color:var(--brand);opacity:1}
+.badge.got b{color:var(--ink)}
+.themepick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.themepick button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;
+  padding:9px 4px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
+.themepick button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--hi)}
 body.compact .brand h1{font-size:calc(20px * var(--fz))}
 body.compact .logo{width:38px}
 body.compact .lede{display:none}
@@ -876,6 +910,16 @@ footer{color:var(--ink-soft);font-size:calc(11px * var(--fz));margin-top:18px;le
 .modesub>span{min-width:0;max-width:100%}
 .modecard{padding:14px 16px}
 .modecard .modeicon{flex-basis:42px;height:42px}
+.modecard.off{opacity:.55;cursor:default}
+.modecard.off:hover{border-color:var(--line-soft)}
+.modecard .soon{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--tint);color:var(--ink-soft);
+  font-style:normal;font-size:calc(11px * var(--fz));font-weight:700;vertical-align:middle}
+.modesub .mcount{display:block;font-style:normal;font-size:calc(10.5px * var(--fz));font-weight:700;color:var(--brand);margin-top:2px}
+.stdtop .sbox{margin:0}
+.stdlinks{display:flex;gap:7px;margin-top:10px}
+.stdlinks button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:5px 14px;
+  font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
+.stdlinks button:hover{border-color:var(--brand)}
 .modecard .mcount{display:block;font-style:normal;font-size:calc(12px * var(--fz));font-weight:700;color:var(--brand);margin-top:3px}
 html[data-fz="130"] .mgsubs{grid-template-columns:repeat(2,minmax(0,1fr))}
 
@@ -1751,10 +1795,16 @@ ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(
   font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
 .btmodes button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--hi)}
 .btmhint{flex:1 1 160px;min-width:0;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);line-height:1.45}
-.rdv p.v .tg,.stver .tg{font-weight:inherit;border-radius:4px;padding:0 1px;cursor:pointer;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
-.tg.p{color:var(--tg-p);text-decoration-color:color-mix(in srgb,var(--tg-p) 55%,transparent)}
-.tg.l{color:var(--tg-l);text-decoration-color:color-mix(in srgb,var(--tg-l) 55%,transparent)}
-.tg.u{color:var(--tg-u);text-decoration-style:dotted;text-decoration-color:var(--tg-u)}
+/* 본문 속 인물 · 지명 · 단위 — 글자색은 본문 그대로 두고 옅은 바탕과 점선 밑줄만(오래 읽어도 눈이 덜 피곤하게).
+   한 어절에 둘 이상 걸리면 단위 > 인물 > 지명 차례로 하나만 표시합니다(stMarks). */
+.rdv p.v .tg,.stver .tg{color:inherit;font-weight:inherit;border-radius:3px;padding:0 1px;cursor:pointer;text-decoration:underline dotted;text-decoration-thickness:1.5px;text-underline-offset:4px}
+.tg.p{background:var(--tg-pb);text-decoration-color:var(--tg-p)}
+.tg.l{background:var(--tg-lb);text-decoration-color:var(--tg-l)}
+.tg.u{background:var(--tg-ub);text-decoration-color:var(--tg-u)}
+.datanote{margin-top:18px;border-top:1px solid var(--line);padding-top:10px}
+.datanote>summary{cursor:pointer;font-weight:700;color:var(--brand);font-size:calc(13.5px * var(--fz));padding:4px 0}
+.datanote ul{margin:8px 0 0;padding-left:18px;font-size:calc(12.5px * var(--fz));line-height:1.6;color:var(--ink-soft)}
+.datanote li{margin:0 0 6px}
 .vtg{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 6px 18px}
 .vtg button{border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:999px;padding:1px 9px;
   font:inherit;font-size:calc(11.5px * var(--fz));font-weight:700;line-height:1.7;cursor:pointer}
@@ -1782,6 +1832,37 @@ body.selbar{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 /* 이 절 자료 창 */
 .shback{display:inline-flex;align-items:center;gap:4px;margin:0 0 8px;border:0;background:var(--tint);color:var(--brand);border-radius:999px;
   padding:4px 12px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
+/* 형광펜 4색 — 본문 · 묵상 화면 · 고르는 단추가 같은 변수를 씁니다 */
+:root{--fp-y:#FFE58A;--fp-g:#BDEBC6;--fp-b:#BFDDF8;--fp-p:#F8C9DD}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--fp-y:rgba(240,200,80,.34);--fp-g:rgba(110,200,140,.30);--fp-b:rgba(110,170,230,.32);--fp-p:rgba(230,130,175,.32)} }
+:root[data-theme="dark"]{--fp-y:rgba(240,200,80,.34);--fp-g:rgba(110,200,140,.30);--fp-b:rgba(110,170,230,.32);--fp-p:rgba(230,130,175,.32)}
+p.v.fp-y .vt,.rnverse.fp-y .vt{background:var(--fp-y);border-radius:3px}
+p.v.fp-g .vt,.rnverse.fp-g .vt{background:var(--fp-g);border-radius:3px}
+p.v.fp-b .vt,.rnverse.fp-b .vt{background:var(--fp-b);border-radius:3px}
+p.v.fp-p .vt,.rnverse.fp-p .vt{background:var(--fp-p);border-radius:3px}
+p.v.vn>.vt::after{content:"✎";margin-left:4px;font-size:.8em;color:var(--brand)}
+.rnverse{margin:10px 0 0;font-size:calc(15px * var(--fz));line-height:1.7;color:var(--ink)}
+.vned{margin:10px 0 4px}
+.vncol{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.vncol>span{font-size:calc(12.5px * var(--fz));font-weight:700;color:var(--ink-soft);margin-right:2px}
+.vncol .sw{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.vncol .sw.fp-y{background:var(--fp-y)} .vncol .sw.fp-g{background:var(--fp-g)} .vncol .sw.fp-b{background:var(--fp-b)} .vncol .sw.fp-p{background:var(--fp-p)}
+.vncol .sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--surface) inset}
+.vncol .swx{border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:999px;padding:3px 11px;font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
+.vnnote{margin-top:10px}
+.vnnote>summary{display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--brand);font-size:calc(13.5px * var(--fz));padding:4px 0;list-style:none}
+.vnnote>summary::-webkit-details-marker{display:none}
+.vnnote>summary svg{width:17px;height:17px}
+.vnnote textarea{display:block;width:100%;box-sizing:border-box;margin-top:8px;border:1.5px solid var(--line);border-radius:11px;background:var(--surface);color:var(--ink);
+  padding:10px 12px;font:inherit;font-size:calc(15px * var(--fz));line-height:1.6;resize:vertical}
+.vnrow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.vnrow .vnsaved{flex:1 1 auto;min-width:0;font-size:calc(12px * var(--fz));color:var(--ink-soft)}
+.vnrow button{flex:0 0 auto;border:0;background:var(--brand);color:var(--hi);border-radius:999px;padding:6px 18px;font:inherit;font-size:calc(13.5px * var(--fz));font-weight:700;cursor:pointer}
+.stacts{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.stacts button{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;
+  padding:5px 12px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
+.stacts button svg{width:16px;height:16px;color:var(--brand)}
+.stacts button[aria-pressed="true"]{background:var(--tint);border-color:var(--brand)}
 .stnav{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
 .stnav button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:3px 11px;
   font:inherit;font-size:calc(12.5px * var(--fz));font-weight:700;cursor:pointer}
@@ -1807,6 +1888,14 @@ section[id^="st-"]{scroll-margin-top:8px}
 .iwg{grid-area:g;font-size:calc(13px * var(--fz));color:var(--ink)}
 .iwg b{font-weight:700}
 .iwm{grid-area:m;font-size:calc(11.5px * var(--fz));color:var(--deep)}
+.iwh{margin:12px 2px 6px;font-size:calc(12.5px * var(--fz));font-weight:800;color:var(--ink)}
+.iwh:first-of-type{margin-top:4px}
+.iwh em{font-style:normal;font-weight:500;color:var(--ink-soft);font-size:calc(11.5px * var(--fz));margin-left:4px}
+.iwkg{font-weight:700;color:var(--deep);white-space:normal;text-align:right;display:inline-block;max-width:11em}
+.iwl2 li button{background:color-mix(in srgb,var(--tint) 45%,var(--bg))}
+.iwg span[lang="en"]{color:var(--ink-soft);font-size:calc(12px * var(--fz))}
+.iwgr{font-style:normal;color:var(--deep)}
+.lxen{color:var(--ink-soft);font-size:calc(12.5px * var(--fz))}
 .stnote{margin:8px 2px 0;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);line-height:1.5}
 .stxg{padding:8px 0;border-top:1px solid var(--line-soft)}
 .stxg:first-of-type{border-top:0}
@@ -1864,7 +1953,7 @@ section[id^="st-"]{scroll-margin-top:8px}
 .lxdef{font-size:calc(13px * var(--fz));line-height:1.65;color:var(--ink);background:var(--bg);border-radius:12px;padding:10px 12px;word-break:break-word;overflow-wrap:anywhere}
 /* 성경 사전 */
 .dckind{margin-top:10px}
-.dckind .cbtn{padding:8px 4px;font-size:calc(13px * var(--fz));min-width:48px}
+.dckind .cbtn{padding:8px 2px;font-size:calc(13px * var(--fz));min-width:0;flex:1 1 0}
 .dcini{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
 .dcini button{min-width:32px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-soft);border-radius:8px;padding:4px 6px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;cursor:pointer}
 .dcini button.on{background:var(--secondary);border-color:var(--secondary);color:#1F3D18}
@@ -1879,6 +1968,12 @@ section[id^="st-"]{scroll-margin-top:8px}
 .dcbody p{margin:0 0 10px}
 .dcgt{margin:4px 0 0;font-size:calc(13px * var(--fz))}
 .dcgt a{color:var(--brand);font-weight:700}
+.dcko{background:var(--bg);border-radius:12px;padding:12px 14px}
+.dcko p{margin:0;font-size:calc(15px * var(--fz));line-height:1.8;color:var(--ink);word-break:keep-all;overflow-wrap:anywhere}
+.dcen{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.dcen>summary{cursor:pointer;font-weight:700;color:var(--brand);font-size:calc(13.5px * var(--fz));padding:6px 0;list-style-position:inside}
+.dcen[open]>summary{margin-bottom:8px}
+.dcs{font-style:normal;font-size:calc(10.5px * var(--fz));font-weight:800;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--ink-soft)}
 /* 도량형 */
 .untabs .cbtn{padding:9px 4px;font-size:calc(13px * var(--fz));min-width:52px}
 .unhier{margin:-4px 0 12px;font-size:calc(13px * var(--fz));line-height:1.6;color:var(--ink);background:var(--bg);border-radius:10px;padding:8px 12px}
@@ -1925,10 +2020,11 @@ section[id^="st-"]{scroll-margin-top:8px}
     <button type="button" class="brand" id="brand" title="처음 화면으로">
       <img class="logo" src="data:image/png;base64,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" alt="네비게이토">
       <span>
-        <h1>네비게이토<br>암송 <em>Festival</em></h1>
-        <span class="lede" id="lede">구절을 뽑고, 싹부터 추수까지 채점합니다</span>
+        <h1>네비게이토<br>말씀의 <em>손</em></h1>
+        <span class="lede" id="lede">묵상 · 암송 · 공부 · 읽기 · 듣기</span>
       </span>
     </button>
+    <button type="button" class="acctbtn" id="acctbtn"><span class="av"><svg class="ic" viewBox="0 0 24 24"></svg></span><span id="accttxt">로그인</span></button>
   </header>
 
   <!-- ===== 뒤로 가기 ===== -->
@@ -1945,23 +2041,11 @@ section[id^="st-"]{scroll-margin-top:8px}
   <div id="home">
     <p class="eyebrow">무엇을 하시겠어요</p>
     <div class="modes" id="modes"></div>
-    <div class="panel" style="margin-top:14px">
-      <p class="eyebrow">성경 본문</p>
-      <div class="vertoggle verpick" id="verpick" role="group" aria-label="성경 역본">
-        <button type="button" data-ver="gae">개역개정</button>
-        <button type="button" data-ver="han">개역한글</button>
-      </div>
-      <p class="fixednote">뽑기 · 타이핑 · 암송에서 이 역본으로 보여 줍니다. 이 기기에 기억해 둡니다.</p>
-      <p class="eyebrow" style="margin-top:20px">글씨 크기</p>
-      <div class="fzpick" id="fzpick" role="group" aria-label="글씨 크기">
-        <button type="button" data-fz="100"><b>가</b><span>100%</span></button>
-        <button type="button" data-fz="110"><b>가</b><span>110%</span></button>
-        <button type="button" data-fz="120"><b>가</b><span>120%</span></button>
-        <button type="button" data-fz="130"><b>가</b><span>130%</span></button>
-      </div>
-      <p class="fixednote">모든 화면의 글씨가 이 크기로 바뀝니다. 이 기기에 기억해 둡니다.</p>
-    </div>
   </div>
+
+  <!-- ===== 암송 · 읽기 — 처음 화면 큰 단추 안의 메뉴 ===== -->
+  <div id="hubm" hidden><div class="modes" id="hubmmodes"></div></div>
+  <div id="hubr" hidden><div class="modes" id="hubrmodes"></div></div>
 
   <!-- ===== 대회 들어가기 · 만들기 ===== -->
   <div id="lobby" hidden>
@@ -2205,6 +2289,71 @@ section[id^="st-"]{scroll-margin-top:8px}
     </div>
   </div>
 
+  <!-- ===== 마이페이지 · 로그인 · 나의 걸음 · 배지 · 설정 ===== -->
+  <div id="my" hidden>
+    <div class="panel" id="mysignin" hidden>
+      <p class="eyebrow">로그인</p>
+      <p class="rmeta" style="margin:0 0 18px">로그인하면 암송 · 읽기 · 묵상 기록이 계정에 쌓여 어느 기기에서나 이어집니다. 로그인하지 않아도 공부와 읽기는 그대로 쓸 수 있습니다.</p>
+      <button type="button" class="go" id="mysigninG">구글 계정으로 시작하기</button>
+      <button type="button" class="go kakao" id="mysigninK">카카오 계정으로 시작하기</button>
+      <p class="note" id="mysignnote">기록은 로그인한 계정에 묶이고, 본인만 읽고 쓸 수 있습니다.</p>
+    </div>
+    <div id="myPanels" hidden>
+      <div class="panel">
+        <div class="mehead" style="margin:0">
+          <div class="meavatar" id="myavatar"></div>
+          <div style="min-width:0">
+            <div class="mename" id="myname"></div>
+            <div class="memail" id="myemail"></div>
+          </div>
+          <button type="button" class="signout" id="mysignout">나가기</button>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">나의 걸음</p>
+        <ul class="mystats" id="mystats"></ul>
+        <p class="live" id="mylive" style="margin:12px 0 0" hidden></p>
+      </div>
+      <div class="panel">
+        <p class="eyebrow" id="mybadgehead">배지</p>
+        <div class="badges" id="mybadges"></div>
+      </div>
+    </div>
+    <div class="panel" id="mysettings">
+      <p class="eyebrow">설정 · 이 기기에만 기억합니다</p>
+      <p class="eyebrow" style="margin-top:6px">성경 본문</p>
+      <div class="vertoggle verpick" id="verpick" role="group" aria-label="성경 역본">
+        <button type="button" data-ver="gae">개역개정</button>
+        <button type="button" data-ver="han">개역한글</button>
+      </div>
+      <p class="fixednote">뽑기 · 타이핑 · 암송에서 이 역본으로 보여 줍니다. 이 기기에 기억해 둡니다.</p>
+      <p class="eyebrow" style="margin-top:20px">글씨 크기</p>
+      <div class="fzpick" id="fzpick" role="group" aria-label="글씨 크기">
+        <button type="button" data-fz="100"><b>가</b><span>100%</span></button>
+        <button type="button" data-fz="110"><b>가</b><span>110%</span></button>
+        <button type="button" data-fz="120"><b>가</b><span>120%</span></button>
+        <button type="button" data-fz="130"><b>가</b><span>130%</span></button>
+      </div>
+      <p class="fixednote">모든 화면의 글씨가 이 크기로 바뀝니다. 이 기기에 기억해 둡니다.</p>
+      <p class="eyebrow" style="margin-top:20px">화면 밝기</p>
+      <div class="themepick" id="themepick" role="group" aria-label="화면 밝기">
+        <button type="button" data-theme="auto">기기 따라</button>
+        <button type="button" data-theme="light">밝게</button>
+        <button type="button" data-theme="dark">어둡게</button>
+      </div>
+      <p class="fixednote">「기기 따라」는 폰의 밝은 · 어두운 모드를 그대로 따릅니다.</p>
+      <details class="datanote">
+        <summary>자료 안내</summary>
+        <ul>
+          <li>원어와 개역한글 낱말의 짝은 컴퓨터로 맞춘 것 가운데 확실한 짝만 보여 줍니다. 그래도 드물게 어긋날 수 있습니다.</li>
+          <li>관주는 TSK 가운데 같은 원어나 관련 원어가 실제로 나오는 구절만 골랐습니다. 어느 말에서 이어지는지는 영어(KJV) 기준 말을 개역한글 낱말에 맞춘 것입니다.</li>
+          <li>본문 속 인물 · 지명 · 단위 표시는 이름과 본문을 맞대어 붙인 것이라, 이름이 같은 다른 사람이나 곳일 수 있습니다.</li>
+          <li>우리말 뜻 · 사전 요약 · 책 소개처럼 AI로 쓴 글에는 그 자리에 「AI 작성」 안내를 붙였습니다.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+
   <!-- ===== 복습 카드 · 오늘 ===== -->
   <div id="fsrs" hidden>
 
@@ -2429,6 +2578,7 @@ section[id^="st-"]{scroll-margin-top:8px}
       <button type="button" class="mid" id="vctype">타이핑으로 외우기</button>
       <button type="button" id="vcnext">다음 구절 &#8250;</button>
     </div>
+    <div class="panel" id="vcvn"></div>
     <div class="panel vcmy">
       <p class="eyebrow">내 암송에 두기</p>
       <div class="myslots" id="vcmy"></div>
@@ -2445,6 +2595,7 @@ section[id^="st-"]{scroll-margin-top:8px}
     <div class="panel myp">
       <div class="phead">
         <p class="eyebrow">지금 외우는 구절</p>
+        <button type="button" class="pickbtn" id="mysearchbtn">암송카드 찾기</button>
         <button type="button" class="pickbtn" id="myeditbtn">고치기</button>
       </div>
       <div id="myBody"></div>
@@ -2548,12 +2699,13 @@ section[id^="st-"]{scroll-margin-top:8px}
       <h2 class="rdtitle" id="rdDayDate"></h2>
       <p class="rdsum" id="rdDayState"></p>
       <div class="rdjump" id="rdjump"></div>
+      <div class="btmodes" id="rdmodes" role="group" aria-label="함께 볼 것"></div>
     </div>
     <div id="rdText"></div>
     <div class="panel rdmemo">
       <p class="eyebrow">한 줄 묵상</p>
       <textarea id="rdmemo" rows="3" maxlength="500" placeholder="오늘 말씀에서 마음에 남은 것을 한 줄로"></textarea>
-      <p class="fixednote" id="rdmemonote">절을 누르면 밑줄이 그어집니다. 묵상과 밑줄은 「묵상 모아 보기」에서 다시 봅니다.</p>
+      <p class="fixednote" id="rdmemonote">절을 누르면 그 절의 자료 창이 열리고, 거기서 형광펜을 칠하고 절마다 묵상을 적습니다. 모두 「묵상」에서 다시 봅니다.</p>
     </div>
     <div class="rdnav">
       <button type="button" id="rdprev">&#8249; 전날</button>
@@ -2565,8 +2717,9 @@ section[id^="st-"]{scroll-margin-top:8px}
   <!-- ===== 성경 읽기 · 묵상 모아 보기 ===== -->
   <div id="rnotes" hidden>
     <div class="panel">
-      <p class="eyebrow">묵상 모아 보기</p>
+      <p class="eyebrow">묵상</p>
       <p class="rmeta" style="margin:0" id="rnotesub"></p>
+      <div class="counts" id="rnsort" style="margin-top:12px"></div>
     </div>
     <div id="rnotelist"></div>
   </div>
@@ -2630,12 +2783,13 @@ section[id^="st-"]{scroll-margin-top:8px}
       <h2 class="rdtitle" id="odDayDate"></h2>
       <p class="rdsum" id="odDayState"></p>
       <div class="rdjump" id="odjump"></div>
+      <div class="btmodes" id="odmodes" role="group" aria-label="함께 볼 것"></div>
     </div>
     <div id="odText"></div>
     <div class="panel rdmemo">
       <p class="eyebrow">한 줄 묵상</p>
       <textarea id="odmemo" rows="3" maxlength="500" placeholder="오늘 말씀에서 마음에 남은 것을 한 줄로"></textarea>
-      <p class="fixednote" id="odmemonote">절을 누르면 밑줄이 그어지고, 다시 누르면 지워집니다. 묵상과 밑줄은 「묵상 모아 보기」에서 다시 봅니다.</p>
+      <p class="fixednote" id="odmemonote">절을 누르면 그 절의 자료 창이 열리고, 거기서 형광펜을 칠하고 절마다 묵상을 적습니다. 모두 「묵상」에서 다시 봅니다.</p>
     </div>
     <div class="rdnav">
       <button type="button" id="odprev">&#8249; 전날</button>
@@ -2646,6 +2800,17 @@ section[id^="st-"]{scroll-margin-top:8px}
 
   <!-- ===== 성경보기 · 책 고르기 ===== -->
   <div id="bible" hidden>
+    <div class="panel stdtop">
+      <form class="sbox" id="stdform" autocomplete="off">
+        <input type="search" id="stdq" placeholder="낱말 · 주소 (사랑 · 요 3:16)" enterkeyhint="search">
+        <button type="submit">찾기</button>
+      </form>
+      <div class="stdlinks">
+        <button type="button" data-std="map">지도</button>
+        <button type="button" data-std="people">인물</button>
+      </div>
+      <p class="fixednote">궁금한 것은 본문에서 절을 누르면 관주 · 원어 · 사전 · 인물 · 지명 · 도량형을 볼 수 있습니다.</p>
+    </div>
     <div class="panel bvresume" id="bvresume" hidden></div>
     <div class="panel">
       <div class="bvtabs" id="bvtabs" role="tablist"></div>
@@ -2774,7 +2939,7 @@ section[id^="st-"]{scroll-margin-top:8px}
       </form>
       <div class="counts dckind" id="dckind" role="group" aria-label="갈래"></div>
       <div class="dcini" id="dcini"></div>
-      <p class="fixednote">표제어 3,964개 · 본문은 영어 원문(1897)입니다. 항목 안의 성경 구절을 누르면 개역한글 본문으로 갑니다.</p>
+      <p class="fixednote">표제어 3,964개 · 영어 원문(1897). 자주 찾는 표제어 598개는 우리말 요약을 먼저 보여 주고 영어 원문은 「영문 원문 더보기」에 두었습니다. 구절을 누르면 개역한글 본문으로 갑니다.</p>
     </div>
     <div id="dcres"></div>
   </div>
@@ -3074,6 +3239,16 @@ function scaleNow(){
 }
 
 var ICON = {
+  /* 묵상 — 펜 끝 */
+  medi:
+    '<path d="M16.9 3.2a2.4 2.4 0 0 1 3.4 3.4L9.6 17.3l-4.7 1.3 1.3-4.7z"/>'+
+    '<path d="M14.8 5.3l3.4 3.4" fill="none" style="stroke:var(--hi)" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>'+
+    '<path d="M4.4 21.4h15.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" opacity=".28"/>',
+  /* 듣기 — 헤드폰 */
+  listen:
+    '<path d="M12 3.5a8.5 8.5 0 0 0-8.5 8.5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'+
+    '<path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'+
+    '<rect x="2.6" y="12.6" width="5" height="8" rx="2"/><rect x="16.4" y="12.6" width="5" height="8" rx="2"/>',
   /* 씨앗 — 흙 위에 놓인 한 알 */
   seed:
     '<path d="M12 2.4c3.8 3.1 5.7 6.5 5.7 10.1 0 4.5-2.4 7.5-5.7 7.5s-5.7-3-5.7-7.5c0-3.6 1.9-7 5.7-10.1z"/>'+
@@ -3602,6 +3777,132 @@ function paintVerPick(){
   });
 }
 
+/* 화면 밝기 — 기기 따라(auto) · 밝게 · 어둡게. 이 기기에만 */
+var THEME_KEY="navfest.theme";
+function themeNow(){ var t=document.documentElement.getAttribute("data-theme"); return (t==="light"||t==="dark") ? t : "auto"; }
+function setTheme(t){
+  if(t!=="light" && t!=="dark") t="auto";
+  if(t==="auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme",t);
+  try{ if(t==="auto") localStorage.removeItem(THEME_KEY); else localStorage.setItem(THEME_KEY,t); }catch(e){}
+  paintThemePick();
+}
+function paintThemePick(){
+  var cur=themeNow();
+  document.querySelectorAll("#themepick button").forEach(function(b){
+    b.setAttribute("aria-pressed", String(b.dataset.theme===cur));
+  });
+}
+
+/* ═══ 마이페이지 ═══
+   오른쪽 위 단추 — 로그인 전에는 「로그인」, 로그인하면 얼굴과 「마이」.
+   나의 걸음(암송 · 읽기표 · 성경순서로 · 묵상)과 배지는 이미 쌓인 기록으로 셉니다. */
+function paintAcct(){
+  var me=state.me, av=$("acctbtn").querySelector(".av");
+  if(me){
+    var nm=me.name||"나";
+    av.innerHTML = me.avatar ? '<img src="'+esc(me.avatar)+'" alt="">' : esc(nm.slice(0,1));
+    $("accttxt").textContent="마이";
+    $("acctbtn").title=nm+" · 마이페이지";
+  } else {
+    av.innerHTML=svg("person");
+    $("accttxt").textContent="로그인";
+    $("acctbtn").title="로그인 · 설정";
+  }
+}
+/* 과정(확신 · 지침, 60구절 …)마다 추수한 구절 / 전체 */
+function myCourseHarvest(course){
+  var n=0, of=0;
+  ALL.forEach(function(p){
+    if(p.course!==course) return;
+    p.list.forEach(function(a){
+      of++;
+      var r=state.progress[pkey(a,p.name)];
+      if(r && r.grade==="harvest") n++;
+    });
+  });
+  return {n:n, of:of};
+}
+function myNums(){
+  var c=reviewCounts(), rated=GROW_ORDER.reduce(function(a,k){ return a+c[k]; },0);
+  var rd=RD.start ? rdSummary() : null;
+  var od=null; if(OD.plan){ try{ od=odSummary(odBuild(OD.plan)); }catch(e){ od=null; } }
+  var vn=0, fp=0, dn=0;
+  Object.keys(VN.map).forEach(function(k){ var x=VN.map[k]; if((x.n||"").trim()) vn++; if(x.c) fp++; });
+  Object.keys(RD.notes).forEach(function(id){ var x=RD.notes[id]; if(x && (x.note||"").trim()) dn++; });
+  return {c:c, rated:rated, rd:rd, od:od, vn:vn, fp:fp, dn:dn, days:cropDayStats()};
+}
+function myBar(p){ return '<span class="bar"><i style="width:'+Math.max(0,Math.min(100,p))+'%"></i></span>'; }
+function myRow(go,ic,title,sub,pct){
+  return '<li><button type="button" data-mygo="'+go+'">'+svg(ic)+
+    '<span class="txt"><b>'+esc(title)+'</b><span>'+sub+'</span>'+(pct!==null?myBar(pct):'')+'</span>'+
+    '<span class="chev">&#8250;</span></button></li>';
+}
+var MY_BADGES=[
+  {k:"first",  ic:"harvest", n:"첫 추수",        d:"한 구절을 추수까지",          f:function(x){ return [x.c.harvest,1]; }},
+  {k:"c0",     ic:"fruit",   n:"확신 · 지침 완주", d:"과정의 모든 구절 추수",     f:function(){ var h=myCourseHarvest(COURSES[0]); return [h.n,h.of]; }},
+  {k:"c1",     ic:"fruit",   n:"60구절 완주",     d:"과정의 모든 구절 추수",      f:function(){ var h=myCourseHarvest(COURSES[1]); return [h.n,h.of]; }},
+  {k:"c2",     ic:"fruit",   n:"180구절 완주",    d:"과정의 모든 구절 추수",      f:function(){ var h=myCourseHarvest(COURSES[2]); return [h.n,h.of]; }},
+  {k:"c3",     ic:"fruit",   n:"242구절 완주",    d:"과정의 모든 구절 추수",      f:function(){ var h=myCourseHarvest(COURSES[3]); return [h.n,h.of]; }},
+  {k:"run7",   ic:"leaf",    n:"7일 이어 외우기",  d:"하루도 거르지 않고 7일",     f:function(x){ return [Math.min(x.days.best,7),7]; }},
+  {k:"run30",  ic:"leaf",    n:"30일 이어 외우기", d:"하루도 거르지 않고 30일",    f:function(x){ return [Math.min(x.days.best,30),30]; }},
+  {k:"rd25",   ic:"plan",    n:"읽기표 한 달",     d:"읽기표 25일 다 읽음",        f:function(x){ return [Math.min(x.rd?x.rd.done:0,25),25]; }},
+  {k:"rd300",  ic:"plan",    n:"읽기표 완주",      d:"읽기표 300일 다 읽음",       f:function(x){ return [x.rd?x.rd.done:0,300]; }},
+  {k:"od",     ic:"order",   n:"성경순서로 완독",  d:"세운 계획을 끝까지",         f:function(x){ return x.od ? [x.od.read,x.od.total] : [0,1]; }},
+  {k:"medi1",  ic:"medi",    n:"첫 묵상",          d:"묵상을 한 번 적음",          f:function(x){ return [Math.min(x.vn+x.dn,1),1]; }},
+  {k:"medi30", ic:"medi",    n:"묵상 30",          d:"묵상을 30번 적음",           f:function(x){ return [Math.min(x.vn+x.dn,30),30]; }}
+];
+var myLoading=false;
+function paintMy2(fetch){
+  var signed=!!state.me;
+  $("mysignin").hidden=signed;
+  $("myPanels").hidden=!signed;
+  paintVerPick(); paintFzPick(); paintThemePick();
+  if(!signed){
+    $("mysignnote").textContent = !online() ? DB_MSG
+      : (authErrText() || "기록은 로그인한 계정에 묶입니다. 구글과 카카오는 서로 다른 계정이라 기록도 따로 쌓입니다.");
+    $("mysignnote").className="note"+(authErrText()?" errline":"");
+    return;
+  }
+  var me=state.me, nm=me.name||"나";
+  $("myname").innerHTML=esc(nm)+'<span class="provider">'+esc(providerKo(me.provider))+'</span>';
+  $("myemail").textContent=me.email||(providerKo(me.provider)+" 계정으로 들어왔습니다");
+  $("myavatar").innerHTML = me.avatar ? '<img src="'+esc(me.avatar)+'" alt="">' : esc(nm.slice(0,1));
+
+  var x=myNums(), html="";
+  html+=myRow("me","recite","암송",
+    "전체 "+TOTAL_VERSES+"구절 중 "+x.rated+"구절 외움 · 추수 "+x.c.harvest+"구절", x.rated/TOTAL_VERSES*100);
+  html+=myRow("crop","barn","암송현황",
+    x.days.total ? "밭에 나온 날 "+x.days.total+"일 · 이번 달 "+x.days.month+"일 · 가장 길게 이어 온 날 "+x.days.best+"일"
+                 : "심고 거둔 기록을 날마다 봅니다", null);
+  html+=myRow("read","plan","성경읽기표",
+    x.rd ? "300일 중 "+x.rd.done+"일 다 읽음 · "+x.rd.pct+"%" : "아직 시작하지 않았습니다", x.rd ? x.rd.pct : null);
+  html+=myRow("order","order","성경순서로",
+    x.od ? x.od.read+" / "+x.od.total+" 읽음 · "+x.od.pct+"%" : "아직 계획이 없습니다", x.od ? x.od.pct : null);
+  html+=myRow("medi","medi","묵상",
+    "절 묵상 "+x.vn+" · 형광펜 "+x.fp+"절 · 읽기 묵상 "+x.dn, null);
+  $("mystats").innerHTML=html;
+
+  var got=0;
+  $("mybadges").innerHTML=MY_BADGES.map(function(b){
+    var r=b.f(x), ok=r[1]>0 && r[0]>=r[1];
+    if(ok) got++;
+    return '<div class="badge'+(ok?' got':'')+'">'+svg(b.ic)+'<b>'+esc(b.n)+'</b><span>'+esc(b.d)+
+      (ok ? ' · 받음' : (r[1]>1 ? ' · '+r[0]+' / '+r[1] : ''))+'</span></div>';
+  }).join("");
+  $("mybadgehead").textContent="배지 · "+got+" / "+MY_BADGES.length;
+
+  if(fetch!==false && !myLoading && online()){
+    myLoading=true;
+    setLive("mylive","불러오는 중…",true); $("mylive").hidden=false;
+    Promise.all([loadDays(), loadProgress(true)]).then(function(){
+      myLoading=false;
+      setLive("mylive","실시간 · "+hhmm()+" 기준",true);
+      if(screenNow==="my") paintMy2(false);
+    }).catch(function(){ myLoading=false; $("mylive").hidden=true; });
+  }
+}
+
 /* 파트 순서로 뽑을 때 어디까지 뽑았는지 — 이 기기에, 고른 파트 묶음마다 */
 var CUR_KEY="navfest.cursor";
 function cursorAll(){ try{ return JSON.parse(localStorage.getItem(CUR_KEY)||"{}")||{}; }catch(e){ return {}; } }
@@ -3726,31 +4027,34 @@ function pkey(addr,partName){ return addr+" \u241F "+partName; }
 
 var COUNT_OPTS=[3,5,10,20,0];
 /* 처음 화면은 여섯 갈래입니다. 갈래 안의 활동은 한 번만 누르면 바로 들어갑니다. */
+/* 처음 화면 — 큰 단추 다섯 개(말씀의 손). 암송 · 읽기는 누르면 그 안의 메뉴(hubm · hubr)로 갑니다.
+   공부는 메뉴 없이 바로 성경으로 — 궁금한 것은 절을 눌러 봅니다. */
 var MODES=[
-  {k:"mine",    icon:"mine",    n:"내 암송",d:"지금 외우는 새 구절 · 최근 구절 · 이전 구절"},
-  {g:"read",    n:"성경 읽기", count:"readcount", cols:3, subs:[
-    {k:"read",  icon:"plan",   n:"성경읽기표", d:"1년 · 하루 네 칸"},
-    {k:"order", icon:"order",  n:"성경순서로", d:"기간 맞춤 계획"},
-    {k:"bible", icon:"bible",  n:"성경보기",   d:"66권 자유롭게"}]},
-  {g:"search",  n:"성경 검색", cols:3, subs:[
-    {k:"sverse",  icon:"search",  n:"성경구절", d:"낱말로 찾기"},
-    {k:"smemo",   icon:"cardfind",n:"암송카드", d:"제목·내용"},
-    {k:"smap",    icon:"pin",     n:"성경지도", d:"지명·테마 지도"},
-    {k:"speople", icon:"people",  n:"성경인물", d:"가족·사건"},
-    {k:"sxref",   icon:"xref",    n:"관주",     d:"TSK 교차참조"},
-    {k:"slex",    icon:"lex",     n:"원어사전", d:"히브리어·헬라어"},
-    {k:"sdict",   icon:"dict",    n:"성경사전", d:"Easton 사전"},
-    {k:"sunit",   icon:"unit",    n:"도량형",   d:"단위·환산"}]},
-  {g:"check",   n:"암송 점검", cols:2, subs:[
-    {k:"personal",icon:"recite",  n:"리사이팅",  d:"입으로 외우고 네 단계로"},
-    {k:"typing",  icon:"type",    n:"타이핑",    d:"외워 치고 틀린 곳 확인"},
-    {k:"fsrs",    icon:"cards",   n:"복습 카드", d:"잊을 때쯤 다시 물어봄"},
-    {k:"crop",    icon:"barn",    n:"암송현황",  d:"심고 거둔 기록"}]},
-  {g:"contest", n:"암송 대회", cols:2, subs:[
-    {k:"practice",icon:"practice",n:"연습",d:"범위 안에서 무작위로"},
-    {k:"contest", icon:"contest", n:"실전",d:"대회를 열거나 코드로 참가"}]},
-  {k:"tract",   icon:"bridge",  n:"전도지",d:"「하나님께 가는 다리」 함께 보기 · 링크 · QR · 기도 명단"}
+  {k:"medi",   icon:"medi",   n:"묵상", d:"암송 · 공부 · 읽기에서 적은 묵상을 모아 봅니다"},
+  {k:"hubm",   icon:"mine",   n:"암송", d:"내 암송 · 리사이팅 · 타이핑 · 복습 카드 · 암송 대회 · 전도지", count:"minecount"},
+  {k:"study",  icon:"bible",  n:"공부", d:"관주 · 원어 · 사전 · 인물 · 지명이 구절마다 이어진 성경"},
+  {k:"hubr",   icon:"plan",   n:"읽기", d:"성경읽기표 · 성경순서로", count:"readcount"},
+  {k:"listen", icon:"listen", n:"듣기", d:"말씀을 귀로 듣기", off:true}
 ];
+var HUBS={
+  hubm:[
+    {n:"외우기", cols:2, subs:[
+      {k:"mine",    icon:"mine",    n:"내 암송",   d:"지금 외우는 구절 · 암송카드 찾기"},
+      {k:"personal",icon:"recite",  n:"리사이팅",  d:"입으로 외우고 네 단계로"},
+      {k:"typing",  icon:"type",    n:"타이핑",    d:"외워 치고 틀린 곳 확인"},
+      {k:"fsrs",    icon:"cards",   n:"복습 카드", d:"잊을 때쯤 다시 물어봄"}]},
+    {n:"암송 대회", cols:2, subs:[
+      {k:"practice",icon:"practice",n:"연습",d:"범위 안에서 무작위로"},
+      {k:"contest", icon:"contest", n:"실전",d:"대회를 열거나 코드로 참가"}]},
+    {n:"나누기", cols:1, subs:[
+      {k:"tract",   icon:"bridge",  n:"전도지",   d:"「하나님께 가는 다리」", count:"tractcount"}]}
+  ],
+  hubr:[
+    {n:"성경 읽기", cols:2, subs:[
+      {k:"read",  icon:"plan",   n:"성경읽기표", d:"1년 · 하루 네 칸"},
+      {k:"order", icon:"order",  n:"성경순서로", d:"기간 맞춤 계획"}]}
+  ]
+};
 
 /* 알림 한 줄. 잘 된 소식은 잠시 뒤 스스로 사라지고, 오류는 남습니다. */
 var syncTimer=null;
@@ -3791,7 +4095,7 @@ function paintOff(){
 function backOnline(){
   paintOff();
   setSync("다시 연결되었습니다 · 기록을 이어 보냅니다");
-  flushSave(); fFlush(); saveDays(); myFlush(); rdFlush(); odFlush(); plFlush();
+  flushSave(); fFlush(); saveDays(); myFlush(); rdFlush(); odFlush(); plFlush(); vnFlush();
   if(screenNow==="tract" && !TR.preOk) trPrefetch();
   if(!state.me){ if(poll.job) poll.job(true); return; }
   if(screenNow==="me"){ loadProgress(true).then(paintMe).catch(function(){}); return; }
@@ -3811,7 +4115,7 @@ function hhmm(){ return new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",mi
    무엇을 고쳐야 하는지 바로 알 수 있습니다. 자세한 내용은 콘솔에도 남깁니다. */
 function errText(e){
   if(!e) return "알 수 없는 오류";
-  try{ console.error("[암송 Festival]", e); }catch(_){}
+  try{ console.error("[말씀의 손]", e); }catch(_){}
   var m=e.message||e.error_description||String(e);
   return (e.code? m+" ["+e.code+"]" : m)+errHint(e);
 }
@@ -4005,7 +4309,7 @@ function fillMissingRows(id,missing){
   lastSave=lastSave.then(function(){
     return SB.from("contest_verses").upsert(rows,{ignoreDuplicates:true});
   }).then(function(r){
-    if(r && r.error) console.warn("[암송 Festival] 구절 줄을 채우지 못했습니다", r.error);
+    if(r && r.error) console.warn("[말씀의 손] 구절 줄을 채우지 못했습니다", r.error);
   },function(){});
 }
 /* 채점은 0.9초 모았다가 저장합니다. 화면을 옮기거나 앱을 내리면 바로 보냅니다. */
@@ -4116,18 +4420,20 @@ function removePersonal(addr,partName){
 /* ═══ 홈 ═══ */
 function buildModes(){
   $("modes").innerHTML=MODES.map(function(m){
-    if(m.subs) return '<div class="modegroup" data-group="'+m.g+'">'+
-      '<div class="mghead"><b>'+m.n+'</b>'+(m.count?'<em class="mcount" id="'+m.count+'"></em>':'')+'</div>'+
-      '<div class="mgsubs" style="--cols:'+(m.cols||3)+'">'+m.subs.map(function(s){
-        return '<button type="button" class="modesub" data-mode="'+s.k+'">'+svg(s.icon)+
-          '<span><b>'+s.n+'</b><em>'+esc(s.d)+'</em></span></button>';
-      }).join("")+'</div></div>';
-    return '<button type="button" class="modecard" data-mode="'+m.k+'">'+
+    return '<button type="button" class="modecard'+(m.off?' off':'')+'" data-mode="'+m.k+'"'+(m.off?' aria-disabled="true"':'')+'>'+
       '<span class="modeicon">'+svg(m.icon)+'</span>'+
-      '<span><b>'+m.n+'</b><span>'+esc(m.d)+'</span>'+
-      (m.k==="mine"?'<em class="mcount" id="minecount"></em>':'')+
-      (m.k==="tract"?'<em class="mcount" id="tractcount"></em>':'')+'</span></button>';
+      '<span><b>'+m.n+(m.off?' <i class="soon">준비 중</i>':'')+'</b><span>'+esc(m.d)+'</span>'+
+      (m.count?'<em class="mcount" id="'+m.count+'"></em>':'')+'</span></button>';
   }).join("");
+  Object.keys(HUBS).forEach(function(h){
+    $(h+"modes").innerHTML=HUBS[h].map(function(g){
+      return '<div class="modegroup"><div class="mghead"><b>'+g.n+'</b></div>'+
+        '<div class="mgsubs" style="--cols:'+(g.cols||3)+'">'+g.subs.map(function(s){
+          return '<button type="button" class="modesub" data-mode="'+s.k+'">'+svg(s.icon)+
+            '<span><b>'+s.n+'</b><em>'+esc(s.d)+'</em>'+(s.count?'<em class="mcount" id="'+s.count+'"></em>':'')+'</span></button>';
+        }).join("")+'</div></div>';
+    }).join("");
+  });
 }
 
 /* ═══ 설정 화면 ═══ */
@@ -4556,7 +4862,7 @@ function syncServerClock(){
     var t1=Date.now(), srv=parseTs(r.data);
     if(!isNaN(srv) && t1-t0<5000) clockSkew=Math.round(srv-(t0+t1)/2);
   }).catch(function(e){
-    try{ console.warn("[암송 Festival] 서버 시각을 받지 못해 이 기기 시계를 씁니다", e); }catch(_){}
+    try{ console.warn("[말씀의 손] 서버 시각을 받지 못해 이 기기 시계를 씁니다", e); }catch(_){}
   }).then(function(){
     if(state.mode==="contest" && screenNow==="setup") render();
   });
@@ -5098,8 +5404,8 @@ function loadDetail(quiet){
       return;
     }
     return Promise.all([
-      SB.from("contest_verses").select("*").eq("code",ccode()),
-      SB.from("contest_entries").select("id,parts").eq("code",ccode())
+      sbAll(function(){ return SB.from("contest_verses").select("*").eq("code",ccode()).order("id"); }),   /* 1,000줄이 넘어도 다 받습니다 */
+      sbAll(function(){ return SB.from("contest_entries").select("id,parts").eq("code",ccode()).order("id"); })
     ]).then(loadDetailRows);
   }).catch(function(e){
     $("dtlnote").textContent="구절별 기록을 불러오지 못했습니다 · "+failText(e);
@@ -7039,6 +7345,8 @@ function openVerseList(list,i,label,hide){
 function vcFmt(d){ return d ? ((+d.slice(5,7))+"월 "+(+d.slice(8,10))+"일") : ""; }
 function paintVerseCard(){
   var pn=PV.pn, a=PV.a, p=PART_BY_NAME[pn]; if(!p) return;
+  $("vcvn").innerHTML='<p class="eyebrow">묵상</p>'+vnEditorHtml(memoVKey(a),false);
+  $("vcvn").hidden=!!(PV.hide && !PV.shown);      /* 가린 동안에는 묵상도 가립니다(답이 보이지 않게) */
   var m=lookup(a,pn)||{}, i=p.list.indexOf(a), mine=MY.items[pkey(a,pn)];
   if(PV.list){
     var tag=mine ? MY_BY[mine.slot].n : (PV.label||"");
@@ -7877,7 +8185,8 @@ function paintReadDay(){
   $("rdDayDate").textContent=RD.start ? rdCalText(i,true) : rdPlanText(i);
   var note=rdNoteOf(i), memo=$("rdmemo");
   memo.dataset.day=String(i); memo.value=note.note||"";
-  $("rdmemonote").textContent="절을 누르면 밑줄이 그어집니다. 묵상과 밑줄은 「묵상 모아 보기」에서 다시 봅니다.";
+  $("rdmemonote").textContent="절을 누르면 그 절의 자료 창이 열리고, 거기서 형광펜을 칠하고 절마다 묵상을 적습니다. 모두 「묵상」에서 다시 봅니다.";
+  readModesPaint("rdmodes");
   paintReadDayChecks();
   var host=$("rdText");
   if(host.dataset.key===String(i) && host.querySelector(".rdsec")) return;     /* 돌아왔을 때는 그대로 — 읽던 자리 */
@@ -7897,6 +8206,7 @@ function paintReadDay(){
     }).join("");
     host.dataset.key=String(i);
     paintReadDayChecks();
+    tagsPaint(host);
     if(RD.jump!=null){ var el=$("rds"+RD.jump); RD.jump=null; if(el) el.scrollIntoView({block:"start"}); }
     else scrollSettle();
   }).catch(function(e){
@@ -7909,47 +8219,195 @@ function paintReadDay(){
   if(i<299) bibMany(rdDayBooks(i+1)).catch(function(){});
 }
 
+/* ═══ 묵상 · 형광펜 (v11 · verse_notes 표) ═══
+   절(또는 암송 카드) 하나에 한 줄 {c:색, n:묵상, s:쓴 곳, t:고친 때}. 키는 "요한복음|3|16" · 암송 카드는 "요한일서|5|11-12".
+   로그인 전에는 이 기기에만 두고, 로그인하면 계정으로 올립니다(읽기표 묵상과 같은 방식). */
+var VN_KEY="navfest.vnotes";
+var VN={map:{}, owner:"", pend:{}, noTable:false, busy:null, flushing:null, again:false};
+var VN_COLORS=[["y","노랑"],["g","초록"],["b","파랑"],["p","분홍"]];
+var VN_SRC={study:"공부", read:"성경읽기표", order:"성경순서로", memo:"암송"};
+(function(){
+  try{ var o=JSON.parse(localStorage.getItem(VN_KEY)||"null"); if(o){ VN.map=o.map||{}; VN.owner=o.owner||""; VN.pend=o.pend||{}; } }catch(e){}
+})();
+function vnSave(){ try{ localStorage.setItem(VN_KEY,JSON.stringify({map:VN.map,owner:VN.owner,pend:VN.pend})); }catch(e){} }
+function vnGet(k){ return VN.map[k]||null; }
+function vnSet(k,patch,src){
+  var cur=VN.map[k]||{c:"",n:"",s:src||"",t:""}, nx={c:cur.c||"", n:cur.n||"", s:cur.s||src||"", t:new Date().toISOString()};
+  if(patch.c!==undefined) nx.c=patch.c;
+  if(patch.n!==undefined) nx.n=String(patch.n||"").trim();
+  var empty=!nx.c && !nx.n;
+  if(empty) delete VN.map[k]; else VN.map[k]=nx;
+  if(state.me){ VN.pend[k]=empty?null:nx; if(!VN.owner) VN.owner=state.me.owner; }
+  vnSave(); vnFlush(); vnPaintVerse(k);
+  return empty?null:nx;
+}
+/* 화면에 보이는 그 절의 칠 · 묵상 표시를 바로 바꿉니다 */
+function vnPaintVerse(k){
+  var x=VN.map[k];
+  document.querySelectorAll('p.v[data-k="'+k.replace(/"/g,'\\"')+'"]').forEach(function(p){
+    VN_COLORS.forEach(function(c){ p.classList.remove("fp-"+c[0]); });
+    if(x && x.c) p.classList.add("fp-"+x.c);
+    p.classList.toggle("vn", !!(x && x.n));
+  });
+}
+function vnLoad(){
+  if(!state.me || !online()) return Promise.resolve();
+  if(VN.busy) return VN.busy;
+  var owner=state.me.owner;
+  VN.busy=sbAll(function(){ return SB.from("verse_notes").select("vkey,color,note,src,updated_at").eq("owner",owner).order("vkey"); }).then(function(r){
+    if(r.error) throw r.error;
+    if(!state.me || state.me.owner!==owner) return;
+    var map={};
+    (r.data||[]).forEach(function(x){ map[x.vkey]={c:x.color||"", n:x.note||"", s:x.src||"", t:x.updated_at||""}; });
+    if(VN.owner===owner){
+      Object.keys(VN.pend).forEach(function(k){ var v=VN.pend[k]; if(v) map[k]=v; else delete map[k]; });
+    } else if(!VN.owner){
+      Object.keys(VN.map).forEach(function(k){ if(!map[k]){ map[k]=VN.map[k]; VN.pend[k]=VN.map[k]; } });   /* 로그인 전에 이 기기에서 한 것을 계정으로 */
+    } else VN.pend={};
+    VN.map=map; VN.owner=owner; VN.noTable=false; vnSave();
+    if(screenNow==="rnotes") paintReadNotes();
+    return vnFlush();
+  }).catch(function(e){
+    if(myNoTable(e)){ VN.noTable=true; if(!VN.owner){ Object.keys(VN.map).forEach(function(k){ VN.pend[k]=VN.map[k]; }); } VN.owner=owner; vnSave(); }
+    else if(!netOff()) setSync("묵상 · 형광펜을 불러오지 못했습니다 · "+failText(e),true);
+  }).then(function(){ VN.busy=null; });
+  return VN.busy;
+}
+function vnFlush(){
+  if(!state.me || VN.owner!==state.me.owner || VN.noTable || !canSave()) return Promise.resolve();
+  if(VN.flushing){ VN.again=true; return VN.flushing; }
+  var keys=Object.keys(VN.pend); if(!keys.length) return Promise.resolve();
+  var owner=state.me.owner, snap={}, ups=[], jobs=[];
+  keys.forEach(function(k){
+    var v=VN.pend[k]; snap[k]=v;
+    if(v) ups.push({owner:owner, vkey:k, color:v.c||"", note:v.n||"", src:v.s||"", updated_at:v.t||new Date().toISOString()});
+    else jobs.push(SB.from("verse_notes").delete().eq("owner",owner).eq("vkey",k));
+  });
+  if(ups.length) jobs.push(SB.from("verse_notes").upsert(ups,{onConflict:"owner,vkey"}));
+  VN.flushing=Promise.all(jobs).then(function(rs){
+    rs.forEach(function(r){ if(r && r.error) throw r.error; });
+    keys.forEach(function(k){ if(VN.pend[k]===snap[k]) delete VN.pend[k]; });
+    vnSave();
+  }).catch(function(e){
+    if(myNoTable(e)) VN.noTable=true;
+    else setSync("묵상 · 형광펜을 저장하지 못했습니다 · "+failText(e),true);
+  }).then(function(){ VN.flushing=null; if(VN.again){ VN.again=false; vnFlush(); } });
+  return VN.flushing;
+}
+function vnReset(){ VN.map={}; VN.owner=""; VN.pend={}; VN.noTable=false; vnSave(); }
+/* 암송 카드 주소 → 키: "요한일서 5:11-12" → "요한일서|5|11-12" */
+function memoVKey(addr){ var m=/^(.+?)\s+(\d+):(.+)$/.exec(String(addr||"")); return m ? m[1]+"|"+m[2]+"|"+m[3] : "암송|0|"+addr; }
+/* 형광펜 · 묵상 쓰기 묶음 — 이 절 자료 창과 암송 카드 창이 같이 씁니다 */
+function vnEditorHtml(k,withColor){
+  var x=VN.map[k]||{}, h='<div class="vned" data-vnk="'+esc(k)+'">';
+  if(withColor) h+='<div class="vncol"><span>형광펜</span>'+VN_COLORS.map(function(c){
+      return '<button type="button" class="sw fp-'+c[0]+'" data-vncol="'+c[0]+'" aria-pressed="'+(x.c===c[0])+'" aria-label="'+c[1]+'"></button>'; }).join("")+
+    (x.c?'<button type="button" class="swx" data-vncol="">지우기</button>':'')+'</div>';
+  h+='<details class="vnnote"'+(x.n?' open':'')+'><summary>'+svg("medi")+(x.n?'묵상 고치기':'묵상 쓰기')+'</summary>'+
+    '<textarea rows="3" maxlength="1000" placeholder="이 말씀에서 마음에 남은 것">'+esc(x.n||"")+'</textarea>'+
+    '<div class="vnrow"><span class="vnsaved">'+(x.n?'적어 둔 묵상 · 「묵상」에서 모아 봅니다':(state.me?'':'로그인 전에는 이 기기에만 남습니다'))+'</span><button type="button" data-vnsave="1">저장</button></div></details></div>';
+  return h;
+}
+/* 창 안에서 누른 것 처리 — 처리했으면 true */
+function vnEditorClick(e,src){
+  var t=e.target.closest("[data-vncol]");
+  if(t){ var box=t.closest("[data-vnk]"), k=box.dataset.vnk, c=t.dataset.vncol;
+    var cur=(VN.map[k]||{}).c||""; if(c===cur) c="";
+    vnSet(k,{c:c},src);
+    box.querySelectorAll("[data-vncol]").forEach(function(b){ if(b.classList.contains("sw")) b.setAttribute("aria-pressed",String(b.dataset.vncol===c)); });
+    var x=box.querySelector(".swx"); if(c && !x){ box.querySelector(".vncol").insertAdjacentHTML("beforeend",'<button type="button" class="swx" data-vncol="">지우기</button>'); } else if(!c && x) x.remove();
+    setSync(c?"형광펜을 칠했습니다":"형광펜을 지웠습니다"); return true; }
+  t=e.target.closest("[data-vnsave]");
+  if(t){ var bx=t.closest("[data-vnk]"), ta=bx.querySelector("textarea"), r=vnSet(bx.dataset.vnk,{n:ta.value},src);
+    bx.querySelector(".vnsaved").textContent=(r&&r.n)?"저장했습니다 · 「묵상」에서 모아 봅니다":"묵상을 지웠습니다";
+    bx.querySelector("summary").innerHTML=svg("medi")+((r&&r.n)?'묵상 고치기':'묵상 쓰기');
+    setSync((r&&r.n)?"묵상을 저장했습니다":"묵상을 지웠습니다"); return true; }
+  return false;
+}
+
 /* ── 묵상 모아 보기 ── 성경읽기표('01-05')와 성경순서로('o:2026-10-18')를 함께 */
-var RN={from:"read"};
-function paintReadNotes(){
-  var all=Object.keys(RD.notes).filter(function(id){ var n=RD.notes[id]; return n && ((n.note||"").trim() || (n.marks||[]).length); });
-  var oid=all.filter(function(id){ return id.indexOf("o:")===0; }).sort().reverse();
-  var rid=all.filter(function(id){ return id.indexOf("o:")!==0; }).sort(function(a,b){ return rdIdx(b)-rdIdx(a); });
-  var nn=all.filter(function(id){ return (RD.notes[id].note||"").trim(); }).length, nm=all.reduce(function(a,id){ return a+(RD.notes[id].marks||[]).length; },0);
-  $("rnotesub").textContent = all.length
-    ? "묵상 "+nn+"개 · 밑줄 "+nm+"절 · 최근 날짜부터"
-    : "아직 남긴 묵상이나 밑줄이 없습니다. 읽다가 절을 누르면 밑줄이, 아래 칸에 쓰면 묵상이 남습니다.";
-  var need=[];
-  all.forEach(function(id){ (RD.notes[id].marks||[]).forEach(function(k){ var bi=BOOK_ORDER.indexOf(k.split("|")[0]); if(bi>=0 && need.indexOf(bi)<0) need.push(bi); }); });
-  function verseText(k){
-    var p=k.split("|"), bi=BOOK_ORDER.indexOf(p[0]);
-    return bi<0 ? null : bibVerse(bi,+p[1],+p[2]);
-  }
+var RN={from:"read", sort:"date"};
+try{ RN.sort=localStorage.getItem("navfest.rnsort")||"date"; }catch(e){}
+/* 묵상 화면 — 형광펜 · 묵상(verse_notes)과 읽기표 · 순서로의 한 줄 묵상 · 밑줄(reading_notes)을 함께.
+   날짜순 · 성경순 · 쓴 곳별로 봅니다. */
+function rnKeyPos(k){   /* 성경순 정렬용 */
+  var p=String(k).split("|"), bi=BOOK_ORDER.indexOf(p[0]);
+  return bi<0 ? 1e9 : bi*1e6+(+p[1]||0)*1e3+(parseInt(p[2],10)||0);
+}
+function rnVerseText(k){
+  var p=String(k).split("|"), bi=BOOK_ORDER.indexOf(p[0]); if(bi<0) return null;
+  var v1=parseInt(p[2],10)||1, m=/-(\d+)/.exec(p[2]||""), v2=m?+m[1]:v1, out=[];
+  for(var v=v1; v<=v2; v++){ var t=bibVerse(bi,+p[1],v); if(t===null) return null; out.push(t); }
+  return out.join(" ");
+}
+function rnRefLabel(k){ var p=String(k).split("|"); return p[0]+" "+p[1]+":"+p[2]; }
+function rnItems(){
+  var items=[];
+  Object.keys(VN.map).forEach(function(k){ var x=VN.map[k]; items.push({kind:"v", k:k, c:x.c, n:x.n, s:x.s||"study", t:x.t||""}); });
   var B=OD.plan ? odBuild(OD.plan) : null;
-  function card(id){
-    var n=RD.notes[id], head;
-    if(id.indexOf("o:")===0){
-      var day=id.slice(2), at=(B && B.idx && B.idx[day]!==undefined) ? B.idx[day] : -1;
-      head='<button type="button" class="rnhead" '+(at>=0?'data-ogo2="'+at+'"':'disabled')+'><b>'+esc(odDateText(day,true))+'</b>'+
-        '<span>'+(at>=0?(at+1)+'일째':'지난 계획')+'</span>'+(at>=0?'<span class="chev">&#8250;</span>':'')+'</button>';
-    } else {
-      var i=rdIdx(id);
-      head='<button type="button" class="rnhead" data-go="'+i+'"><b>'+(i+1)+'일째</b>'+
-        '<span>'+esc(RD.start?rdCalText(i,true):rdPlanText(i))+'</span><span class="chev">&#8250;</span></button>';
-    }
-    return '<div class="panel rnote">'+head+
-      ((n.note||"").trim() ? '<p class="rnmemo">'+esc(n.note)+'</p>' : '')+
-      (n.marks||[]).map(function(k){
-        var p=k.split("|"), t=verseText(k);
-        return '<p class="rnmark"><b>'+esc(p[0]+" "+p[1]+":"+p[2])+'</b>'+(t?'<span class="vt">'+esc(t)+'</span>':'<em>본문을 불러오는 중…</em>')+'</p>';
-      }).join("")+'</div>';
+  Object.keys(RD.notes).forEach(function(id){
+    var n=RD.notes[id]; if(!n || (!(n.note||"").trim() && !(n.marks||[]).length)) return;
+    var isO=id.indexOf("o:")===0, date=isO ? id.slice(2) : (RD.start ? rdCal(rdIdx(id)) : "");
+    var at=isO ? ((B && B.idx && B.idx[id.slice(2)]!==undefined) ? B.idx[id.slice(2)] : -1) : rdIdx(id);
+    items.push({kind:"d", id:id, n:(n.note||"").trim(), marks:n.marks||[], s:isO?"order":"read", t:date, at:at});
+  });
+  return items;
+}
+function rnDayHead(x){
+  if(x.s==="order") return '<button type="button" class="rnhead" '+(x.at>=0?'data-ogo2="'+x.at+'"':'disabled')+'><b>'+esc(odDateText(x.id.slice(2),true))+'</b>'+
+    '<span>성경순서로 · '+(x.at>=0?(x.at+1)+'일째':'지난 계획')+'</span>'+(x.at>=0?'<span class="chev">&#8250;</span>':'')+'</button>';
+  return '<button type="button" class="rnhead" data-go="'+x.at+'"><b>'+(x.at+1)+'일째</b>'+
+    '<span>성경읽기표 · '+esc(RD.start?rdCalText(x.at,true):rdPlanText(x.at))+'</span><span class="chev">&#8250;</span></button>';
+}
+function rnVerseCard(x){
+  var t=rnVerseText(x.k), p=String(x.k).split("|"), bi=BOOK_ORDER.indexOf(p[0]);
+  return '<div class="panel rnote rnv">'+
+    '<button type="button" class="rnhead" '+(bi>=0?'data-rgo="'+bi+'|'+p[1]+'|'+(parseInt(p[2],10)||1)+'|'+((/-(\d+)/.exec(p[2]||"")||[])[1]||0)+'"':'disabled')+'>'+
+      '<b>'+esc(rnRefLabel(x.k))+'</b><span>'+esc(VN_SRC[x.s]||"")+(x.t?' · '+esc(x.t.slice(0,10)):'')+'</span><span class="chev">&#8250;</span></button>'+
+    '<p class="rnverse'+(x.c?' fp-'+x.c:'')+'"><span class="vt">'+(t!==null?esc(t):'<em>본문을 불러오는 중…</em>')+'</span></p>'+
+    (x.n?'<p class="rnmemo">'+esc(x.n)+'</p>':'')+'</div>';
+}
+function rnDayCard(x){
+  return '<div class="panel rnote">'+rnDayHead(x)+
+    (x.n ? '<p class="rnmemo">'+esc(x.n)+'</p>' : '')+
+    x.marks.map(function(k){
+      var p=k.split("|"), t=rnVerseText(k);
+      return '<p class="rnmark"><b>'+esc(p[0]+" "+p[1]+":"+p[2])+'</b>'+(t!==null?'<span class="vt">'+esc(t)+'</span>':'<em>본문을 불러오는 중…</em>')+'</p>';
+    }).join("")+'</div>';
+}
+function paintReadNotes(){
+  var items=rnItems(), nn=items.filter(function(x){ return x.n; }).length, nc=items.filter(function(x){ return x.c; }).length;
+  var nm=items.reduce(function(a,x){ return a+(x.marks?x.marks.length:0); },0);
+  $("rnotesub").textContent = items.length
+    ? "묵상 "+nn+"개 · 형광펜 "+nc+"절"+(nm?" · 밑줄 "+nm+"절":"")+(state.me?"":" · 로그인 전에는 이 기기에만 남습니다")
+    : "아직 남긴 묵상이 없습니다. 공부 · 읽기에서 절을 누르거나 암송 카드에서 「묵상 쓰기」를 눌러 적어 보세요.";
+  $("rnsort").innerHTML=[["date","날짜순"],["bible","성경순"],["src","쓴 곳"]].map(function(o){
+    return '<button type="button" class="cbtn" data-rnsort="'+o[0]+'" aria-pressed="'+(RN.sort===o[0])+'">'+o[1]+'</button>'; }).join("");
+  $("rnsort").hidden=!items.length;
+  var need=[];
+  items.forEach(function(x){ (x.kind==="v"?[x.k]:x.marks).forEach(function(k){ var bi=BOOK_ORDER.indexOf(String(k).split("|")[0]); if(bi>=0 && !BIB.cache[bi] && need.indexOf(bi)<0) need.push(bi); }); });
+  function card(x){ return x.kind==="v" ? rnVerseCard(x) : rnDayCard(x); }
+  var h="";
+  if(RN.sort==="bible"){
+    var vs=items.filter(function(x){ return x.kind==="v"; }), ds=items.filter(function(x){ return x.kind==="d"; });
+    /* 읽기 날의 밑줄도 절마다 성경 순서로 */
+    ds.forEach(function(x){ x.marks.forEach(function(k){ vs.push({kind:"v", k:k, c:"", n:"", s:x.s, t:x.t, mk:1}); }); });
+    vs.sort(function(a,b){ return rnKeyPos(a.k)-rnKeyPos(b.k); });
+    var lastB="";
+    vs.forEach(function(x){ var b=String(x.k).split("|")[0]; if(b!==lastB){ h+='<p class="rngrp">'+esc(b)+'</p>'; lastB=b; } h+=x.mk?'<div class="panel rnote"><p class="rnmark"><b>'+esc(rnRefLabel(x.k))+' · 밑줄</b>'+(rnVerseText(x.k)!==null?'<span class="vt">'+esc(rnVerseText(x.k))+'</span>':'')+'</p></div>':card(x); });
+    var dn=ds.filter(function(x){ return x.n; }).sort(function(a,b){ return String(b.t).localeCompare(String(a.t)); });
+    if(dn.length) h+='<p class="rngrp">날마다 한 줄 묵상</p>'+dn.map(function(x){ return '<div class="panel rnote">'+rnDayHead(x)+'<p class="rnmemo">'+esc(x.n)+'</p></div>'; }).join("");
+  } else if(RN.sort==="src"){
+    ["memo","study","read","order","listen"].forEach(function(src){
+      var g=items.filter(function(x){ return (x.s||"study")===src; }).sort(function(a,b){ return String(b.t).localeCompare(String(a.t)); });
+      if(g.length) h+='<p class="rngrp">'+(VN_SRC[src]||src)+' · '+g.length+'</p>'+g.map(card).join("");
+    });
+  } else {
+    items.sort(function(a,b){ return String(b.t).localeCompare(String(a.t)); });
+    h=items.map(card).join("");
   }
-  var groups = RN.from==="order" ? [["성경순서로",oid],["성경읽기표",rid]] : [["성경읽기표",rid],["성경순서로",oid]];
-  $("rnotelist").innerHTML=groups.map(function(g){
-    return g[1].length ? '<p class="rngrp">'+g[0]+' · '+g[1].length+'일</p>'+g[1].map(card).join("") : "";
-  }).join("");
-  var miss=need.filter(function(bi){ return !BIB.cache[bi]; });
-  if(miss.length) bibMany(miss).then(function(){ if(screenNow==="rnotes") paintReadNotes(); },function(){});
+  $("rnotelist").innerHTML=h;
+  if(need.length) bibMany(need).then(function(){ if(screenNow==="rnotes") paintReadNotes(); },function(){});
 }
 
 /* ═══ 성경 본문 (책별 파일) ═══
@@ -8052,7 +8510,8 @@ function versesHtml(bi,c,v1,v2,opt){
     var tags=mm.filter(function(t){ return t.first; }).map(function(t){
       return '<button type="button" class="memotag" data-ma="'+esc(t.a)+'" data-mp="'+esc(t.pn)+'">'+svg("mine")+'암송 '+esc(t.a.replace(/^\S+\s+/,""))+'</button>';
     }).join("");
-    out+='<p class="v'+(marks[k]?' mk':'')+(mm.length?' memo':'')+(opt.hl && v>=opt.hl && v<=(opt.hl2||opt.hl)?' hl':'')+
+    var vn=VN.map[k];
+    out+='<p class="v'+(marks[k]?' mk':'')+(mm.length?' memo':'')+(vn&&vn.c?' fp-'+vn.c:'')+(vn&&vn.n?' vn':'')+(opt.hl && v>=opt.hl && v<=(opt.hl2||opt.hl)?' hl':'')+
       '" data-k="'+esc(k)+'" id="'+(opt.idp||"v")+c+'_'+v+'"><sup>'+v+'</sup><span class="vt">'+esc(ch[v-1])+'</span>'+tags+'</p>';
   }
   return out;
@@ -8104,9 +8563,10 @@ function openMemoSheet(addr,pn){
   html+='<div class="shacts">'+
     '<button type="button" class="main" data-shcard="1">'+svg("cards")+'구절 카드 열기</button>'+
     '<button type="button" data-shmy="1">'+svg("plus")+(mine?MY_BY[mine.slot].n+'에 있음':'내 암송에 넣기')+'</button>'+
-    '</div>';
+    '</div>'+vnEditorHtml(memoVKey(addr),false);
   openSheet(html);
   $("sheetbody").onclick=function(e){
+    if(vnEditorClick(e,"memo")) return;
     var p=e.target.closest("[data-shpart]");
     if(p){ var pn2=p.dataset.shpart; sheetThen(function(){ openPartView(pn2); }); return; }
     if(e.target.closest("[data-shcard]")){ sheetThen(function(){ openVerseCard(m.pn,addr); }); return; }
@@ -8640,7 +9100,8 @@ function paintOrderDay(){
   $("odDayDate").textContent=odDateText(B.dates[i],true);
   var memo=$("odmemo"), nid=odNoteId(i);
   memo.dataset.day=String(i); memo.dataset.nid=nid; memo.value=(RD.notes[nid]||{}).note||"";
-  $("odmemonote").textContent="절을 누르면 밑줄이 그어지고, 다시 누르면 지워집니다. 묵상과 밑줄은 「묵상 모아 보기」에서 다시 봅니다.";
+  $("odmemonote").textContent="절을 누르면 그 절의 자료 창이 열리고, 거기서 형광펜을 칠하고 절마다 묵상을 적습니다. 모두 「묵상」에서 다시 봅니다.";
+  readModesPaint("odmodes");
   paintOrderDayChecks();
   var host=$("odText"), chs=odDayChapters(B,i), books=[];
   chs.forEach(function(x){ if(books.indexOf(x.bi)<0) books.push(x.bi); });
@@ -8657,6 +9118,7 @@ function paintOrderDay(){
     }).join("");
     host.dataset.key=String(i);
     paintOrderDayChecks();
+    tagsPaint(host);
     if(OD.jump!=null){ var el=$("ods"+OD.jump); OD.jump=null; if(el) el.scrollIntoView({block:"start"}); }
     else scrollSettle();
   }).catch(function(e){
@@ -9137,7 +9599,8 @@ function smRun(){
 /* ═══ 성경 검색 · 관주 (TSK) ═══
    CrossReferences.org 의 TSK(Treasury of Scripture Knowledge) 자료를 개역한글 절 번호에 맞춘 것.
    data/xref/x01.json … — 책마다 {"장:절": "묶음|묶음", 묶음 = "책.장.절[-절|-장.절];…"} */
-var XREF_VER="3";   /* 2: 묶음마다 이어 주는 말을 붙임 · 3: 이 절의 어느 말에서 이어지는지(앵커 어절 번호)와 이어지는 방식 */
+var XREF_VER="4";   /* 2: 묶음마다 이어 주는 말을 붙임 · 3: 이 절의 어느 말에서 이어지는지(앵커 어절 번호)와 이어지는 방식
+                        4: 상대 구절에 같은 원어나 관련 원어(합성어 · 같은 자음 · 70인역 대응)가 실제로 나오는 것만 남김 */
 var XR={cache:{}, bi:-1, c:0, v:0};
 function xrBook(bi){
   if(XR.cache[bi]) return Promise.resolve(XR.cache[bi]);
@@ -9263,7 +9726,7 @@ function xrRun(fromInput){
             '<span class="st">'+(t?xrMark(shown,g.w):'<em>불러오는 중…</em>')+'</span></button></li>';
         }).join("")+'</ul></div>';
       });
-      h+='<p class="srcnote">관주: Treasury of Scripture Knowledge — <a href="https://crossreferences.org" target="_blank" rel="noopener">CrossReferences.org</a> (CC BY 4.0), 개역한글 절 번호에 맞춤. 어느 말에서 이어지는지는 TSK 원래의 영어(KJV) 기준 말을 개역한글 낱말에 자동으로 맞춘 것이고, 같은 말 · 주제 · 평행 · 인용 표시도 본문을 비교해 자동으로 붙인 것이라 맞지 않을 수 있습니다.</p></div>';
+      h+='<p class="srcnote">관주: Treasury of Scripture Knowledge — <a href="https://crossreferences.org" target="_blank" rel="noopener">CrossReferences.org</a> (CC BY 4.0), 개역한글 절 번호에 맞춤. 같은 원어 · 관련 원어로 이어지는 구절만 골랐습니다.</p></div>';
       host.innerHTML=h;
     }
     draw();
@@ -9387,7 +9850,8 @@ function origHangul(tr,lang){
    data/dict/index.json Easton 사전 표제어 · e00.json 본문 400개씩 · vNN.json 책마다 {"장:절":[표제어 번호]}
    data/units.json      도량형 해설 · 구절 태그
    자료를 바꾸면 아래 버전을 올리세요(서비스 워커가 ?v= 로 새로 받습니다). */
-var ORIG_VER="1", LEX_VER="1", DICT_VER="1", UNIT_VER="1";
+var ORIG_VER="3", LEX_VER="3", DICT_VER="3", UNIT_VER="2";   /* v2: 원어 맞춤 다시 함(확신도 · 우리말 뜻) · 도량형 본문 전수 조사 · 성경 사전 우리말 요약
+                                                               v3: 확실한 짝만 남김 · 원어 사전 영어 풀이 뺌 · 성경 사전은 우리말 요약 598개만 */
 function p3(n){ return (n<10?"00":n<100?"0":"")+n; }
 function soft(p){ return p.then(function(x){ return x; },function(){ return null; }); }
 function getJson(url,what){
@@ -9429,6 +9893,10 @@ function lexRen(list){
   var many=list.filter(function(x){ return x[1]>1; });
   return many.length>=2 ? many : list;
 }
+/* 우리말 뜻 — 없으면 개역한글 번역어, 그것도 없으면 영어 */
+function lexKo(r){ return r ? (r[7] || String(r[5]||"").split(",")[0] || r[4] || "") : ""; }
+/* 원어 낱말의 맞춤 정도: 2 본문 · 1 문법(조사 · 어미) · 0 없음 */
+function ogConf(w){ return w.length>5 ? w[5] : (w[4]>=0 ? 2 : 0); }
 function rtl(lang){ return lang==="H"?' lang="he" dir="rtl"':' lang="el"'; }
 
 /* ── 형태 읽기: 히브리어(OSHB 표기) · 헬라어(Robinson 표기) → 우리말 ── */
@@ -9611,17 +10079,17 @@ function unFeel(v,vu){   /* 체감 비유 */
   }
   return "";
 }
-function unTagText(t,u){   /* 구절 태그 하나 → {q:"삼백 규빗", a:"약 133.5m", f:"축구장…"} */
-  var term=t[1], num=t[2], q, a="", f="";
-  var lo=Array.isArray(num)?num[0]:num, hi=Array.isArray(num)?num[1]:num;
-  q=(num===null||num===undefined?"":(Array.isArray(num)?num[0]+"~"+num[1]:numKo(num))+" ")+term;
+function unShort(u){ return String(u.n).replace(/\s*\(.*\)$/,""); }   /* 「스다디온(리)」 → 「스다디온」 */
+/* 구절 태그 [단위, 본문 표현, 수, 어절, 메모, 원문 수] → {q:"삼백 규빗", a:"약 133.5m", f:"축구장…"}
+   개역한글이 우리 옛 단위로 옮겨 수가 달라진 곳(「이십 오리」 = 원문 60 스다디온)은 원문 수로 셈합니다 */
+function unTagText(t,u){
+  var num=t[2], on=t.length>5?t[5]:null, q=t[1], a="", f="";
+  var base=(on!==null && on!==undefined)?on:num;
+  var lo=Array.isArray(base)?base[0]:base, hi=Array.isArray(base)?base[1]:base;
   if(lo!==null && lo!==undefined){
-    if(term==="리" && (u.id==="stadion"||u.id==="mile")){
-      a="개역한글의 「리」로 약 "+unAmount(lo*(UN.d.li||393),"m")+(hi!==lo?"~"+unAmount(hi*(UN.d.li||393),"m"):"");
-    } else {
-      a="약 "+unAmount(lo*u.val,u.vu)+(hi!==lo?" ~ "+unAmount(hi*u.val,u.vu):"");
-      f=unFeel(hi*u.val,u.vu);
-    }
+    a="약 "+unAmount(lo*u.val,u.vu)+(hi!==lo?" ~ "+unAmount(hi*u.val,u.vu):"");
+    if(on!==null && on!==undefined) a="원문 "+(Array.isArray(on)?on[0]+"~"+on[1]:numKo(on))+" "+unShort(u)+" · "+a;
+    f=unFeel(hi*u.val,u.vu);
   }
   return {q:q, a:a, f:f, n:t[4]||""};
 }
@@ -9639,6 +10107,7 @@ function unCardHtml(u,opt){
     (u.rel?'<p class="unrel"><i>관계</i>'+esc(u.rel)+'</p>':'')+
     (org?'<div class="unorgs">'+org+'</div>':'')+
     '<p class="undesc">'+refLinkify(u.d)+'</p>'+
+    (opt.sheet?aiNote("단위 해설과 견주는 예가 해당합니다."):'')+
     (keys?'<div class="unkeys"><i>대표 구절</i>'+keys+'</div>':'')+
     (opt.list && u.cnt?'<button type="button" class="textlink" data-unv="'+u.id+'">이 단위가 나오는 구절 '+u.cnt+'곳 보기 ›</button>':'')+
   '</div>';
@@ -9648,7 +10117,7 @@ function unVersesHtml(u){
   var rows=[];
   Object.keys(UN.d.tags).forEach(function(r){ var ts=UN.d.tags[r].filter(function(t){ return t[0]===u.id; }); if(ts.length) rows.push([r,ts]); });
   rows.sort(function(a,b){ var x=a[0].split(".").map(Number), y=b[0].split(".").map(Number); return x[0]-y[0]||x[1]-y[1]||x[2]-y[2]; });
-  return '<h4 class="sth">이 단위가 나오는 구절 <em>'+rows.length+'곳 · 원어로 찾은 것</em></h4><ul class="unvl">'+rows.map(function(x){
+  return '<h4 class="sth">이 단위가 나오는 구절 <em>'+rows.length+'곳 · 본문 조사 · 원어 확인</em></h4><ul class="unvl">'+rows.map(function(x){
     var p=x[0].split("."), bi=p[0]-1;
     var qs=x[1].map(function(t){ var tt=unTagText(t,u); return esc(tt.q)+(tt.a?' → '+esc(tt.a.replace(/^약 /,"약 ")):''); }).join(" · ");
     return '<li><button type="button" class="srow" data-rgo="'+bi+'|'+p[1]+'|'+p[2]+'|0"><span class="sa"><b>'+refName(bi,+p[1],+p[2])+'</b><em>'+qs+'</em></span>'+
@@ -9699,7 +10168,8 @@ function paintUnits(){
   if(!us.some(function(u){ return u.id===UN.cv.u; })) UN.cv.u=us[0].id;
   h+='<div class="panel"><p class="eyebrow">환산해 보기</p><div class="uncv"><input type="number" inputmode="decimal" min="0" step="any" id="uncvn" value="'+esc(UN.cv.n)+'" aria-label="수"><select id="uncvu" aria-label="단위">'+opts+'</select></div><div id="uncvout" class="uncvout"></div></div>';
   h+=us.map(function(u){ return '<div class="panel" id="un-'+u.id+'">'+unCardHtml(u,{list:true})+'</div>'; }).join("");
-  h+='<p class="srcnote" style="margin:0 4px 16px">'+esc(D.src)+' 단위 크기는 시대와 지역, 학자에 따라 다르며 여기 적은 값은 널리 쓰이는 대략값입니다. 「리」 · 「말」 · 「되」 · 「석」 · 「자」처럼 개역한글이 우리 옛 단위로 옮긴 곳은 원어 단위를 함께 적었습니다.</p>';
+  h+='<div style="margin:0 4px">'+aiNote("단위마다 붙인 해설과 견주는 예가 해당합니다.")+'</div>';
+  h+='<p class="srcnote" style="margin:0 4px 16px">'+esc(D.src)+' 단위 크기는 시대와 지역, 학자에 따라 다르며 여기 적은 값은 널리 쓰이는 대략값입니다. 「자」 · 「척」 · 「간」 · 「리」 · 「길」 · 「말」 · 「석」 · 「되」 · 「통」 · 「근」처럼 개역한글이 우리 옛 단위로 옮긴 곳과 「은 천개」처럼 세겔이 생략된 곳도 원어 단위로 셈했습니다.</p>';
   $("unres").innerHTML=h;
   unCvPaint();
 }
@@ -9741,12 +10211,13 @@ function dictEntryHtml(id,row,back){
   if(r[2]==="p" && r[1]) rel+='<button type="button" data-dcpp="'+esc(r[1].split(" · ")[0])+'">'+svg("people")+'성경인물에서 보기</button>';
   if(r[2]==="l" && r[1]) rel+='<button type="button" data-dcpl="'+esc(r[1].split(" · ")[0])+'">'+svg("pin")+'지도에서 보기</button>';
   if(row[3]) rel+='<button type="button" data-un="'+row[3]+'">'+svg("unit")+'도량형 · 환산</button>';
-  var refs=(body.match(/⟦/g)||[]).length;
+  var refs=(body.match(/⟦/g)||[]).length, ko=row[4]||"";
+  var en1='<div class="dcbody" lang="en">'+dictBody(body)+'</div>'+
+    '<p class="dcgt"><a href="'+gt+'" target="_blank" rel="noopener">구글 번역으로 우리말로 읽기 ↗</a></p>';
   return (back||'')+'<h3 class="shtitle">'+esc(dictName(r))+'</h3>'+
-    '<p class="shsub">'+(r[1]?esc(en)+' · ':'')+(DC_KIND[r[2]]||"")+(refs?' · 구절 '+refs+'곳':'')+(r[4]==="a"?' · 우리말 표제어는 자동 대응(추정)':'')+'</p>'+
+    '<p class="shsub">'+(r[1]?esc(en)+' · ':'')+(DC_KIND[r[2]]||"")+(refs?' · 구절 '+refs+'곳':'')+'</p>'+
     (rel?'<div class="shacts">'+rel+'</div>':'')+
-    '<div class="dcbody" lang="en">'+dictBody(body)+'</div>'+
-    '<p class="dcgt"><a href="'+gt+'" target="_blank" rel="noopener">구글 번역으로 우리말로 읽기 ↗</a></p>'+
+    (ko?'<div class="dcko"><p>'+refLinkify(ko)+'</p></div>'+aiNote("이스턴 사전의 영어 원문을 우리말로 간추린 요약입니다.") : (body?en1:''))+
     '<p class="srcnote">Easton\'s Bible Dictionary(1897) 영어 원문 · 퍼블릭 도메인. 정리본: Theographic Bible Metadata (CC BY-SA 4.0). 구절 번호는 개역한글에 맞추었습니다.</p>';
 }
 function openDictSheet(id,back){
@@ -9765,14 +10236,14 @@ function openDict(q){
   loadDict().then(function(){ paintDictOpts(); dcRun(); },function(e){ $("dcres").innerHTML='<div class="panel"><p class="mineempty">'+esc(String(e&&e.message||e))+'</p></div>'; });
 }
 function paintDictOpts(){
-  $("dckind").innerHTML=[["","전체"],["p","인물"],["l","지명"],["t","낱말"],["b","성경 책"],["u","단위"]].map(function(k){ return '<button type="button" class="cbtn" data-dck="'+k[0]+'" aria-pressed="'+(DC.kind===k[0])+'">'+k[1]+'</button>'; }).join("");
+  $("dckind").innerHTML=[["","전체"],["p","인물"],["l","지명"],["t","낱말"],["b","성경 책"]].map(function(k){ return '<button type="button" class="cbtn" data-dck="'+k[0]+'" aria-pressed="'+(DC.kind===k[0])+'">'+k[1]+'</button>'; }).join("");
   $("dcini").innerHTML="ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ".split("").map(function(c){ return '<button type="button" data-dci="'+c+'"'+(DC.ini===c?' class="on"':'')+'>'+c+'</button>'; }).join("")+'<button type="button" data-dci="A"'+(DC.ini==="A"?' class="on"':'')+'>A–Z</button>';
 }
 function dcRun(){
   var q=($("dcq").value||"").trim(); DC.q=q;
   var L=q.toLowerCase(), ko=/[가-힣]/.test(q), hits=[];
   DC.idx.forEach(function(r,i){
-    if(DC.kind && r[2]!==DC.kind) return;
+    if(DC.kind==="s"){ if(!r[5]) return; } else if(DC.kind && r[2]!==DC.kind) return;
     var s=-1;
     if(q){
       var a=(r[1]||"").replace(/\s*\(.+?\)/g,""), e=r[0].toLowerCase();
@@ -9783,17 +10254,17 @@ function dcRun(){
     } else s=0;
     if(s>=0) hits.push([s,i]);
   });
-  hits.sort(function(a,b){ return b[0]-a[0] || (q||DC.ini? (DC.ini&&DC.ini!=="A" ? String(DC.idx[a[1]][1]).localeCompare(String(DC.idx[b[1]][1]),"ko") : DC.idx[b[1]][3]-DC.idx[a[1]][3]) : DC.idx[b[1]][3]-DC.idx[a[1]][3]); });
+  hits.sort(function(a,b){ return b[0]-a[0] || (DC.ini?0:(DC.idx[b[1]][5]?1:0)-(DC.idx[a[1]][5]?1:0)) || (q||DC.ini? (DC.ini&&DC.ini!=="A" ? String(DC.idx[a[1]][1]).localeCompare(String(DC.idx[b[1]][1]),"ko") : DC.idx[b[1]][3]-DC.idx[a[1]][3]) : DC.idx[b[1]][3]-DC.idx[a[1]][3]); });
   DC.res=hits.map(function(x){ return x[1]; }); DC.show=80;
   paintDcRes();
 }
 function paintDcRes(){
   var q=DC.q, res=DC.res||[], h='<div class="panel">';
-  h+='<div class="shead"><b>'+(q?'「'+esc(q)+'」 '+res.length+'개':DC.ini?(DC.ini==="A"?'영어 표제어':DC.ini)+' '+res.length+'개':'긴 항목부터 · '+res.length+'개')+'</b><span>누르면 사전 본문</span></div>';
+  h+='<div class="shead"><b>'+(q?'「'+esc(q)+'」 '+res.length+'개':DC.ini?(DC.ini==="A"?'영어 표제어':DC.ini)+' '+res.length+'개':'우리말 요약 먼저 · 긴 항목부터 · '+res.length+'개')+'</b><span>누르면 사전 본문</span></div>';
   if(!res.length) h+='<p class="mineempty">찾은 표제어가 없습니다. 우리말로 없으면 영어(예: Tabernacle)로 찾아 보세요.</p>';
   h+='<ul class="dclist">'+res.slice(0,DC.show).map(function(i){
     var r=DC.idx[i];
-    return '<li><button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b>'+(r[1]?'<span lang="en">'+esc(r[0])+'</span>':'')+'<i class="dk '+r[2]+'">'+(DC_KIND[r[2]]||"")+'</i></button></li>';
+    return '<li><button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b>'+(r[1]?'<span lang="en">'+esc(r[0])+'</span>':'')+(r[5]?'<em class="dcs">우리말 요약</em>':'')+'<i class="dk '+r[2]+'">'+(DC_KIND[r[2]]||"")+'</i></button></li>';
   }).join("")+'</ul>';
   if(res.length>DC.show) h+='<button type="button" class="go soft" data-dcmore="1" style="margin-top:12px">더 보기 ('+(res.length-DC.show)+'개 남음)</button>';
   h+='<p class="srcnote">'+esc(DC.src||"")+'</p></div>';
@@ -9813,7 +10284,7 @@ function paintLexOpts(){
   $("lxlang").innerHTML=[["","전체"],["H","구약 · 히브리어"],["G","신약 · 헬라어"]].map(function(k){ return '<button type="button" class="cbtn" data-lxl="'+k[0]+'" aria-pressed="'+(LX.lang===k[0])+'">'+k[1]+'</button>'; }).join("");
   $("lxchips").innerHTML=LX_PICKS.filter(function(k){ return LX.map[k] && (!LX.lang || k.charAt(0)===LX.lang); }).map(function(k){
     var r=LX.map[k], L=lexLang(k);
-    return '<button type="button" data-lx="'+k+'"><b'+rtl(L)+'>'+esc(r[1])+'</b> '+esc((r[5]||"").split(",")[0]||r[4])+'</button>';
+    return '<button type="button" data-lx="'+k+'"><b'+rtl(L)+'>'+esc(r[1])+'</b> '+esc(lexKo(r).split(/,\s*/)[0])+'</button>';
   }).join("");
 }
 function plain(s){ return String(s||"").normalize("NFD").replace(/[\u0300-\u036f\u0591-\u05C7]/g,"").toLowerCase().replace(/[.\-'ʼ’ʾʿ\/ ]/g,""); }
@@ -9830,8 +10301,11 @@ function lxRun(){
       if(LX.lang && r[0].charAt(0)!==LX.lang) return;
       var s=-1;
       if(ko){
-        var ren=(r[5]||"").split(","), rd=origHangul(r[2],lexLang(r[0]));
-        if(ren[0]===q) s=4; else if(ren.indexOf(q)>=0) s=3; else if(ren.some(function(w){ return w.indexOf(q)===0; })) s=2; else if(rd===q) s=3; else if(rd.indexOf(q)===0) s=1;
+        var ren=(r[5]||"").split(",").filter(Boolean), rd=origHangul(r[2],lexLang(r[0]));
+        var kg=String(r[7]||"").replace(/\([^)]*\)/g,"").split(/[,·]/).map(function(x){ return x.trim(); }).filter(Boolean);
+        var all=kg.concat(ren), q2=q.replace(/하다$|다$/,"");
+        function pre(w){ return w.indexOf(q)===0 || (q2.length>=2 && w.indexOf(q2)===0); }
+        if(kg[0]===q || ren[0]===q) s=4; else if(all.indexOf(q)>=0) s=3; else if(all.some(pre)) s=2; else if(rd===q) s=3; else if(rd.indexOf(q)===0) s=1; else if(String(r[7]||"").indexOf(q)>=0) s=1;
       } else if(orig){
         var lp=plain(r[1]); if(lp===P) s=4; else if(lp.indexOf(P)===0) s=2; else if(lp.indexOf(P)>=0) s=1;
       } else {
@@ -9848,7 +10322,7 @@ function lxRun(){
 function lxRowHtml(r){
   var L=lexLang(r[0]);
   return '<li><button type="button" class="lxrow" data-lx="'+r[0]+'"><span class="lxo"'+rtl(L)+'>'+esc(r[1])+'</span>'+
-    '<span class="lxm"><b>'+esc((r[5]||"").split(",").filter(Boolean).join(" · ")||"—")+'</b><em>'+esc(r[2])+' · '+esc(origHangul(r[2],L))+' · '+esc(r[4])+'</em></span>'+
+    '<span class="lxm"><b>'+esc(lexKo(r)||"—")+'</b><em>'+esc(r[2])+' · '+esc(origHangul(r[2],L))+(r[5]?' · 개역 '+esc(String(r[5]).split(",").filter(Boolean).join(" · ")):'')+(lexKo(r)?'':' · '+esc(r[4]))+'</em></span>'+
     '<span class="lxn">'+lexNum(r[0])+'<i>'+r[6]+'회</i></span></button></li>';
 }
 function paintLxRes(){
@@ -9862,7 +10336,7 @@ function paintLxRes(){
     h+='<ul class="lxlist">'+LX.res.slice(0,LX.show).map(lxRowHtml).join("")+'</ul>';
     if(LX.res.length>LX.show) h+='<button type="button" class="go soft" data-lxmore2="1" style="margin-top:12px">더 보기 ('+(LX.res.length-LX.show)+'개 남음)</button>';
   }
-  h+='<p class="srcnote">원어 · 형태 · 사전: STEPBible.org (Tyndale House, Cambridge) — TAHOT · TAGNT · TBESH · TBESG, CC BY 4.0. 개역한글 번역어는 원어와 개역한글 낱말을 통계로 자동으로 맞춘 것이라 틀린 짝이 섞여 있을 수 있습니다. 한글 발음은 음역을 우리말로 옮긴 대략의 읽기입니다.</p></div>';
+  h+='<p class="srcnote">원어 · 형태 · 사전: STEPBible.org (Tyndale House, Cambridge) — TAHOT · TAGNT · TBESH · TBESG, CC BY 4.0. 한글 발음은 음역을 우리말로 옮긴 대략의 읽기입니다.</p></div>';
   $("lxres").innerHTML=h;
 }
 /* 원어 낱말 하나 — 창으로 */
@@ -9872,16 +10346,16 @@ function lexEntryHtml(key,det,back,cur){
   var occ=det?unpackRefs(det[2]):[];
   return (back||'')+
     '<div class="lxhead"><span class="lxbig"'+rtl(L)+'>'+esc(r[1])+'</span><div><b>'+esc(r[2])+'</b><span>'+esc(origHangul(r[2],L))+' · '+(L==="G"?"헬라어":"히브리어")+' · '+lexNum(r[0])+'</span></div></div>'+
-    '<p class="lxgl"><i>'+esc(lexPos(r[3]))+'</i> '+esc(r[4])+'</p>'+
-    (cur?'<div class="lxcur"><em>이 절에서</em><b'+rtl(L)+'>'+esc(cur[0])+'</b> '+esc(cur[1])+' · '+esc(origHangul(cur[1],L))+(cur[5]?'<span>개역한글 「'+esc(cur[5])+'」</span>':'')+'<p>'+esc(cur[6].t)+(cur[6].h?'<small>'+esc(cur[6].h)+'</small>':'')+'</p></div>':'')+
-    (bars?'<h4 class="sth">개역한글은 이렇게 옮겼습니다 <em>자동으로 맞춘 짝 · 횟수</em></h4><ul class="lxbars">'+bars+'</ul>':'')+
-    (det&&det[1]?'<h4 class="sth">사전 풀이 <em>영어 · STEPBible</em></h4><div class="lxdef" lang="en">'+det[1]+'</div>':'')+
+    '<p class="lxgl"><i>'+esc(lexPos(r[3]))+'</i> '+(lexKo(r)?'<b>'+esc(lexKo(r))+'</b>':esc(r[4]))+'</p>'+
+    (cur?'<div class="lxcur"><em>이 절에서</em><b'+rtl(L)+'>'+esc(cur[0])+'</b> '+esc(cur[1])+' · '+esc(origHangul(cur[1],L))+(cur[5]?'<span>'+(cur[7]===1?'개역한글 「'+esc(cur[5])+'」의 조사 · 어미에 담김':'개역한글 「'+esc(cur[5])+'」')+'</span>':'')+'<p>'+esc(cur[6].t)+(cur[6].h?'<small>'+esc(cur[6].h)+'</small>':'')+'</p></div>':'')+
+    (bars?'<h4 class="sth">개역한글은 이렇게 옮겼습니다 <em>횟수</em></h4><ul class="lxbars">'+bars+'</ul>':'')+
     '<h4 class="sth">나오는 곳 <em>'+r[6]+'번 · '+occ.length+'절</em></h4><div class="lxocc" data-lxocc="'+key+'"></div>'+
-    '<p class="srcnote">STEPBible.org (Tyndale House, Cambridge) — CC BY 4.0. 번역어 짝은 자동으로 맞춘 것이라 틀릴 수 있습니다.</p>';
+    (r[7]&&!/^N:/.test(String(r[3]))?aiNote("맨 위 굵은 글씨의 우리말 뜻이 해당합니다."):'')+
+    '<p class="srcnote">STEPBible.org (Tyndale House, Cambridge) — CC BY 4.0.</p>';
 }
 function lxOccPaint(host,key,det,lim){
   if(!host) return;
-  var occ=det?unpackRefs(det[2]):[], ren=lexRen(det&&det[0]).map(function(x){ return x[0]; });
+  var occ=det?unpackRefs(det[2]):[], ren=lexRen(det&&det[0]).map(function(x){ return String(x[0]).replace(/(.)다$/,"$1"); });   /* 「주다」 → 「주」로 어절 머리 맞추기 */
   lim=lim||30;
   var list=occ.slice(0,lim), need=[];
   list.forEach(function(x){ if(need.indexOf(x[0]-1)<0 && !BIB.cache[x[0]-1]) need.push(x[0]-1); });
@@ -9919,7 +10393,7 @@ function stMarks(bi,c,v,toks){
   function put(j,cls,attr,title){ if(j>=0 && j<toks.length && !at[j]) at[j]={cls:cls, attr:attr, title:title}; }
   function find(name){ if(!name) return -1; for(var j=0;j<toks.length;j++){ var w=clean2(toks[j]); if(w.indexOf(name)===0 && w.length-name.length<=4) return j; } return -1; }
   var pp=(PPL.byV&&PPL.byV[key])||[], pl=(PLC.byV&&PLC.byV[key])||[], un=(UN.d&&UN.d.tags[key])||[];
-  un.forEach(function(t){ var u=UN.map[t[0]]; if(u) put(t[3]>=0?t[3]:find(t[1]),"u",'data-un="'+u.id+'"',u.n); });
+  un.forEach(function(t){ var u=UN.map[t[0]]; if(u) put(t[3]>=0?t[3]:find(String(t[1]).split(" ").pop()),"u",'data-un="'+u.id+'"',u.n); });
   pp.forEach(function(i){ put(find(PPL.rows[i][0]),"p",'data-pp="'+i+'"',"인물"); });
   pl.forEach(function(i){ put(find(PLC.rows[i][0]),"l",'data-pl="'+i+'"',"지명"); });
   return {at:at, pp:pp, pl:pl, un:un};
@@ -9931,7 +10405,12 @@ function stTextHtml(toks,at,sel){
     return a?'<b class="tg '+a.cls+'" '+a.attr+'>'+esc(t)+'</b>':inner;
   }).join(" ");
 }
-function openStudy(bi,c,v,sec){
+/* 절을 누르면 — 세 읽기 화면(읽기표 · 순서로 · 공부)이 모두 이 창을 엽니다.
+   ctx.mark(k) : 밑줄을 긋거나 지우고 그은 뒤 상태(true/false)를 돌려줌 · ctx.marked(k) : 지금 그어져 있나
+   ctx.multi   : 「여러 절 고르기」(복사) — 공부 화면에서만 */
+var VCTX=null;
+function openStudy(bi,c,v,sec,ctx){
+  VCTX=ctx||null;
   ST={bi:bi,c:c,v:v,sec:sec||"",ke:-1};
   openSheet('<h3 class="shtitle">'+esc(refName(bi,c,v))+' · 이 절 자료</h3><p class="mineempty">자료를 불러오는 중…</p>',function(){ bsClearMarks(); });
   $("sheetbody").onclick=stClick;
@@ -9939,13 +10418,22 @@ function openStudy(bi,c,v,sec){
     $("sheetbody").innerHTML='<h3 class="shtitle">'+esc(refName(bi,c,v))+'</h3><p class="mineempty">'+(netOff()?"인터넷이 없어 자료를 불러오지 못했습니다.":"자료를 불러오지 못했습니다 · "+esc(String(e&&e.message||e)))+'</p>';
   });
 }
+/* 창 위쪽 단추 줄 — 밑줄 · 복사 · 여러 절 */
+function stActs(){
+  var k=BOOK_ORDER[ST.bi]+"|"+ST.c+"|"+ST.v, h='';
+  /* 읽기표 · 순서로의 옛 밑줄은 지우기만(새로 칠하는 것은 형광펜) */
+  if(VCTX && VCTX.mark && VCTX.marked(k)) h+='<button type="button" data-stmark="1" aria-pressed="true">'+svg("check2")+'밑줄 지우기</button>';
+  h+='<button type="button" data-stcopy="1">'+svg("copy")+'복사</button>';
+  if(VCTX && VCTX.multi) h+='<button type="button" data-stmulti="1">'+svg("plus")+'여러 절 고르기</button>';
+  return '<div class="stacts">'+h+'</div>'+vnEditorHtml(k,true);
+}
 function stBack(){ return '<button type="button" class="shback" data-shback="1">‹ '+esc(refName(ST.bi,ST.c,ST.v))+' 자료로</button>'; }
 function paintStudy(){
   var bi=ST.bi, c=ST.c, v=ST.v, b=bi+1, src=bibVerse(bi,c,v)||"", toks=src.trim().split(/\s+/);
   var mk=stMarks(bi,c,v,toks), words=(OG.cache[bi]||{})[c+":"+v]||[], L=bi>=39?"G":"H";
   var raw=(XR.cache[bi]||{})[c+":"+v]||"", groups=raw?raw.split("|").map(xrGroup).filter(function(g){ return g.refs.length; }):[];
   groups.forEach(function(g){ g.idx=xrIdx(g,toks); g.phr=g.idx.length?xrPhrase(g.idx,toks):""; });
-  var dcs=((DC.v.cache[bi]||{})[c+":"+v]||[]).filter(function(i){ return DC.idx && DC.idx[i]; });
+  var dcs=((DC.v.cache[bi]||{})[c+":"+v]||[]).filter(function(i){ return DC.idx && DC.idx[i]; }).sort(function(a,b){ return (DC.idx[b][5]?1:0)-(DC.idx[a][5]?1:0); });
   var memo=(memoAt()[BOOK_ORDER[bi]+"|"+c+"|"+v]||[]);
   var sel=[];
   if(ST.ke>=0) words.forEach(function(w,i){ if(w[4]===ST.ke) sel.push(i); });
@@ -9953,19 +10441,30 @@ function paintStudy(){
   var h='<h3 class="shtitle">'+esc(refName(bi,c,v))+' · 이 절 자료</h3>'+
     '<div class="stnav">'+secs.filter(function(s){ return s[2]; }).map(function(s){ return '<button type="button" data-stj="'+s[0]+'">'+s[1]+'<i>'+s[2]+'</i></button>'; }).join("")+'</div>'+
     '<div class="shver stver"><em>개역한글 · 낱말을 누르면 맞는 원어를 칠합니다</em><p>'+stTextHtml(toks,mk.at,ST.ke>=0?[ST.ke]:null)+'</p></div>'+
-    '<div class="stlegend"><span class="tg p">인물</span><span class="tg l">지명</span><span class="tg u">단위</span></div>';
+    '<div class="stlegend"><span class="tg p">인물</span><span class="tg l">지명</span><span class="tg u">단위</span></div>'+
+    stActs();
   /* 원어 */
   if(words.length){
-    h+='<section id="st-og"><h4 class="sth">원어 <em>'+(L==="G"?"헬라어":"히브리어")+' · 낱말 '+words.length+' · 누르면 원어 사전</em></h4><ol class="iwl">'+words.map(function(w,i){
-      var r=lexRow(w[2]), m=morphKo(w[3],L), ko=w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"";
-      var ren=r&&lexContent(r)?(r[5]||"").split(",").filter(Boolean).slice(0,3).join(" · "):"";   /* 기능어(접속사 · 관사 …)는 번역어 짝이 흐려서 뺍니다 */
+    /* 본문 어절과 맞춘 원어 / 문맥 · 문법 원어 — 맞춤이 불확실한 낱말은 억지로 짝짓지 않고 직역 뜻으로 보여 줍니다 */
+    var wRow=function(i){
+      var w=words[i], r=lexRow(w[2]), m=morphKo(w[3],L), cf=ogConf(w), ko=w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"";
+      var kg=r?lexKo(r):"", en=(r&&!kg)?r[4]:"";
+      var k2, g2;
+      if(cf===2 && ko){ k2='「'+esc(ko)+'」'; g2=(kg?'<b>'+esc(kg)+'</b>':'')+(en?' <span lang="en">'+esc(en)+'</span>':''); }
+      else { k2=kg?'<span class="iwkg">'+esc(kg)+'</span>':'<i>—</i>'; g2=(cf===1&&ko?'<em class="iwgr">「'+esc(ko)+'」의 조사 · 어미에 담김</em> ':'')+(en?'<span lang="en">'+esc(en)+'</span>':''); }
       return '<li class="'+(sel.indexOf(i)>=0?'on':'')+'"><button type="button" data-ow="'+i+'"'+(w[2]?'':' disabled')+'>'+
         '<span class="iwo"'+rtl(L)+'>'+esc(w[0])+'</span>'+
         '<span class="iwr">'+esc(w[1])+' · '+esc(origHangul(w[1],L))+'</span>'+
-        '<span class="iwk">'+(ko?'「'+esc(ko)+'」':'<i>—</i>')+'</span>'+
-        '<span class="iwg"><b>'+esc(r?r[4]:"")+'</b>'+(ren?' · '+esc(ren):'')+'</span>'+
+        '<span class="iwk">'+k2+'</span>'+
+        '<span class="iwg">'+g2+'</span>'+
         '<span class="iwm">'+esc(m.t)+(w[2]?' · '+lexNum(w[2]):'')+'</span></button></li>';
-    }).join("")+'</ol><p class="stnote">「 」는 개역한글에서 그 원어에 맞춘 말입니다(자동 · 맞춘 말이 없으면 —). 히브리어는 오른쪽에서 왼쪽으로 읽습니다.</p></section>';
+    };
+    var gA=[], gB=[];
+    words.forEach(function(w,i){ (ogConf(w)===2 && w[4]>=0 ? gA : gB).push(i); });
+    h+='<section id="st-og"><h4 class="sth">원어 <em>'+(L==="G"?"헬라어":"히브리어")+' · 낱말 '+words.length+' · 누르면 원어 사전</em></h4>'+
+      (gA.length?'<p class="iwh">본문과 맞춘 원어 <em>'+gA.length+' · 「 」는 개역한글 낱말</em></p><ol class="iwl">'+gA.map(wRow).join("")+'</ol>':'')+
+      (gB.length?'<p class="iwh">문맥 · 문법 원어 <em>'+gB.length+' · 본문에 따로 대응하는 낱말 없이 뜻이나 문법으로 들어간 말 · 우리말 직역 뜻</em></p><ol class="iwl iwl2">'+gB.map(wRow).join("")+'</ol>':'')+
+      '<p class="stnote">낱말은 원문 순서대로 놓았고, 히브리어는 오른쪽에서 왼쪽으로 읽습니다. 위 본문의 낱말을 누르면 그 낱말에 맞춘 원어를 칠합니다.</p>'+aiNote("원어마다 붙인 우리말 뜻이 해당합니다.")+'</section>';
   } else if(OG.cache[bi]) h+='<section id="st-og"><h4 class="sth">원어</h4><p class="mineempty">이 절의 원어 자료가 없습니다.</p></section>';
   /* 관주 */
   if(groups.length){
@@ -9985,16 +10484,16 @@ function paintStudy(){
     h+='<section id="st-un"><h4 class="sth">단위 · 환산 <em>대략값</em></h4>'+uo.map(function(id){
       var u=UN.map[id], notes=[];
       var lines=ug[id].map(function(t){ var tt=unTagText(t,u); if(tt.n) notes.push(tt.n);
-        return '<span class="stunl"><b>'+esc(tt.q)+'</b>'+(tt.a?'<span>≈ '+esc(tt.a)+'</span>':'')+(tt.f?'<em>'+esc(tt.f)+'</em>':'')+'</span>'; }).join("");
+        return '<span class="stunl"><b>'+esc(tt.q)+'</b>'+(tt.a?'<span>'+esc(tt.a)+'</span>':'')+(tt.f?'<em>'+esc(tt.f)+'</em>':'')+'</span>'; }).join("");
       return '<button type="button" class="stun" data-un="'+u.id+'">'+lines+notes.map(function(n){ return '<p>'+esc(n)+'</p>'; }).join("")+'<small>'+esc(u.n)+' — '+esc(u.rng)+' · 자세히 ›</small></button>';
     }).join("")+'</section>';
   }
   /* 사전 */
-  if(dcs.length) h+='<section id="st-dc"><h4 class="sth">성경 사전 <em>이 절을 인용한 표제어 · Easton</em></h4><div class="stchips">'+dcs.slice(0,30).map(function(i){ var r=DC.idx[i]; return '<button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b><span>'+(r[1]?esc(r[0])+' · ':'')+(DC_KIND[r[2]]||"")+'</span></button>'; }).join("")+'</div></section>';
+  if(dcs.length) h+='<section id="st-dc"><h4 class="sth">성경 사전 <em>이 절을 인용한 표제어 · Easton</em></h4><div class="stchips">'+dcs.slice(0,30).map(function(i){ var r=DC.idx[i]; return '<button type="button" data-dc="'+i+'"><b>'+esc(dictName(r))+'</b><span>'+(r[1]?esc(r[0])+' · ':'')+(DC_KIND[r[2]]||"")+(r[5]?' · 우리말 요약':'')+'</span></button>'; }).join("")+'</div></section>';
   /* 암송 */
   if(memo.length) h+='<section id="st-mm"><h4 class="sth">암송 카드</h4><div class="stchips">'+memo.map(function(t){ return '<button type="button" data-ma="'+esc(t.a)+'" data-mp="'+esc(t.pn)+'"><b>'+esc(t.a)+'</b><span>'+esc(t.pn)+'</span></button>'; }).join("")+'</div></section>';
   h+='<div class="shacts"><button type="button" class="main" data-stcopy="1">'+svg("copy")+'이 절 복사</button><button type="button" data-xrall="1">'+svg("xref")+'관주 전체</button></div>'+
-    '<p class="srcnote">원어: STEPBible (CC BY 4.0) · 관주: TSK (CC BY 4.0) · 인물: STEPBible · Theographic · 지명: OpenBible.info · 사전: Easton(퍼블릭 도메인). 원어와 개역한글 낱말의 짝, 이름과 단위 표시는 자동으로 맞춘 것이라 틀릴 수 있습니다.</p>';
+    '<p class="srcnote">원어: STEPBible (CC BY 4.0) · 관주: TSK (CC BY 4.0) · 인물: STEPBible · Theographic · 지명: OpenBible.info · 사전: Easton(퍼블릭 도메인).</p>';
   $("sheetbody").innerHTML=h;
   $("sheetbody").onclick=stClick;
   if(ST.sec && ST.sec!=="og"){ var el=$("st-"+ST.sec); ST.sec=""; if(el) setTimeout(function(){ el.scrollIntoView({block:"start"}); },20); }   /* 원어는 본문 바로 아래라 맨 위에서 */
@@ -10010,7 +10509,7 @@ function stClick(e){
   if((t=e.target.closest("[data-ow]"))){
     var w=((OG.cache[ST.bi]||{})[ST.c+":"+ST.v]||[])[+t.dataset.ow]; if(!w || !w[2]) return;
     var toks=(bibVerse(ST.bi,ST.c,ST.v)||"").trim().split(/\s+/), L=ST.bi>=39?"G":"H";
-    openLexSheet(w[2],stBack(),[w[0],w[1],w[2],w[3],w[4],w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"",morphKo(w[3],L)]); return;
+    openLexSheet(w[2],stBack(),[w[0],w[1],w[2],w[3],w[4],w[4]>=0&&toks[w[4]]?toks[w[4]].replace(/[^가-힣0-9]+$/,""):"",morphKo(w[3],L),ogConf(w)]); return;
   }
   if((t=e.target.closest("[data-lx]"))){ openLexSheet(t.dataset.lx,(SHEET.open&&ST.bi>=0&&$("sheetbody").querySelector("[data-shback],.stnav"))?stBack():""); return; }
   if((t=e.target.closest("[data-lxmore]"))){ if(LX.cur && LX.cur.key===t.dataset.lxmore) lxOccPaint($("sheetbody").querySelector("[data-lxocc]"),LX.cur.key,LX.cur.det,+t.dataset.lim); return; }
@@ -10023,35 +10522,103 @@ function stClick(e){
   if((t=e.target.closest("[data-dcpl]"))){ var nl=t.dataset.dcpl; loadPlaces().then(function(){ var best=-1; PLC.rows.forEach(function(r,i){ if(r[0]===nl && best<0) best=i; }); if(best>=0) sheetThen(function(){ openMap(best); }); else setSync("지도에서 찾지 못했습니다",true); }); return; }
   if((t=e.target.closest("[data-xrall]"))){ var a=ST; sheetThen(function(){ openXref(a.bi,a.c,a.v); }); return; }
   if((t=e.target.closest("[data-ma]"))){ openMemoSheet(t.dataset.ma,t.dataset.mp); return; }
+  if(vnEditorClick(e,(VCTX&&VCTX.src)||"study")) return;
+  if((t=e.target.closest("[data-stmark]"))){
+    if(!VCTX || !VCTX.mark) return;
+    var on=VCTX.mark(BOOK_ORDER[ST.bi]+"|"+ST.c+"|"+ST.v);
+    if(!on) t.remove();
+    setSync(on?"밑줄을 그었습니다":"밑줄을 지웠습니다"); return;
+  }
+  if((t=e.target.closest("[data-stmulti]"))){
+    var v0=ST.v; BSEL={}; BSEL[v0]=1;
+    sheetThen(function(){ var p=document.querySelector('#btverses p.v[data-k$="|'+v0+'"]'); if(p) p.classList.add("sel"); bsPaint(); setSync("고를 절을 더 누르세요 · 다 고르면 아래 「복사」"); });
+    return;
+  }
   if((t=e.target.closest("[data-stcopy]"))){ var ref=BOOK_ORDER[ST.bi]+" "+ST.c+":"+ST.v; copyText((bibVerse(ST.bi,ST.c,ST.v)||"")+" ("+ref+", 개역한글)",function(ok){ setSync(ok?"절을 복사했습니다":"복사하지 못했습니다",!ok); }); return; }
+}
+
+/* ── 세 읽기 화면 공통: 절을 누르면 「이 절 자료」 ── */
+function verseClick(e,ctx){
+  var t=e.target.closest(".memotag");
+  if(t){ openMemoSheet(t.dataset.ma,t.dataset.mp); return true; }
+  var g=e.target.closest("[data-vtg]");
+  if(g){ var pg=g.closest("p.v[data-k]"); if(pg){ var a=pg.dataset.k.split("|"); openStudy(BOOK_ORDER.indexOf(a[0]),+a[1],+a[2],g.dataset.vtg,ctx); } return true; }
+  var tg=e.target.closest(".tg");
+  if(tg){
+    if(tg.dataset.pp) openPerson(+tg.dataset.pp);
+    else if(tg.dataset.pl) openMap(+tg.dataset.pl);
+    else if(tg.dataset.un) openUnitSheet(tg.dataset.un);
+    return true;
+  }
+  var v=e.target.closest("p.v[data-k]");
+  if(!v) return false;
+  var k=v.dataset.k.split("|"), bi=BOOK_ORDER.indexOf(k[0]);
+  if(bi<0) return false;
+  document.querySelectorAll("p.v.sel").forEach(function(p){ if(!p.closest("#btverses") || !Object.keys(BSEL).length) p.classList.remove("sel"); });
+  v.classList.add("sel");
+  openStudy(bi,+k[1],+k[2],"",ctx);
+  return true;
+}
+/* 읽기표 · 순서로의 밑줄 — 창에서 긋고 지웁니다 */
+function rdMarkCtx(){
+  return { src:"read",
+    marked:function(k){ return (rdNoteOf(RD.day).marks||[]).indexOf(k)>=0; },
+    mark:function(k){
+      var i=RD.day, n=rdNoteOf(i), marks=(n.marks||[]).slice(), at=marks.indexOf(k);
+      if(at>=0) marks.splice(at,1); else marks.push(k);
+      rdSetNote(i,{note:($("rdmemo").value||"").trim() || n.note, marks:marks});
+      document.querySelectorAll('#rdText p.v[data-k="'+k.replace(/"/g,'\\"')+'"]').forEach(function(p){ p.classList.toggle("mk",at<0); });
+      return at<0;
+    }
+  };
+}
+function odMarkCtx(){
+  return { src:"order",
+    marked:function(k){ return !!odMarks()[k]; },
+    mark:function(k){
+      var on=odToggleMark(k);
+      document.querySelectorAll('#odText p.v[data-k="'+k.replace(/"/g,'\\"')+'"]').forEach(function(p){ p.classList.toggle("mk",on); });
+      return on;
+    }
+  };
+}
+/* 「자료 태그」 — 세 화면이 같은 설정(BV.study)을 씁니다 */
+function readModesPaint(id){
+  $(id).innerHTML='<button type="button" data-btm="study" aria-pressed="'+!!BV.study+'">자료 태그</button>'+
+    '<span class="btmhint">'+(BV.study?'절 아래 태그를 누르면 원어 · 관주 · 인물 · 지명 · 단위 · 사전':'절을 누르면 그 절의 관주 · 원어 · 사전')+'</span>';
 }
 
 /* ── 성경보기 · 해설 / 자료 켜기 ── */
 function bvModesPaint(){
   $("btmodes").innerHTML='<button type="button" data-btm="guide" aria-pressed="'+!!BV.guide+'">해설</button><button type="button" data-btm="study" aria-pressed="'+!!BV.study+'">자료 태그</button>'+
-    '<span class="btmhint">'+(BV.guide||BV.study?(BV.study?'절 아래 태그를 누르면 원어 · 관주 · 인물 · 지명 · 단위 · 사전':'장의 흐름과 요약'):'본문만 보는 중 · 절을 누르면 선택 · 복사')+'</span>';
+    '<span class="btmhint">'+(BV.guide||BV.study?(BV.study?'절 아래 태그를 누르면 원어 · 관주 · 인물 · 지명 · 단위 · 사전':'장의 흐름과 요약'):'절을 누르면 그 절의 관주 · 원어 · 사전')+'</span>';
 }
-/* 장 안의 절마다 태그 */
-function bvTagsPaint(){
-  var bi=BV.bi, c=BV.c, host=$("btverses");
+/* 장 안의 절마다 태그 — 공부 · 읽기표 · 순서로 어디서나(절마다 data-k 의 책 이름으로) */
+function bvTagsPaint(){ tagsPaint($("btverses")); }
+function tagsPaint(host){
+  if(!host) return;
   host.classList.toggle("study",!!BV.study);
   host.querySelectorAll(".vtg").forEach(function(x){ x.remove(); });
   host.querySelectorAll("p.v .vt[data-raw]").forEach(function(x){ x.textContent=x.dataset.raw; x.removeAttribute("data-raw"); });
   if(!BV.study) return;
-  stLoad(bi).then(function(){
-    if(screenNow!=="btext" || BV.bi!==bi || BV.c!==c || !BV.study) return;
-    var og=OG.cache[bi]||{}, xr=XR.cache[bi]||{}, dv=DC.v.cache[bi]||{};
-    host.querySelectorAll("p.v[data-k]").forEach(function(p){
-      if(p.querySelector(".vtg")) return;
-      var v=+p.dataset.k.split("|")[2], src=bibVerse(bi,c,v)||"", toks=src.trim().split(/\s+/), mk=stMarks(bi,c,v,toks);
-      var vt=p.querySelector(".vt");
-      if(vt && Object.keys(mk.at).length){ vt.dataset.raw=vt.textContent; vt.innerHTML=toks.map(function(t,j){ var a=mk.at[j]; return a?'<b class="tg '+a.cls+'" '+a.attr+'>'+esc(t)+'</b>':esc(t); }).join(" "); }
-      var n=(og[c+":"+v]||[]).length, x=xrCount(xr[c+":"+v]), d=(dv[c+":"+v]||[]).length;
-      var chips=(n?'<button type="button" data-vtg="og">원어</button>':'')+(x?'<button type="button" data-vtg="xr">관주 '+x+'</button>':'')+
-        (mk.pp.length?'<button type="button" data-vtg="pp" class="p">인물 '+mk.pp.length+'</button>':'')+(mk.pl.length?'<button type="button" data-vtg="pl" class="l">지명 '+mk.pl.length+'</button>':'')+
-        (mk.un.length?'<button type="button" data-vtg="un" class="u">단위 '+mk.un.length+'</button>':'')+(d?'<button type="button" data-vtg="dc">사전 '+d+'</button>':'');
-      if(chips){ var div=document.createElement("span"); div.className="vtg"; div.innerHTML=chips; p.appendChild(div); }
-    });
+  var books=[];
+  host.querySelectorAll("p.v[data-k]").forEach(function(p){ var bi=BOOK_ORDER.indexOf(p.dataset.k.split("|")[0]); if(bi>=0 && books.indexOf(bi)<0) books.push(bi); });
+  books.forEach(function(bi){
+    stLoad(bi).then(function(){
+      if(!BV.study || !document.body.contains(host) || host.closest("[hidden]")) return;
+      var og=OG.cache[bi]||{}, xr=XR.cache[bi]||{}, dv=DC.v.cache[bi]||{};
+      host.querySelectorAll("p.v[data-k]").forEach(function(p){
+        var a=p.dataset.k.split("|"); if(BOOK_ORDER.indexOf(a[0])!==bi || p.querySelector(".vtg")) return;
+        var c=+a[1], v=+a[2], src=bibVerse(bi,c,v)||"", toks=src.trim().split(/\s+/), mk=stMarks(bi,c,v,toks);
+        var vt=p.querySelector(".vt");
+        if(vt && Object.keys(mk.at).length){ vt.dataset.raw=vt.textContent; vt.innerHTML=toks.map(function(t,j){ var x=mk.at[j]; return x?'<b class="tg '+x.cls+'" '+x.attr+'>'+esc(t)+'</b>':esc(t); }).join(" "); }
+        var n=(og[c+":"+v]||[]).length, xn=xrCount(xr[c+":"+v]), d=(dv[c+":"+v]||[]).length;
+        var chips=(n?'<button type="button" data-vtg="og">원어</button>':'')+(xn?'<button type="button" data-vtg="xr">관주 '+xn+'</button>':'')+
+          (mk.pp.length?'<button type="button" data-vtg="pp" class="p">인물 '+mk.pp.length+'</button>':'')+(mk.pl.length?'<button type="button" data-vtg="pl" class="l">지명 '+mk.pl.length+'</button>':'')+
+          (mk.un.length?'<button type="button" data-vtg="un" class="u">단위 '+mk.un.length+'</button>':'')+(d?'<button type="button" data-vtg="dc">사전 '+d+'</button>':'');
+        if(chips){ var div=document.createElement("span"); div.className="vtg"; div.innerHTML=chips; p.appendChild(div); }
+      });
+    },function(){});
   });
 }
 
@@ -10096,7 +10663,7 @@ function bvChapterData(){
     for(var v=1; v<=nv; v++) (og[c+":"+v]||[]).forEach(function(w){ var s=w[2]; if(!s || s==="G3588" || s==="H0853" || /^H9/.test(s)) return; cnt[s]=(cnt[s]||0)+1; });
     var keys=Object.keys(cnt).filter(function(k){ var r=lexRow(k); return r && cnt[k]>=2 && lexContent(r); });
     keys.sort(function(a,b){ function sc(k){ var r=lexRow(k); return cnt[k]*Math.log(400000/((r&&r[6])||1)); } return sc(b)-sc(a); });
-    if(keys.length) h+='<div class="whog"><h4>핵심 원어 <em>이 장에 여러 번 나오는 낱말</em></h4><div>'+keys.slice(0,10).map(function(k){ var r=lexRow(k), L=lexLang(k); return '<button type="button" data-lx="'+r[0]+'"><span'+rtl(L)+'>'+esc(r[1])+'</span> '+esc((r[5]||"").split(",")[0]||r[4])+'<em>×'+cnt[k]+'</em></button>'; }).join("")+'</div></div>';
+    if(keys.length) h+='<div class="whog"><h4>핵심 원어 <em>이 장에 여러 번 나오는 낱말</em></h4><div>'+keys.slice(0,10).map(function(k){ var r=lexRow(k), L=lexLang(k); return '<button type="button" data-lx="'+r[0]+'"><span'+rtl(L)+'>'+esc(r[1])+'</span> '+esc(lexKo(r).split(/,\s*/)[0])+'<em>×'+cnt[k]+'</em></button>'; }).join("")+'</div></div>';
     if(pp.length) h+='<div class="whog"><h4>인물 '+pp.length+'</h4><div>'+pp.slice(0,60).map(function(i){ return '<button type="button" data-who-p="'+i+'">'+esc(PPL.rows[i][0])+'</button>'; }).join("")+'</div></div>';
     if(pl.length) h+='<div class="whog"><h4>지명 '+pl.length+'</h4><div>'+pl.slice(0,60).map(function(i){ return '<button type="button" data-who-l="'+i+'">'+esc(PLC.rows[i][0])+'</button>'; }).join("")+'</div></div>';
     if(UN.d){
@@ -10108,7 +10675,7 @@ function bvChapterData(){
     var dk=Object.keys(dn).map(Number).filter(function(i){ return DC.idx && DC.idx[i]; }).sort(function(a,b){ return dn[b]-dn[a] || DC.idx[b][3]-DC.idx[a][3]; });
     if(dk.length) h+='<div class="whog"><h4>성경 사전 '+dk.length+' <em>이 장을 인용한 표제어</em></h4><div>'+dk.slice(0,40).map(function(i){ return '<button type="button" data-dc="'+i+'">'+esc(dictName(DC.idx[i]))+(dn[i]>1?'<em>'+dn[i]+'절</em>':'')+'</button>'; }).join("")+'</div></div>';
     if(!h) h='<p class="mineempty">이 장에는 실린 자료가 없습니다.</p>';
-    $("btwholist").innerHTML=h+'<p class="srcnote">원어: STEPBible · 인물: STEPBible · Theographic · 지명: OpenBible.info · 단위: 원어 태그로 찾음 · 사전: Easton — 개역한글 본문에서 확인하거나 자동으로 맞춘 것이라 틀릴 수 있습니다.</p>';
+    $("btwholist").innerHTML=h+'<p class="srcnote">원어: STEPBible · 인물: STEPBible · Theographic · 지명: OpenBible.info · 단위: 개역한글 본문 조사 · 원어 확인 · 사전: Easton.</p>';
   },function(e){ $("btwholist").innerHTML='<p class="mineempty">자료를 불러오지 못했습니다 · '+esc(String(e&&e.message||e))+'</p>'; });
 }
 
@@ -11048,7 +11615,7 @@ function drawVerseCard(v){
   x.fillStyle=C.soft; x.font='600 30px '+sans;
   x.fillText((state.ver==="han"?"개역한글":"개역개정"),L,H-175);
   x.textAlign="right"; x.fillStyle=C.brand; x.font='700 32px '+sans;
-  x.fillText("네비게이토 암송 Festival",R,H-175);
+  x.fillText("네비게이토 말씀의 손",R,H-175);
   x.textAlign="left";
   return cv;
 }
@@ -11474,15 +12041,16 @@ function providerKo(p){
   var k=String(p||"").replace(/^custom:/,"");
   return PROVIDER_KO[k]||k||"";
 }
+function signNote(t){ $("signinnote").textContent=t; $("mysignnote").textContent=t; }
 function signIn(provider){
   var p=provider||"google";
   if(p==="kakao") p=KAKAO_PROVIDER||"kakao";
-  if(!online()){ $("signinnote").textContent=DB_MSG; return; }
+  if(!online()){ signNote(DB_MSG); return; }
   /* 끝에 슬래시가 없는 주소는 되돌아올 때 한 번 더 리다이렉트되면서
      토큰이 사라지는 일이 있어, 미리 슬래시를 붙여 둡니다. */
   var back=location.origin+location.pathname;
   if(!/\/$/.test(back) && !/\.[a-z0-9]+$/i.test(back)) back+="/";
-  $("signinnote").textContent=providerKo(p)+" 계정으로 넘어가는 중…";
+  signNote(providerKo(p)+" 계정으로 넘어가는 중…");
   SB.auth.signInWithOAuth({
     provider:p,
     options:{redirectTo:back}
@@ -11493,15 +12061,17 @@ function signIn(provider){
     var hint=/not enabled|unsupported provider/i.test(m)
       ? " → Supabase → Authentication → Sign In / Providers 에서 "+providerKo(p)+"를 켜 주세요."
       : "";
-    $("signinnote").textContent="로그인에 실패했습니다 ("+m+")"+hint;
+    signNote("로그인에 실패했습니다 ("+m+")"+hint);
   });
 }
 function afterAuth(u){
   authReady=true;
   if(u) setMe(u);
   else { state.me=null; state.progress={}; pending={}; mineLoaded=false; }
-  if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); }
+  if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); }
   if(screenNow==="mine") paintMy();
+  paintAcct();
+  if(screenNow==="my") paintMy2(true);
   if(!$("me").hidden){
     paintMe();
     armPoll();          /* 기록을 불러오고 실시간 갱신을 다시 겁니다 */
@@ -11821,15 +12391,15 @@ function plNoteFlush(){
   if(ta) plSetNote(ta.dataset.plnote, ta.value);
 }
 
-var SCREENS=["home","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview"];
-var SCREEN_NAME={home:"처음 화면",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
+var SCREENS=["home","my","hubm","hubr","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview"];
+var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"읽기",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",mtyp:"외우며 치기",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
                  crop:"암송현황", coop:"함께 거두기", field:"함께 거두는 밭",
                  partv:"파트 보기", vcard:"구절 카드",
                  mine:"내 암송", mypick:"구절 넣기", glance:"한눈에",
-                 read:"성경읽기표", rday:"오늘 분량", rnotes:"묵상 모아 보기",
-                 order:"성경순서로", oday:"하루 분량", bible:"성경보기", bchap:"장 고르기", btext:"성경 본문",
+                 read:"성경읽기표", rday:"오늘 분량", rnotes:"묵상",
+                 order:"성경순서로", oday:"하루 분량", bible:"공부", bchap:"장 고르기", btext:"성경 본문",
                  sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", slex:"원어 사전", sdict:"성경 사전", sunit:"도량형", smap:"성경 지도", speople:"성경 인물", person:"인물",
                  tract:"전도지", tview:"하나님께 가는 다리"};
 var screenNow="home", screenLog=["home"], depth=0;
@@ -11873,7 +12443,7 @@ function applyScreen(which,restoreY){
   if(which==="fsrs") fPaintHome();    /* 뒤로 왔을 때 오늘 몫을 다시 셈 */
   if(which==="field"){ if(CO.code){ coPaint(); coStart(); } }
   else coStop();                      /* 밭을 떠나면 서버 읽기를 멈춥니다 */
-  if(which==="home"){ paintHomeCount(); paintReadCount(); paintTractCount(); }
+  if(which==="home"||which==="hubm"||which==="hubr"){ paintHomeCount(); paintReadCount(); paintTractCount(); }
   if(which==="tract") paintTract();
   if(which==="tview") trOpenFrame();
   document.body.classList.toggle("tviewing", which==="tview");
@@ -11896,12 +12466,14 @@ function applyScreen(which,restoreY){
   if(which==="glance") paintGlance();
   if(which==="vcard") paintVerseCard();
   if(which==="crop") paintCrop();
+  if(which==="my") paintMy2();
+  $("acctbtn").setAttribute("aria-current", which==="my" ? "page" : "false");
   document.body.classList.toggle("compact", which!=="home");
   var docked=(which==="result");
   $("dock").hidden=!docked;
   document.body.classList.toggle("docked",docked);
   $("lede").textContent = which==="home"
-    ? "구절을 뽑고, 싹부터 추수까지 자라갑니다" : "";
+    ? "묵상 · 암송 · 공부 · 읽기 · 듣기" : "";
   paintNav();
   armPoll();
   if(typeof restoreY==="number"){
@@ -12004,9 +12576,12 @@ $("fzpick").addEventListener("click",function(e){
 $("backbtn").addEventListener("click",goBack);
 $("homebtn").addEventListener("click",goHome);
 
-$("modes").addEventListener("click",function(e){
-  var b=e.target.closest("[data-mode]"); if(!b) return;
+function modeClick(e){
+  var b=e.target.closest("[data-mode]"); if(!b || b.getAttribute("aria-disabled")==="true") return;
   var m=b.dataset.mode;
+  if(m==="hubm"||m==="hubr"){ show(m); return; }
+  if(m==="study"){ openBible(); return; }
+  if(m==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); } paintReadNotes(); show("rnotes"); return; }
   if(m==="mine"){ openMine(); return; }
   if(m==="read"){ openRead(); return; }
   if(m==="order"){ openOrder(); return; }
@@ -12030,7 +12605,13 @@ $("modes").addEventListener("click",function(e){
   if(m==="coop"){ openCoop(); return; }
   setMode(m);
   show("setup");
-});
+}
+$("modes").addEventListener("click",modeClick);
+$("hubmmodes").addEventListener("click",modeClick);
+$("hubrmodes").addEventListener("click",modeClick);
+$("mysearchbtn").addEventListener("click",function(){ openSearchMemo(); });
+$("stdform").addEventListener("submit",function(e){ e.preventDefault(); var q=($("stdq").value||"").trim(); if(!q) return; try{ $("stdq").blur(); }catch(_){} openSearchVerse(q); });
+$("bible").addEventListener("click",function(e){ var b=e.target.closest("[data-std]"); if(!b) return; if(b.dataset.std==="map") openMap(); else openPeople(); });
 
 $("parts").addEventListener("click",function(e){
   var tab=e.target.closest("#ctabs [data-ct]");
@@ -12158,7 +12739,7 @@ $("cnext").addEventListener("click",function(){
   cropMonth=(n>fToday().slice(0,7))?null:n;
   paintCrop();
 });
-$("fsignin").addEventListener("click",function(){ paintMe(); show("me"); });
+$("fsignin").addEventListener("click",function(){ show("my"); });
 $("fstart").addEventListener("click",fStart);
 $("fshow").addEventListener("click",fShowAnswer);
 $("frates").addEventListener("click",function(e){
@@ -12196,7 +12777,9 @@ $("read").addEventListener("click",function(e){
 });
 $("rdnotesbtn").addEventListener("click",function(){ RN.from="read"; paintReadNotes(); show("rnotes"); });
 $("rdrestart").addEventListener("click",function(){ RD.setup=true; paintRead(); window.scrollTo(0,0); });
+$("rnsort").addEventListener("click",function(e){ var b=e.target.closest("[data-rnsort]"); if(!b) return; RN.sort=b.dataset.rnsort; try{ localStorage.setItem("navfest.rnsort",RN.sort); }catch(_){} paintReadNotes(); });
 $("rnotelist").addEventListener("click",function(e){
+  var r=e.target.closest("[data-rgo]"); if(r){ goRef(r.dataset.rgo); return; }
   var o=e.target.closest("[data-ogo2]"); if(o){ openOrderDay(+o.dataset.ogo2); return; }
   var g=e.target.closest("[data-go]"); if(g) openReadDay(+g.dataset.go);
 });
@@ -12205,8 +12788,6 @@ $("rdjump").addEventListener("click",function(e){
   var el=$("rds"+b.dataset.jump); if(el) el.scrollIntoView({block:"start",behavior:"smooth"});
 });
 $("rdText").addEventListener("click",function(e){
-  var t=e.target.closest(".memotag");
-  if(t){ openMemoSheet(t.dataset.ma,t.dataset.mp); return; }
   var c=e.target.closest(".rdcheck");
   if(c){
     var s=+c.dataset.s, on=!(rdBits(RD.day)&(1<<s));
@@ -12214,14 +12795,9 @@ $("rdText").addEventListener("click",function(e){
     if(on && rdDone(RD.day)) setSync((RD.day+1)+"일째 분량을 다 읽었습니다");
     return;
   }
-  var v=e.target.closest("p.v[data-k]");
-  if(v){
-    var i=RD.day, n=rdNoteOf(i), k=v.dataset.k, marks=(n.marks||[]).slice(), at=marks.indexOf(k);
-    if(at>=0) marks.splice(at,1); else marks.push(k);
-    rdSetNote(i,{note:($("rdmemo").value||"").trim() || n.note, marks:marks});
-    v.classList.toggle("mk",at<0);
-  }
+  verseClick(e,rdMarkCtx());
 });
+$("rdmodes").addEventListener("click",function(e){ if(!e.target.closest("[data-btm]")) return; BV.study=!BV.study; readModesPaint("rdmodes"); tagsPaint($("rdText")); });
 $("rdmemo").addEventListener("input",function(){
   clearTimeout(RD.memoTimer); RD.memoTimer=setTimeout(rdMemoSave,1200);
 });
@@ -12340,6 +12916,7 @@ $("glstart").addEventListener("change",function(){
   setSync(this.checked ? "이제 앱을 열면 「한눈에」부터 보입니다" : "앱을 열면 처음 화면부터 보입니다");
 });
 /* ── 구절 카드 · 가리기 · 내 암송에 두기 · 밀어서 넘기기 ── */
+$("vcvn").addEventListener("click",function(e){ vnEditorClick(e,"memo"); });
 $("vchide").addEventListener("click",function(){ PV.hide=!PV.hide; PV.shown=false; paintVerseCard(); });
 $("vctext").addEventListener("click",function(){
   if(PV.hide && !PV.shown){ PV.shown=true; paintVerseCard(); }
@@ -12521,12 +13098,31 @@ $("tygrade").addEventListener("click",function(e){
   paintTyGrade();
   $("tynote").textContent="개인 기록에 「"+GRADE_BY[k].n+"」으로 남겼습니다.";
 });
-$("signout").addEventListener("click",function(){
+function signOutAll(){
   if(online()) SB.auth.signOut();
   state.me=null; state.progress={}; pending={};
-  myReset(); paintHomeCount(); rdReset(); odReset(); paintReadCount(); plReset(); paintTractCount();
+  myReset(); paintHomeCount(); rdReset(); odReset(); paintReadCount(); plReset(); paintTractCount(); vnReset();
   setSync(""); pollStop();
-  paintMe();
+  paintMe(); paintAcct();
+  if(screenNow==="my") paintMy2();
+}
+$("signout").addEventListener("click",signOutAll);
+$("mysignout").addEventListener("click",signOutAll);
+$("mysigninG").addEventListener("click",function(){ signIn("google"); });
+$("mysigninK").addEventListener("click",function(){ signIn("kakao"); });
+$("acctbtn").addEventListener("click",function(){ if(screenNow!=="my") show("my"); });
+$("themepick").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-theme]"); if(!b) return;
+  setTheme(b.dataset.theme);
+});
+$("mystats").addEventListener("click",function(e){
+  var b=e.target.closest("[data-mygo]"); if(!b) return;
+  var g=b.dataset.mygo;
+  if(g==="crop") openCrop();
+  else if(g==="me"){ state.mode="personal"; state.review=false; paintMe(); show("me"); }
+  else if(g==="read") openRead();
+  else if(g==="order") openOrder();
+  else if(g==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); } paintReadNotes(); show("rnotes"); }
 });
 $("meDraw").addEventListener("click",function(){
   setMode("personal"); show("setup");
@@ -12585,8 +13181,6 @@ $("odjump").addEventListener("click",function(e){
   var el=$("ods"+b.dataset.oj); if(el) el.scrollIntoView({block:"start",behavior:"smooth"});
 });
 $("odText").addEventListener("click",function(e){
-  var t=e.target.closest(".memotag");
-  if(t){ openMemoSheet(t.dataset.ma,t.dataset.mp); return; }
   var c=e.target.closest(".rdcheck");
   if(c){
     var u=+c.dataset.ou, on=!rleHas(OD.done,u);
@@ -12595,9 +13189,9 @@ $("odText").addEventListener("click",function(e){
     if(on && dd.n===dd.of) setSync((OD.day+1)+"일째 분량을 다 읽었습니다");
     return;
   }
-  var v=e.target.closest("p.v[data-k]");
-  if(v){ var on=odToggleMark(v.dataset.k); v.classList.toggle("mk",on); }   /* 읽기표처럼 — 누르면 밑줄, 다시 누르면 지움 */
+  verseClick(e,odMarkCtx());
 });
+$("odmodes").addEventListener("click",function(e){ if(!e.target.closest("[data-btm]")) return; BV.study=!BV.study; readModesPaint("odmodes"); tagsPaint($("odText")); });
 $("odall").addEventListener("click",function(){
   var B=odBuild(OD.plan), i=OD.day, dd=odDayDone(B,i);
   if(dd.n===dd.of){ if(i<B.days.length-1){ odMemoSave(); openOrderDay(i+1); } return; }
@@ -12652,23 +13246,13 @@ $("btnext").addEventListener("click",function(){ bvStep(1); });
 $("btprev2").addEventListener("click",function(){ bvStep(-1); });
 $("btnext2").addEventListener("click",function(){ bvStep(1); });
 $("btverses").addEventListener("click",function(e){
-  var t=e.target.closest(".memotag");
-  if(t){ openMemoSheet(t.dataset.ma,t.dataset.mp); return; }
-  var g=e.target.closest("[data-vtg]");
-  if(g){ var pv=g.closest("p.v[data-k]"); if(pv) openStudy(BV.bi,BV.c,+pv.dataset.k.split("|")[2],g.dataset.vtg); return; }
-  var tg=e.target.closest(".tg");
-  if(tg){
-    if(tg.dataset.pp) openPerson(+tg.dataset.pp);
-    else if(tg.dataset.pl) openMap(+tg.dataset.pl);
-    else if(tg.dataset.un) openUnitSheet(tg.dataset.un);
-    return;
-  }
   var v=e.target.closest("p.v[data-k]");
-  if(v){                                   /* 누르면 고르고, 다시 누르면 풉니다 — 여러 절을 골라 한꺼번에 복사 */
+  if(v && Object.keys(BSEL).length && !e.target.closest(".memotag,[data-vtg],.tg")){   /* 「여러 절 고르기」 중 — 누르면 고르고, 다시 누르면 풉니다 */
     var n=+v.dataset.k.split("|")[2];
     if(BSEL[n]){ delete BSEL[n]; v.classList.remove("sel"); } else { BSEL[n]=1; v.classList.add("sel"); }
-    bsPaint();
+    bsPaint(); return;
   }
+  verseClick(e,{multi:true, src:"study"});
 });
 $("btmodes").addEventListener("click",function(e){
   var b=e.target.closest("[data-btm]"); if(!b) return;
@@ -13187,6 +13771,8 @@ paintOff();
 state.ver=verLoad();
 paintVerPick();
 paintFzPick();
+paintThemePick();
+paintAcct();
 try{ history.replaceState({nav:0},""); }catch(e){}
 if(AUTH_ERR){
   setSync(authErrText(),true);
