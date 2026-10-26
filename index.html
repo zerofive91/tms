@@ -919,14 +919,13 @@ body.hubbing .navhere{display:none}
 .modecard .modeicon{flex-basis:42px;height:42px}
 /* 처음 화면 — 묵상 한 줄 + 2칸 타일 넷 (v12) */
 #modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-#modes .modecard{flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:150px;padding:16px 15px 15px;border-width:1px;border-radius:20px}
-#modes .modecard:first-child{grid-column:1 / -1;flex-direction:row;align-items:center;min-height:0}
-#modes .modeicon{flex:0 0 auto;width:44px;height:44px;border-radius:14px;
+#modes .modecard{flex-direction:column;align-items:flex-start;justify-content:space-between;gap:14px;min-width:0;min-height:128px;padding:16px 16px 15px;border-width:1px;border-radius:20px}
+#modes .modecard:first-child{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:flex-start;min-height:0}
+#modes .modeicon{display:flex;margin:0;flex:0 0 auto;width:44px;height:44px;border-radius:14px;
   background:color-mix(in srgb,var(--brand) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--brand) 18%,transparent)}
 #modes .modecard:hover .modeicon{background:var(--core);color:#123B2D}
 #modes .modecard>span:last-child{min-width:0}
-#modes .modecard b{font-size:calc(19px * var(--fz))}
-#modes .modecard span span{font-size:calc(12px * var(--fz));overflow-wrap:anywhere}
+#modes .modecard b{font-size:calc(20px * var(--fz))}
 .modecard.off{opacity:.55;cursor:default}
 .modecard.off:hover{border-color:var(--line-soft)}
 .modesub.off{opacity:.55;cursor:default}
@@ -4075,13 +4074,12 @@ var HUB_HEAD={
 };
 var HUBS={
   hubm:[
-    {n:"내 구절", subs:[
-      {k:"mine",    icon:"mine",    n:"암송지갑",     d:"지금 외우는 구절"},
-      {k:"smemo",   icon:"search",  n:"암송카드 찾기", d:"495구절 · 과정별로 둘러보기"}]},
     {n:"외우기", subs:[
-      {k:"personal",icon:"recite",  n:"리사이팅",  d:"입으로 외우고 네 단계로"},
-      {k:"typing",  icon:"type",    n:"타이핑",    d:"외워 치고 틀린 곳 확인"},
-      {k:"fsrs",    icon:"cards",   n:"복습 카드", d:"잊을 때쯤 다시 물어봄"}]},
+      {k:"mine",    icon:"mine",    n:"암송지갑",     d:"지금 외우는 구절"},
+      {k:"personal",icon:"recite",  n:"리사이팅",     d:"입으로 외우고 네 단계로"},
+      {k:"typing",  icon:"type",    n:"타이핑",       d:"외워 치고 틀린 곳 확인"},
+      {k:"fsrs",    icon:"cards",   n:"복습 카드",    d:"잊을 때쯤 다시 물어봄"},
+      {k:"smemo",   icon:"search",  n:"암송카드 찾기", d:"495구절 · 과정별로 둘러보기"}]},
     {n:"암송 대회", subs:[
       {k:"practice",icon:"practice",n:"연습",d:"범위 안에서 무작위로"},
       {k:"contest", icon:"contest", n:"실전",d:"대회를 열거나 코드로 참가"}]}
@@ -4464,7 +4462,7 @@ function buildModes(){
   $("modes").innerHTML=MODES.map(function(m){
     return '<button type="button" class="modecard'+(m.off?' off':'')+'" data-mode="'+m.k+'"'+(m.off?' aria-disabled="true"':'')+'>'+
       '<span class="modeicon">'+svg(m.icon)+'</span>'+
-      '<span><b>'+m.n+(m.off?' <i class="soon">준비 중</i>':'')+'</b><span>'+esc(m.d)+'</span>'+
+      '<span><b>'+m.n+(m.off?' <i class="soon">준비 중</i>':'')+'</b>'+   /* v12: 처음 화면은 이름만(설명은 2단계 머리에) */
       (m.count?'<em class="mcount" id="'+m.count+'"></em>':'')+'</span></button>';
   }).join("");
   Object.keys(HUBS).forEach(function(h){
