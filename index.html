@@ -669,7 +669,7 @@ ul.partbars li:hover{background:var(--tint)}
 .mineparts .fpt,.mineparts .fpb,.mineparts .mpm{cursor:pointer}
 .growhead .chev{flex:0 0 auto;color:var(--ink-soft);font-size:calc(16px * var(--fz));line-height:1}
 
-/* 내 암송 */
+/* 암송지갑 */
 .mine{margin-bottom:18px;border:1.5px solid var(--core)}
 .minewho{font-size:calc(12px * var(--fz));color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   max-width:55%}
@@ -912,6 +912,8 @@ footer{color:var(--ink-soft);font-size:calc(11px * var(--fz));margin-top:18px;le
 .modecard .modeicon{flex-basis:42px;height:42px}
 .modecard.off{opacity:.55;cursor:default}
 .modecard.off:hover{border-color:var(--line-soft)}
+.modesub.off{opacity:.55;cursor:default}
+.modesub.off:hover{border-color:transparent;background:var(--bg)}
 .modecard .soon{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--tint);color:var(--ink-soft);
   font-style:normal;font-size:calc(11px * var(--fz));font-weight:700;vertical-align:middle}
 .modesub .mcount{display:block;font-style:normal;font-size:calc(10.5px * var(--fz));font-weight:700;color:var(--brand);margin-top:2px}
@@ -1016,7 +1018,7 @@ ul.myv{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap
 .mprow .tag2{flex:0 0 auto;font-size:calc(11px * var(--fz));font-weight:700;color:var(--sc2);border:1.5px solid var(--sc2);
   border-radius:999px;padding:1px 8px}
 
-/* 구절 카드 · 가리기 · 내 암송에 두기 */
+/* 구절 카드 · 가리기 · 암송지갑에 두기 */
 .vchead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px}
 .vcmain .vchead .eyebrow{margin:0;text-align:left;min-width:0}
 .vchide{flex:0 0 auto;border:1.5px solid var(--line);background:var(--surface);
@@ -1676,9 +1678,20 @@ ul.pev li button{display:flex;align-items:baseline;gap:10px;width:100%;text-alig
 ul.pev li button b{flex:1 1 auto;font-size:calc(14px * var(--fz))}
 ul.pev li button em{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(--fz));color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .psv{margin:0 0 6px}
+.smcourse{margin:4px 0 6px}
+.smpart{border-top:1px solid var(--line-soft)}
+.smpart:first-of-type{border-top:0}
+.smph{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:10px 4px;text-align:left;background:none;border:0;color:var(--ink);cursor:pointer}
+.smph span{flex:1 1 auto;min-width:0}
+.smph b{display:block;font-size:calc(14.5px * var(--fz));color:var(--ink)}
+.smph em{display:block;font-style:normal;font-size:calc(12px * var(--fz));color:var(--ink-soft);overflow-wrap:anywhere}
+.smph i{flex:0 0 auto;font-style:normal;font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+.smph::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:2px solid var(--ink-soft);border-bottom:2px solid var(--ink-soft);transform:rotate(45deg);margin:-4px 4px 0 0;transition:transform .15s}
+.smpart.on .smph::after{transform:rotate(-135deg);margin-top:4px}
+.smpart .slist{margin:0 0 10px}
 .psvb{margin:12px 0 6px;font-size:calc(12.5px * var(--fz));font-weight:700;color:var(--ink-soft)}
 
-/* ── 내 암송 · 정렬 · 순서 바꾸기 · 공유 ── */
+/* ── 암송지갑 · 정렬 · 순서 바꾸기 · 공유 ── */
 .myhead .mysort{flex:0 0 auto;display:inline-flex;align-items:center;gap:3px;border:1.5px solid var(--line);background:var(--surface);
   color:var(--ink-soft);border-radius:999px;padding:3px 9px;font:inherit;font-size:calc(11.5px * var(--fz));font-weight:700;cursor:pointer}
 .myhead .mysort svg{width:14px;height:14px}
@@ -2046,6 +2059,7 @@ section[id^="st-"]{scroll-margin-top:8px}
   <!-- ===== 암송 · 읽기 — 처음 화면 큰 단추 안의 메뉴 ===== -->
   <div id="hubm" hidden><div class="modes" id="hubmmodes"></div></div>
   <div id="hubr" hidden><div class="modes" id="hubrmodes"></div></div>
+  <div id="hubl" hidden><div class="modes" id="hublmodes"></div></div>
 
   <!-- ===== 대회 들어가기 · 만들기 ===== -->
   <div id="lobby" hidden>
@@ -2580,7 +2594,7 @@ section[id^="st-"]{scroll-margin-top:8px}
     </div>
     <div class="panel" id="vcvn"></div>
     <div class="panel vcmy">
-      <p class="eyebrow">내 암송에 두기</p>
+      <p class="eyebrow">암송지갑에 두기</p>
       <div class="myslots" id="vcmy"></div>
       <p class="fixednote" id="vcmynote"></p>
     </div>
@@ -2590,12 +2604,11 @@ section[id^="st-"]{scroll-margin-top:8px}
     </div>
   </div>
 
-  <!-- ===== 내 암송 ===== -->
+  <!-- ===== 암송지갑 ===== -->
   <div id="mine" hidden>
     <div class="panel myp">
       <div class="phead">
         <p class="eyebrow">지금 외우는 구절</p>
-        <button type="button" class="pickbtn" id="mysearchbtn">암송카드 찾기</button>
         <button type="button" class="pickbtn" id="myeditbtn">고치기</button>
       </div>
       <div id="myBody"></div>
@@ -2622,7 +2635,7 @@ section[id^="st-"]{scroll-margin-top:8px}
     </div>
   </div>
 
-  <!-- ===== 내 암송 · 외우며 치기 ===== -->
+  <!-- ===== 암송지갑 · 외우며 치기 ===== -->
   <div id="mtyp" hidden>
     <div class="panel mthead">
       <div class="mttop">
@@ -2899,6 +2912,7 @@ section[id^="st-"]{scroll-margin-top:8px}
       <p class="fixednote" id="smnote"></p>
     </div>
     <div id="smres"></div>
+    <div id="smtree"></div>
   </div>
 
   <!-- ===== 성경 검색 · 관주 ===== -->
@@ -3399,7 +3413,7 @@ var ICON = {
     '<rect x="13.3" y="11.6" width="5.7" height="2.1" rx=".7" style="fill:var(--hi)" opacity=".6"/>'+
     '<rect x="7.3" y="14.8" width="9.4" height="2.1" rx="1" style="fill:var(--hi)"/>',
 
-  /* 내 암송 — 마음을 담은 책갈피 */
+  /* 암송지갑 — 마음을 담은 책갈피 */
   mine:
     '<path d="M6.3 2.6h11.4c.8 0 1.4.6 1.4 1.4v17.4l-7.1-4.7-7.1 4.7V4c0-.8.6-1.4 1.4-1.4z"/>'+
     '<path d="M12 13.1c-2.1-1.5-3.4-2.8-3.4-4.3 0-1.1.8-1.9 1.8-1.9.7 0 1.2.3 1.6.9.4-.6.9-.9 1.6-.9 1 0 1.8.8 1.8 1.9 0 1.5-1.3 2.8-3.4 4.3z" style="fill:var(--hi)" opacity=".85"/>',
@@ -4031,28 +4045,33 @@ var COUNT_OPTS=[3,5,10,20,0];
    공부는 메뉴 없이 바로 성경으로 — 궁금한 것은 절을 눌러 봅니다. */
 var MODES=[
   {k:"medi",   icon:"medi",   n:"묵상", d:"암송 · 공부 · 읽기에서 적은 묵상을 모아 봅니다"},
-  {k:"hubm",   icon:"mine",   n:"암송", d:"내 암송 · 리사이팅 · 타이핑 · 복습 카드 · 암송 대회 · 전도지", count:"minecount"},
+  {k:"hubm",   icon:"mine",   n:"암송", d:"암송지갑 · 암송카드 찾기 · 리사이팅 · 타이핑 · 복습 카드 · 암송 대회", count:"minecount"},
   {k:"study",  icon:"bible",  n:"공부", d:"관주 · 원어 · 사전 · 인물 · 지명이 구절마다 이어진 성경"},
   {k:"hubr",   icon:"plan",   n:"읽기", d:"성경읽기표 · 성경순서로", count:"readcount"},
-  {k:"listen", icon:"listen", n:"듣기", d:"말씀을 귀로 듣기", off:true}
+  {k:"hubl",   icon:"listen", n:"듣기", d:"전도지 「하나님께 가는 다리」 · 말씀 듣기는 준비 중", count:"tractcount"}
 ];
 var HUBS={
   hubm:[
-    {n:"외우기", cols:2, subs:[
-      {k:"mine",    icon:"mine",    n:"내 암송",   d:"지금 외우는 구절 · 암송카드 찾기"},
+    {n:"내 구절", cols:2, subs:[
+      {k:"mine",    icon:"mine",    n:"암송지갑",     d:"지금 외우는 구절"},
+      {k:"smemo",   icon:"search",  n:"암송카드 찾기", d:"495구절 · 과정별로 둘러보기"}]},
+    {n:"외우기", cols:3, subs:[
       {k:"personal",icon:"recite",  n:"리사이팅",  d:"입으로 외우고 네 단계로"},
       {k:"typing",  icon:"type",    n:"타이핑",    d:"외워 치고 틀린 곳 확인"},
       {k:"fsrs",    icon:"cards",   n:"복습 카드", d:"잊을 때쯤 다시 물어봄"}]},
     {n:"암송 대회", cols:2, subs:[
       {k:"practice",icon:"practice",n:"연습",d:"범위 안에서 무작위로"},
-      {k:"contest", icon:"contest", n:"실전",d:"대회를 열거나 코드로 참가"}]},
-    {n:"나누기", cols:1, subs:[
-      {k:"tract",   icon:"bridge",  n:"전도지",   d:"「하나님께 가는 다리」", count:"tractcount"}]}
+      {k:"contest", icon:"contest", n:"실전",d:"대회를 열거나 코드로 참가"}]}
   ],
   hubr:[
     {n:"성경 읽기", cols:2, subs:[
       {k:"read",  icon:"plan",   n:"성경읽기표", d:"1년 · 하루 네 칸"},
       {k:"order", icon:"order",  n:"성경순서로", d:"기간 맞춤 계획"}]}
+  ],
+  hubl:[
+    {n:"듣고 나누기", cols:2, subs:[
+      {k:"tract",   icon:"bridge",  n:"전도지",    d:"「하나님께 가는 다리」"},
+      {k:"listen",  icon:"listen",  n:"말씀 듣기", d:"준비 중", off:true}]}
   ]
 };
 
@@ -4429,7 +4448,7 @@ function buildModes(){
     $(h+"modes").innerHTML=HUBS[h].map(function(g){
       return '<div class="modegroup"><div class="mghead"><b>'+g.n+'</b></div>'+
         '<div class="mgsubs" style="--cols:'+(g.cols||3)+'">'+g.subs.map(function(s){
-          return '<button type="button" class="modesub" data-mode="'+s.k+'">'+svg(s.icon)+
+          return '<button type="button" class="modesub'+(s.off?' off':'')+'" data-mode="'+s.k+'"'+(s.off?' aria-disabled="true"':'')+'>'+svg(s.icon)+
             '<span><b>'+s.n+'</b><em>'+esc(s.d)+'</em>'+(s.count?'<em class="mcount" id="'+s.count+'"></em>':'')+'</span></button>';
         }).join("")+'</div></div>';
     }).join("");
@@ -7243,7 +7262,7 @@ function coDoneHtml(){
 }
 
 /* ═══ 파트 보기 · 구절 카드 ═══
-   수확 기록 · 내 기록 · 내 암송에서 파트를 누르면, 그 파트를 소제목별로 나눠
+   수확 기록 · 내 기록 · 암송지갑에서 파트를 누르면, 그 파트를 소제목별로 나눠
    구절마다 익은 정도를 보여 줍니다. 구절을 누르면 구절 카드가 열립니다.   */
 var PV={pn:"", a:"", list:null, li:0, label:"", hide:false, shown:false};
 function pvLoad(){
@@ -7366,7 +7385,7 @@ function paintVerseCard(){
   }).join("");
   $("vcmynote").textContent = mine
     ? "「"+MY_BY[mine.slot].n+"」에 들어 있습니다 · 다른 칸을 누르면 옮기고, 같은 칸을 한 번 더 누르면 뺍니다."
-    : "누르면 내 암송의 그 칸에 들어갑니다. 한눈에 보기에도 함께 나옵니다.";
+    : "누르면 암송지갑의 그 칸에 들어갑니다. 한눈에 보기에도 함께 나옵니다.";
   var link=bskoreaLink(a);
   $("vcver").innerHTML=(state.ver==="han"?"개역한글":"개역개정")+
     (link?' · <a href="'+link+'" target="_blank" rel="noopener">대한성서공회에서 확인</a>':'');
@@ -7422,7 +7441,7 @@ function vcStep(d){
   window.scrollTo(0,0);
 }
 
-/* ═══ 내 암송 ═══
+/* ═══ 암송지갑 ═══
    새 구절 · 최근 구절 · 이전 구절을 두는 곳입니다. 로그인하면 구절마다 익은 정도를
    보여 주려고 기록을 한 번 읽어 둡니다(mineLoad).                                  */
 var mineLoaded=false, mineBusy=null, mineAt=0, authReady=false;
@@ -7600,7 +7619,7 @@ function myPaintAll(){
   if(screenNow==="glance") paintGlance();
   if(screenNow==="vcard") paintVerseCard();
 }
-/* 처음 화면 「내 암송」 아래 한 줄 */
+/* 처음 화면 「암송지갑」 아래 한 줄 */
 function paintHomeCount(){
   var el=$("minecount"); if(!el) return;
   var bits=[];
@@ -7609,7 +7628,7 @@ function paintHomeCount(){
   el.hidden=!bits.length;
 }
 
-/* ── 내 암송 · 지금 외우는 구절 ── */
+/* ── 암송지갑 · 지금 외우는 구절 ── */
 function myRowHtml(v,idx,len){
   var k=pkey(v.addr,v.part_name), m=lookup(v.addr,v.part_name)||{}, s=MY_BY[v.slot];
   var r=state.progress[k], g=r&&GRADE_BY[r.grade];
@@ -8548,7 +8567,7 @@ function sheetThen(fn){
   sheetClosed(); fn();
 }
 
-/* 암송 구절 — 역본별로(개역개정 · 개역한글) 보고, 구절 카드나 내 암송으로 */
+/* 암송 구절 — 역본별로(개역개정 · 개역한글) 보고, 구절 카드나 암송지갑으로 */
 function openMemoSheet(addr,pn){
   var arr=VERSE_BOOK[addr]||[]; if(!arr.length) return;
   var m=lookup(addr,pn)||arr[0], g=m.g||"", h=m.h||m.g||"";
@@ -8562,7 +8581,7 @@ function openMemoSheet(addr,pn){
   else html+='<div class="shver"><em>개역개정</em><p>'+esc(g)+'</p></div><div class="shver"><em>개역한글</em><p>'+esc(h)+'</p></div>';
   html+='<div class="shacts">'+
     '<button type="button" class="main" data-shcard="1">'+svg("cards")+'구절 카드 열기</button>'+
-    '<button type="button" data-shmy="1">'+svg("plus")+(mine?MY_BY[mine.slot].n+'에 있음':'내 암송에 넣기')+'</button>'+
+    '<button type="button" data-shmy="1">'+svg("plus")+(mine?MY_BY[mine.slot].n+'에 있음':'암송지갑에 넣기')+'</button>'+
     '</div>'+vnEditorHtml(memoVKey(addr),false);
   openSheet(html);
   $("sheetbody").onclick=function(e){
@@ -9565,15 +9584,43 @@ function smSetMode(m){
 function openSearchMemo(){
   paintSmMode();
   show("smemo");
-  if(!$("smq").value) setTimeout(function(){ try{ $("smq").focus(); }catch(e){} },200);
-  else smRun();
+  smRun();
 }
 function smHits(q,mode){
   return smIndex().filter(function(e){ return (mode==="title" ? e.title : smText(e)).indexOf(q)>=0; });
 }
+/* 찾을 말이 없으면 아래에 495구절 전체를 과정 → 시리즈 → 파트 → 구절로 펼쳐 봅니다 */
+try{ SM.course=localStorage.getItem("navfest.smcourse")||""; }catch(e){ SM.course=""; }
+SM.open={};
+function smTreePaint(){
+  var host=$("smtree");
+  if(COURSES.indexOf(SM.course)<0) SM.course=COURSES[0];
+  var h='<div class="panel"><p class="eyebrow">과정별로 둘러보기 · '+TOTAL_VERSES+'구절</p>'+
+    '<div class="counts smcourse" role="group" aria-label="과정">'+COURSES.map(function(c){
+      var n=0; PART_GROUPS.forEach(function(g){ if(g.course===c) g.parts.forEach(function(p){ n+=p.list.length; }); });
+      return '<button type="button" class="cbtn" data-smc="'+esc(c)+'" aria-pressed="'+(SM.course===c)+'">'+esc(c)+(/구절$/.test(c)?'':'<br><small>'+n+'구절</small>')+'</button>';
+    }).join("")+'</div>';
+  PART_GROUPS.forEach(function(g){
+    if(g.course!==SM.course) return;
+    if(g.group!==g.course) h+='<p class="psvb">'+esc(g.group)+'</p>';
+    g.parts.forEach(function(p){
+      var open=!!SM.open[p.name];
+      h+='<div class="smpart'+(open?' on':'')+'"><button type="button" class="smph" data-smp="'+esc(p.name)+'" aria-expanded="'+open+'">'+
+        '<span><b>'+esc(p.name)+'</b><em>'+esc(p.title||"")+'</em></span><i>'+p.list.length+'구절</i></button>';
+      if(open) h+='<ul class="slist">'+p.list.map(function(a){
+        var m=lookup(a,p.name)||{}, it=MY.items[pkey(a,p.name)];
+        return '<li><button type="button" class="srow" data-smgo="'+esc(a)+'" data-smpn="'+esc(p.name)+'"><span class="sa"><b>'+esc(a)+'</b><em>'+esc(m.n||"")+'</em>'+
+          (it&&MY_BY[it.slot]?'<i class="tagm">'+esc(MY_BY[it.slot].n)+'</i>':'')+'</span></button></li>';
+      }).join("")+'</ul>';
+      h+='</div>';
+    });
+  });
+  host.innerHTML=h+'</div>';
+}
 function smRun(){
   var q=$("smq").value.replace(/\s+/g," ").trim(), host=$("smres");
-  if(!q){ host.innerHTML=""; return; }
+  $("smtree").hidden=!!q;
+  if(!q){ host.innerHTML=""; smTreePaint(); return; }
   var mode=SM.mode, other=mode==="title"?"text":"title";
   var hits=smHits(q,mode), nOther=smHits(q,other).length;
   var byPart={}, order=[];
@@ -11492,7 +11539,7 @@ function mpThemeStop(i,center){
   mpThemePaint();
 }
 
-/* ═══ 내 암송 · 순서 · 정렬 · 카드 공유 ═══ */
+/* ═══ 암송지갑 · 순서 · 정렬 · 카드 공유 ═══ */
 /* 파트 순서 — 처음 화면 과정 순서대로, 파트 안에서는 실린 순서 */
 var PART_ORD=(function(){ var o={}, n=0; ALL.forEach(function(p){ p.list.forEach(function(a){ o[a+"␟"+p.name]=n++; }); }); return o; })();
 function myOrdKey(v){ var k=PART_ORD[v.addr+"␟"+v.part_name]; return k===undefined ? 1e9 : k; }
@@ -11659,7 +11706,7 @@ function myShareSheet(blobs,list){
       return '<a href="'+u+'" download="암송카드_'+esc(list[i].addr.replace(/\s+/g,"_").replace(/[:,]/g,"-"))+'.png"><img src="'+u+'" alt="'+esc(list[i].addr)+'"></a>'; }).join("")+'</div>',
     function(){ urls.forEach(function(u){ try{ URL.revokeObjectURL(u); }catch(e){} }); });
 }
-/* ═══ 내 암송 · 외우며 치기 ═══
+/* ═══ 암송지갑 · 외우며 치기 ═══
    점검이 아니라 「외우도록 돕는」 타이핑입니다. 네 단계로 조금씩 덜 보면서 칩니다.
      1 보며 치기       — 본문이 다 보이고 그대로 따라 칩니다
      2 첫 글자 보며     — 어절마다 첫 글자만 보이고 나머지를 떠올려 칩니다
@@ -11895,7 +11942,7 @@ function mtPaintDone(sec){
   paintMt();
   $("mtbar").hidden=true;
 }
-/* 내 암송 줄에 붙는 네 칸 — 어느 단계까지 해 봤는지 */
+/* 암송지갑 줄에 붙는 네 칸 — 어느 단계까지 해 봤는지 */
 function mtDots(k){
   var p=MT.prog[k]; if(!p) return "";
   var h='<span class="mtdots" aria-label="외우며 치기 단계">';
@@ -11912,7 +11959,7 @@ var NEXT={
   typePicked: {n:"이 구절 타이핑",   i:"type"},
   reciteTyped:{n:"이 구절 리사이팅", i:"recite"},
   again:      {n:"다시 뽑기",        i:"practice"},
-  mine:       {n:"내 암송",          i:"mine"},
+  mine:       {n:"암송지갑",          i:"mine"},
   glance:     {n:"한눈에 보기",      i:"glance"},
   recite:     {n:"리사이팅",         i:"recite"},
   me:         {n:"내 기록 보기",     i:"person"},
@@ -12025,7 +12072,7 @@ function paintGlance(){
           '<b class="gla">'+esc(v.addr)+'</b><p class="glx'+(hid?' hid':'')+'">'+esc(fVerseText(m))+'</p></div>';
       }).join("")+'</section>';
   });
-  if(!html) html='<div class="glempty">아직 넣어 둔 구절이 없습니다.<br>내 암송에서 새 구절 · 최근 구절 · 이전 구절을 넣어 두면 '+
+  if(!html) html='<div class="glempty">아직 넣어 둔 구절이 없습니다.<br>암송지갑에서 새 구절 · 최근 구절 · 이전 구절을 넣어 두면 '+
     '여기 한 화면에 모입니다.<button type="button" class="go" data-glpick="1">구절 넣으러 가기</button></div>';
   $("glbody").innerHTML=html;
   $("glstart").checked=(startPref()==="glance");
@@ -12391,13 +12438,13 @@ function plNoteFlush(){
   if(ta) plSetNote(ta.dataset.plnote, ta.value);
 }
 
-var SCREENS=["home","my","hubm","hubr","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview"];
-var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"읽기",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
+var SCREENS=["home","my","hubm","hubr","hubl","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview"];
+var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"읽기",hubl:"듣기",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",mtyp:"외우며 치기",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
                  crop:"암송현황", coop:"함께 거두기", field:"함께 거두는 밭",
                  partv:"파트 보기", vcard:"구절 카드",
-                 mine:"내 암송", mypick:"구절 넣기", glance:"한눈에",
+                 mine:"암송지갑", mypick:"구절 넣기", glance:"한눈에",
                  read:"성경읽기표", rday:"오늘 분량", rnotes:"묵상",
                  order:"성경순서로", oday:"하루 분량", bible:"공부", bchap:"장 고르기", btext:"성경 본문",
                  sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", slex:"원어 사전", sdict:"성경 사전", sunit:"도량형", smap:"성경 지도", speople:"성경 인물", person:"인물",
@@ -12443,8 +12490,9 @@ function applyScreen(which,restoreY){
   if(which==="fsrs") fPaintHome();    /* 뒤로 왔을 때 오늘 몫을 다시 셈 */
   if(which==="field"){ if(CO.code){ coPaint(); coStart(); } }
   else coStop();                      /* 밭을 떠나면 서버 읽기를 멈춥니다 */
-  if(which==="home"||which==="hubm"||which==="hubr"){ paintHomeCount(); paintReadCount(); paintTractCount(); }
+  if(which==="home"||which==="hubm"||which==="hubr"||which==="hubl"){ paintHomeCount(); paintReadCount(); paintTractCount(); }
   if(which==="tract") paintTract();
+  if(which==="smemo" && !$("smq").value.trim()) smTreePaint();   /* 구절 카드에서 돌아오면 지갑 표시를 지금 것으로 */
   if(which==="tview") trOpenFrame();
   document.body.classList.toggle("tviewing", which==="tview");
   if(which==="read") paintRead();
@@ -12457,7 +12505,7 @@ function applyScreen(which,restoreY){
   if(which==="person" && PS.i>=0 && PPL.rows) paintPerson();
   if(which==="smap" && MP.ready) setTimeout(mpApply,0);
   if(which==="rnotes") paintReadNotes();
-  if(which==="mine"){                 /* 내 암송에 올 때마다 지금 셈으로 */
+  if(which==="mine"){                 /* 암송지갑에 올 때마다 지금 셈으로 */
     paintMy();
     if(state.me && (!mineLoaded || Date.now()-mineAt>60000)) mineLoad();
   }
@@ -12579,7 +12627,7 @@ $("homebtn").addEventListener("click",goHome);
 function modeClick(e){
   var b=e.target.closest("[data-mode]"); if(!b || b.getAttribute("aria-disabled")==="true") return;
   var m=b.dataset.mode;
-  if(m==="hubm"||m==="hubr"){ show(m); return; }
+  if(m==="hubm"||m==="hubr"||m==="hubl"){ show(m); return; }
   if(m==="study"){ openBible(); return; }
   if(m==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); } paintReadNotes(); show("rnotes"); return; }
   if(m==="mine"){ openMine(); return; }
@@ -12609,7 +12657,7 @@ function modeClick(e){
 $("modes").addEventListener("click",modeClick);
 $("hubmmodes").addEventListener("click",modeClick);
 $("hubrmodes").addEventListener("click",modeClick);
-$("mysearchbtn").addEventListener("click",function(){ openSearchMemo(); });
+$("hublmodes").addEventListener("click",modeClick);
 $("stdform").addEventListener("submit",function(e){ e.preventDefault(); var q=($("stdq").value||"").trim(); if(!q) return; try{ $("stdq").blur(); }catch(_){} openSearchVerse(q); });
 $("bible").addEventListener("click",function(e){ var b=e.target.closest("[data-std]"); if(!b) return; if(b.dataset.std==="map") openMap(); else openPeople(); });
 
@@ -12915,7 +12963,7 @@ $("glstart").addEventListener("change",function(){
   setStartPref(this.checked?"glance":"");
   setSync(this.checked ? "이제 앱을 열면 「한눈에」부터 보입니다" : "앱을 열면 처음 화면부터 보입니다");
 });
-/* ── 구절 카드 · 가리기 · 내 암송에 두기 · 밀어서 넘기기 ── */
+/* ── 구절 카드 · 가리기 · 암송지갑에 두기 · 밀어서 넘기기 ── */
 $("vcvn").addEventListener("click",function(e){ vnEditorClick(e,"memo"); });
 $("vchide").addEventListener("click",function(){ PV.hide=!PV.hide; PV.shown=false; paintVerseCard(); });
 $("vctext").addEventListener("click",function(){
@@ -12924,7 +12972,7 @@ $("vctext").addEventListener("click",function(){
 $("vcmy").addEventListener("click",function(e){
   var b=e.target.closest("[data-vs]"); if(!b) return;
   var it=MY.items[pkey(PV.a,PV.pn)], sl=b.dataset.vs;
-  if(it && it.slot===sl){ mySet(PV.a,PV.pn,null); setSync("내 암송에서 뺐습니다"); }
+  if(it && it.slot===sl){ mySet(PV.a,PV.pn,null); setSync("암송지갑에서 뺐습니다"); }
   else { mySet(PV.a,PV.pn,sl,false); setSync("「"+MY_BY[sl].n+"」에 넣었습니다"); }
   paintVerseCard();
 });
@@ -13331,6 +13379,13 @@ $("smchips").addEventListener("click",function(e){ var b=e.target.closest("[data
 $("smmode").addEventListener("click",function(e){ var b=e.target.closest("[data-smm]"); if(b) smSetMode(b.dataset.smm); });
 $("smres").addEventListener("click",function(e){ var b=e.target.closest("[data-smm]"); if(b){ e.stopPropagation(); smSetMode(b.dataset.smm); window.scrollTo(0,0); } },true);
 $("smres").addEventListener("click",function(e){ var b=e.target.closest("[data-smgo]"); if(b) openVerseCard(b.dataset.smpn,b.dataset.smgo); });
+$("smtree").addEventListener("click",function(e){
+  var b;
+  if((b=e.target.closest("[data-smgo]"))){ openVerseCard(b.dataset.smpn,b.dataset.smgo); return; }
+  if((b=e.target.closest("[data-smc]"))){ SM.course=b.dataset.smc; try{ localStorage.setItem("navfest.smcourse",SM.course); }catch(_){} smTreePaint(); return; }
+  if((b=e.target.closest("[data-smp]"))){ var n=b.dataset.smp; if(SM.open[n]) delete SM.open[n]; else SM.open[n]=1; smTreePaint(); }
+});
+$("smq").addEventListener("input",function(){ if(!this.value.trim()) smRun(); });
 /* ── 관주 ── */
 $("sxform").addEventListener("submit",function(e){ e.preventDefault(); try{ $("sxq").blur(); }catch(_){} xrRun(true); });
 $("sxres").addEventListener("click",function(e){ var b=e.target.closest("[data-xgo]"); if(b) goRef(b.dataset.xgo); });
