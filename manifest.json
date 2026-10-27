@@ -45,8 +45,8 @@
       ]
     },
     {
-      "name": "내 암송",
-      "short_name": "내 암송",
+      "name": "암송지갑",
+      "short_name": "암송지갑",
       "description": "하던 것을 이어 합니다",
       "url": "./?v=mine",
       "icons": [
