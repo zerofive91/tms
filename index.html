@@ -8606,17 +8606,17 @@ function rnWhat(key){
 function rnAskDel(key,after){
   var w=rnWhat(key); if(!w) return;
   var b=[];
-  if(w.qt) b.push(["all","🗑️ 이 노트 지우기"]);
+  if(w.qt) b.push(["all","🗑️ 지우기"]);
   else {
     if(w.n && w.mk){ b.push(["n","🗑️ 묵상만 지우기 · "+w.mkName+"은 그대로"]); b.push(["nc","🖍️ "+w.mkName+"도 함께 지우기"]); }
-    else if(w.n) b.push(["n","🗑️ 묵상 지우기"]);
-    else if(w.mk) b.push(["c","🖍️ "+w.mkName+" 지우기"]);
+    else if(w.n) b.push(["n","🗑️ 지우기"]);
+    else if(w.mk) b.push(["c","🗑️ 지우기"]);
   }
   if(!b.length) return;
   openSheet('<h3 class="shtitle">지울까요?</h3><p class="shsub">'+esc(w.label)+' · 지우면 되돌릴 수 없습니다</p>'+
     (w.n?'<p class="rnmemo rndelprev">'+esc(w.n)+'</p>':'')+
     '<div class="rndelbtns">'+b.map(function(x){ return '<button type="button" class="go'+(x[0]==="n"&&b.length>1?' soft':'')+'" data-rnok="'+x[0]+'">'+esc(x[1])+'</button>'; }).join("")+
-    '<button type="button" class="go soft" data-rnno="1">그만두기</button></div>');
+    '<button type="button" class="go soft" data-rnno="1">그냥 두기</button></div>');
   $("sheetbody").onclick=function(e){
     if(e.target.closest("[data-rnno]")){ closeSheet(); return; }
     var ok=e.target.closest("[data-rnok]"); if(!ok) return;
