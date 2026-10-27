@@ -1322,12 +1322,21 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtsw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
 .qtplanbtn[aria-pressed="true"] .qtsw{background:var(--brand)}
 .qtplanbtn[aria-pressed="true"] .qtsw::after{left:21px}
-.qtplan{margin-top:12px}
+.qtplan{margin-top:12px;display:grid;gap:8px}
+.qtplan>*{min-width:0}
+.qttabs .cbtn,.qtslots .cbtn{min-width:0}
+.qtslots .cbtn{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 6px}
+.qtslots .cbtn b{font-size:calc(13.5px * var(--fz))}
+.qtslots .cbtn span{font-size:calc(11.5px * var(--fz));font-weight:500;opacity:.85;overflow-wrap:anywhere}
+.qtsrc{margin:0}
+.qttip{margin:0;padding:8px 11px;border-radius:10px;background:var(--bg);color:var(--ink-soft);font-size:calc(12.5px * var(--fz));line-height:1.5}
+.qttip.on{background:var(--tint);color:var(--accent-ink)}
 .qtpick{display:flex;gap:6px;align-items:center}
 .qtpick select{flex:1 1 0;min-width:0;padding:10px 8px}
+.qtpick #qtpb{flex-grow:1.6}
 .qtstep{flex:0 0 auto;width:42px;height:44px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;font:inherit;font-size:20px;cursor:pointer}
 .qtstep:disabled{opacity:.35;cursor:default}
-.qtpv2{max-height:55vh;overflow:auto;margin-top:8px;padding-right:2px}
+.qtpv2{max-height:55vh;overflow:auto;padding-right:2px}
 .qtslot{margin:0 0 12px}
 .qtslh{display:flex;align-items:baseline;gap:8px;margin:6px 0 4px;position:sticky;top:0;background:var(--surface);padding:4px 0;z-index:1}
 .qtslh span{font-size:calc(11.5px * var(--fz));font-weight:800;color:var(--accent-ink);background:var(--tint);border-radius:999px;padding:1px 8px}
@@ -2891,7 +2900,7 @@ section[id^="st-"]{scroll-margin-top:8px}
   <!-- ===== 경건의 시간 쓰기 ===== -->
   <div id="qt" hidden>
     <div class="panel qted">
-      <button type="button" class="qtplanbtn" id="qtplanbtn" aria-pressed="false"><span><b>읽기표 함께 보기</b><em>그날 시가서 · 복음서 본문을 위에 띄웁니다</em></span><i class="qtsw" aria-hidden="true"></i></button>
+      <button type="button" class="qtplanbtn" id="qtplanbtn" aria-pressed="false"><span><b>본문 함께 보기</b><em>읽기표 시가서 · 복음서나 내가 고른 본문을 위에 띄웁니다</em></span><i class="qtsw" aria-hidden="true"></i></button>
       <div class="qtplan" id="qtplan" hidden></div>
     </div>
     <div class="panel qted">
@@ -8620,12 +8629,13 @@ function paintReadNotes(){
    말씀 주소를 쓰면 개역한글 본문이 붙고, 「읽기표 함께 보기」를 켜면 그날 읽기표의 시가서 → 복음서 칸이 노트 위에 뜹니다.
    로그인 전에는 이 기기에만 두고, 로그인하면 계정으로 올립니다(묵상 · 형광펜과 같은 방식). */
 var QT_KEY="navfest.qt";
-var QT={map:{}, owner:"", pend:{}, noTable:false, busy:null, flushing:null, again:false, id:"", timer:null, plan:false, day:-1, show:5};
+var QT={map:{}, owner:"", pend:{}, noTable:false, busy:null, flushing:null, again:false, id:"", timer:null, plan:false, day:-1, show:5,
+  tab:"plan", slot:2, pick:null};   /* 위 칸: tab plan 읽기표 · pick 내가 고른 본문, slot 2 시가서 · 0 복음서, pick [책, 장] (v13) */
 var QT_FIELDS=[["c","내용","말씀이 무엇을 말하는지 — 사건 · 인물 · 반복되는 말"],["m","묵상","하나님은 어떤 분이신가, 나에게 무엇을 말씀하시는가"],["a","적용","오늘 구체적으로 할 한 가지"],["g","기도","이 말씀으로 드리는 기도"]];
 (function(){
-  try{ var o=JSON.parse(localStorage.getItem(QT_KEY)||"null"); if(o){ QT.map=o.map||{}; QT.owner=o.owner||""; QT.pend=o.pend||{}; QT.plan=!!o.plan; } }catch(e){}
+  try{ var o=JSON.parse(localStorage.getItem(QT_KEY)||"null"); if(o){ QT.map=o.map||{}; QT.owner=o.owner||""; QT.pend=o.pend||{}; QT.plan=!!o.plan; if(o.tab==="pick") QT.tab="pick"; if(o.slot===0) QT.slot=0; if(Array.isArray(o.pick)) QT.pick=o.pick; } }catch(e){}
 })();
-function qtSave(){ try{ localStorage.setItem(QT_KEY,JSON.stringify({map:QT.map,owner:QT.owner,pend:QT.pend,plan:QT.plan})); }catch(e){} }
+function qtSave(){ try{ localStorage.setItem(QT_KEY,JSON.stringify({map:QT.map,owner:QT.owner,pend:QT.pend,plan:QT.plan,tab:QT.tab,slot:QT.slot,pick:QT.pick})); }catch(e){} }
 function qtEmpty(x){ return !x || !(x.ti||x.r||x.c||x.m||x.a||x.g); }
 function qtSet(id,x){
   var empty=qtEmpty(x);
@@ -8779,28 +8789,64 @@ function qtPlanDefault(){
 }
 function qtPlanPaint(){
   var host=$("qtplan"); if(!host) return;
+  var tabs='<div class="counts qttabs" role="group" aria-label="위에 띄울 본문">'+[["plan","📅 읽기표"],["pick","📖 내가 고른 본문"]].map(function(t){
+    return '<button type="button" class="cbtn" data-qttab="'+t[0]+'" aria-pressed="'+(QT.tab===t[0])+'">'+t[1]+'</button>'; }).join("")+'</div>';
+  var tip='<p class="qttip" id="qttip">절을 누르면 말씀 주소에 들어갑니다 · 같은 장에서 한 절을 더 누르면 그 사이까지</p>';
+  if(QT.tab==="pick"){ host.innerHTML=tabs+qtPickHead()+tip+'<div class="qtpv2 rdv"><p class="fixednote">본문을 불러오는 중…</p></div>'; qtPickBody(); return; }
   if(QT.day<0) QT.day=qtPlanDefault();
   var i=QT.day, mo="", da="";
-  for(var m=1;m<=12;m++) mo+='<option value="'+m+'"'+(i>=0&&Math.floor(i/25)+1===m?' selected':'')+'>'+m+'월</option>';
-  for(var d=1;d<=25;d++) da+='<option value="'+d+'"'+(i>=0&&i%25+1===d?' selected':'')+'>'+d+'일</option>';
+  for(var m=1;m<=12;m++) mo+='<option value="'+m+'"'+(Math.floor(i/25)+1===m?' selected':'')+'>'+m+'월</option>';
+  for(var d=1;d<=25;d++) da+='<option value="'+d+'"'+(i%25+1===d?' selected':'')+'>'+d+'일</option>';
   var head='<div class="qtpick"><button type="button" class="qtstep" data-qtstep="-1" aria-label="전날"'+(i<=0?' disabled':'')+'>&#8249;</button>'+
-    '<select id="qtpm" aria-label="읽기표 달">'+(i<0?'<option value="" selected>달</option>':'')+mo+'</select>'+
-    '<select id="qtpd" aria-label="읽기표 날">'+(i<0?'<option value="" selected>날</option>':'')+da+'</select>'+
+    '<select id="qtpm" aria-label="읽기표 달">'+mo+'</select>'+
+    '<select id="qtpd" aria-label="읽기표 날">'+da+'</select>'+
     '<button type="button" class="qtstep" data-qtstep="1" aria-label="다음 날"'+(i>=299?' disabled':'')+'>&#8250;</button></div>';
-  var src=QT.src||"고른 날";
-  host.innerHTML=head+'<p class="fixednote">'+esc(rdPlanText(i))+' · '+src+' · 절을 누르면 말씀 주소에 들어갑니다</p><div class="qtpv2 rdv"><p class="fixednote">본문을 불러오는 중…</p></div>';
+  var slots='<div class="counts qtslots" role="group" aria-label="시가서 · 복음서">'+[[2,"시가서"],[0,"복음서"]].map(function(t){
+    return '<button type="button" class="cbtn" data-qtslot="'+t[0]+'" aria-pressed="'+(QT.slot===t[0])+'"><b>'+t[1]+'</b><span>'+esc(READ_PLAN.days[i][t[0]])+'</span></button>'; }).join("")+'</div>';
+  host.innerHTML=tabs+head+'<p class="fixednote qtsrc">'+esc(rdPlanText(i))+' · '+esc(QT.src||"고른 날")+'</p>'+slots+tip+'<div class="qtpv2 rdv"><p class="fixednote">본문을 불러오는 중…</p></div>';
   rdDayData(i).then(function(){
-    if(QT.day!==i || !$("qtplan")) return;
-    var h="";
-    [2,0].forEach(function(s){
-      var r=RD_RANGE[i][s], bi=r[0];
-      h+='<section class="qtslot"><p class="qtslh"><span>'+(s===2?"시가서":"복음서")+'</span><b>'+esc(READ_PLAN.days[i][s])+'</b></p>';
-      for(var c=r[1]; c<=r[3]; c++) h+=versesHtml(bi,c,c===r[1]?r[2]:1,c===r[3]?r[4]:CH_V[bi][c-1],{head:r[1]!==r[3],idp:"qv"+s+"_"});
-      h+='</section>';
-    });
-    host.querySelector(".qtpv2").innerHTML=h;
+    if(QT.day!==i || QT.tab!=="plan" || !$("qtplan")) return;
+    var s=QT.slot, r=RD_RANGE[i][s], bi=r[0], h='<section class="qtslot">';
+    for(var c=r[1]; c<=r[3]; c++) h+=versesHtml(bi,c,c===r[1]?r[2]:1,c===r[3]?r[4]:CH_V[bi][c-1],{head:true,idp:"qv"+s+"_"});
+    host.querySelector(".qtpv2").innerHTML=h+'</section>';
     qtPlanMark();
   },function(){ var b=host.querySelector(".qtpv2"); if(b) b.innerHTML='<p class="fixednote">본문을 불러오지 못했습니다</p>'; });
+}
+/* 내가 고른 본문 — 책 · 장. 처음엔 말씀 주소의 장, 없으면 지난번에 본 장, 없으면 시편 1편 */
+function qtPickCur(){
+  var a=qtParse();
+  if(!QT.pick) QT.pick=a?[a.bi,a.c]:[18,1];
+  var bi=Math.max(0,Math.min(65,+QT.pick[0]||0)), c=Math.max(1,Math.min(CH_V[bi].length,+QT.pick[1]||1));
+  QT.pick=[bi,c]; return QT.pick;
+}
+function qtPickHead(){
+  var pc=qtPickCur(), bi=pc[0], c=pc[1], bk="", ch="";
+  BOOK_CATS.forEach(function(t){ t.cats.forEach(function(g){
+    bk+='<optgroup label="'+esc(t.n+" · "+g[0])+'">';
+    for(var b=g[1]; b<g[2]; b++) bk+='<option value="'+b+'"'+(b===bi?' selected':'')+'>'+esc(BOOK_ORDER[b])+'</option>';
+    bk+='</optgroup>';
+  }); });
+  for(var k=1;k<=CH_V[bi].length;k++) ch+='<option value="'+k+'"'+(k===c?' selected':'')+'>'+k+chWord(bi)+'</option>';
+  var first=bi===0&&c===1, last=bi===65&&c===CH_V[65].length;
+  return '<div class="qtpick"><button type="button" class="qtstep" data-qtch="-1" aria-label="앞 장"'+(first?' disabled':'')+'>&#8249;</button>'+
+    '<select id="qtpb" aria-label="책">'+bk+'</select><select id="qtpc" aria-label="장">'+ch+'</select>'+
+    '<button type="button" class="qtstep" data-qtch="1" aria-label="다음 장"'+(last?' disabled':'')+'>&#8250;</button></div>';
+}
+function qtPickBody(){
+  var pc=qtPickCur(), bi=pc[0], c=pc[1], host=$("qtplan");
+  bibBook(bi).then(function(){
+    if(QT.tab!=="pick" || !QT.pick || QT.pick[0]!==bi || QT.pick[1]!==c || !host) return;
+    var b=host.querySelector(".qtpv2"); if(!b) return;
+    b.innerHTML='<section class="qtslot">'+versesHtml(bi,c,1,CH_V[bi][c-1],{head:true,idp:"qp_"})+'</section>';
+    b.scrollTop=0; qtPlanMark();
+  },function(){ var b=host.querySelector(".qtpv2"); if(b) b.innerHTML='<p class="fixednote">'+(netOff()?"인터넷이 없어 본문을 불러오지 못했습니다":"본문을 불러오지 못했습니다")+'</p>'; });
+}
+/* 앞 · 다음 장 — 책 끝에서는 다음 책으로 */
+function qtPickStep(d){
+  var pc=qtPickCur(), bi=pc[0], c=pc[1]+d;
+  if(c<1){ if(bi>0){ bi--; c=CH_V[bi].length; } else c=1; }
+  else if(c>CH_V[bi].length){ if(bi<65){ bi++; c=1; } else c=CH_V[bi].length; }
+  QT.pick=[bi,c]; qtSave(); qtPlanPaint();
 }
 /* 말씀 주소에 든 절을 읽기표 본문에서 표시 */
 function qtPlanMark(){
@@ -8817,9 +8863,11 @@ function qtPickVerse(k){
   if(a && a.bi===bi && a.c===c && a.v && !a.v2 && v!==a.v) ref=shortRef(bi,c,Math.min(a.v,v),Math.max(a.v,v));
   else ref=shortRef(bi,c,v);
   $("qtr").value=ref;
-  if(QT.cur) QT.cur.pd=QT.day;
+  if(QT.cur) QT.cur.pd=(QT.tab==="plan")?QT.day:-1;
   qtPassagePaint(); qtKeep();
-  setSync(ref+" · 한 절을 더 누르면 그 사이까지 범위가 됩니다");
+  var tip=$("qttip"), one=!/-/.test(ref);
+  if(tip){ tip.innerHTML='✅ <b>'+esc(ref)+'</b> 말씀 주소에 넣었습니다'+(one?' · 같은 장에서 한 절을 더 누르면 그 사이까지':''); tip.classList.add("on"); }
+  setSync(ref+" · 말씀 주소에 넣었습니다");
 }
 
 /* ═══ 성경 본문 (책별 파일) ═══
@@ -13506,11 +13554,19 @@ $("qtplanbtn").addEventListener("click",function(){
 });
 $("qtplan").addEventListener("click",function(e){
   var st=e.target.closest("[data-qtstep]");
+  var tb=e.target.closest("[data-qttab]");
+  if(tb){ QT.tab=tb.dataset.qttab; qtSave(); qtPlanPaint(); return; }
+  var sl=e.target.closest("[data-qtslot]");
+  if(sl){ QT.slot=+sl.dataset.qtslot; qtSave(); qtPlanPaint(); return; }
+  var qc=e.target.closest("[data-qtch]");
+  if(qc){ qtPickStep(+qc.dataset.qtch); return; }
   if(st){ QT.src="고른 날"; QT.day=Math.max(0,Math.min(299,(QT.day<0?0:QT.day)+(+st.dataset.qtstep))); qtPlanPaint(); return; }
   if(e.target.closest("button")) return;
   var p=e.target.closest("p.v[data-k]"); if(p) qtPickVerse(p.dataset.k);
 });
 $("qtplan").addEventListener("change",function(e){
+  if(e.target.id==="qtpb"){ QT.pick=[+e.target.value,1]; qtSave(); qtPlanPaint(); return; }
+  if(e.target.id==="qtpc"){ QT.pick=[qtPickCur()[0],+e.target.value]; qtSave(); qtPlanPaint(); return; }
   if(e.target.id!=="qtpm" && e.target.id!=="qtpd") return;
   var m=+$("qtpm").value||1, d=+$("qtpd").value||1;
   QT.src="고른 날"; QT.day=(m-1)*25+d-1; qtPlanPaint();
