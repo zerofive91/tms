@@ -1295,7 +1295,8 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtlist .qtlh span{font-size:calc(12.5px * var(--fz));color:var(--ink-soft)}
 .qtlist .go{display:flex;align-items:center;justify-content:center;gap:8px}
 .qtlist .go svg{width:20px;height:20px}
-.qtrows{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.qtrows{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
+.qtrows li{min-width:0}
 .qtrows button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);
   border-radius:12px;padding:10px 12px;font:inherit;color:var(--ink);cursor:pointer;min-width:0}
 .qtrows button:hover{border-color:var(--core)}
@@ -2134,11 +2135,11 @@ section[id^="st-"]{scroll-margin-top:8px}
 .untabs .cbtn{padding:9px 4px;font-size:calc(13px * var(--fz));min-width:52px}
 .unhier{margin:-4px 0 12px;font-size:calc(13px * var(--fz));line-height:1.6;color:var(--ink);background:var(--bg);border-radius:10px;padding:8px 12px}
 .unladder{display:grid;gap:4px}
-.unlad{display:grid;grid-template-columns:minmax(0,7.2em) minmax(0,1fr) 6.4em;align-items:center;gap:8px;width:100%;border:0;background:none;padding:6px 0;font:inherit;color:var(--ink);cursor:pointer;text-align:left}
-.unln{font-size:calc(13px * var(--fz));font-weight:700;line-height:1.3}
-.unlb{display:block;height:10px;border-radius:99px;background:var(--line-soft);overflow:hidden}
-.unlb i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--core),var(--secondary))}
-.unla{font-size:calc(12px * var(--fz));color:var(--ink-soft);text-align:right;line-height:1.3;font-variant-numeric:tabular-nums}
+.unlad{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n a" "b b";align-items:baseline;gap:4px 8px;width:100%;border:0;background:none;padding:6px 0;font:inherit;color:var(--ink);cursor:pointer;text-align:left}
+.unln{grid-area:n;min-width:0;font-size:calc(13px * var(--fz));font-weight:700;line-height:1.3}
+.unlb{grid-area:b;display:block;height:10px;border-radius:99px;background:var(--line-soft);overflow:hidden}
+.unlb i{display:block;height:100%;min-width:10px;border-radius:99px;background:linear-gradient(90deg,var(--core),var(--secondary))}
+.unla{grid-area:a;font-size:calc(12px * var(--fz));color:var(--ink-soft);text-align:right;line-height:1.3;font-variant-numeric:tabular-nums}
 .uncv{display:flex;gap:8px}
 .uncv input{flex:1 1 40%;min-width:0;font-size:calc(16px * var(--fz))}
 .uncv select{flex:1 1 60%;min-width:0;font:inherit;font-size:calc(15px * var(--fz));border:1.5px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);color:var(--ink)}
@@ -8764,13 +8765,17 @@ function qtPassagePaint(){
     if(!qtEmpty(qtFromDom())) qtKeep();
   },function(){ note.textContent=netOff()?"인터넷이 없어 본문을 불러오지 못했습니다":"본문을 불러오지 못했습니다"; });
 }
-/* ── 읽기표 함께 보기 ── 날: 노트에 적어 둔 날 → 읽기표 진도 → 노트 날짜(1~25일). 26일~말일은 고르기 */
+/* ── 읽기표 함께 보기 ── 날: 노트에 적어 둔 날 → 노트 날짜에 맞는 읽기표 날(읽기표를 시작했으면 그 달부터 셈, 아니면 1월 1일 = 첫날).
+   26일~말일은 읽기표에 없는 날이라 밀린 날을, 없으면 다음 달 1일을 띄웁니다. QT.src에 어디서 고른 날인지 남깁니다 */
 function qtPlanDefault(){
   var x=QT.cur||{};
-  if(x.pd>=0) return x.pd;
-  if(RD.start){ var nx=rdNextDay(rdSummary()); if(nx>=0) return nx; }
-  var d=x.d||fToday(), dd=+d.slice(8,10);
-  return dd<=25 ? (+d.slice(5,7)-1)*25+dd-1 : -1;
+  if(x.pd>=0){ QT.src="이 노트에 적어 둔 날"; return x.pd; }
+  var d=x.d||fToday(), dd=+d.slice(8,10), k=RD.start ? ymDiff(RD.start,d.slice(0,7)) : +d.slice(5,7)-1;
+  if(k<0 || k>11){ QT.src="읽기표 기간 밖의 날짜 · 첫날"; return 0; }
+  if(dd<=25){ QT.src="노트 날짜"; return k*25+dd-1; }
+  if(RD.start){ var miss=rdSummary().miss.filter(function(i){ return i<(k+1)*25; }); if(miss.length){ QT.src="26일부터는 읽기표에 없는 날 · 밀린 날"; return miss[0]; } }
+  QT.src="26일부터는 읽기표에 없는 날 · 다음 달 1일";
+  return Math.min(299,(k+1)*25);
 }
 function qtPlanPaint(){
   var host=$("qtplan"); if(!host) return;
@@ -8782,8 +8787,7 @@ function qtPlanPaint(){
     '<select id="qtpm" aria-label="읽기표 달">'+(i<0?'<option value="" selected>달</option>':'')+mo+'</select>'+
     '<select id="qtpd" aria-label="읽기표 날">'+(i<0?'<option value="" selected>날</option>':'')+da+'</select>'+
     '<button type="button" class="qtstep" data-qtstep="1" aria-label="다음 날"'+(i>=299?' disabled':'')+'>&#8250;</button></div>';
-  var src=(QT.cur&&QT.cur.pd>=0)?"이 노트에 적어 둔 날":(RD.start?"읽기표 진도":"노트 날짜");
-  if(i<0){ host.innerHTML=head+'<p class="fixednote">읽기표는 한 달 25일입니다. 26일부터는 읽을 날을 골라 주세요.</p>'; return; }
+  var src=QT.src||"고른 날";
   host.innerHTML=head+'<p class="fixednote">'+esc(rdPlanText(i))+' · '+src+' · 절을 누르면 말씀 주소에 들어갑니다</p><div class="qtpv2 rdv"><p class="fixednote">본문을 불러오는 중…</p></div>';
   rdDayData(i).then(function(){
     if(QT.day!==i || !$("qtplan")) return;
@@ -10695,10 +10699,10 @@ function paintUnits(){
   /* 단위 사다리 — 작은 것부터 큰 것까지 막대로 */
   var mx=Math.max.apply(null,us.map(function(u){ return u.val; })), mn=Math.min.apply(null,us.map(function(u){ return u.val; }));
   var lad=us.slice().sort(function(a,b){ return a.val-b.val; }).filter(function(u,i,a){ return !i || a[i-1].val!==u.val || a[i-1].n!==u.n; }).map(function(u){
-    var w=mx===mn?100:Math.max(4,Math.round((Math.log(u.val)-Math.log(mn))/(Math.log(mx)-Math.log(mn))*100));
-    return '<button type="button" class="unlad" data-unj="'+u.id+'"><span class="unln">'+esc(u.n)+'</span><span class="unlb"><i style="width:'+w+'%"></i></span><span class="unla">'+esc(unAmount(u.val,u.vu))+'</span></button>';
+    var w=u.val/mx*100;   /* 실제 비율 — 너무 작은 단위는 점(최소 굵기)으로 */
+    return '<button type="button" class="unlad" data-unj="'+u.id+'"><span class="unln">'+esc(u.n)+'</span><span class="unlb"><i style="width:'+(Math.round(w*100)/100)+'%"></i></span><span class="unla">'+esc(unAmount(u.val,u.vu))+'</span></button>';
   }).join("");
-  var h='<div class="panel"><p class="eyebrow">'+esc(cat[1])+'</p><p class="unhier">'+esc(cat[2])+'</p><div class="unladder">'+lad+'</div><p class="fixednote">막대는 크기를 한눈에 견주도록 로그 눈금으로 그렸습니다. 누르면 그 단위 설명으로 갑니다.</p></div>';
+  var h='<div class="panel"><p class="eyebrow">'+esc(cat[1])+'</p><p class="unhier">'+esc(cat[2])+'</p><div class="unladder">'+lad+'</div><p class="fixednote">막대는 가장 큰 단위를 끝으로 한 실제 비율입니다. 너무 작은 단위는 점으로 보입니다. 누르면 그 단위 설명으로 갑니다.</p></div>';
   /* 환산기 */
   var opts=us.map(function(u){ return '<option value="'+u.id+'"'+(UN.cv.u===u.id?' selected':'')+'>'+esc(u.n)+'</option>'; }).join("");
   if(!us.some(function(u){ return u.id===UN.cv.u; })) UN.cv.u=us[0].id;
@@ -13502,14 +13506,14 @@ $("qtplanbtn").addEventListener("click",function(){
 });
 $("qtplan").addEventListener("click",function(e){
   var st=e.target.closest("[data-qtstep]");
-  if(st){ QT.day=Math.max(0,Math.min(299,(QT.day<0?0:QT.day)+(+st.dataset.qtstep))); qtPlanPaint(); return; }
+  if(st){ QT.src="고른 날"; QT.day=Math.max(0,Math.min(299,(QT.day<0?0:QT.day)+(+st.dataset.qtstep))); qtPlanPaint(); return; }
   if(e.target.closest("button")) return;
   var p=e.target.closest("p.v[data-k]"); if(p) qtPickVerse(p.dataset.k);
 });
 $("qtplan").addEventListener("change",function(e){
   if(e.target.id!=="qtpm" && e.target.id!=="qtpd") return;
   var m=+$("qtpm").value||1, d=+$("qtpd").value||1;
-  QT.day=(m-1)*25+d-1; qtPlanPaint();
+  QT.src="고른 날"; QT.day=(m-1)*25+d-1; qtPlanPaint();
 });
 $("qtdone").addEventListener("click",function(){ qtKeep(true); goBack(); });
 $("qtshare").addEventListener("click",function(){ qtShare(false); });
