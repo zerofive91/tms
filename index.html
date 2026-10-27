@@ -1358,6 +1358,7 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtacts{display:grid;gap:8px;margin-top:14px}
 .qtshare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .qtshare .go{padding:13px 8px;font-size:calc(14px * var(--fz))}
+.qtshare .qtwide{grid-column:1 / -1}
 .qtdel{border:0;background:none;color:var(--ink-soft);font:inherit;font-size:calc(13px * var(--fz));text-decoration:underline;text-underline-offset:3px;padding:8px;cursor:pointer;justify-self:center}
 /* 함께 읽기 (v12) */
 body.nolk .lkrow{display:none}
@@ -2924,7 +2925,7 @@ section[id^="st-"]{scroll-margin-top:8px}
       <div class="field"><label for="qtg">기도</label><textarea id="qtg" rows="3" maxlength="2000"></textarea></div>
       <p class="fixednote" id="qtsave"></p>
       <div class="qtacts"><button type="button" class="go" id="qtdone">다 썼습니다</button>
-        <div class="qtshare"><button type="button" class="go soft" id="qtshare">공유 (카톡 등)</button><button type="button" class="go soft" id="qtcopy">글로 복사</button></div>
+        <div class="qtshare"><button type="button" class="go soft" id="qtshare">📝 글로 공유</button><button type="button" class="go soft" id="qtimg">🖼️ 이미지로 공유</button><button type="button" class="go soft qtwide" id="qtcopy">📋 글로 복사</button></div>
         <button type="button" class="qtdel" id="qtdel">🗑️ 이 노트 지우기</button></div>
     </div>
   </div>
@@ -8777,13 +8778,20 @@ function qtListHtml(){
   }
   return h+'</div>';
 }
-/* 공유할 글 — 빈 칸은 뺍니다 */
+/* 공유할 글 — 빈 칸은 뺍니다 (v13: 이모지 머리 모양) */
+var QT_EMO={c:"📝", m:"💭", a:"✅", g:"🙏"};
+function qtRefLong(x){   /* 「요 3:16-17」 → 「요한복음 3:16-17」, 못 읽으면 쓴 그대로 */
+  var a=parseAddr(x.r||""); if(!a) return x.r||"";
+  return BOOK_ORDER[a.bi]+" "+a.c+(a.v?":"+a.v+(a.v2&&a.v2!==a.v?"-"+a.v2:""):chWord(a.bi));
+}
 function qtText(x){
-  var d=x.d||fToday(), out=["[경건의 시간] "+(+d.slice(0,4))+"년 "+qtDateText(d)];
-  if(x.ti) out.push("제목: "+x.ti);
-  if(x.r) out.push("말씀: "+x.r);
+  var d=x.d||fToday(), out=["🌅 경건의 시간 · "+(+d.slice(0,4))+"년 "+qtDateText(d)];
+  if(x.ti || x.r) out.push("");
+  if(x.ti) out.push("✨ "+x.ti);
+  if(x.r) out.push("📖 "+qtRefLong(x)+(x.p?" (개역한글)":""));
   if(x.p) out.push("", x.p);
-  QT_FIELDS.forEach(function(f){ if(x[f[0]]) out.push("", "■ "+f[1], x[f[0]]); });
+  QT_FIELDS.forEach(function(f){ if(x[f[0]]) out.push("", QT_EMO[f[0]]+" "+f[1], x[f[0]]); });
+  out.push("", "🌿 네비게이토 말씀의 손");
   return out.join("\n");
 }
 function qtShare(copyOnly){
@@ -8792,6 +8800,96 @@ function qtShare(copyOnly){
   var t=qtText(x);
   if(!copyOnly && navigator.share){ try{ navigator.share({text:t}).catch(function(){}); return; }catch(e){} }
   copyText(t,function(ok){ setSync(ok?"경건의 시간을 글로 복사했습니다 · 카톡 등에 붙여 넣으세요":"복사하지 못했습니다",!ok); });
+}
+/* ── 이미지 카드(v13) ── 1080×1350, 암송 카드와 같은 크기 · 밝은 종이. 길면 여러 장(최대 10장) */
+function qtWrap(ctx,text,maxW){
+  var out=[];
+  String(text).split("\n").forEach(function(par){ if(!par.trim()) out.push(""); else out=out.concat(cardWrap(ctx,par,maxW)); });
+  return out;
+}
+function qtCards(x){
+  var W=1080, H=1350, L=130, R=W-130, TOP=250, BOT=H-170;
+  var C={bg1:"#F6FBF8", bg2:"#E3F4EB", ink:"#23453A", soft:"#5C7D70", brand:"#3C7C67", line:"#D5EADF", bar:"#90E4C1", verse:"#1F3D33"};
+  var serif='"Gowun Batang", "Nanum Myeongjo", serif', sans='"Pretendard Variable",Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
+  var probe=document.createElement("canvas").getContext("2d"), items=[], blk=0;
+  function add(font,color,lh,text,o){
+    o=o||{}; var ind=(o.quote?28:0)+(o.num?44:0);
+    probe.font=font;
+    qtWrap(probe,text,R-L-ind).forEach(function(l,i){ items.push({font:font, color:color, lh:lh, text:l, quote:o.quote, num:i===0?o.num:"", ind:ind, blk:blk}); });
+  }
+  function gap(h){ items.push({gap:h, blk:blk}); }
+  if(x.ti){ add('700 52px '+serif,C.ink,70,x.ti); gap(12); }
+  if(x.r) add('700 30px '+sans,C.brand,44,"📖 "+qtRefLong(x)+(x.p?" · 개역한글":""));
+  gap(20); blk++;
+  String(x.p||"").split("\n").forEach(function(l){
+    var m=/^(\d+) (.*)$/.exec(l); if(!m) return;
+    add('400 36px '+serif,C.verse,58,m[2],{num:m[1],quote:1}); gap(6); blk++;
+  });
+  gap(20);
+  QT_FIELDS.forEach(function(f){
+    if(!x[f[0]]) return;
+    blk++; add('800 30px '+sans,C.brand,46,QT_EMO[f[0]]+" "+f[1]); gap(2);
+    add('500 32px '+sans,C.ink,50,x[f[0]]); gap(24);
+  });
+  /* 쪽 나누기 — 머리 · 한 절 · 한 칸은 되도록 한 장에 */
+  var pages=[[]], y=TOP, bh={};
+  items.forEach(function(it){ bh[it.blk]=(bh[it.blk]||0)+(it.gap||it.lh); });
+  items.forEach(function(it,i){
+    var h=it.gap||it.lh, first=(i===0 || items[i-1].blk!==it.blk), cur=pages[pages.length-1];
+    if(cur.length && ((first && bh[it.blk]<=BOT-TOP && y+bh[it.blk]>BOT) || y+h>BOT)){ pages.push([]); y=TOP; if(it.gap) return; }
+    pages[pages.length-1].push(it); y+=h;
+  });
+  if(pages.length>10) pages=pages.slice(0,10);
+  var d=x.d||fToday();
+  return pages.map(function(pg,pi){
+    var cv=document.createElement("canvas"); cv.width=W; cv.height=H;
+    var g2=cv.getContext("2d");
+    var gr=g2.createLinearGradient(0,0,0,H); gr.addColorStop(0,C.bg1); gr.addColorStop(1,C.bg2); g2.fillStyle=gr; g2.fillRect(0,0,W,H);
+    function rr(X,Y,w,h,r){ g2.beginPath(); g2.moveTo(X+r,Y); g2.arcTo(X+w,Y,X+w,Y+h,r); g2.arcTo(X+w,Y+h,X,Y+h,r); g2.arcTo(X,Y+h,X,Y,r); g2.arcTo(X,Y,X+w,Y,r); g2.closePath(); }
+    g2.save(); g2.shadowColor="rgba(35,69,58,.14)"; g2.shadowBlur=40; g2.shadowOffsetY=14; rr(70,80,W-140,H-200,48); g2.fillStyle="#FFFFFF"; g2.fill(); g2.restore();
+    g2.fillStyle=C.bar; rr(70,80,W-140,18,9); g2.fill();
+    g2.textBaseline="alphabetic"; g2.fillStyle=C.soft; g2.font='700 30px '+sans;
+    g2.fillText("🌅 "+qtDateText(d)+" · 경건의 시간",L,180);
+    if(pages.length>1){ g2.textAlign="right"; g2.fillText((pi+1)+" / "+pages.length,R,180); g2.textAlign="left"; }
+    g2.strokeStyle=C.line; g2.lineWidth=2; g2.beginPath(); g2.moveTo(L,208); g2.lineTo(R,208); g2.stroke();
+    var yy=TOP+30;
+    pg.forEach(function(it){
+      if(it.gap){ yy+=it.gap; return; }
+      if(it.quote){ g2.fillStyle=C.bar; g2.fillRect(L,yy-it.lh+14,6,it.lh); }
+      if(it.num){ g2.font='700 24px '+sans; g2.fillStyle=C.brand; g2.fillText(it.num,L+(it.quote?28:0),yy-16); }
+      g2.font=it.font; g2.fillStyle=it.color; g2.fillText(it.text,L+(it.ind||0),yy);
+      yy+=it.lh;
+    });
+    g2.fillStyle=C.soft; g2.font='600 26px '+sans; g2.textAlign="center";
+    g2.fillText("🌿 네비게이토 말씀의 손",W/2,H-60); g2.textAlign="left";
+    return cv;
+  });
+}
+function qtShareImg(){
+  var x=qtFromDom(); qtKeep(true);
+  if(qtEmpty(x)){ setSync("아직 쓴 내용이 없습니다",true); return; }
+  setSync("이미지를 만드는 중…");
+  var fontReady=(document.fonts && document.fonts.load) ? Promise.all([
+      document.fonts.load('700 52px "Gowun Batang"'), document.fonts.load('400 36px "Gowun Batang"'), document.fonts.load('700 30px "Pretendard Variable",Pretendard')
+    ]).catch(function(){}) : Promise.resolve();
+  var d=x.d||fToday(), base="경건의시간_"+d;
+  fontReady.then(function(){ return Promise.all(qtCards(x).map(canvasBlob)); }).then(function(blobs){
+    var files=blobs.map(function(b,i){ var name=base+(blobs.length>1?"_"+(i+1):"")+".png"; try{ return new File([b],name,{type:"image/png"}); }catch(e){ b.name=name; return b; } });
+    setSync("");
+    var list=blobs.map(function(b,i){ return {addr:base+(blobs.length>1?"_"+(i+1):"")}; });
+    if(navigator.canShare && navigator.share && navigator.canShare({files:files})){
+      navigator.share({files:files, title:"경건의 시간"}).then(function(){ setSync("이미지 "+files.length+"장을 보냈습니다"); },function(err){
+        if(err && err.name==="AbortError") return;
+        qtImgSheet(blobs,list);
+      });
+    } else qtImgSheet(blobs,list);
+  }).catch(function(e){ setSync("이미지를 만들지 못했습니다 · "+String(e&&e.message||e),true); });
+}
+function qtImgSheet(blobs,list){
+  var urls=blobs.map(function(b){ return URL.createObjectURL(b); });
+  openSheet('<h3 class="shtitle">경건의 시간 이미지 '+blobs.length+'장</h3><p class="shsub">이 기기는 바로 보내기를 지원하지 않습니다. 그림을 저장한 뒤 카카오톡에서 보내 주세요. (폰에서는 그림을 길게 눌러 저장)</p>'+
+    '<div class="shimgs">'+urls.map(function(u,i){ return '<a href="'+u+'" download="'+esc(list[i].addr)+'.png"><img src="'+u+'" alt="'+esc(list[i].addr)+'"></a>'; }).join("")+'</div>',
+    function(){ urls.forEach(function(u){ try{ URL.revokeObjectURL(u); }catch(e){} }); });
 }
 /* ── 쓰기 화면 ── */
 function qtNewId(){ return "q"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
@@ -13643,6 +13741,7 @@ $("qtplan").addEventListener("change",function(e){
 $("qtdone").addEventListener("click",function(){ qtKeep(true); goBack(); });
 $("qtshare").addEventListener("click",function(){ qtShare(false); });
 $("qtcopy").addEventListener("click",function(){ qtShare(true); });
+$("qtimg").addEventListener("click",qtShareImg);
 $("qtdel").addEventListener("click",function(){
   if(!QT.id || !QT.map[QT.id]) return;
   qtKeep(true); rnAskDel("q:"+QT.id,function(){ goBack(); });
