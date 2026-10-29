@@ -82,7 +82,8 @@ button{font:inherit;color:inherit}
 /* ===== 위쪽 ===== */
 .topui{position:absolute;left:0;right:0;top:0;z-index:20;padding:12px 16px 56px;background:linear-gradient(to bottom,rgba(22,24,48,.8),rgba(22,24,48,.42) 62%,transparent);pointer-events:none;transition:opacity .4s}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.step{font-size:13px;font-weight:700;opacity:.88}
+.step{font-size:13px;font-weight:700;opacity:.88;border:0;background:none;color:inherit;padding:6px 0;text-align:left;cursor:pointer;pointer-events:auto;min-width:0}
+.step:not(:empty)::after{content:' ▾';opacity:.7}
 .tools{display:flex;gap:8px;pointer-events:auto}
 .icon-btn{width:38px;height:38px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;font-size:16px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .prog{display:flex;gap:4px;margin-top:10px;pointer-events:auto}
@@ -95,6 +96,45 @@ button{font:inherit;color:inherit}
 .caption h1{font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:23px;line-height:1.3;min-height:2.6em;text-shadow:0 2px 8px rgba(0,0,0,.45)}
 .caption p{font-size:14.5px;line-height:1.45;opacity:.9;min-height:1.45em;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .app.cover .topui .step,.app.cover .prog,.app.cover .caption,.app.cover #resetBtn{visibility:hidden}
+
+/* ===== v14: 보기 방식 · 장 고르기 · 길게 누르기 · 밀어 건너기 · 조용한 기도 · 다음 걸음 ===== */
+.toast{position:absolute;left:50%;top:76px;z-index:60;transform:translate(-50%,-6px);max-width:calc(100% - 32px);background:rgba(20,22,44,.88);color:#fff;border-radius:14px;padding:9px 14px;font-size:13.5px;font-weight:700;line-height:1.45;text-align:center;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.chlist{position:absolute;inset:0;z-index:70;background:rgba(14,16,34,.72);display:none;align-items:flex-start;justify-content:center;padding:64px 16px 16px}
+.chlist.show{display:flex}
+.chbox{width:100%;max-width:420px;background:var(--bg);color:var(--ink);border-radius:22px;padding:14px;box-shadow:0 14px 40px rgba(0,0,0,.4);animation:rise .35s both}
+.chbox .hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;font-weight:800;font-size:15px}
+.chbox .hd button{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chbox ol{list-style:none;display:grid;gap:7px}
+.chbox ol button{width:100%;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:11px 12px;font-size:14.5px;font-weight:700;line-height:1.4;cursor:pointer}
+.chbox ol button[aria-current="step"]{border-color:var(--pink)}
+.chbox ol button.done{opacity:.72}
+.hold{position:absolute;left:50%;bottom:12%;z-index:25;width:92px;height:92px;transform:translateX(-50%);display:none;pointer-events:none}
+.hold.show{display:block}
+.hold svg{width:100%;height:100%;transform:rotate(-90deg)}
+.hold circle{fill:none;stroke-width:7}
+.hold .bg{stroke:rgba(255,255,255,.28)}
+.hold .fg{stroke:#ffd6e0;stroke-linecap:round;stroke-dasharray:264;stroke-dashoffset:264;filter:drop-shadow(0 0 8px rgba(255,180,200,.9))}
+.hold .hand{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:38px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:tap 1.1s ease-in-out infinite}
+.hold.on .hand{animation:none;transform:scale(.9)}
+.swipe{position:absolute;left:50%;bottom:10%;z-index:25;width:60px;height:150px;transform:translateX(-50%);display:none;pointer-events:none}
+.swipe.show{display:block}
+.swipe .rail{position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;border-radius:3px;background:linear-gradient(to top,rgba(255,255,255,.1),rgba(255,241,184,.7))}
+.swipe .hand{position:absolute;left:50%;bottom:0;font-size:40px;transform:translateX(-50%);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:swipeUp 1.6s ease-in-out infinite}
+@keyframes swipeUp{0%{bottom:0;opacity:0}15%{opacity:1}80%{bottom:96px;opacity:1}100%{bottom:110px;opacity:0}}
+.swipe.on .hand{animation:none;opacity:1}
+.quiet{position:absolute;left:16px;right:16px;top:24%;z-index:16;background:rgba(20,22,44,.78);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:22px;padding:22px 20px 18px;text-align:center;display:none;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.quiet.show{display:block;animation:rise .8s both}
+.quiet p{font-size:16px;line-height:1.7;font-weight:600}
+.quiet small{display:block;margin-top:12px;font-size:13px;opacity:.8;min-height:1.4em}
+.quiet .breath{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle,rgba(255,241,184,.9),rgba(255,214,224,.35) 55%,transparent 70%);animation:breath 6s ease-in-out infinite}
+@keyframes breath{50%{transform:scale(1.35);opacity:.65}}
+.quiet .bar{height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:14px;overflow:hidden}
+.quiet .bar i{display:block;height:100%;width:0;background:#fff1b8}
+.nextsteps{display:grid;gap:8px}
+.nextsteps b{font-size:13px;opacity:.75;margin:2px 2px 0}
+.nextsteps a,.nextsteps button{display:block;text-align:center;text-decoration:none;border:2px solid var(--pink);background:var(--card);color:var(--ink);border-radius:16px;padding:13px 10px;font-weight:800;font-size:15px;cursor:pointer}
+.nextsteps[hidden]{display:none}
 
 /* ===== 게이지 ===== */
 .gauge{position:absolute;left:22px;right:22px;top:31%;z-index:15;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s, transform .3s;pointer-events:none}
@@ -192,7 +232,7 @@ button{font:inherit;color:inherit}
 .cover-title .from{display:block;margin-top:16px;font-size:16px;font-weight:700;opacity:.95;text-shadow:0 2px 10px rgba(0,0,0,.6)}
 .cover-title .from[hidden],.icon-btn[hidden]{display:none}
 @media (max-height:640px){.caption h1{font-size:20px}.card{padding:8px 4px 7px}.card .em{font-size:21px}.opt{min-height:46px;padding:10px 8px}.flip{height:170px}}
-@media (prefers-reduced-motion: reduce){#kb,#glow,.tap,#knob{animation:none}#cam.shake,#cam.shakeBig{animation:none}}
+@media (prefers-reduced-motion: reduce){#kb,#glow,.tap,#knob,.hold .hand,.swipe .hand,.quiet .breath{animation:none}#cam.shake,#cam.shakeBig{animation:none}#flash.go{animation:none}}
 </style>
 </head>
 <body>
@@ -234,8 +274,9 @@ button{font:inherit;color:inherit}
 
   <div class="topui">
     <div class="bar">
-      <span class="step" id="stepLabel"></span>
+      <button type="button" class="step" id="stepLabel" aria-haspopup="dialog"></button>
       <div class="tools">
+        <button class="icon-btn" id="modeBtn" aria-label="보기 방식"></button>
         <button class="icon-btn" id="muteBtn" aria-label="소리 끄기">🔊</button>
         <button class="icon-btn" id="resetBtn" aria-label="이 장 다시 보기">↺</button>
         <button class="icon-btn" id="closeBtn" aria-label="닫기" hidden>✕</button>
@@ -256,6 +297,11 @@ button{font:inherit;color:inherit}
   <div class="chips" id="chips"></div>
   <div class="prayer" id="prayer"></div>
   <div class="tap" id="tap" aria-hidden="true">👆</div>
+  <div class="hold" id="hold" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" id="holdFg" cx="50" cy="50" r="42"/></svg><span class="hand">👆</span></div>
+  <div class="swipe" id="swipe" aria-hidden="true"><span class="rail"></span><span class="hand">👆</span></div>
+  <div class="quiet" id="quiet" aria-live="polite"><div class="breath"></div><p id="quietTxt"></p><div class="bar"><i id="quietBar"></i></div><small id="quietEnd"></small></div>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="chlist" id="chlist" role="dialog" aria-modal="true" aria-labelledby="chHd"><div class="chbox"><div class="hd"><span id="chHd"></span><button type="button" id="chClose" aria-label="닫기">✕</button></div><ol id="chOl"></ol></div></div>
 
   <div class="botui hide" id="botui">
     <div class="panel" id="p1"><div class="grid g4" id="p1g"></div></div>
@@ -273,6 +319,7 @@ button{font:inherit;color:inherit}
     <div class="verses" id="verses"></div>
     <div class="vdots" id="vdots"></div>
     <div class="btns" id="sheetBtns"></div>
+    <div class="nextsteps" id="nextSteps" hidden></div>
   </div>
 </div>
 
@@ -295,6 +342,12 @@ const T={
   c5:{title:'다리는 놓였고 하나님의 약속은 주어졌어요.',sub:'‘듣고’와 ‘믿음’을 차례로 눌러 다리를 건너 보세요.',promise:'하나님은 믿는 사람에게 이렇게 약속하셨어요.'},
   c6:{title:'그러면 어떻게 하는 것이 믿는 것일까요?',sub:'문을 두드리는 소리가 들리나요? 손잡이를 당겨 문을 열어 보세요.',open:'지금 마음의 문을 열고 예수 그리스도를 모셔 들일 수 있어요.',pray:'마음을 담아 함께 기도해 볼까요?'},
   c7:{title:'당신은 지금 어느 쪽에 있나요?',here:'어느 쪽에서 영원을 보낼지는 스스로 결정해야 해요.',think:'다리는 이미 놓여 있어요. 한 걸음만 내디디면 돼요.',there:'예수님을 마음에 모셨나요? 그렇다면 그분은 지금 어디에 계실까요?'},
+  /* v14 새 문구 (사용자 확인 전 초안) */
+  c4x:{hold:'화면을 길게 눌러 보세요.'},
+  c5x:{swipe:'위로 밀어 다리를 건너 보세요.'},
+  c6x:{quiet:'이제 잠시, 하고 싶은 말을 하나님께 직접 드려 보세요.',quietWait:'천천히 기도하셔도 괜찮아요.',quietEnd:'다 드렸으면 화면을 눌러 주세요.'},
+  c7x:{next:'다음 걸음',app1:'구원의 확신 말씀 외우기',app2:'오늘 말씀 묵상하기',web:'말씀의 손에서 시작하기'},
+  view:{together:'함께 보기 · 화면을 눌러 넘겨요',alone:'혼자 보기 · 읽을 시간이 지나면 저절로 넘어가요',chapters:'장 고르기'},
   verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요'
 };
 const SFX={collapse:'와르르!',impact:'콰광!',glow:'화악!',sparkle:'반짝반짝'};
@@ -357,7 +410,7 @@ function layout(){
   scene.style.setProperty('--u',(w/100)+'px');cv.width=Math.round(w*dpr);cv.height=Math.round(hh*dpr);
 }
 addEventListener('resize',layout);layout();
-function zoom(s,dur){scene.style.transition=dur?`transform ${dur}ms cubic-bezier(.25,.1,.2,1)`:'none';scene.style.transform=s===1?'':`scale(${s})`;}
+function zoom(s,dur){if(reduce){scene.style.transition='none';scene.style.transform='';return;}scene.style.transition=dur?`transform ${dur}ms cubic-bezier(.25,.1,.2,1)`:'none';scene.style.transform=s===1?'':`scale(${s})`;}
 
 /* ===== 장면 전환 ===== */
 const L={};document.querySelectorAll('.layer').forEach(l=>L[l.dataset.n]=l);
@@ -410,11 +463,11 @@ const snd={
 const P=[];
 function motes(){P.push({t:'mote',x:DOOR.x+rand(-70,70),y:DOOR.y+rand(0,60),vx:rand(-.15,.15),vy:rand(-.7,-.25),r:rand(1.6,4.2),life:0,max:rand(160,320),c:'255,250,230'});}
 function debris(x,y,cols){
-  for(let i=0;i<30;i++)P.push({t:'rock',x:x+rand(-70,70),y:y+rand(-80,60),vx:rand(-2.4,2),vy:rand(-5,0),s:rand(7,20),a:rand(0,6),va:rand(-.2,.2),c:cols[i%cols.length],life:0,max:200});
+  for(let i=0;i<(reduce?8:30);i++)P.push({t:'rock',x:x+rand(-70,70),y:y+rand(-80,60),vx:rand(-2.4,2),vy:rand(-5,0),s:rand(7,20),a:rand(0,6),va:rand(-.2,.2),c:cols[i%cols.length],life:0,max:200});
   for(let i=0;i<10;i++)P.push({t:'dust',x:x+rand(-60,60),y:y+rand(-40,40),vx:rand(-.6,.6),vy:rand(-.6,.2),r:rand(18,34),life:0,max:rand(60,100)});
 }
 function puff(){for(let i=0;i<3;i++)P.push({t:'dust',x:EDGE.x+rand(-30,30),y:EDGE.y+rand(-10,10),vx:rand(-.8,.3),vy:rand(-.9,-.2),r:rand(8,14),life:0,max:50});}
-function burst(cx=CROSS.x,cy=CROSS.y,cols=['#ffd6e0','#fff1b8']){for(let i=0;i<60;i++){const a=rand(0,Math.PI*2),v=rand(2,9);P.push({t:'star',x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,r:rand(4,10),life:0,max:rand(50,90),c:cols[i%cols.length],drag:.94});}}
+function burst(cx=CROSS.x,cy=CROSS.y,cols=['#ffd6e0','#fff1b8']){for(let i=0;i<(reduce?15:60);i++){const a=rand(0,Math.PI*2),v=rand(2,9);P.push({t:'star',x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,r:rand(4,10),life:0,max:rand(50,90),c:cols[i%cols.length],drag:.94});}}
 function spark(x,y,c){P.push({t:'star',x,y,vx:rand(-.3,.3),vy:rand(-1.4,-.5),r:rand(3,8),life:0,max:rand(70,130),c,drag:1});}
 function star(x,y,r){ctx.beginPath();ctx.moveTo(x,y-r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.quadraticCurveTo(x,y,x,y+r);ctx.quadraticCurveTo(x,y,x-r,y);ctx.quadraticCurveTo(x,y,x,y-r);ctx.fill();}
 function loop(){
@@ -442,7 +495,7 @@ requestAnimationFrame(loop);
 /* ===== 연출 도우미 ===== */
 function shake(big){if(reduce)return;const c=$('cam');c.classList.remove('shake','shakeBig');void c.offsetWidth;c.classList.add(big?'shakeBig':'shake');}
 function sfx(text,x,y,color){const s=h('div','sfx');s.textContent=text;s.style.left=x+'%';s.style.top=y+'%';s.style.color=color;$('kb').appendChild(s);setTimeout(()=>s.remove(),1700);}
-function flash(gold){const f=$('flash');f.classList.toggle('gold',!!gold);restart(f,'go');}
+function flash(gold){if(reduce)return;const f=$('flash');f.classList.toggle('gold',!!gold);restart(f,'go');}
 function dark(v){$('dark').style.opacity=v;}
 function tomb(v){$('tomb').style.opacity=v;}
 function sin(state){const s=$('sin');s.classList.remove('on','big');if(state==='on')s.classList.add('on');if(state==='big')s.classList.add('on','big');}
@@ -495,10 +548,12 @@ document.querySelectorAll('.card.drag').forEach(card=>{
 });
 
 /* ===== 화면 누르기 기다림 ===== */
-let tapWait=null;
-function waitTap(){$('tap').classList.add('show');return new Promise(res=>{tapWait=res;});}
-function doTap(){if(!tapWait)return;ensureAudio();const r=tapWait;tapWait=null;$('tap').classList.remove('show');snd.pick();r();}
-app.addEventListener('click',e=>{if(e.target.closest('button,.sheet,.pop,#knob'))return;doTap();});
+let tapWait=null,tapTimer=null;
+/* 혼자 보기: 지금 자막 길이만큼 읽을 시간을 준 뒤 저절로 넘어감(눌러도 됨) */
+function readMs(){const t=($('capTitle').textContent+$('capSub').textContent+($('prayer').classList.contains('show')?$('prayer').textContent:'')).length;return Math.max(2600,1400+t*95);}
+function waitTap(){$('tap').classList.add('show');clearTimeout(tapTimer);if(VIEW==='alone')tapTimer=setTimeout(()=>doTap(true),readMs());return new Promise(res=>{tapWait=res;});}
+function doTap(auto){if(!tapWait)return;clearTimeout(tapTimer);if(!auto)ensureAudio();const r=tapWait;tapWait=null;$('tap').classList.remove('show');if(!auto)snd.pick();r();}
+app.addEventListener('click',e=>{if(e.target.closest('button,.sheet,.pop,#knob,.chlist'))return;if(holdWait||swipeWait)return;doTap();});
 app.addEventListener('scroll',()=>{app.scrollTop=0;app.scrollLeft=0;});
 
 /* ===== 말씀 팝업 (2장) ===== */
@@ -545,6 +600,85 @@ knob.addEventListener('pointerdown',e=>{
 });
 knob.addEventListener('click',e=>e.stopPropagation());
 
+/* ===== v14: 보기 방식 (함께 보기 · 혼자 보기) =====
+   앱 안에서 「보여 주기」로 열면 함께 보기(보여 주는 사람이 넘김), 링크로 받은 사람은 혼자 보기. 위 단추로 바꿈 */
+let VIEW='alone',toastT=null;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👥':'👤';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
+$('modeBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();VIEW=VIEW==='together'?'alone':'together';paintView();toast(VIEW==='together'?T.view.together:T.view.alone);
+  if(tapWait){clearTimeout(tapTimer);if(VIEW==='alone')tapTimer=setTimeout(()=>doTap(true),readMs());}});
+
+/* ===== v14: 장 고르기 (위 장 이름을 누르면) ===== */
+$('chHd').textContent=T.view.chapters;
+function openChList(){const ol=$('chOl');ol.innerHTML='';
+  for(let i=1;i<=7;i++){const li=h('li'),b=h('button',i<CH?'done':'',STEPS[i]);b.type='button';if(i===CH)b.setAttribute('aria-current','step');
+    b.addEventListener('click',e=>{e.stopPropagation();closeChList();ensureAudio();start(i);});li.appendChild(b);ol.appendChild(li);}
+  $('chlist').classList.add('show');setTimeout(()=>{const c=ol.querySelector('[aria-current]')||ol.querySelector('button');if(c)c.focus();},50);}
+function closeChList(){$('chlist').classList.remove('show');}
+$('stepLabel').addEventListener('click',e=>{e.stopPropagation();if(CH>0)openChList();});
+$('chClose').addEventListener('click',e=>{e.stopPropagation();closeChList();});
+$('chlist').addEventListener('click',e=>{e.stopPropagation();if(e.target===$('chlist'))closeChList();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeChList();});
+
+/* ===== v14: 4장 길게 누르기 — 누르는 동안 빛이 차오르고, 떼면 줄어듦 ===== */
+let holdWait=null;
+function waitHold(ms=1500){
+  const box=$('hold'),fg=$('holdFg');box.classList.add('show');let p=0,on=false,last=0,raf=0,buzz=0;
+  const paint=()=>{fg.style.strokeDashoffset=264*(1-p);$('crossGlow').style.opacity=p*.9;$('crossGlow').style.transform=`translate(-50%,-50%) scale(${.6+p*.4})`;};
+  return new Promise(res=>{
+    const step=now=>{const dt=last?now-last:16;last=now;p=Math.max(0,Math.min(1,p+(on?dt/ms:-dt/500)));paint();
+      if(on&&now-buzz>220){buzz=now;vib(8+Math.round(p*30));tone(180+p*420,.18,'sine',.04+p*.05);}
+      if(p>=1){done();return;}raf=requestAnimationFrame(step);};
+    const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();on=true;box.classList.add('on');};
+    const up=()=>{on=false;box.classList.remove('on');};
+    const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();p=1;}};
+    const done=()=>{cancelAnimationFrame(raf);app.removeEventListener('pointerdown',down);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);document.removeEventListener('keydown',key);
+      box.classList.remove('show','on');fg.style.strokeDashoffset=264;$('crossGlow').style.opacity='';$('crossGlow').style.transform='';holdWait=null;res();};
+    holdWait=done;app.addEventListener('pointerdown',down);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);document.addEventListener('keydown',key);
+    raf=requestAnimationFrame(step);});
+}
+
+/* ===== v14: 5장 위로 밀어 건너기 — 미는 만큼 다리 위로 걸어감(발소리). 한 번 누르면 저절로 ===== */
+let swipeWait=null;
+function waitSwipe(){
+  const box=$('swipe');box.classList.add('show');
+  return new Promise(res=>{
+    let sy=0,p=0,steps=0,drag=false,fin=false;
+    const set=v=>{p=Math.max(p,Math.min(1,v));zoom(1.05+p*.11,120);const n=Math.floor(p*6);while(steps<n){steps++;tone(steps%2?150:130,.09,'triangle',.07);noise(.05,.12,700,'lowpass');vib(6);}};
+    const done=()=>{if(fin)return;fin=true;cleanup();box.classList.remove('show','on');swipeWait=null;res();};
+    const auto=()=>{box.classList.add('on');animate(1600,t=>set(p+(1-p)*t)).then(done);};
+    const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();sy=e.clientY;drag=false;box.classList.add('on');
+      document.addEventListener('pointermove',move);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);};
+    const move=e=>{const d=sy-e.clientY;if(Math.abs(d)>8)drag=true;if(d>0)set(d/170);if(p>=1)done();};
+    const up=()=>{document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);
+      if(fin)return;if(!drag||p>.35)auto();else box.classList.remove('on');};
+    const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();auto();}};
+    const cleanup=()=>{app.removeEventListener('pointerdown',down);document.removeEventListener('keydown',key);document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);};
+    swipeWait=done;app.addEventListener('pointerdown',down);document.addEventListener('keydown',key);
+  });
+}
+
+/* ===== v14: 6장 조용한 기도 시간 — 숨 고르는 빛과 함께 40초, 끝나면 맑은 소리. 그 뒤 화면을 누름 ===== */
+const QUIET_MS=40000;
+async function quietPrayer(c){
+  const q=$('quiet'),bar=$('quietBar');$('quietTxt').textContent=T.c6x.quiet;$('quietEnd').textContent=T.c6x.quietWait;bar.style.width='0';q.classList.add('show');
+  let skip=false;const sk=()=>{skip=true;};
+  const t0=performance.now();q.addEventListener('click',sk,{once:true});
+  while(!skip&&performance.now()-t0<QUIET_MS){await c.w(250);bar.style.width=Math.min(100,(performance.now()-t0)/QUIET_MS*100)+'%';}
+  q.removeEventListener('click',sk);bar.style.width='100%';
+  if(!skip){[523,784].forEach((f,i)=>tone(f,1.6,'sine',.05,null,i*.25));vib(15);$('quietEnd').textContent=T.c6x.quietEnd;await c.tap();}
+  q.classList.remove('show');
+}
+
+/* ===== v14: 7장 「다음 걸음」 — 건너갔다고 고른 분께. 앱 안이면 앱의 그 화면으로 ===== */
+function nextSteps(){
+  const box=$('nextSteps');box.innerHTML='';box.appendChild(h('b','',T.c7x.next));
+  if(IN_APP){[['hubm',T.c7x.app1],['medi',T.c7x.app2]].forEach(([to,label])=>{const b=h('button','',label);b.type='button';
+      b.addEventListener('click',e=>{e.stopPropagation();try{parent.postMessage({navfest:'tract-go',to},location.origin);}catch(_){}});box.appendChild(b);});}
+  else{const a=h('a','',T.c7x.web);a.href='../';box.appendChild(a);}
+  box.hidden=false;
+}
+
 /* ===== 장 진행 관리 ===== */
 let RUN=0,CH=0;const CANCEL={};
 function ctl(my){const alive=()=>my===RUN;return{alive,
@@ -558,6 +692,7 @@ function resetUI(){
   knob.classList.remove('show');knob.style.transform='';$('doorLight').style.opacity=0;
   dark(0);tomb(0);cross(null);sin(null);zoom(1,0);$('beam').classList.remove('drop');P.length=0;
   document.querySelectorAll('.sfx').forEach(s=>s.remove());
+  clearTimeout(tapTimer);if(holdWait)holdWait();if(swipeWait)swipeWait();$('quiet').classList.remove('show');$('nextSteps').hidden=true;closeChList();
 }
 const prog=$('prog');
 for(let i=1;i<=7;i++){const b=h('button');b.setAttribute('aria-label',STEPS[i]);b.addEventListener('click',e=>{e.stopPropagation();start(i);});prog.appendChild(b);}
@@ -630,7 +765,7 @@ async function ch3(c){
 /* ===== 4장 하나님께서 당신을 위해 해주신 일 ===== */
 async function ch4(c){
   show('base',0);sin('big');show('dawn',2600);await cap(T.c4.title,'');snd.swell();
-  await c.w(2800);snd.rumble();shake(false);await c.w(1000);
+  await c.w(2200);await cap(T.c4.title,T.c4x.hold);await c.until(waitHold());snd.rumble();shake(false);await c.w(700);
   snd.whoosh();restart($('beam'),'drop');await c.w(420);
   flash();show('cross',0);$('beam').classList.remove('drop');sin(null);snd.boom();vib([90,40,140]);shake(true);burst();cross('show');
   setTimeout(()=>{if(CH===4)sfx(SFX.impact,58,34,'#ff6b81');},80);
@@ -653,7 +788,8 @@ async function ch5(c){
   enableOnly('p5',0);let key=await c.until(waitChoice('p5'));markUsed('p5',key);
   cross(null);show('walk',900);zoom(1.05,1600);[523,659].forEach((f,i)=>tone(f,.8,'sine',.07,null,i*.12));vib(15);
   await c.w(900);enableOnly('p5',1);key=await c.until(waitChoice('p5'));markUsed('p5',key);
-  sfx(SFX.sparkle,36,27,'#fff3b0');snd.chime();zoom(1.16,2400);vib([20,40,20]);await c.w(2300);
+  panel(null);await cap(T.c5.title,T.c5x.swipe);await c.until(waitSwipe());
+  sfx(SFX.sparkle,36,27,'#fff3b0');snd.chime();vib([20,40,20]);await c.w(900);
   panel(null);flash(true);zoom(1,0);show('arrive',0);
   await cap(T.c5.promise,'');
   for(let i=0;i<3;i++){await c.w(550);$('chips').appendChild(h('div','chip',PROMISES[i]));snd.ping(i);vib(10);}
@@ -672,6 +808,7 @@ async function ch6(c,sub){
   show('pray',900);await cap(T.c6.pray,'');
   await c.w(500);$('prayer').textContent=PRAYER;$('prayer').classList.add('show');snd.swell();
   await c.w(800);await c.tap();$('prayer').classList.remove('show');
+  await quietPrayer(c);
   await c.until(openSheet([V.jn112,V.re320],[NEXT]));start(7);
 }
 
@@ -683,7 +820,9 @@ async function ch7(c){
   if(key==='think'){show('cross',900);cross('soft');snd.swell();await cap(T.c7.think,'');list=[V.jn336];}
   if(key==='there'){show('arrive',900);snd.chime();vib([20,40,20]);await cap(T.c7.there,'');list=[V.jo51113];}
   await c.w(1100);
-  const r=await c.until(openSheet(list,[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]));
+  const sh=openSheet(list,[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]);
+  if(key==='there')nextSteps();
+  const r=await c.until(sh);
   if(r==='restart')start(0);else start(6,'prayer');
 }
 
@@ -698,7 +837,8 @@ $('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soun
 const QS=new URLSearchParams(location.search);
 const FROM=(QS.get('from')||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,20);
 if(FROM){$('coverFrom').textContent=FROM+' 님이 보내 드려요';$('coverFrom').hidden=false;}
-if(QS.get('in')==='app'){
+const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';paintView();
+if(IN_APP){
   const cb=$('closeBtn');cb.hidden=false;
   cb.addEventListener('click',e=>{
     e.stopPropagation();RUN++;resetUI();knocking(false);

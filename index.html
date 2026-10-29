@@ -13101,6 +13101,14 @@ window.addEventListener("message",function(e){
   var f=$("tview").querySelector("iframe");
   if(!f || e.source!==f.contentWindow) return;
   if(e.data && e.data.navfest==="tract-close" && screenNow==="tview") goBack();
+  /* v14: 전도지 끝 「다음 걸음」 — 전도지를 닫고(뒤로) 암송(hubm) · 묵상(medi)을 엶. 그 화면에서 뒤로 가면 전도지 목록 */
+  if(e.data && e.data.navfest==="tract-go" && screenNow==="tview" && (e.data.to==="hubm"||e.data.to==="medi")){
+    var to=e.data.to, tries=0;
+    goBack();
+    var go=function(){ if(screenNow==="tview"){ if(++tries<20) setTimeout(go,100); return; }
+      var b=document.createElement("button"); b.dataset.mode=to; modeClick({target:b}); };
+    setTimeout(go,100);
+  }
 });
 
 function trDrawQr(){
