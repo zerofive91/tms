@@ -469,7 +469,7 @@ function show(n,dur=600,cam='soft'){
 
 /* ===== 소리 ===== */
 let ac=null,soundOn=true;
-function ensureAudio(){try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();}catch(e){}}
+function ensureAudio(){try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();}catch(e){}bgmKick();}
 function tone(freq,dur,type='sine',vol=.12,slideTo,delay=0){
   if(!ac||!soundOn)return;const t=ac.currentTime+delay;
   const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);
@@ -501,6 +501,32 @@ const snd={
   ping:i=>tone(784+i*196,.5,'sine',.08),
   flip:up=>tone(up?880:660,.15,'triangle',.07)
 };
+
+/* ===== v14: 배경 음악 (Lyria로 만든 3곡, bgm/b1~b3.mp3) =====
+   1~3장 어스름 · 4~5장 새벽 · 6~7장 빛. 장이 바뀌면 천천히 겹쳐 바뀌고, 나레이션이 나올 땐 작아짐. 🔊 로 함께 꺼짐.
+   못 받으면(오프라인) 조용히 건너뜀 */
+const BGM_VOL=.55,BGM_DUCK=.22,bgmFor=ch=>ch<=3?0:ch<=5?1:2;
+const BGM=[];let bgmCur=-1;
+let bgmReady=false;
+function bgmKick(){if(!ac)return;
+  /* 처음 누를 때 세 곡을 모두 깨워 둠(휴대폰은 누른 순간에만 소리 재생을 허락) */
+  if(!bgmReady){bgmReady=true;const cur=bgmFor(Math.max(1,CH));[0,1,2].forEach(k=>{bgmTo(k);if(k!==cur){const a=BGM[k].a;const p=a.play();if(p&&p.then)p.then(()=>{if(bgmCur!==k)a.pause();}).catch(()=>{});}});}
+  bgmTo(bgmFor(Math.max(1,CH)));}
+function bgmTo(k){
+  if(!ac)return;
+  if(!BGM[k]){const a=new Audio('bgm/b'+(k+1)+'.mp3');a.loop=true;a.preload='auto';let g=null;
+    try{const src=ac.createMediaElementSource(a);g=ac.createGain();g.gain.value=0;src.connect(g).connect(ac.destination);}catch(_){a.volume=0;}
+    BGM[k]={a,g};}
+  if(bgmCur===k&&!BGM[k].a.paused)return;bgmCur=k;
+  const b=BGM[k];if(soundOn){const p=b.a.play();if(p&&p.catch)p.catch(()=>{});}
+}
+function bgmLevel(){const t=ac?ac.currentTime:0;
+  BGM.forEach((b,i)=>{if(!b)return;const want=!soundOn||document.hidden||i!==bgmCur?0:(narrA?BGM_DUCK:BGM_VOL);
+    if(b.g){b.g.gain.setTargetAtTime(want,t,i===bgmCur?.6:.8);}else b.a.volume=want;
+    if(want===0&&!b.a.paused&&!b.st){b.st=setTimeout(()=>{b.st=0;if(i!==bgmCur||!soundOn||document.hidden)b.a.pause();},3500);}
+    if(want>0&&b.a.paused&&soundOn){const p=b.a.play();if(p&&p.catch)p.catch(()=>{});}});}
+setInterval(bgmLevel,200);
+if(/[?&]test=1/.test(location.search))window.__bgm=()=>({cur:bgmCur,b:BGM.map(b=>b&&{p:b.a.paused,t:+b.a.currentTime.toFixed(1),g:b.g?+b.g.gain.value.toFixed(2):b.a.volume})});
 
 /* ===== 파티클 ===== */
 const P=[];
@@ -813,7 +839,7 @@ prog.appendChild(h('span','walker','🚶'));
 /* 다리 길 진행 표시: 사람이 1장(이편)에서 7장(건너편)으로 걸어감 */
 function setStep(n){$('stepLabel').textContent=STEPS[n]||'';prog.querySelectorAll('button').forEach((b,i)=>{b.classList.toggle('cur',i+1===n);b.classList.toggle('done',i+1<n);});
   prog.style.setProperty('--pf',Math.max(0,n-1)/6);app.classList.toggle('cover',n===0);}
-function start(ch,sub){RUN++;const my=RUN;CH=ch;resetUI();setStep(ch);CHAPTERS[ch](ctl(my),sub).catch(e=>{if(e!==CANCEL)console.error(e);});}
+function start(ch,sub){RUN++;const my=RUN;CH=ch;resetUI();setStep(ch);if(bgmReady)bgmTo(bgmFor(Math.max(1,ch)));CHAPTERS[ch](ctl(my),sub).catch(e=>{if(e!==CANCEL)console.error(e);});}
 
 /* ===== 표지 ===== */
 async function ch0(c){

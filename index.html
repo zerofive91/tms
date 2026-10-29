@@ -13004,8 +13004,10 @@ function initAuth(){
    상대방 폰에 보냅니다(받는 사람에게는 암송 앱 없이 전도지만 열림, ?from=이름 이면 표지에 한 줄).
    전도 대상자 기도 명단은 로그인하면 계정(prayer_list 표)에, 아니면 이 기기에 둡니다.      */
 var TRACT_DIR="bridge/";
-var TRACT_FILES=["index.html"].concat(["base","empty","fellow","crack","sad","fail_good","fail_religion","fail_moral",
-  "fail_edu","dawn","cross","rise","walk","arrive","door","dooropen","pray"].map(function(n){ return "img/"+n+".webp"; }));
+/* v14 전도지 개편: 새 그림 32컷(장면표 번호 t장_번) + 듣기 카드 바탕 base. 움직이는 장면 · 배경 음악 · 나레이션은 인터넷이 있을 때만 */
+var TRACT_CUTS=["0_1","1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","3_0","3_1","3_2","3_3","3_4","3_5",
+  "4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4","6_1","6_2","6_3","7_1","7_2","7_3","7_4"];
+var TRACT_FILES=["index.html","img/base.webp"].concat(TRACT_CUTS.map(function(n){ return "img/t"+n+".webp"; }));
 var TRACT_FONTS=["https://fonts.googleapis.com/css2?family=Jua&display=swap",
   "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"];
 var TR_NAME_KEY="navfest.trname";
@@ -13055,7 +13057,7 @@ function trMarkShared(){
 }
 function trNote(t){ $("trsendnote").textContent=t; }
 
-/* 인터넷 없이 보여 주기 — 전도지와 그림 17장을 서비스 워커 저장소에 받아 둡니다.
+/* 인터넷 없이 보여 주기 — 전도지와 그림 32장을 서비스 워커 저장소에 받아 둡니다.
    서비스 워커는 이미 담아 둔 것은 저장소에서 바로 내주므로, 화면을 열 때마다 불러도 인터넷을 쓰지 않습니다
    (sw.js 의 CACHE 를 올려 저장소가 비워졌으면 그때 새로 받습니다). */
 function trPrefetch(){
@@ -13079,7 +13081,7 @@ function trPaintOff(busy){
   var el=$("troff"); if(!el) return;
   var sw=!!(navigator.serviceWorker && navigator.serviceWorker.controller);
   el.textContent = TR.preOk ? "그림까지 받아 두었습니다 · 인터넷이 없어도 함께 볼 수 있습니다"
-    : busy ? "인터넷 없이도 보여 줄 수 있게 그림을 받는 중입니다 (약 0.8MB, 한 번만)"
+    : busy ? "인터넷 없이도 보여 줄 수 있게 그림을 받는 중입니다 (약 1.6MB, 한 번만)"
     : TR.preFail ? "그림을 다 받지 못했습니다 · 인터넷이 연결되면 다시 받습니다"
     : ("serviceWorker" in navigator && !sw) ? "인터넷이 있을 때 이 화면을 한 번 더 열어 두면, 그다음부터 인터넷 없이도 볼 수 있습니다"
     : "";
