@@ -39,7 +39,9 @@ button{font:inherit;color:inherit}
 #scene{position:absolute;transform-origin:30% 36%}
 #kb{position:absolute;inset:0;transform-origin:30% 36%;animation:kb 16s ease-in-out infinite alternate}
 @keyframes kb{to{transform:scale(1.04)}}
-.layer{position:absolute;inset:0;width:100%;height:100%;opacity:0;user-select:none;-webkit-user-drag:none;pointer-events:none;transform-origin:50% 50%;will-change:opacity,transform}
+.layer{position:absolute;inset:0;width:100%;height:100%;opacity:0;user-select:none;-webkit-user-drag:none;pointer-events:none;transform-origin:50% 50%;display:none}
+/* 폰 그래픽 메모리: 지금 컷 · 나가는 컷만 그림(32장을 모두 겹쳐 두면 뒤 장에서 깜박이고 글자가 사라짐) */
+.layer.on{display:block}
 .ov{position:absolute;pointer-events:none;z-index:100000}
 #glow{left:30.2%;top:35.4%;width:46%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,244,210,.5),rgba(255,205,150,.16) 35%,transparent 66%);mix-blend-mode:screen;animation:pulse 3.4s ease-in-out infinite;transition:opacity .8s}
 #glow.off{opacity:0}
@@ -199,6 +201,7 @@ button{font:inherit;color:inherit}
 .card.drag{touch-action:none;cursor:grab}
 .card .sw{width:6px;height:22px;border-radius:3px}
 .opt{font-family:'Jua','Pretendard',sans-serif;font-size:17px;line-height:1.25;padding:14px 8px;min-height:54px}
+.card.auto,.opt.auto{transform:scale(.95);box-shadow:0 0 0 3px #ffe3a3}
 .card.used,.opt.used{opacity:.42;filter:grayscale(1);pointer-events:none}
 .opt:disabled{opacity:.42;pointer-events:none}
 .ghost{position:fixed;z-index:50;pointer-events:none;transform:scale(1.08) rotate(-4deg);box-shadow:0 18px 30px rgba(0,0,0,.35)}
@@ -355,7 +358,7 @@ const T={
   c5x:{swipe:'위로 밀어 다리를 건너 보세요.'},
   c6x:{quiet:'이제 잠시, 하고 싶은 말을 하나님께 직접 드려 보세요.',quietWait:'천천히 기도하셔도 괜찮아요.',quietEnd:'다 드렸으면 화면을 눌러 주세요.'},
   c7x:{next:'다음 걸음',app1:'구원의 확신 말씀 외우기',app2:'오늘 말씀 묵상하기',web:'말씀의 손에서 시작하기'},
-  view:{together:'함께 보기 · 화면을 눌러 넘겨요',alone:'혼자 보기 · 읽을 시간이 지나면 저절로 넘어가요',chapters:'장 고르기'},
+  view:{together:'조작 모드 · 화면을 눌러 넘기고 직접 해 봐요',alone:'재생 모드 · 영상처럼 저절로 넘어가요',chapters:'장 고르기'},
   verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요',
   /* v14 전도지 개편 새 문구 (10/29 사용자 확인) */
   more:'말씀 더 보기',close:'닫기'
@@ -437,25 +440,25 @@ const L={};
 {const kb=$('kb'),ov=kb.querySelector('.ov');
   for(const n in CUT){const l=document.createElement('img');l.className='layer';l.dataset.n=n;l.alt='';l.decoding='async';kb.insertBefore(l,ov);L[n]=l;}}
 function need(n){const l=L[n];if(l&&!l.getAttribute('src'))l.src='img/'+n+'.webp';}
-need('t0_1');L.t0_1.style.opacity=1;
+need('t0_1');L.t0_1.style.opacity=1;L.t0_1.classList.add('on');
 /* 첫 화면 뒤에 나머지 그림을 미리 받아 둠(장면이 바뀔 때 비지 않게) */
-addEventListener('load',()=>setTimeout(()=>Object.keys(CUT).forEach(need),400));
+addEventListener('load',()=>setTimeout(()=>Object.keys(CUT).forEach(n=>{const i=new Image();i.src='img/'+n+'.webp';}),400));
 /* 움직이는 장면: 그림 위에 같은 장면의 짧은 영상을 겹쳐 되풀이 재생. 움직임 줄이기·데이터 절약·못 받으면 그림 그대로 */
 const MOV={},movOK=!reduce&&!(navigator.connection&&navigator.connection.saveData);
 function movShow(n,dur){
-  for(const k in MOV)if(k!==n){const v=MOV[k];setTimeout(()=>{if(mode!==k){v.pause();v.style.opacity=0;}},dur+80);}
+  for(const k in MOV)if(k!==n){const v=MOV[k];setTimeout(()=>{if(mode!==k){v.pause();v.style.opacity=0;v.classList.remove('on');}},dur+80);}
   if(!movOK||!CUT[n].mov)return;
   let v=MOV[n];
-  if(!v){v=MOV[n]=document.createElement('video');v.className='layer mov';v.muted=true;v.defaultMuted=true;v.loop=CUT[n].mov!=='once';v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');v.preload='auto';
+  if(!v){v=MOV[n]=document.createElement('video');v.className='layer mov on';v.muted=true;v.defaultMuted=true;v.loop=CUT[n].mov!=='once';v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');v.preload='auto';
     v.addEventListener('playing',()=>{if(mode===n)v.style.opacity=1;});v.src='mov/'+n+'.mp4';$('kb').insertBefore(v,$('kb').querySelector('.ov'));}
-  v.style.transition='none';v.style.opacity=0;v.style.zIndex=++zc;v.style.transform='';
+  v.classList.add('on');v.style.transition='none';v.style.opacity=0;v.style.zIndex=++zc;v.style.transform='';
   setTimeout(()=>{if(mode!==n)return;v.style.transition='';try{v.currentTime=0;}catch(_){}const p=v.play();if(p&&p.catch)p.catch(()=>{});},Math.max(200,dur));
 }
 /* 카메라 이동: 새 컷이 이 자리에서 제자리로 미끄러지며 나타남 */
 const CAMS={soft:'scale(1.05)',in:'scale(1.16)',up:'translateY(5%) scale(1.1)',down:'translateY(-5%) scale(1.1)',left:'translateX(5%) scale(1.1)',right:'translateX(-5%) scale(1.1)'};
 let mode='t0_1',zc=1,showTok=0;
 function show(n,dur=600,cam='soft'){
-  need(n);mode=n;const tok=++showTok,l=L[n],cu=CUT[n];l.style.zIndex=++zc;
+  need(n);mode=n;const tok=++showTok,l=L[n],cu=CUT[n];l.style.zIndex=++zc;l.classList.add('on');
   const g=$('glow');if(cu.door){DOOR={x:cu.door[0],y:cu.door[1]};g.style.left=DOOR.x/IW*100+'%';g.style.top=DOOR.y/IH*100+'%';}g.classList.toggle('off',!cu.door);
   const sn=$('sin'),gp=cu.gap||[384,820];sn.style.left=gp[0]/IW*100+'%';sn.style.top=gp[1]/IH*100+'%';
   const ry=$('rays');if(cu.ray){ry.style.left=cu.ray[0]/IW*100+'%';ry.style.top=cu.ray[1]/IH*100+'%';}ry.classList.toggle('on',!!cu.ray);
@@ -464,7 +467,7 @@ function show(n,dur=600,cam='soft'){
   l.style.transition='none';l.style.transform=from;
   if(!dur){l.style.opacity=1;}
   else{l.style.opacity=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{l.style.transition=`opacity ${dur}ms ease, transform ${Math.max(1800,dur*2.4)}ms cubic-bezier(.2,.7,.2,1)`;l.style.opacity=1;l.style.transform='';}));}
-  setTimeout(()=>{if(tok!==showTok)return;for(const k in L)if(k!==n){L[k].style.transition='none';L[k].style.opacity=0;}},dur+60);
+  setTimeout(()=>{if(tok!==showTok)return;for(const k in L)if(k!==n){L[k].style.transition='none';L[k].style.opacity=0;L[k].classList.remove('on');}},dur+60);
 }
 
 /* ===== 소리 ===== */
@@ -622,8 +625,15 @@ function resetPanel(id){btnsOf(id).forEach(b=>{b.classList.remove('used');b.disa
 function markUsed(id,key){btnsOf(id).forEach(b=>{if(b.dataset.key===key)b.classList.add('used');});}
 function enableOnly(id,i){btnsOf(id).forEach((b,k)=>{b.disabled=k!==i;});}
 let choiceWait=null;
-function waitChoice(id){return new Promise(res=>{choiceWait={id,res};});}
-function pick(id,key){if(!choiceWait||choiceWait.id!==id)return;const r=choiceWait.res;choiceWait=null;ensureAudio();r(key);}
+/* v14: 재생 모드 — 손으로 하는 곳(고르기 · 길게 누르기 · 밀기 · 손잡이)도 나레이션이 끝나고 ms 뒤 저절로. 7장 「나의 자리」 고르기는 스스로 */
+let pend=null,pendTimer=null,pendTok=0;
+function autoWait(fn,ms){pend={fn,ms};armAuto();}
+function autoClear(){pend=null;clearTimeout(pendTimer);pendTok++;}
+function armAuto(){clearTimeout(pendTimer);const my=++pendTok,p=pend;if(!p||VIEW!=='alone'||moreOpen||$('chlist').classList.contains('show'))return;
+  narrP.then(()=>{if(my!==pendTok||pend!==p)return;pendTimer=setTimeout(()=>{if(my!==pendTok||pend!==p)return;pend=null;p.fn();},p.ms);});}
+function waitChoice(id){return new Promise(res=>{choiceWait={id,res};
+  if(id!=='p7')autoWait(()=>{const b=btnsOf(id).find(b=>!b.disabled&&!b.classList.contains('used'));if(!b)return;b.classList.add('auto');setTimeout(()=>{b.classList.remove('auto');pick(id,b.dataset.key);},450);},1600);});}
+function pick(id,key){if(!choiceWait||choiceWait.id!==id)return;const r=choiceWait.res;choiceWait=null;autoClear();ensureAudio();r(key);}
 function mkBtn(parent,id,item,cls,inner){const b=h('button',cls,inner);b.dataset.key=item.k;b.addEventListener('click',()=>{if(!b.classList.contains('drag'))pick(id,item.k);});parent.appendChild(b);return b;}
 C1.forEach(c=>mkBtn($('p1g'),'p1',c,'card',`<span class="em">${c.em}</span><span class="nm">${c.nm}</span>`));
 C2.forEach(c=>mkBtn($('p2g'),'p2',c,'opt',c.label));
@@ -693,8 +703,8 @@ function verseShow(v,o={}){
 }
 function verseHide(){$('vs').classList.remove('show');app.classList.remove('vson','vsfull');}
 async function verse(c,v,o){await c.until(narrP);verseShow(v,o);await c.tap();narrStop();verseHide();await c.w(350);}
-function openMore(list){clearTimeout(tapTimer);moreOpen=true;
-  openSheet(list,[{k:'close',label:T.close,cls:'soft'}]).then(()=>{moreOpen=false;restartAuto();});}
+function openMore(list){clearTimeout(tapTimer);clearTimeout(pendTimer);pendTok++;moreOpen=true;
+  openSheet(list,[{k:'close',label:T.close,cls:'soft'}]).then(()=>{moreOpen=false;restartAuto();armAuto();});}
 
 /* ===== 말씀 창 ===== */
 let sheetWait=null,vIdx=0;
@@ -721,7 +731,9 @@ $('verses').addEventListener('scroll',()=>{const vs=$('verses'),i=Math.round(vs.
 /* ===== 6장 문손잡이 ===== */
 let knobWait=null,knockTimer=null;
 const knob=$('knob');
-function waitKnob(){knob.classList.add('show');$('doorLight').style.opacity=.25;return new Promise(res=>{knobWait=res;});}
+function waitKnob(){knob.classList.add('show');$('doorLight').style.opacity=.25;return new Promise(res=>{knobWait=res;
+  autoWait(()=>{if(knobWait!==res)return;$('doorLight').style.opacity=1;knob.style.transform='translate(-50%,-50%) translateX(-30px)';
+    setTimeout(()=>{if(knobWait!==res)return;knobWait=null;knob.style.transform='';knob.classList.remove('show');res();},500);},1600);});}
 function knocking(on){clearInterval(knockTimer);knockTimer=null;if(on){const k=()=>{snd.knock();vib([12,190,12,190,12]);};setTimeout(k,700);knockTimer=setInterval(k,3600);}}
 knob.addEventListener('pointerdown',e=>{
   if(!knobWait)return;ensureAudio();e.preventDefault();e.stopPropagation();
@@ -735,22 +747,22 @@ knob.addEventListener('pointerdown',e=>{
 });
 knob.addEventListener('click',e=>e.stopPropagation());
 
-/* ===== v14: 보기 방식 (함께 보기 · 혼자 보기) =====
-   앱 안에서 「보여 주기」로 열면 함께 보기(보여 주는 사람이 넘김), 링크로 받은 사람은 혼자 보기. 위 단추로 바꿈 */
+/* ===== v14: 보기 방식 (조작 모드 👆 · 재생 모드 ▶️) — 안에서는 together / alone =====
+   앱 안에서 「함께 보기」로 열면 조작 모드(보여 주는 사람이 넘기고 직접 함), 링크로 받은 사람은 재생 모드(영상처럼 저절로). 위 단추로 바꿈 */
 let VIEW='alone',toastT=null;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
-function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👥':'👤';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
+function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👆':'▶️';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
 $('modeBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();VIEW=VIEW==='together'?'alone':'together';paintView();toast(VIEW==='together'?T.view.together:T.view.alone);
   if(NARR&&!narrUser){narrOn=VIEW==='alone';paintNarr();if(!narrOn)narrStop();}  /* 나레이션을 직접 켜고 끈 뒤에는 그 선택을 따름 */
-  if(tapWait)restartAuto();});
+  if(tapWait)restartAuto();armAuto();});
 
 /* ===== v14: 장 고르기 (위 장 이름을 누르면) ===== */
 $('chHd').textContent=T.view.chapters;
-function openChList(){clearTimeout(tapTimer);autoTok++;const ol=$('chOl');ol.innerHTML='';
+function openChList(){clearTimeout(tapTimer);autoTok++;clearTimeout(pendTimer);pendTok++;const ol=$('chOl');ol.innerHTML='';
   for(let i=1;i<=7;i++){const li=h('li'),b=h('button',i<CH?'done':'',STEPS[i]);b.type='button';if(i===CH)b.setAttribute('aria-current','step');
     b.addEventListener('click',e=>{e.stopPropagation();closeChList();ensureAudio();start(i);});li.appendChild(b);ol.appendChild(li);}
   $('chlist').classList.add('show');setTimeout(()=>{const c=ol.querySelector('[aria-current]')||ol.querySelector('button');if(c)c.focus();},50);}
-function closeChList(){const was=$('chlist').classList.contains('show');$('chlist').classList.remove('show');if(was&&tapWait)restartAuto();}
+function closeChList(){const was=$('chlist').classList.contains('show');$('chlist').classList.remove('show');if(was){if(tapWait)restartAuto();armAuto();}}
 $('stepLabel').addEventListener('click',e=>{e.stopPropagation();if(CH>0)openChList();});
 $('chClose').addEventListener('click',e=>{e.stopPropagation();closeChList();});
 $('chlist').addEventListener('click',e=>{e.stopPropagation();if(e.target===$('chlist'))closeChList();});
@@ -768,9 +780,9 @@ function waitHold(ms=1500){
     const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();on=true;box.classList.add('on');};
     const up=()=>{on=false;box.classList.remove('on');};
     const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();p=1;}};
-    const done=()=>{cancelAnimationFrame(raf);app.removeEventListener('pointerdown',down);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);document.removeEventListener('keydown',key);
+    const done=()=>{autoClear();cancelAnimationFrame(raf);app.removeEventListener('pointerdown',down);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);document.removeEventListener('keydown',key);
       box.classList.remove('show','on');fg.style.strokeDashoffset=264;$('crossGlow').style.opacity='';$('crossGlow').style.transform='';holdWait=null;res();};
-    holdWait=done;app.addEventListener('pointerdown',down);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);document.addEventListener('keydown',key);
+    holdWait=done;autoWait(()=>{on=true;box.classList.add('on');},1200);app.addEventListener('pointerdown',down);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);document.addEventListener('keydown',key);
     raf=requestAnimationFrame(step);});
 }
 
@@ -781,7 +793,7 @@ function waitSwipe(){
   return new Promise(res=>{
     let sy=0,p=0,steps=0,drag=false,fin=false;
     const set=v=>{p=Math.max(p,Math.min(1,v));zoom(1.05+p*.11,120);const n=Math.floor(p*6);while(steps<n){steps++;tone(steps%2?150:130,.09,'triangle',.07);noise(.05,.12,700,'lowpass');vib(6);}};
-    const done=()=>{if(fin)return;fin=true;cleanup();box.classList.remove('show','on');swipeWait=null;res();};
+    const done=()=>{if(fin)return;fin=true;autoClear();cleanup();box.classList.remove('show','on');swipeWait=null;res();};
     const auto=()=>{box.classList.add('on');animate(1600,t=>{if(!fin)set(p+(1-p)*t);}).then(done);};
     const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();sy=e.clientY;drag=false;box.classList.add('on');
       document.addEventListener('pointermove',move);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);};
@@ -790,7 +802,7 @@ function waitSwipe(){
       if(fin)return;if(!drag||p>.35)auto();else box.classList.remove('on');};
     const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();auto();}};
     const cleanup=()=>{app.removeEventListener('pointerdown',down);document.removeEventListener('keydown',key);document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);};
-    swipeWait=done;app.addEventListener('pointerdown',down);document.addEventListener('keydown',key);
+    swipeWait=done;autoWait(()=>{if(!fin)auto();},1200);app.addEventListener('pointerdown',down);document.addEventListener('keydown',key);
   });
 }
 
@@ -825,7 +837,7 @@ function ctl(my){const alive=()=>my===RUN;return{alive,
   /* ms 와 나레이션 중 긴 쪽만큼 기다림 */
   hold:ms=>Promise.all([wait(ms),narrP]).then(()=>{if(!alive())throw CANCEL;})};}
 function resetUI(){
-  narrStop();capLast='';choiceWait=null;tapWait=null;sheetWait=null;knobWait=null;moreOpen=false;knocking(false);
+  narrStop();autoClear();capLast='';choiceWait=null;tapWait=null;sheetWait=null;knobWait=null;moreOpen=false;knocking(false);
   $('tap').classList.remove('show');verseHide();closeSheet();panel(null);
   gauge.classList.remove('show','broke','wobble','leak');$('chips').innerHTML='';$('prayer').classList.remove('show');
   knob.classList.remove('show');knob.style.transform='';$('doorLight').style.opacity=0;
