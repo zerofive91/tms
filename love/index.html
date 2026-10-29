@@ -46,6 +46,18 @@ h1{font-family:"Gowun Batang",Georgia,serif;font-size:31px;line-height:1.3;font-
 .play i{display:flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.94);
   box-shadow:0 6px 22px rgba(0,0,0,.35)}
 .play i::before{content:"";margin-left:7px;border-style:solid;border-width:15px 0 15px 25px;border-color:transparent transparent transparent #8A5A2B}
+.big-btn{display:block;width:100%;margin-top:10px;padding:13px;border-radius:14px;border:0;background:var(--brand);color:var(--hi);font-size:18px;font-weight:700;cursor:pointer}
+.big-btn[hidden]{display:none}
+/* 크게 보기 — 전체 화면이 되면 그대로, 안 되는 폰(아이폰 · 세로 고정 앱)은 화면을 눕혀 꽉 채움 */
+.player:fullscreen{width:100%;height:100%;aspect-ratio:auto;border-radius:0;background:#000}
+.player.big{position:fixed;z-index:20;top:50%;left:50%;width:100vh;height:100vw;width:100dvh;height:100dvw;aspect-ratio:auto;border-radius:0;background:#000;
+  transform:translate(-50%,-50%) rotate(90deg)}
+.small-btn{display:none;position:absolute;top:10px;right:10px;z-index:2;padding:8px 14px;border-radius:99px;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.player.big .small-btn{display:block}
+/* 폰을 가로로 돌리면(가로 화면이 열리는 폰) 영상이 화면을 채움 */
+@media (orientation:landscape) and (max-height:520px){
+  .player.playing,.player.big{position:fixed;z-index:20;inset:0;top:0;left:0;width:100%;height:100%;aspect-ratio:auto;border-radius:0;background:#000;transform:none}
+}
 .alt{margin-top:10px;font-size:15px;color:var(--ink-soft)}
 .alt a{color:var(--brand);font-weight:700}
 .off{margin-top:10px;padding:10px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:15px;color:var(--ink-soft)}
@@ -69,7 +81,9 @@ ol.vs p{margin-top:3px;font-family:"Gowun Batang",Georgia,serif;font-size:19px;l
   </header>
   <div class="player" id="player" style="background-image:url(https://i.ytimg.com/vi/lKvWHc7s1fY/hqdefault.jpg)">
     <button type="button" class="play" id="play"><i aria-hidden="true"></i>영상 보기</button>
+    <button type="button" class="small-btn" id="smallBtn">작게 보기</button>
   </div>
+  <button type="button" class="big-btn" id="bigBtn" hidden>⛶ 크게 보기</button>
   <p class="off" id="off" hidden>인터넷이 연결되어야 영상을 볼 수 있습니다. 아래 말씀은 그대로 읽으실 수 있습니다.</p>
   <p class="alt">영상이 나오지 않으면 <a href="https://youtu.be/lKvWHc7s1fY" target="_blank" rel="noopener">YouTube에서 보기</a></p>
 
@@ -118,6 +132,31 @@ ol.vs p{margin-top:3px;font-family:"Gowun Batang",Georgia,serif;font-size:19px;l
     f.src="https://www.youtube-nocookie.com/embed/lKvWHc7s1fY?autoplay=1&rel=0&playsinline=1";
     this.remove();
     $("player").appendChild(f);
+    $("player").classList.add("playing");
+    $("bigBtn").hidden=false;
+  });
+  /* 크게 보기: 전체 화면 + 가로로(안드로이드). 전체 화면이 안 되면 화면을 눕혀 채움(아이폰 · 세로 고정 앱 안) */
+  function big(on){
+    var pl=$("player");
+    pl.classList.toggle("big",on);
+    document.body.style.overflow=on?"hidden":"";
+  }
+  $("bigBtn").addEventListener("click",function(){
+    var pl=$("player"), req=pl.requestFullscreen||pl.webkitRequestFullscreen;
+    if(req){
+      try{
+        var r=req.call(pl);
+        if(r && r.then) r.then(function(){
+          try{ screen.orientation.lock("landscape").catch(function(){}); }catch(e){}
+        }).catch(function(){ big(true); });
+        return;
+      }catch(e){}
+    }
+    big(true);
+  });
+  $("smallBtn").addEventListener("click",function(){ big(false); });
+  document.addEventListener("fullscreenchange",function(){
+    if(!document.fullscreenElement){ try{ screen.orientation.unlock(); }catch(e){} }
   });
 })();
 </script>
