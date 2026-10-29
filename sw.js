@@ -101,6 +101,7 @@ self.addEventListener("fetch", function(e){
   try{ url=new URL(req.url); }catch(err){ return; }
   if(url.protocol!=="http:" && url.protocol!=="https:") return;
   if(isServer(url)) return;
+  if(req.headers.has("range") || /\/bridge\/mov\//.test(url.pathname)) return;  /* 전도지 움직이는 장면(v14) — 영상은 브라우저가 직접 받음, 못 받으면 그림만 */
 
   e.respondWith(isPage(req) ? netFirst(req) : cacheFirst(req, isData(url)));
 });
