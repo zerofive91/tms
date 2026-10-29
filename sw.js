@@ -78,9 +78,21 @@ self.addEventListener("activate", function(e){
           return (k===CACHE || k===DATA) ? null : caches.delete(k);
         }));
       });
-    }).then(function(){ return self.clients.claim(); })
+    }).then(pruneTract).then(function(){ return self.clients.claim(); })
   );
 });
+
+/* v14: 전도지 옛 그림(empty · crack … 16장)은 새 그림(t장_번)으로 바뀌어 저장소에서 지웁니다(약 0.8MB) */
+function pruneTract(){
+  return caches.open(DATA).then(function(c){
+    return c.keys().then(function(reqs){
+      return Promise.all(reqs.map(function(r){
+        var p=new URL(r.url).pathname;
+        return (/\/bridge\/img\//.test(p) && !/\/bridge\/img\/(t\d_\d|base)\.webp$/.test(p)) ? c.delete(r) : null;
+      }));
+    });
+  }).catch(function(){});
+}
 
 /* 기록 서버로 가는 길은 손대지 않습니다 */
 function isServer(url){

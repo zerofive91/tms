@@ -581,7 +581,7 @@ let capLast='';
    voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
    파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
 const VOICE_VER='5';
-let NARR=null,narrOn=true,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
+let NARR=null,narrOn=true,narrUser=false,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
 fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
 const narrBlob={};
 function narrUrl(f){return narrBlob[f]||(narrBlob[f]=fetch('voice/'+f).then(r=>{if(!r.ok)throw 0;return r.blob();}).then(b=>URL.createObjectURL(b)).catch(()=>{delete narrBlob[f];return null;}));}
@@ -591,14 +591,14 @@ function narrStop(){narrTok++;if(narrA){try{narrA.pause();}catch(_){}narrA=null;
 /* 한 줄 읽기: el 의 글자를 span 으로 나눠, 읽는 자리까지 밝힘. 다 읽으면 풀림 */
 function say1(el,text,tok){
   const L=NARR[text];
-  return narrUrl(L.f).then(url=>new Promise(res=>{
+  return Promise.race([narrUrl(L.f),wait(8000).then(()=>null)]).then(url=>new Promise(res=>{  /* 소리를 8초 안에 못 받으면 글만 */
     if(!url||tok!==narrTok)return res(false);
     el.textContent='';const sp=text.split('').map(ch=>{const s=document.createElement('span');s.textContent=ch;el.appendChild(s);return s;});el.classList.add('nr');
     const a=new Audio(url);narrA=a;a.volume=.95;let i=0,fin=false;
     const end=ok=>{if(fin)return;fin=true;cancelAnimationFrame(narrRaf);sp.forEach(s=>s.classList.add('on'));el.classList.remove('nr');if(narrA===a)narrA=null;res(ok);};
     const tick=()=>{if(tok!==narrTok)return end(false);const t=a.currentTime*100;while(i<sp.length&&L.t[i]<=t)sp[i++].classList.add('on');narrRaf=requestAnimationFrame(tick);};
     a.addEventListener('ended',()=>end(true));a.addEventListener('pause',()=>{if(!a.ended)end(false);});a.addEventListener('error',()=>end(false));
-    setTimeout(()=>end(true),L.d*10+4000);
+    setTimeout(()=>{end(true);try{a.pause();}catch(_){}},L.d*10+4000);
     a.play().then(()=>{narrRaf=requestAnimationFrame(tick);}).catch(()=>end(false));
   }));
 }
@@ -610,7 +610,7 @@ function sayAll(list){
 }
 function say(el,text){narrStop();return sayAll([[el,text]]);}
 function paintNarr(){const b=$('narrBtn');b.classList.toggle('off',!narrOn);b.setAttribute('aria-label',narrOn?'나레이션 끄기':'나레이션 켜기');b.title=b.getAttribute('aria-label');}
-$('narrBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();narrOn=!narrOn;paintNarr();if(!narrOn)narrStop();toast(narrOn?'나레이션을 켰어요':'나레이션을 껐어요');restartAuto();});
+$('narrBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();narrOn=!narrOn;narrUser=true;paintNarr();if(!narrOn)narrStop();toast(narrOn?'나레이션을 켰어요':'나레이션을 껐어요');restartAuto();});
 const gauge=$('gauge'),gFill=$('gFill'),gPct=$('gPct');
 function gaugeSet(v){gFill.style.width=v+'%';gPct.textContent=Math.round(v)+'%';}
 function gaugeInit(l,r,color){$('gL').textContent=l;$('gR').textContent=r;gFill.style.background=color;gauge.classList.remove('broke','wobble','leak');gaugeSet(0);}
@@ -664,7 +664,7 @@ function readMs(){const t=($('capTitle').textContent+$('capSub').textContent+($(
 function waitTap(){$('tap').classList.add('show');restartAuto();return new Promise(res=>{tapWait=res;});}
 /* 혼자 보기 저절로 넘김: 나레이션이 있으면 다 읽은 뒤 1.2초, 없으면 글 길이만큼 */
 let autoTok=0;
-function restartAuto(){clearTimeout(tapTimer);const my=++autoTok;if(VIEW!=='alone'||moreOpen)return;
+function restartAuto(){clearTimeout(tapTimer);const my=++autoTok;if(VIEW!=='alone'||moreOpen||CH===0||$('chlist').classList.contains('show'))return;  /* 표지는 눌러야 시작(소리 허락), 장 목록이 열려 있으면 멈춤 */
   narrP.then(read=>{if(my!==autoTok||!tapWait)return;tapTimer=setTimeout(()=>doTap(true),read?($('vs').classList.contains('show')?2200:1200):readMs());});}
 function doTap(auto){if(!tapWait)return;clearTimeout(tapTimer);if(!auto)ensureAudio();const r=tapWait;tapWait=null;$('tap').classList.remove('show');if(!auto)snd.pick();r();}
 app.addEventListener('click',e=>{if(e.target.closest('button,.sheet,#knob,.chlist'))return;if(holdWait||swipeWait)return;doTap();});
@@ -741,16 +741,16 @@ let VIEW='alone',toastT=null;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
 function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👥':'👤';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
 $('modeBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();VIEW=VIEW==='together'?'alone':'together';paintView();toast(VIEW==='together'?T.view.together:T.view.alone);
-  if(NARR){narrOn=VIEW==='alone';paintNarr();if(!narrOn)narrStop();}
+  if(NARR&&!narrUser){narrOn=VIEW==='alone';paintNarr();if(!narrOn)narrStop();}  /* 나레이션을 직접 켜고 끈 뒤에는 그 선택을 따름 */
   if(tapWait)restartAuto();});
 
 /* ===== v14: 장 고르기 (위 장 이름을 누르면) ===== */
 $('chHd').textContent=T.view.chapters;
-function openChList(){const ol=$('chOl');ol.innerHTML='';
+function openChList(){clearTimeout(tapTimer);autoTok++;const ol=$('chOl');ol.innerHTML='';
   for(let i=1;i<=7;i++){const li=h('li'),b=h('button',i<CH?'done':'',STEPS[i]);b.type='button';if(i===CH)b.setAttribute('aria-current','step');
     b.addEventListener('click',e=>{e.stopPropagation();closeChList();ensureAudio();start(i);});li.appendChild(b);ol.appendChild(li);}
   $('chlist').classList.add('show');setTimeout(()=>{const c=ol.querySelector('[aria-current]')||ol.querySelector('button');if(c)c.focus();},50);}
-function closeChList(){$('chlist').classList.remove('show');}
+function closeChList(){const was=$('chlist').classList.contains('show');$('chlist').classList.remove('show');if(was&&tapWait)restartAuto();}
 $('stepLabel').addEventListener('click',e=>{e.stopPropagation();if(CH>0)openChList();});
 $('chClose').addEventListener('click',e=>{e.stopPropagation();closeChList();});
 $('chlist').addEventListener('click',e=>{e.stopPropagation();if(e.target===$('chlist'))closeChList();});
@@ -782,7 +782,7 @@ function waitSwipe(){
     let sy=0,p=0,steps=0,drag=false,fin=false;
     const set=v=>{p=Math.max(p,Math.min(1,v));zoom(1.05+p*.11,120);const n=Math.floor(p*6);while(steps<n){steps++;tone(steps%2?150:130,.09,'triangle',.07);noise(.05,.12,700,'lowpass');vib(6);}};
     const done=()=>{if(fin)return;fin=true;cleanup();box.classList.remove('show','on');swipeWait=null;res();};
-    const auto=()=>{box.classList.add('on');animate(1600,t=>set(p+(1-p)*t)).then(done);};
+    const auto=()=>{box.classList.add('on');animate(1600,t=>{if(!fin)set(p+(1-p)*t);}).then(done);};
     const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();sy=e.clientY;drag=false;box.classList.add('on');
       document.addEventListener('pointermove',move);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);};
     const move=e=>{const d=sy-e.clientY;if(Math.abs(d)>8)drag=true;if(d>0)set(d/170);if(p>=1)done();};
