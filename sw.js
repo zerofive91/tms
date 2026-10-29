@@ -7,7 +7,7 @@
         화면마다 따로 담습니다(전도지를 연 뒤에 앱이 전도지로 열리는 일이 없게).
      ② 붙박이 파일(아이콘·글꼴·supabase 스크립트) : 저장본 먼저
         성경 본문(bible/b01.json … 책마다 한 파일) · 관주 · 인물 · 지명 · 지명 설명 · 지도 · 테마 지도 · 책 소개 ·
-        원어(data/orig · data/lex) · 성경 사전(data/dict) · 도량형(data/units.json) · 전도지 그림(bridge/img/…)도
+        원어(data/orig · data/lex) · 성경 사전(data/dict) · 도량형(data/units.json) · 전도지 그림(bridge/img/…) · 나레이션(bridge/voice/…)도
         이 방식 — 한 번 받은 것은 인터넷 없이 열립니다. 이 파일들은 주소 뒤 ?v=숫자 로 판을 가르므로,
         내용을 바꿔 올릴 때는 index.html 에서 그 숫자(BIB_VER · GUIDE_VER · PLI_VER · ORIG_VER · LEX_VER · DICT_VER · UNIT_VER 등)를 올립니다.
         원어 · 사전은 크기가 커서(약 27MB) 본 책 · 본 낱말만 조금씩 담깁니다.
@@ -51,9 +51,9 @@ self.addEventListener("install", function(e){
   );
 });
 
-/* 자료 파일인가 — 성경 본문 · data/ · 전도지 그림 */
+/* 자료 파일인가 — 성경 본문 · data/ · 전도지 그림 · 전도지 나레이션(v14, 파일 이름이 내용마다 달라 저장본 먼저로 충분. 목록 voice/index.json 은 ?v= 로 판을 가름) */
 function isData(url){
-  return /\/(bible|data)\//.test(url.pathname) || /\/bridge\/img\//.test(url.pathname);
+  return /\/(bible|data)\//.test(url.pathname) || /\/bridge\/(img|voice)\//.test(url.pathname);
 }
 /* 옛 캐시에 받아 둔 자료는 새 자료 캐시로 옮깁니다(다시 받지 않도록) */
 function moveOld(name){

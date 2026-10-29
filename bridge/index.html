@@ -231,6 +231,10 @@ button{font:inherit;color:inherit}
 /* 암송 Festival 에서 덧붙인 것 — 보낸 사람 이름 한 줄 · 앱 안에서 닫기 */
 .cover-title .from{display:block;margin-top:16px;font-size:16px;font-weight:700;opacity:.95;text-shadow:0 2px 10px rgba(0,0,0,.6)}
 .cover-title .from[hidden],.icon-btn[hidden]{display:none}
+/* v14 나레이션: 읽는 자리를 따라 글자가 밝아짐 */
+.nr span{opacity:.5;transition:opacity .12s}.nr span.on{opacity:1}
+.icon-btn.off{opacity:.55}
+@media (prefers-reduced-motion: reduce){.nr span{transition:none}}
 @media (max-height:640px){.caption h1{font-size:20px}.card{padding:8px 4px 7px}.card .em{font-size:21px}.opt{min-height:46px;padding:10px 8px}.flip{height:170px}}
 @media (prefers-reduced-motion: reduce){#kb,#glow,.tap,#knob,.hold .hand,.swipe .hand,.quiet .breath{animation:none}#cam.shake,#cam.shakeBig{animation:none}#flash.go{animation:none}}
 </style>
@@ -277,6 +281,7 @@ button{font:inherit;color:inherit}
       <button type="button" class="step" id="stepLabel" aria-haspopup="dialog"></button>
       <div class="tools">
         <button class="icon-btn" id="modeBtn" aria-label="보기 방식"></button>
+        <button class="icon-btn" id="narrBtn" aria-label="나레이션 끄기" hidden>🗣️</button>
         <button class="icon-btn" id="muteBtn" aria-label="소리 끄기">🔊</button>
         <button class="icon-btn" id="resetBtn" aria-label="이 장 다시 보기">↺</button>
         <button class="icon-btn" id="closeBtn" aria-label="닫기" hidden>✕</button>
@@ -500,7 +505,46 @@ function dark(v){$('dark').style.opacity=v;}
 function tomb(v){$('tomb').style.opacity=v;}
 function sin(state){const s=$('sin');s.classList.remove('on','big');if(state==='on')s.classList.add('on');if(state==='big')s.classList.add('on','big');}
 function cross(cls){const g=$('crossGlow');g.className='ov';if(cls)cls.split(' ').forEach(c=>g.classList.add(c));}
-async function cap(title,sub){const c=$('caption');c.classList.add('fade');await wait(220);$('capTitle').textContent=title||'';$('capSub').textContent=sub||'';c.classList.remove('fade');}
+async function cap(title,sub){const c=$('caption'),same=title&&title===capLast;capLast=title||'';narrStop();c.classList.add('fade');await wait(220);
+  $('capTitle').textContent=title||'';$('capSub').textContent=sub||'';c.classList.remove('fade');
+  /* 제목이 그대로면 아래 글만 읽음 */
+  sayAll([same?null:[$('capTitle'),title],[$('capSub'),sub]]);}
+let capLast='';
+
+/* ===== v14: 나레이션 (타입캐스트 · 한영) =====
+   voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
+   파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
+const VOICE_VER='1';
+let NARR=null,narrOn=true,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
+fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
+const narrBlob={};
+function narrUrl(f){return narrBlob[f]||(narrBlob[f]=fetch('voice/'+f).then(r=>{if(!r.ok)throw 0;return r.blob();}).then(b=>URL.createObjectURL(b)).catch(()=>{delete narrBlob[f];return null;}));}
+function narrHas(text){return !!(NARR&&text&&NARR[text]&&soundOn&&narrOn);}
+function narrStop(){narrTok++;if(narrA){try{narrA.pause();}catch(_){}narrA=null;}cancelAnimationFrame(narrRaf);
+  document.querySelectorAll('.nr').forEach(e=>{e.classList.remove('nr');e.querySelectorAll('span').forEach(x=>x.classList.add('on'));});narrP=Promise.resolve(false);}
+/* 한 줄 읽기: el 의 글자를 span 으로 나눠, 읽는 자리까지 밝힘. 다 읽으면 풀림 */
+function say1(el,text,tok){
+  const L=NARR[text];
+  return narrUrl(L.f).then(url=>new Promise(res=>{
+    if(!url||tok!==narrTok)return res(false);
+    el.textContent='';const sp=text.split('').map(ch=>{const s=document.createElement('span');s.textContent=ch;el.appendChild(s);return s;});el.classList.add('nr');
+    const a=new Audio(url);narrA=a;a.volume=.95;let i=0,fin=false;
+    const end=ok=>{if(fin)return;fin=true;cancelAnimationFrame(narrRaf);sp.forEach(s=>s.classList.add('on'));el.classList.remove('nr');if(narrA===a)narrA=null;res(ok);};
+    const tick=()=>{if(tok!==narrTok)return end(false);const t=a.currentTime*100;while(i<sp.length&&L.t[i]<=t)sp[i++].classList.add('on');narrRaf=requestAnimationFrame(tick);};
+    a.addEventListener('ended',()=>end(true));a.addEventListener('pause',()=>{if(!a.ended)end(false);});a.addEventListener('error',()=>end(false));
+    setTimeout(()=>end(true),L.d*10+4000);
+    a.play().then(()=>{narrRaf=requestAnimationFrame(tick);}).catch(()=>end(false));
+  }));
+}
+/* 여러 줄을 차례로. 지금 읽는 것이 끝나면 풀리는 narrP 를 남김(true = 실제로 읽었음) */
+function sayAll(list){
+  const tok=narrTok,items=list.filter(x=>x&&x[0]&&narrHas(x[1]));
+  if(!items.length)return narrP=Promise.resolve(false);
+  return narrP=(async()=>{let any=false;for(const [el,t] of items){if(tok!==narrTok)break;any=(await say1(el,t,tok))||any;}return any;})();
+}
+function say(el,text){narrStop();return sayAll([[el,text]]);}
+function paintNarr(){const b=$('narrBtn');b.classList.toggle('off',!narrOn);b.setAttribute('aria-label',narrOn?'나레이션 끄기':'나레이션 켜기');b.title=b.getAttribute('aria-label');}
+$('narrBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();narrOn=!narrOn;paintNarr();if(!narrOn)narrStop();toast(narrOn?'나레이션을 켰어요':'나레이션을 껐어요');restartAuto();});
 const gauge=$('gauge'),gFill=$('gFill'),gPct=$('gPct');
 function gaugeSet(v){gFill.style.width=v+'%';gPct.textContent=Math.round(v)+'%';}
 function gaugeInit(l,r,color){$('gL').textContent=l;$('gR').textContent=r;gFill.style.background=color;gauge.classList.remove('broke','wobble','leak');gaugeSet(0);}
@@ -551,15 +595,20 @@ document.querySelectorAll('.card.drag').forEach(card=>{
 let tapWait=null,tapTimer=null;
 /* 혼자 보기: 지금 자막 길이만큼 읽을 시간을 준 뒤 저절로 넘어감(눌러도 됨) */
 function readMs(){const t=($('capTitle').textContent+$('capSub').textContent+($('prayer').classList.contains('show')?$('prayer').textContent:'')).length;return Math.max(2600,1400+t*95);}
-function waitTap(){$('tap').classList.add('show');clearTimeout(tapTimer);if(VIEW==='alone')tapTimer=setTimeout(()=>doTap(true),readMs());return new Promise(res=>{tapWait=res;});}
+function waitTap(){$('tap').classList.add('show');restartAuto();return new Promise(res=>{tapWait=res;});}
+/* 혼자 보기 저절로 넘김: 나레이션이 있으면 다 읽은 뒤 1.2초, 없으면 글 길이만큼 */
+let autoTok=0;
+function restartAuto(){clearTimeout(tapTimer);const my=++autoTok;if(VIEW!=='alone')return;
+  narrP.then(read=>{if(my!==autoTok||!tapWait)return;tapTimer=setTimeout(()=>doTap(true),read?1200:readMs());});}
 function doTap(auto){if(!tapWait)return;clearTimeout(tapTimer);if(!auto)ensureAudio();const r=tapWait;tapWait=null;$('tap').classList.remove('show');if(!auto)snd.pick();r();}
 app.addEventListener('click',e=>{if(e.target.closest('button,.sheet,.pop,#knob,.chlist'))return;if(holdWait||swipeWait)return;doTap();});
 app.addEventListener('scroll',()=>{app.scrollTop=0;app.scrollLeft=0;});
 
 /* ===== 말씀 팝업 (2장) ===== */
 let popWait=null;
-function showPopup(item){$('popcard').innerHTML=`<h2>${item.head}</h2><div>${item.text}</div><div class="ref">${item.ref}</div>`;$('pop').classList.add('show');snd.flip(true);vib(10);return new Promise(res=>{popWait=res;});}
-$('pop').addEventListener('click',()=>{if(!popWait)return;const r=popWait;popWait=null;$('pop').classList.remove('show');r();});
+function showPopup(item){$('popcard').innerHTML=`<h2>${item.head}</h2><div>${item.text}</div><div class="ref">${item.ref}</div>`;$('pop').classList.add('show');snd.flip(true);vib(10);
+  const pc=$('popcard');narrStop();sayAll([[pc.children[0],item.head],[pc.children[1],item.text]]);return new Promise(res=>{popWait=res;});}
+$('pop').addEventListener('click',()=>{if(!popWait)return;narrStop();const r=popWait;popWait=null;$('pop').classList.remove('show');r();});
 
 /* ===== 말씀 창 ===== */
 let sheetWait=null,vIdx=0;
@@ -570,7 +619,8 @@ function openSheet(list,buttons){
   list.forEach((v,i)=>{
     const f=h('button','flip');f.setAttribute('aria-label',`말씀 카드 ${i+1} 뒤집기`);
     f.innerHTML=`<div class="flip-inner"><div class="face front" style="background:${grads[i%grads.length]}"><b>${T.verseFront}</b><span>${T.verseHint}</span>${n>1?`<small>${i+1} / ${n}${i===0?' · '+T.swipe:''}</small>`:''}</div><div class="face back"><div class="txt">${v.text}</div><div class="ref">${v.ref}</div></div></div>`;
-    f.addEventListener('click',()=>{ensureAudio();f.classList.toggle('flipped');snd.flip(f.classList.contains('flipped'));vib(10);});
+    f.addEventListener('click',()=>{ensureAudio();f.classList.toggle('flipped');const up=f.classList.contains('flipped');snd.flip(up);vib(10);
+      if(up)say(f.querySelector('.txt'),v.text);else narrStop();});
     vs.appendChild(f);if(n>1)vd.appendChild(h('i',i===0?'on':''));
   });
   bs.style.gridTemplateColumns=buttons.length>1?'1fr 1.5fr':'1fr';
@@ -578,7 +628,7 @@ function openSheet(list,buttons){
   panel(null);$('sheet').classList.add('show');$('sheet').setAttribute('aria-hidden','false');
   return new Promise(res=>{sheetWait=res;});
 }
-function closeSheet(){$('sheet').classList.remove('show');$('sheet').setAttribute('aria-hidden','true');}
+function closeSheet(){if($('sheet').classList.contains('show'))narrStop();$('sheet').classList.remove('show');$('sheet').setAttribute('aria-hidden','true');}
 $('verses').addEventListener('scroll',()=>{const vs=$('verses'),i=Math.round(vs.scrollLeft/(vs.clientWidth+12));
   if(i!==vIdx){vIdx=i;[...$('vdots').children].forEach((d,k)=>d.classList.toggle('on',k===i));tone(740,.05,'triangle',.05);}},{passive:true});
 const NEXT={k:'next',label:BTN.next,cls:'main'};
@@ -606,7 +656,8 @@ let VIEW='alone',toastT=null;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
 function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👥':'👤';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
 $('modeBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();VIEW=VIEW==='together'?'alone':'together';paintView();toast(VIEW==='together'?T.view.together:T.view.alone);
-  if(tapWait){clearTimeout(tapTimer);if(VIEW==='alone')tapTimer=setTimeout(()=>doTap(true),readMs());}});
+  if(NARR){narrOn=VIEW==='alone';paintNarr();if(!narrOn)narrStop();}
+  if(tapWait)restartAuto();});
 
 /* ===== v14: 장 고르기 (위 장 이름을 누르면) ===== */
 $('chHd').textContent=T.view.chapters;
@@ -663,11 +714,12 @@ const QUIET_MS=40000;
 async function quietPrayer(c){
   const q=$('quiet'),bar=$('quietBar');$('quietTxt').textContent=T.c6x.quiet;$('quietEnd').textContent=T.c6x.quietWait;bar.style.width='0';q.classList.add('show');
   let skip=false;const sk=()=>{skip=true;};
-  const t0=performance.now();q.addEventListener('click',sk,{once:true});
+  q.addEventListener('click',sk,{once:true});await c.until(say($('quietTxt'),T.c6x.quiet));
+  const t0=performance.now();
   while(!skip&&performance.now()-t0<QUIET_MS){await c.w(250);bar.style.width=Math.min(100,(performance.now()-t0)/QUIET_MS*100)+'%';}
   q.removeEventListener('click',sk);bar.style.width='100%';
   if(!skip){[523,784].forEach((f,i)=>tone(f,1.6,'sine',.05,null,i*.25));vib(15);$('quietEnd').textContent=T.c6x.quietEnd;await c.tap();}
-  q.classList.remove('show');
+  narrStop();q.classList.remove('show');
 }
 
 /* ===== v14: 7장 「다음 걸음」 — 건너갔다고 고른 분께. 앱 안이면 앱의 그 화면으로 ===== */
@@ -684,9 +736,11 @@ let RUN=0,CH=0;const CANCEL={};
 function ctl(my){const alive=()=>my===RUN;return{alive,
   w:ms=>wait(ms).then(()=>{if(!alive())throw CANCEL;}),
   until:p=>p.then(v=>{if(!alive())throw CANCEL;return v;}),
-  tap:()=>waitTap().then(()=>{if(!alive())throw CANCEL;})};}
+  tap:()=>waitTap().then(()=>{if(!alive())throw CANCEL;}),
+  /* ms 와 나레이션 중 긴 쪽만큼 기다림 */
+  hold:ms=>Promise.all([wait(ms),narrP]).then(()=>{if(!alive())throw CANCEL;})};}
 function resetUI(){
-  choiceWait=null;tapWait=null;popWait=null;sheetWait=null;knobWait=null;knocking(false);
+  narrStop();capLast='';choiceWait=null;tapWait=null;popWait=null;sheetWait=null;knobWait=null;knocking(false);
   $('tap').classList.remove('show');$('pop').classList.remove('show');closeSheet();panel(null);
   gauge.classList.remove('show','broke','wobble','leak');$('chips').innerHTML='';$('prayer').classList.remove('show');
   knob.classList.remove('show');knob.style.transform='';$('doorLight').style.opacity=0;
@@ -722,9 +776,9 @@ async function ch1(c){
   await cap(T.c1.empty,'');await c.tap();
   show('fellow',1400);await cap(T.c1.fellow,'');await c.tap();
   show('crack',160);snd.rumble();snd.crash();shake(true);vib([60,40,100]);debris(330,820,['#6b5a55','#8a7a70','#5b4d4a','#9c8f83']);
-  await cap(T.c1.crack,'');await c.w(2000);
+  await cap(T.c1.crack,'');await c.hold(2000);
   show('base',1500);await c.w(900);sin('on');restart($('sin'),'pulse');snd.low();
-  await cap(T.c1.crack,T.c1.gap);await c.w(1200);
+  await cap(T.c1.crack,T.c1.gap);await c.hold(1200);
   await c.until(openSheet([V.mk836],[NEXT]));start(2);
 }
 
@@ -737,7 +791,7 @@ async function ch2(c){
     await c.until(showPopup(C2[i]));
     dark((i+1)*.3);snd.low();restart($('sin'),'pulse');vib(30);await c.w(500);
   }
-  panel(null);sin('big');await cap(T.c2.end,'');await c.w(900);
+  panel(null);sin('big');await cap(T.c2.end,'');await c.hold(900);
   await c.until(openSheet([],[NEXT]));start(3);
 }
 
@@ -749,15 +803,15 @@ async function ch3(c){
     const key=await c.until(waitChoice('p3'));markUsed('p3',key);const d=C3[key];
     cap(d.q,T.c3.building);gaugeInit('🧍','🚪',d.color);await c.w(250);gauge.classList.add('show');
     let tk=0;await c.until(animate(1800,t=>{const v=d.pct*easeOut(t);gaugeSet(v);const n=Math.floor(v/8);if(n>tk){tk=n;snd.tick(n);vib(6);puff();}}));
-    await c.w(250);gauge.classList.add('wobble');snd.creak();vib([15,40,15,40,15]);await c.w(800);
+    await c.w(250);gauge.classList.add('wobble');snd.creak();vib([15,40,15,40,15]);await c.hold(800);
     gauge.classList.remove('wobble');gauge.classList.add('broke');
     show(d.img,140);snd.crash();vib([50,30,90]);shake(true);debris(d.brk[0],d.brk[1],d.cols);restart($('sin'),'pulse');
     setTimeout(()=>{if(CH===3)sfx(SFX.collapse,36,48,'#ffb36b');},120);
     [...$('p3dots').children].forEach((dt,k)=>dt.classList.toggle('on',k<=i));
-    await c.w(350);cap(d.fail,i<3?T.c3.tryOther:'');await c.w(1900);
+    await c.w(350);await cap(d.fail,i<3?T.c3.tryOther:'');await c.hold(1900);
     gauge.classList.remove('show','broke');show('base',800);await c.w(i<3?300:900);
   }
-  panel(null);sin('big');await cap(T.c3.endTitle,T.c3.endSub);snd.chord();await c.w(600);
+  panel(null);sin('big');await cap(T.c3.endTitle,T.c3.endSub);snd.chord();await c.hold(600);
   const r=await c.until(openSheet([V.is646,V.ep289,V.je179,V.co121,V.pr1412],[{k:'again',label:BTN.again,cls:'soft'},NEXT]));
   start(r==='again'?3:4);
 }
@@ -765,7 +819,7 @@ async function ch3(c){
 /* ===== 4장 하나님께서 당신을 위해 해주신 일 ===== */
 async function ch4(c){
   show('base',0);sin('big');show('dawn',2600);await cap(T.c4.title,'');snd.swell();
-  await c.w(2200);await cap(T.c4.title,T.c4x.hold);await c.until(waitHold());snd.rumble();shake(false);await c.w(700);
+  await c.hold(2200);await cap(T.c4.title,T.c4x.hold);await c.until(waitHold());snd.rumble();shake(false);await c.w(700);
   snd.whoosh();restart($('beam'),'drop');await c.w(420);
   flash();show('cross',0);$('beam').classList.remove('drop');sin(null);snd.boom();vib([90,40,140]);shake(true);burst();cross('show');
   setTimeout(()=>{if(CH===4)sfx(SFX.impact,58,34,'#ff6b81');},80);
@@ -777,7 +831,7 @@ async function ch4(c){
     if(i===1){tomb(.86);snd.low();await c.w(1800);}
     if(i===2){tomb(0);flash(true);show('rise',0);cross('show gold');burst(CROSS.x,CROSS.y,['#fff1b8','#ffe0a0','#ffffff']);snd.chime();vib([30,50,30]);await c.w(1800);}
   }
-  panel(null);await cap(T.c4.end,'');await c.w(900);
+  panel(null);await cap(T.c4.end,'');await c.hold(900);
   await c.until(openSheet([V.ro58,V.co1534,V.jn146],[NEXT]));start(5);
 }
 
@@ -793,7 +847,7 @@ async function ch5(c){
   panel(null);flash(true);zoom(1,0);show('arrive',0);
   await cap(T.c5.promise,'');
   for(let i=0;i<3;i++){await c.w(550);$('chips').appendChild(h('div','chip',PROMISES[i]));snd.ping(i);vib(10);}
-  await c.w(1500);
+  await c.hold(1500);
   await c.until(openSheet([V.jn524],[NEXT]));start(6);
 }
 
@@ -803,11 +857,11 @@ async function ch6(c,sub){
     show('door',800);await cap(T.c6.title,T.c6.sub);
     knocking(true);await c.until(waitKnob());knocking(false);
     snd.open();flash(true);show('dooropen',900);vib([20,40,60]);$('doorLight').style.opacity=0;
-    await c.w(700);snd.chime();await cap(T.c6.open,'');await c.w(600);await c.tap();
+    await c.w(700);snd.chime();await cap(T.c6.open,'');await c.hold(600);await c.tap();
   }
   show('pray',900);await cap(T.c6.pray,'');
-  await c.w(500);$('prayer').textContent=PRAYER;$('prayer').classList.add('show');snd.swell();
-  await c.w(800);await c.tap();$('prayer').classList.remove('show');
+  await c.hold(500);$('prayer').textContent=PRAYER;$('prayer').classList.add('show');snd.swell();
+  await c.w(800);say($('prayer'),PRAYER);await c.tap();narrStop();$('prayer').classList.remove('show');
   await quietPrayer(c);
   await c.until(openSheet([V.jn112,V.re320],[NEXT]));start(7);
 }
@@ -819,7 +873,7 @@ async function ch7(c){
   if(key==='here'){dark(.35);snd.low();await cap(T.c7.here,'');list=[V.jn336,V.ro245];}
   if(key==='think'){show('cross',900);cross('soft');snd.swell();await cap(T.c7.think,'');list=[V.jn336];}
   if(key==='there'){show('arrive',900);snd.chime();vib([20,40,20]);await cap(T.c7.there,'');list=[V.jo51113];}
-  await c.w(1100);
+  await c.hold(1100);
   const sh=openSheet(list,[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]);
   if(key==='there')nextSteps();
   const r=await c.until(sh);
@@ -829,7 +883,7 @@ async function ch7(c){
 const CHAPTERS=[ch0,ch1,ch2,ch3,ch4,ch5,ch6,ch7];
 
 $('resetBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();start(CH);});
-$('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soundOn=!soundOn;$('muteBtn').textContent=soundOn?'🔊':'🔇';$('muteBtn').setAttribute('aria-label',soundOn?'소리 끄기':'소리 켜기');});
+$('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soundOn=!soundOn;if(!soundOn)narrStop();$('muteBtn').textContent=soundOn?'🔊':'🔇';$('muteBtn').setAttribute('aria-label',soundOn?'소리 끄기':'소리 켜기');});
 
 /* ===== 암송 Festival 에서 덧붙인 것 =====
    ?from=이름 : 링크를 보낸 사람 — 표지에 「○○ 님이 보내 드려요」
@@ -837,7 +891,7 @@ $('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soun
 const QS=new URLSearchParams(location.search);
 const FROM=(QS.get('from')||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,20);
 if(FROM){$('coverFrom').textContent=FROM+' 님이 보내 드려요';$('coverFrom').hidden=false;}
-const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';paintView();
+const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';narrOn=VIEW==='alone';paintView();
 if(IN_APP){
   const cb=$('closeBtn');cb.hidden=false;
   cb.addEventListener('click',e=>{
