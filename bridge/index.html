@@ -39,20 +39,26 @@ button{font:inherit;color:inherit}
 #scene{position:absolute;transform-origin:30% 36%}
 #kb{position:absolute;inset:0;transform-origin:30% 36%;animation:kb 16s ease-in-out infinite alternate}
 @keyframes kb{to{transform:scale(1.04)}}
-.layer{position:absolute;inset:0;width:100%;height:100%;opacity:0;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.layer{position:absolute;inset:0;width:100%;height:100%;opacity:0;user-select:none;-webkit-user-drag:none;pointer-events:none;transform-origin:50% 50%;will-change:opacity,transform}
 .ov{position:absolute;pointer-events:none;z-index:100000}
-#glow{left:30.2%;top:35.4%;width:62%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,244,210,.5),rgba(255,205,150,.16) 35%,transparent 66%);mix-blend-mode:screen;animation:pulse 3.4s ease-in-out infinite;transition:opacity .8s}
+#glow{left:30.2%;top:35.4%;width:46%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,244,210,.5),rgba(255,205,150,.16) 35%,transparent 66%);mix-blend-mode:screen;animation:pulse 3.4s ease-in-out infinite;transition:opacity .8s}
 #glow.off{opacity:0}
+/* v14 4단계: 움직이는 장면 · 빛줄기 · 가장자리 어둡게 */
+.mov{object-fit:cover;transition:opacity .9s ease}
+#rays{width:220%;height:130%;transform:translateX(-50%);transform-origin:50% 0;background:repeating-conic-gradient(from 150deg at 50% 0%,rgba(255,240,200,0) 0deg 5deg,rgba(255,236,190,.2) 7deg 9deg,rgba(255,240,200,0) 11deg 17deg);mix-blend-mode:screen;opacity:0;transition:opacity 1.6s;-webkit-mask-image:radial-gradient(ellipse 50% 70% at 50% 0%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 50% 70% at 50% 0%,#000 20%,transparent 75%);animation:rays 10s ease-in-out infinite alternate}
+#rays.on{opacity:.9}
+@keyframes rays{to{transform:translateX(-50%) rotate(7deg)}}
+#vig{z-index:10;opacity:1;background:radial-gradient(ellipse 85% 70% at 50% 45%,transparent 55%,rgba(8,8,24,.42))}
 @keyframes pulse{50%{opacity:.55;transform:translate(-50%,-50%) scale(1.08)}}
 #dark{inset:0;background:linear-gradient(to bottom,rgba(8,10,28,0) 28%,rgba(8,10,28,.55) 55%,rgba(8,10,28,.95));opacity:0;transition:opacity 1.2s}
-#crossGlow{left:40%;top:60%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%) scale(.6);background:radial-gradient(circle,rgba(255,170,190,.65),rgba(255,120,150,.2) 40%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity .8s, transform 1.2s cubic-bezier(.2,.9,.3,1)}
+#crossGlow{left:61.5%;top:45.6%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%) scale(.6);background:radial-gradient(circle,rgba(255,170,190,.65),rgba(255,120,150,.2) 40%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity .8s, transform 1.2s cubic-bezier(.2,.9,.3,1)}
 #crossGlow.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 #crossGlow.soft{opacity:.45;transform:translate(-50%,-50%) scale(1)}
 #crossGlow.surge{animation:surge 1.1s ease-out}
 #crossGlow.red{background:radial-gradient(circle,rgba(255,70,90,.75),rgba(200,30,60,.25) 40%,transparent 68%)}
 #crossGlow.gold{background:radial-gradient(circle,rgba(255,236,170,.8),rgba(255,200,120,.25) 40%,transparent 68%)}
 @keyframes surge{30%{opacity:1;filter:brightness(1.8)}}
-#sin{left:31%;top:73%;transform:translate(-50%,-50%);font-family:'Jua',sans-serif;font-size:calc(var(--u)*13);color:var(--sin);opacity:0;text-shadow:0 0 calc(var(--u)*3) rgba(255,60,90,.8);transition:transform .7s cubic-bezier(.3,1.6,.5,1),opacity .8s}
+#sin{left:50%;top:60%;transition:left .9s,top .9s,transform .7s cubic-bezier(.3,1.6,.5,1),opacity .8s;transform:translate(-50%,-50%);font-family:'Jua',sans-serif;font-size:calc(var(--u)*13);color:var(--sin);opacity:0;text-shadow:0 0 calc(var(--u)*3) rgba(255,60,90,.8)}
 #sin.on{opacity:.62}
 #sin.big{transform:translate(-50%,-50%) scale(1.5);opacity:.9}
 #sin.pulse{animation:sinp .55s}
@@ -61,11 +67,11 @@ button{font:inherit;color:inherit}
 #drop.show{opacity:.7}
 #drop.hot{opacity:1;background:rgba(255,255,255,.3)}
 #fx{left:0;top:0;width:100%;height:100%}
-#beam{left:38%;top:0;width:16%;height:64%;transform:translate(-50%,-110%);background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,200,215,.85) 70%,#fff);filter:blur(5px);border-radius:0 0 50% 50%;opacity:0}
+#beam{left:61.5%;top:0;width:16%;height:46%;transform:translate(-50%,-110%);background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,200,215,.85) 70%,#fff);filter:blur(5px);border-radius:0 0 50% 50%;opacity:0}
 #beam.drop{animation:beam .42s cubic-bezier(.7,0,.9,.5) forwards}
 @keyframes beam{0%{opacity:1;transform:translate(-50%,-110%)}100%{opacity:1;transform:translate(-50%,0)}}
 #doorLight{left:24.3%;top:12.5%;width:5%;height:88%;background:linear-gradient(to right,rgba(255,236,200,0),rgba(255,240,210,.95),rgba(255,236,200,0));filter:blur(6px);mix-blend-mode:screen;opacity:0}
-#knob{left:39.7%;top:68%;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:3px dashed rgba(255,255,255,.95);background:rgba(255,240,200,.18);box-shadow:0 0 24px rgba(255,230,180,.7);pointer-events:auto;touch-action:none;cursor:grab;display:none;animation:knob 1.4s ease-in-out infinite}
+#knob{left:36.5%;top:68.6%;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:3px dashed rgba(255,255,255,.95);background:rgba(255,240,200,.18);box-shadow:0 0 24px rgba(255,230,180,.7);pointer-events:auto;touch-action:none;cursor:grab;display:none;animation:knob 1.4s ease-in-out infinite}
 #knob.show{display:block}
 @keyframes knob{50%{box-shadow:0 0 40px rgba(255,230,180,1);background:rgba(255,240,200,.32)}}
 .fullov{position:absolute;inset:0;pointer-events:none;opacity:0}
@@ -82,19 +88,61 @@ button{font:inherit;color:inherit}
 /* ===== 위쪽 ===== */
 .topui{position:absolute;left:0;right:0;top:0;z-index:20;padding:12px 16px 56px;background:linear-gradient(to bottom,rgba(22,24,48,.8),rgba(22,24,48,.42) 62%,transparent);pointer-events:none;transition:opacity .4s}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.step{font-size:13px;font-weight:700;opacity:.88}
+.step{font-size:13px;font-weight:700;opacity:.88;border:0;background:none;color:inherit;padding:6px 0;text-align:left;cursor:pointer;pointer-events:auto;min-width:0}
+.step:not(:empty)::after{content:' ▾';opacity:.7}
 .tools{display:flex;gap:8px;pointer-events:auto}
 .icon-btn{width:38px;height:38px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;font-size:16px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.prog{display:flex;gap:4px;margin-top:10px;pointer-events:auto}
-.prog button{flex:1;height:14px;border:0;background:none;cursor:pointer;position:relative}
-.prog button::before{content:'';position:absolute;left:0;right:0;top:5px;height:4px;border-radius:2px;background:rgba(255,255,255,.28);transition:background .3s}
-.prog button.done::before{background:rgba(255,255,255,.7)}
-.prog button.cur::before{background:#ffb3c0}
+.prog{position:relative;display:flex;justify-content:space-between;margin-top:10px;height:22px;pointer-events:auto;--p:0%}
+.prog::before,.prog::after{content:'';position:absolute;left:8px;right:8px;top:10px;height:2px;border-radius:1px;background:rgba(255,255,255,.25)}
+.prog::after{right:auto;width:calc((100% - 16px) * var(--pf,0));background:#ffe3a3;box-shadow:0 0 8px rgba(255,227,163,.8);transition:width 1.2s cubic-bezier(.3,.8,.3,1)}
+.prog button{position:relative;z-index:1;width:16px;height:22px;border:0;background:none;cursor:pointer;padding:0}
+.prog button::before{content:'';position:absolute;left:3px;top:6px;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35);transition:background .3s, box-shadow .3s}
+.prog button.done::before,.prog button.cur::before{background:#ffe3a3;box-shadow:0 0 8px rgba(255,227,163,.9)}
+.prog .walker{position:absolute;z-index:2;top:-9px;left:calc(8px + (100% - 16px) * var(--pf,0));font-size:18px;line-height:1;transform:translateX(-50%) scaleX(-1);transition:left 1.2s cubic-bezier(.3,.8,.3,1);pointer-events:none;filter:drop-shadow(0 0 6px rgba(255,227,163,.8))}
 .caption{margin-top:6px;transition:opacity .25s, transform .25s}
 .caption.fade{opacity:0;transform:translateY(6px)}
 .caption h1{font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:23px;line-height:1.3;min-height:2.6em;text-shadow:0 2px 8px rgba(0,0,0,.45)}
 .caption p{font-size:14.5px;line-height:1.45;opacity:.9;min-height:1.45em;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .app.cover .topui .step,.app.cover .prog,.app.cover .caption,.app.cover #resetBtn{visibility:hidden}
+
+/* ===== v14: 보기 방식 · 장 고르기 · 길게 누르기 · 밀어 건너기 · 조용한 기도 · 다음 걸음 ===== */
+.toast{position:absolute;left:50%;top:76px;z-index:60;transform:translate(-50%,-6px);max-width:calc(100% - 32px);background:rgba(20,22,44,.88);color:#fff;border-radius:14px;padding:9px 14px;font-size:13.5px;font-weight:700;line-height:1.45;text-align:center;opacity:0;pointer-events:none;transition:opacity .3s, transform .3s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.chlist{position:absolute;inset:0;z-index:70;background:rgba(14,16,34,.72);display:none;align-items:flex-start;justify-content:center;padding:64px 16px 16px}
+.chlist.show{display:flex}
+.chbox{width:100%;max-width:420px;background:var(--bg);color:var(--ink);border-radius:22px;padding:14px;box-shadow:0 14px 40px rgba(0,0,0,.4);animation:rise .35s both}
+.chbox .hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 8px;font-weight:800;font-size:15px}
+.chbox .hd button{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chbox ol{list-style:none;display:grid;gap:7px}
+.chbox ol button{width:100%;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:11px 12px;font-size:14.5px;font-weight:700;line-height:1.4;cursor:pointer}
+.chbox ol button[aria-current="step"]{border-color:var(--pink)}
+.chbox ol button.done{opacity:.72}
+.hold{position:absolute;left:50%;bottom:12%;z-index:25;width:92px;height:92px;transform:translateX(-50%);display:none;pointer-events:none}
+.hold.show{display:block}
+.hold svg{width:100%;height:100%;transform:rotate(-90deg)}
+.hold circle{fill:none;stroke-width:7}
+.hold .bg{stroke:rgba(255,255,255,.28)}
+.hold .fg{stroke:#ffd6e0;stroke-linecap:round;stroke-dasharray:264;stroke-dashoffset:264;filter:drop-shadow(0 0 8px rgba(255,180,200,.9))}
+.hold .hand{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:38px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:tap 1.1s ease-in-out infinite}
+.hold.on .hand{animation:none;transform:scale(.9)}
+.swipe{position:absolute;left:50%;bottom:10%;z-index:25;width:60px;height:150px;transform:translateX(-50%);display:none;pointer-events:none}
+.swipe.show{display:block}
+.swipe .rail{position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;border-radius:3px;background:linear-gradient(to top,rgba(255,255,255,.1),rgba(255,241,184,.7))}
+.swipe .hand{position:absolute;left:50%;bottom:0;font-size:40px;transform:translateX(-50%);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:swipeUp 1.6s ease-in-out infinite}
+@keyframes swipeUp{0%{bottom:0;opacity:0}15%{opacity:1}80%{bottom:96px;opacity:1}100%{bottom:110px;opacity:0}}
+.swipe.on .hand{animation:none;opacity:1}
+.quiet{position:absolute;left:16px;right:16px;top:24%;z-index:16;background:rgba(20,22,44,.78);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:22px;padding:22px 20px 18px;text-align:center;display:none;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.quiet.show{display:block;animation:rise .8s both}
+.quiet p{font-size:16px;line-height:1.7;font-weight:600}
+.quiet small{display:block;margin-top:12px;font-size:13px;opacity:.8;min-height:1.4em}
+.quiet .breath{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle,rgba(255,241,184,.9),rgba(255,214,224,.35) 55%,transparent 70%);animation:breath 6s ease-in-out infinite}
+@keyframes breath{50%{transform:scale(1.35);opacity:.65}}
+.quiet .bar{height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:14px;overflow:hidden}
+.quiet .bar i{display:block;height:100%;width:0;background:#fff1b8}
+.nextsteps{display:grid;gap:8px}
+.nextsteps b{font-size:13px;opacity:.75;margin:2px 2px 0}
+.nextsteps a,.nextsteps button{display:block;text-align:center;text-decoration:none;border:2px solid var(--pink);background:var(--card);color:var(--ink);border-radius:16px;padding:13px 10px;font-weight:800;font-size:15px;cursor:pointer}
+.nextsteps[hidden]{display:none}
 
 /* ===== 게이지 ===== */
 .gauge{position:absolute;left:22px;right:22px;top:31%;z-index:15;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .3s, transform .3s;pointer-events:none}
@@ -121,6 +169,8 @@ button{font:inherit;color:inherit}
 .cover-title{position:absolute;left:0;right:0;top:20%;z-index:18;text-align:center;display:none;pointer-events:none}
 .app.cover .cover-title{display:block;animation:rise 1s both}
 .cover-title b{font-family:'Jua',sans-serif;font-weight:400;font-size:44px;line-height:1.2;text-shadow:0 4px 18px rgba(0,0,0,.55)}
+.cover-title b span{display:inline-block;white-space:pre;opacity:0;animation:ltr 1s cubic-bezier(.2,.7,.2,1) forwards;text-shadow:0 0 22px rgba(255,226,170,.55),0 4px 18px rgba(0,0,0,.55)}
+@keyframes ltr{from{opacity:0;transform:translateY(12px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
 .tap{position:absolute;left:50%;bottom:9%;z-index:25;font-size:46px;transform:translateX(-50%);display:none;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:tap 1.1s ease-in-out infinite}
 .tap.show{display:block}
 @keyframes tap{50%{transform:translate(-50%,-12px) scale(1.08)}}
@@ -144,6 +194,8 @@ button{font:inherit;color:inherit}
 .card .em{font-size:25px;line-height:1}
 .card .nm{font-family:'Jua','Pretendard',sans-serif;font-size:16px;line-height:1.2;white-space:nowrap}
 .card.row{flex-direction:row;justify-content:center;gap:8px;padding:12px 8px}
+.grid>*{min-width:0}
+.card.row .nm{white-space:normal;text-align:left}
 .card.drag{touch-action:none;cursor:grab}
 .card .sw{width:6px;height:22px;border-radius:3px}
 .opt{font-family:'Jua','Pretendard',sans-serif;font-size:17px;line-height:1.25;padding:14px 8px;min-height:54px}
@@ -153,15 +205,20 @@ button{font:inherit;color:inherit}
 .ghost.back{transition:left .3s, top .3s, opacity .3s;opacity:0}
 .icon-btn:focus-visible,.card:focus-visible,.opt:focus-visible,.btn:focus-visible,.flip:focus-visible,.prog button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 
-/* ===== 말씀 팝업 (2장) ===== */
-.pop{position:absolute;inset:0;z-index:45;background:rgba(8,10,28,.5);display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:18px}
-.pop.show{display:flex}
-.popcard{width:100%;background:var(--card);color:var(--ink);border-radius:24px;padding:22px 20px;box-shadow:0 18px 40px rgba(0,0,0,.35);animation:popin .6s cubic-bezier(.2,1.4,.4,1) both}
-@keyframes popin{from{transform:rotateY(80deg) scale(.8);opacity:0}}
-.popcard h2{font-family:'Jua','Pretendard',sans-serif;font-weight:400;font-size:21px;margin-bottom:10px}
-.popcard div{font-size:15.5px;line-height:1.65}
-.popcard .ref{margin-top:8px;font-weight:800;color:var(--pink);font-size:14px}
-.pop .hand{font-size:40px;animation:tap 1.1s ease-in-out infinite;transform:none}
+/* ===== v14: 말씀 장면 — 장면 안에 말씀을 크게 띄우고 읽어 줌 ===== */
+.vs{position:absolute;left:0;right:0;bottom:0;z-index:19;padding:84px 20px 26px;text-align:center;background:linear-gradient(to top,rgba(14,14,32,.92),rgba(14,14,32,.72) 60%,transparent);display:none;pointer-events:none}
+.vs.show{display:block;animation:rise .8s both}
+.vs .lead{font-family:'Jua','Pretendard',sans-serif;font-size:17px;line-height:1.4;color:#ffe3a3;margin-bottom:10px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.vs .lead:empty{display:none}
+.vs .vt{font-size:19px;line-height:1.75;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.6);max-height:58vh;overflow:auto}
+.vs .vt span{opacity:.32;transition:opacity .25s}.vs .vt span.on{opacity:1;text-shadow:0 0 14px rgba(255,214,140,.55),0 2px 10px rgba(0,0,0,.6)}
+.vs .vt.nr span{opacity:.32}.vs .vt.nr span.on{opacity:1}
+.vs .vref{margin-top:10px;font-size:14px;font-weight:800;color:#ffd6e0}
+.vs .vmore{margin-top:14px;pointer-events:auto;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.vs .vmore[hidden]{display:none}
+.app.vsfull .caption{opacity:0}
+.app.vson .tap{left:auto;right:14px;bottom:16px;font-size:30px;transform:none;animation:tapR 1.1s ease-in-out infinite}
+@keyframes tapR{50%{transform:translateY(-8px)}}
 
 /* ===== 말씀 창 ===== */
 .sheet{position:absolute;left:0;right:0;bottom:0;z-index:40;background:var(--bg);color:var(--ink);border-radius:26px 26px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.3);padding:10px 16px 16px;display:flex;flex-direction:column;gap:12px;transform:translateY(110%);transition:transform .55s cubic-bezier(.2,.9,.25,1)}
@@ -191,8 +248,12 @@ button{font:inherit;color:inherit}
 /* 암송 Festival 에서 덧붙인 것 — 보낸 사람 이름 한 줄 · 앱 안에서 닫기 */
 .cover-title .from{display:block;margin-top:16px;font-size:16px;font-weight:700;opacity:.95;text-shadow:0 2px 10px rgba(0,0,0,.6)}
 .cover-title .from[hidden],.icon-btn[hidden]{display:none}
+/* v14 나레이션: 읽는 자리를 따라 글자가 밝아짐 */
+.nr span{opacity:.5;transition:opacity .12s}.nr span.on{opacity:1}
+.icon-btn.off{opacity:.55}
+@media (prefers-reduced-motion: reduce){.nr span{transition:none}}
 @media (max-height:640px){.caption h1{font-size:20px}.card{padding:8px 4px 7px}.card .em{font-size:21px}.opt{min-height:46px;padding:10px 8px}.flip{height:170px}}
-@media (prefers-reduced-motion: reduce){#kb,#glow,.tap,#knob{animation:none}#cam.shake,#cam.shakeBig{animation:none}}
+@media (prefers-reduced-motion: reduce){#rays{animation:none}.cover-title b span{animation:none;opacity:1}.vs .vt span{transition:none}.prog::after,.prog .walker{transition:none}#kb,#glow,.tap,#knob,.hold .hand,.swipe .hand,.quiet .breath{animation:none}#cam.shake,#cam.shakeBig{animation:none}#flash.go{animation:none}}
 </style>
 </head>
 <body>
@@ -200,23 +261,8 @@ button{font:inherit;color:inherit}
   <div id="cam">
     <div id="scene">
       <div id="kb">
-        <img class="layer" data-n="base" src="img/base.webp" alt="" style="opacity:1">
-        <img class="layer" data-n="empty" src="img/empty.webp" alt="">
-        <img class="layer" data-n="fellow" src="img/fellow.webp" alt="">
-        <img class="layer" data-n="crack" src="img/crack.webp" alt="">
-        <img class="layer" data-n="sad" src="img/sad.webp" alt="">
-        <img class="layer" data-n="fail_good" src="img/fail_good.webp" alt="">
-        <img class="layer" data-n="fail_religion" src="img/fail_religion.webp" alt="">
-        <img class="layer" data-n="fail_moral" src="img/fail_moral.webp" alt="">
-        <img class="layer" data-n="fail_edu" src="img/fail_edu.webp" alt="">
-        <img class="layer" data-n="dawn" src="img/dawn.webp" alt="">
-        <img class="layer" data-n="cross" src="img/cross.webp" alt="">
-        <img class="layer" data-n="rise" src="img/rise.webp" alt="">
-        <img class="layer" data-n="walk" src="img/walk.webp" alt="">
-        <img class="layer" data-n="arrive" src="img/arrive.webp" alt="">
-        <img class="layer" data-n="door" src="img/door.webp" alt="">
-        <img class="layer" data-n="dooropen" src="img/dooropen.webp" alt="">
-        <img class="layer" data-n="pray" src="img/pray.webp" alt="">
+        <!-- 그림 층은 아래 CUT 목록으로 만듦 -->
+        <div class="ov" id="rays"></div>
         <div class="ov" id="glow"></div>
         <div class="ov" id="dark"></div>
         <div class="ov" id="crossGlow"></div>
@@ -228,14 +274,17 @@ button{font:inherit;color:inherit}
         <div class="ov" id="knob" aria-label="문손잡이"></div>
       </div>
     </div>
+    <div class="fullov" id="vig"></div>
     <div class="fullov" id="tomb"></div>
     <div class="fullov" id="flash"></div>
   </div>
 
   <div class="topui">
     <div class="bar">
-      <span class="step" id="stepLabel"></span>
+      <button type="button" class="step" id="stepLabel" aria-haspopup="dialog"></button>
       <div class="tools">
+        <button class="icon-btn" id="modeBtn" aria-label="보기 방식"></button>
+        <button class="icon-btn" id="narrBtn" aria-label="나레이션 끄기" hidden>🗣️</button>
         <button class="icon-btn" id="muteBtn" aria-label="소리 끄기">🔊</button>
         <button class="icon-btn" id="resetBtn" aria-label="이 장 다시 보기">↺</button>
         <button class="icon-btn" id="closeBtn" aria-label="닫기" hidden>✕</button>
@@ -256,6 +305,11 @@ button{font:inherit;color:inherit}
   <div class="chips" id="chips"></div>
   <div class="prayer" id="prayer"></div>
   <div class="tap" id="tap" aria-hidden="true">👆</div>
+  <div class="hold" id="hold" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" id="holdFg" cx="50" cy="50" r="42"/></svg><span class="hand">👆</span></div>
+  <div class="swipe" id="swipe" aria-hidden="true"><span class="rail"></span><span class="hand">👆</span></div>
+  <div class="quiet" id="quiet" aria-live="polite"><div class="breath"></div><p id="quietTxt"></p><div class="bar"><i id="quietBar"></i></div><small id="quietEnd"></small></div>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="chlist" id="chlist" role="dialog" aria-modal="true" aria-labelledby="chHd"><div class="chbox"><div class="hd"><span id="chHd"></span><button type="button" id="chClose" aria-label="닫기">✕</button></div><ol id="chOl"></ol></div></div>
 
   <div class="botui hide" id="botui">
     <div class="panel" id="p1"><div class="grid g4" id="p1g"></div></div>
@@ -266,13 +320,14 @@ button{font:inherit;color:inherit}
     <div class="panel" id="p7"><div class="grid g1" id="p7g"></div></div>
   </div>
 
-  <div class="pop" id="pop"><div class="popcard" id="popcard"></div><div class="hand">👆</div></div>
+  <div class="vs" id="vs" aria-live="polite"><p class="lead" id="vsLead"></p><div class="vt" id="vsText"></div><div class="vref" id="vsRef"></div><button type="button" class="vmore" id="vsMore" hidden></button></div>
 
   <div class="sheet" id="sheet" aria-hidden="true">
     <div class="grip"></div>
     <div class="verses" id="verses"></div>
     <div class="vdots" id="vdots"></div>
     <div class="btns" id="sheetBtns"></div>
+    <div class="nextsteps" id="nextSteps" hidden></div>
   </div>
 </div>
 
@@ -295,7 +350,15 @@ const T={
   c5:{title:'다리는 놓였고 하나님의 약속은 주어졌어요.',sub:'‘듣고’와 ‘믿음’을 차례로 눌러 다리를 건너 보세요.',promise:'하나님은 믿는 사람에게 이렇게 약속하셨어요.'},
   c6:{title:'그러면 어떻게 하는 것이 믿는 것일까요?',sub:'문을 두드리는 소리가 들리나요? 손잡이를 당겨 문을 열어 보세요.',open:'지금 마음의 문을 열고 예수 그리스도를 모셔 들일 수 있어요.',pray:'마음을 담아 함께 기도해 볼까요?'},
   c7:{title:'당신은 지금 어느 쪽에 있나요?',here:'어느 쪽에서 영원을 보낼지는 스스로 결정해야 해요.',think:'다리는 이미 놓여 있어요. 한 걸음만 내디디면 돼요.',there:'예수님을 마음에 모셨나요? 그렇다면 그분은 지금 어디에 계실까요?'},
-  verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요'
+  /* v14 새 문구 (사용자 확인 전 초안) */
+  c4x:{hold:'화면을 길게 눌러 보세요.'},
+  c5x:{swipe:'위로 밀어 다리를 건너 보세요.'},
+  c6x:{quiet:'이제 잠시, 하고 싶은 말을 하나님께 직접 드려 보세요.',quietWait:'천천히 기도하셔도 괜찮아요.',quietEnd:'다 드렸으면 화면을 눌러 주세요.'},
+  c7x:{next:'다음 걸음',app1:'구원의 확신 말씀 외우기',app2:'오늘 말씀 묵상하기',web:'말씀의 손에서 시작하기'},
+  view:{together:'함께 보기 · 화면을 눌러 넘겨요',alone:'혼자 보기 · 읽을 시간이 지나면 저절로 넘어가요',chapters:'장 고르기'},
+  verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요',
+  /* v14 전도지 개편 새 문구 (10/29 사용자 확인) */
+  more:'말씀 더 보기',close:'닫기'
 };
 const SFX={collapse:'와르르!',impact:'콰광!',glow:'화악!',sparkle:'반짝반짝'};
 const BTN={next:'다음 단계로',again:'다시 해보기',restart:'처음부터 다시',prayer:'기도문 다시 보기'};
@@ -305,10 +368,10 @@ const C2=[
   {k:'s2',label:'2. 심판',head:'2. 당신은 심판을 받게 됩니다',text:'한 번 죽는 것은 사람에게 정하신 것이요 그 후에는 심판이 있으리니',ref:'히브리서 9:27'},
   {k:'s3',label:'3. 사망',head:'3. 형벌은 사망 곧 지옥입니다',text:'그러나 두려워하는 자들과 믿지 아니하는 자들과 흉악한 자들과 살인자들과 행음자들과 술객들과 우상 숭배자들과 모든 거짓말하는 자들은 불과 유황으로 타는 못에 참예하리니 이것이 둘째 사망이라',ref:'요한계시록 21:8'}];
 const C3={
-  good:{em:'🤝',name:'착한 일',color:'#4cb782',pct:55,img:'fail_good',q:'착한 일을 많이 하면 하나님께 갈 수 있을까요?',fail:'좋은 일은 귀하지만, 죄의 간격을 메우지는 못해요.',cols:['#f4a3b4','#8fb8e8','#f6d27a','#9ed9b0','#e58b8b'],brk:[230,800]},
-  religion:{em:'🙏',name:'종교 생활',color:'#9b7be0',pct:74,img:'fail_religion',q:'열심히 종교 생활을 하면 하나님께 갈 수 있을까요?',fail:'종교 생활도 죄의 간격을 메우지는 못해요.',cols:['#b9b3a8','#9c968c','#d8b25a','#7f7a73'],brk:[220,840]},
-  moral:{em:'⚖️',name:'도덕적 노력',color:'#3a86ff',pct:89,img:'fail_moral',q:'바르게 살려고 노력하면 하나님께 갈 수 있을까요?',fail:'가장 가까이 갔지만, 여전히 닿지 않아요.',cols:['#e9dcc0','#d8c7a0','#c9a24a','#b89b6a'],brk:[230,800]},
-  edu:{em:'📚',name:'교육·철학',color:'#e0914a',pct:66,img:'fail_edu',q:'많이 배우고 깊이 생각하면 하나님께 갈 수 있을까요?',fail:'사람의 지혜로는 하나님을 알 수 없어요.',cols:['#7d8fb3','#b07a6a','#6f8f7a','#c9b38a','#3b3b46'],brk:[230,850]}};
+  good:{em:'🤝',name:'착한 일',color:'#4cb782',pct:55,img:'t3_1',vk:'is646',q:'착한 일을 많이 하면 하나님께 갈 수 있을까요?',fail:'좋은 일은 귀하지만, 죄의 간격을 메우지는 못해요.',cols:['#f4a3b4','#8fb8e8','#f6d27a','#9ed9b0','#e58b8b'],brk:[230,800]},
+  religion:{em:'🙏',name:'종교 생활',color:'#9b7be0',pct:74,img:'t3_2',vk:'pr1412',q:'열심히 종교 생활을 하면 하나님께 갈 수 있을까요?',fail:'종교 생활도 죄의 간격을 메우지는 못해요.',cols:['#b9b3a8','#9c968c','#d8b25a','#7f7a73'],brk:[220,840]},
+  moral:{em:'⚖️',name:'도덕적 노력',color:'#3a86ff',pct:89,img:'t3_3',vk:'je179',q:'바르게 살려고 노력하면 하나님께 갈 수 있을까요?',fail:'가장 가까이 갔지만, 여전히 닿지 않아요.',cols:['#e9dcc0','#d8c7a0','#c9a24a','#b89b6a'],brk:[230,800]},
+  edu:{em:'📚',name:'교육·철학',color:'#e0914a',pct:66,img:'t3_4',vk:'co121',q:'많이 배우고 깊이 생각하면 하나님께 갈 수 있을까요?',fail:'사람의 지혜로는 하나님을 알 수 없어요.',cols:['#7d8fb3','#b07a6a','#6f8f7a','#c9b38a','#3b3b46'],brk:[230,850]}};
 const C3ORDER=['good','religion','moral','edu'];
 const C4=[{k:'d1',label:'당신의 죄를 위해 죽으심'},{k:'d2',label:'장사되심'},{k:'d3',label:'삼일 만에 부활하심'}];
 const C5=[{k:'hear',label:'듣고'},{k:'believe',label:'믿음'}];
@@ -336,8 +399,18 @@ const V={
 };
 
 /* ===== 기본 도구 ===== */
-const IW=768,IH=1376,FX=.72,FY=.5;
-const DOOR={x:232,y:490},EDGE={x:410,y:1005},CROSS={x:300,y:660};
+const IW=768,IH=1376,FX=.5,FY=.5;
+/* v14 새 그림(장면표 번호 t장_번). door=빛나는 문 자리(그림 좌표, 빛 알갱이가 나옴), gap=「죄」 글자 자리, fx=알갱이 모양,
+   mov=움직이는 장면(mov/이름.mp4, 그림 위에 겹쳐 되풀이 재생, 'once'=한 번만 재생하고 마지막 모습에 멈춤), ray=빛줄기가 나오는 자리, stars=반짝이는 별 */
+const CUT={
+  t0_1:{door:[532,908],stars:1},t1_1:{door:[228,476]},t1_2:{},t1_3:{door:[220,308]},t1_4:{door:[564,300]},t1_5:{door:[652,260],gap:[400,760]},
+  t2_1:{},t2_2:{},t2_3:{},t2_4:{gap:[150,1000]},
+  t3_0:{door:[228,476],gap:[190,880]},t3_1:{door:[228,476]},t3_2:{door:[228,476]},t3_3:{door:[228,476]},t3_4:{},t3_5:{gap:[260,560]},
+  t4_1:{door:[236,484],gap:[260,880],ray:[300,200]},t4_2:{door:[652,448],mov:1,ray:[560,0]},t4_3:{},t4_4:{},t4_5:{door:[228,724],fx:'gold',ray:[228,700],mov:1},
+  t5_1:{},t5_2:{},t5_3:{door:[584,216],fx:'spark',path:[[440,1300],[580,260]],mov:'once'},t5_4:{door:[188,452],fx:'door',ray:[188,380],mov:1},
+  t6_1:{mov:1},t6_2:{},t6_3:{},
+  t7_1:{door:[660,500]},t7_2:{},t7_3:{door:[236,476]},t7_4:{door:[292,372],fx:'door',ray:[292,320]}};
+let DOOR={x:532,y:908};const EDGE={x:330,y:1000},CROSS={x:472,y:628};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const easeOut=t=>1-Math.pow(1-t,3);
@@ -357,23 +430,46 @@ function layout(){
   scene.style.setProperty('--u',(w/100)+'px');cv.width=Math.round(w*dpr);cv.height=Math.round(hh*dpr);
 }
 addEventListener('resize',layout);layout();
-function zoom(s,dur){scene.style.transition=dur?`transform ${dur}ms cubic-bezier(.25,.1,.2,1)`:'none';scene.style.transform=s===1?'':`scale(${s})`;}
+function zoom(s,dur){if(reduce){scene.style.transition='none';scene.style.transform='';return;}scene.style.transition=dur?`transform ${dur}ms cubic-bezier(.25,.1,.2,1)`:'none';scene.style.transform=s===1?'':`scale(${s})`;}
 
 /* ===== 장면 전환 ===== */
-const L={};document.querySelectorAll('.layer').forEach(l=>L[l.dataset.n]=l);
-const FXMODE={walk:'spark',arrive:'door',rise:'gold',door:null,dooropen:null};
-let mode='base',zc=1,showTok=0;
-function show(n,dur=600){
-  mode=n;const tok=++showTok,l=L[n];l.style.zIndex=++zc;
-  $('glow').classList.toggle('off',n==='door'||n==='dooropen');
-  if(!dur){l.style.transition='none';l.style.opacity=1;}
-  else{l.style.transition='none';l.style.opacity=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{l.style.transition=`opacity ${dur}ms ease`;l.style.opacity=1;}));}
+const L={};
+{const kb=$('kb'),ov=kb.querySelector('.ov');
+  for(const n in CUT){const l=document.createElement('img');l.className='layer';l.dataset.n=n;l.alt='';l.decoding='async';kb.insertBefore(l,ov);L[n]=l;}}
+function need(n){const l=L[n];if(l&&!l.getAttribute('src'))l.src='img/'+n+'.webp';}
+need('t0_1');L.t0_1.style.opacity=1;
+/* 첫 화면 뒤에 나머지 그림을 미리 받아 둠(장면이 바뀔 때 비지 않게) */
+addEventListener('load',()=>setTimeout(()=>Object.keys(CUT).forEach(need),400));
+/* 움직이는 장면: 그림 위에 같은 장면의 짧은 영상을 겹쳐 되풀이 재생. 움직임 줄이기·데이터 절약·못 받으면 그림 그대로 */
+const MOV={},movOK=!reduce&&!(navigator.connection&&navigator.connection.saveData);
+function movShow(n,dur){
+  for(const k in MOV)if(k!==n){const v=MOV[k];setTimeout(()=>{if(mode!==k){v.pause();v.style.opacity=0;}},dur+80);}
+  if(!movOK||!CUT[n].mov)return;
+  let v=MOV[n];
+  if(!v){v=MOV[n]=document.createElement('video');v.className='layer mov';v.muted=true;v.defaultMuted=true;v.loop=CUT[n].mov!=='once';v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('aria-hidden','true');v.preload='auto';
+    v.addEventListener('playing',()=>{if(mode===n)v.style.opacity=1;});v.src='mov/'+n+'.mp4';$('kb').insertBefore(v,$('kb').querySelector('.ov'));}
+  v.style.transition='none';v.style.opacity=0;v.style.zIndex=++zc;v.style.transform='';
+  setTimeout(()=>{if(mode!==n)return;v.style.transition='';try{v.currentTime=0;}catch(_){}const p=v.play();if(p&&p.catch)p.catch(()=>{});},Math.max(200,dur));
+}
+/* 카메라 이동: 새 컷이 이 자리에서 제자리로 미끄러지며 나타남 */
+const CAMS={soft:'scale(1.05)',in:'scale(1.16)',up:'translateY(5%) scale(1.1)',down:'translateY(-5%) scale(1.1)',left:'translateX(5%) scale(1.1)',right:'translateX(-5%) scale(1.1)'};
+let mode='t0_1',zc=1,showTok=0;
+function show(n,dur=600,cam='soft'){
+  need(n);mode=n;const tok=++showTok,l=L[n],cu=CUT[n];l.style.zIndex=++zc;
+  const g=$('glow');if(cu.door){DOOR={x:cu.door[0],y:cu.door[1]};g.style.left=DOOR.x/IW*100+'%';g.style.top=DOOR.y/IH*100+'%';}g.classList.toggle('off',!cu.door);
+  const sn=$('sin'),gp=cu.gap||[384,820];sn.style.left=gp[0]/IW*100+'%';sn.style.top=gp[1]/IH*100+'%';
+  const ry=$('rays');if(cu.ray){ry.style.left=cu.ray[0]/IW*100+'%';ry.style.top=cu.ray[1]/IH*100+'%';}ry.classList.toggle('on',!!cu.ray);
+  movShow(n,dur);
+  const from=reduce||!dur?'':(CAMS[cam]||'');
+  l.style.transition='none';l.style.transform=from;
+  if(!dur){l.style.opacity=1;}
+  else{l.style.opacity=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{l.style.transition=`opacity ${dur}ms ease, transform ${Math.max(1800,dur*2.4)}ms cubic-bezier(.2,.7,.2,1)`;l.style.opacity=1;l.style.transform='';}));}
   setTimeout(()=>{if(tok!==showTok)return;for(const k in L)if(k!==n){L[k].style.transition='none';L[k].style.opacity=0;}},dur+60);
 }
 
 /* ===== 소리 ===== */
 let ac=null,soundOn=true;
-function ensureAudio(){try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();}catch(e){}}
+function ensureAudio(){try{if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();}catch(e){}bgmKick();}
 function tone(freq,dur,type='sine',vol=.12,slideTo,delay=0){
   if(!ac||!soundOn)return;const t=ac.currentTime+delay;
   const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);
@@ -406,22 +502,49 @@ const snd={
   flip:up=>tone(up?880:660,.15,'triangle',.07)
 };
 
+/* ===== v14: 배경 음악 (Lyria로 만든 3곡, bgm/b1~b3.mp3) =====
+   1~3장 어스름 · 4~5장 새벽 · 6~7장 빛. 장이 바뀌면 천천히 겹쳐 바뀌고, 나레이션이 나올 땐 작아짐. 🔊 로 함께 꺼짐.
+   못 받으면(오프라인) 조용히 건너뜀 */
+const BGM_VOL=.55,BGM_DUCK=.22,bgmFor=ch=>ch<=3?0:ch<=5?1:2;
+const BGM=[];let bgmCur=-1;
+let bgmReady=false;
+function bgmKick(){if(!ac)return;
+  /* 처음 누를 때 세 곡을 모두 깨워 둠(휴대폰은 누른 순간에만 소리 재생을 허락) */
+  if(!bgmReady){bgmReady=true;const cur=bgmFor(Math.max(1,CH));[0,1,2].forEach(k=>{bgmTo(k);if(k!==cur){const a=BGM[k].a;const p=a.play();if(p&&p.then)p.then(()=>{if(bgmCur!==k)a.pause();}).catch(()=>{});}});}
+  bgmTo(bgmFor(Math.max(1,CH)));}
+function bgmTo(k){
+  if(!ac)return;
+  if(!BGM[k]){const a=new Audio('bgm/b'+(k+1)+'.mp3');a.loop=true;a.preload='auto';let g=null;
+    try{const src=ac.createMediaElementSource(a);g=ac.createGain();g.gain.value=0;src.connect(g).connect(ac.destination);}catch(_){a.volume=0;}
+    BGM[k]={a,g};}
+  if(bgmCur===k&&!BGM[k].a.paused)return;bgmCur=k;
+  const b=BGM[k];if(soundOn){const p=b.a.play();if(p&&p.catch)p.catch(()=>{});}
+}
+function bgmLevel(){const t=ac?ac.currentTime:0;
+  BGM.forEach((b,i)=>{if(!b)return;const want=!soundOn||document.hidden||i!==bgmCur?0:(narrA?BGM_DUCK:BGM_VOL);
+    if(b.g){b.g.gain.setTargetAtTime(want,t,i===bgmCur?.6:.8);}else b.a.volume=want;
+    if(want===0&&!b.a.paused&&!b.st){b.st=setTimeout(()=>{b.st=0;if(i!==bgmCur||!soundOn||document.hidden)b.a.pause();},3500);}
+    if(want>0&&b.a.paused&&soundOn){const p=b.a.play();if(p&&p.catch)p.catch(()=>{});}});}
+setInterval(bgmLevel,200);
+if(/[?&]test=1/.test(location.search))window.__bgm=()=>({cur:bgmCur,b:BGM.map(b=>b&&{p:b.a.paused,t:+b.a.currentTime.toFixed(1),g:b.g?+b.g.gain.value.toFixed(2):b.a.volume})});
+
 /* ===== 파티클 ===== */
 const P=[];
 function motes(){P.push({t:'mote',x:DOOR.x+rand(-70,70),y:DOOR.y+rand(0,60),vx:rand(-.15,.15),vy:rand(-.7,-.25),r:rand(1.6,4.2),life:0,max:rand(160,320),c:'255,250,230'});}
 function debris(x,y,cols){
-  for(let i=0;i<30;i++)P.push({t:'rock',x:x+rand(-70,70),y:y+rand(-80,60),vx:rand(-2.4,2),vy:rand(-5,0),s:rand(7,20),a:rand(0,6),va:rand(-.2,.2),c:cols[i%cols.length],life:0,max:200});
+  for(let i=0;i<(reduce?8:30);i++)P.push({t:'rock',x:x+rand(-70,70),y:y+rand(-80,60),vx:rand(-2.4,2),vy:rand(-5,0),s:rand(7,20),a:rand(0,6),va:rand(-.2,.2),c:cols[i%cols.length],life:0,max:200});
   for(let i=0;i<10;i++)P.push({t:'dust',x:x+rand(-60,60),y:y+rand(-40,40),vx:rand(-.6,.6),vy:rand(-.6,.2),r:rand(18,34),life:0,max:rand(60,100)});
 }
 function puff(){for(let i=0;i<3;i++)P.push({t:'dust',x:EDGE.x+rand(-30,30),y:EDGE.y+rand(-10,10),vx:rand(-.8,.3),vy:rand(-.9,-.2),r:rand(8,14),life:0,max:50});}
-function burst(cx=CROSS.x,cy=CROSS.y,cols=['#ffd6e0','#fff1b8']){for(let i=0;i<60;i++){const a=rand(0,Math.PI*2),v=rand(2,9);P.push({t:'star',x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,r:rand(4,10),life:0,max:rand(50,90),c:cols[i%cols.length],drag:.94});}}
+function burst(cx=CROSS.x,cy=CROSS.y,cols=['#ffd6e0','#fff1b8']){for(let i=0;i<(reduce?15:60);i++){const a=rand(0,Math.PI*2),v=rand(2,9);P.push({t:'star',x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,r:rand(4,10),life:0,max:rand(50,90),c:cols[i%cols.length],drag:.94});}}
 function spark(x,y,c){P.push({t:'star',x,y,vx:rand(-.3,.3),vy:rand(-1.4,-.5),r:rand(3,8),life:0,max:rand(70,130),c,drag:1});}
 function star(x,y,r){ctx.beginPath();ctx.moveTo(x,y-r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.quadraticCurveTo(x,y,x,y+r);ctx.quadraticCurveTo(x,y,x-r,y);ctx.quadraticCurveTo(x,y,x,y-r);ctx.fill();}
 function loop(){
   ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.setTransform(scale*dpr,0,0,scale*dpr,0,0);
-  const m=FXMODE[mode]===undefined?'motes':FXMODE[mode];
+  const cu=CUT[mode]||{},m=cu.fx||(cu.door?'motes':null);
   if(m==='motes'&&Math.random()<.3)motes();
-  if(m==='spark'&&Math.random()<.6){const t=Math.random();spark(470+(250-470)*t+rand(-40,40),1010+(560-1010)*t+rand(-30,30),Math.random()<.5?'#ffc9d6':'#fff1b8');}
+  if(cu.stars&&Math.random()<.12)P.push({t:'tw',x:rand(20,748),y:rand(20,620),r:rand(3,7),life:0,max:rand(90,200),c:Math.random()<.7?'#fffbe8':'#ffe3a3'});
+  if(m==='spark'&&Math.random()<.6){const t=Math.random(),[a,b]=cu.path;spark(a[0]+(b[0]-a[0])*t+rand(-40,40),a[1]+(b[1]-a[1])*t+rand(-30,30),Math.random()<.5?'#ffc9d6':'#fff1b8');}
   if(m==='door'&&Math.random()<.5)spark(DOOR.x+rand(-90,90),DOOR.y+rand(-60,80),Math.random()<.5?'#fff1b8':'#ffd6e0');
   if(m==='gold'&&Math.random()<.5)spark(rand(80,700),rand(300,1100),Math.random()<.6?'#fff1b8':'#ffe0a0');
   for(let i=P.length-1;i>=0;i--){const p=P[i];p.life++;const k=p.life/p.max;
@@ -432,6 +555,7 @@ function loop(){
     else if(p.t==='rock'){p.vy+=.38;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;ctx.globalCompositeOperation='source-over';
       ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66);ctx.strokeStyle='rgba(60,40,40,.5)';ctx.lineWidth=1.5;ctx.strokeRect(-p.s/2,-p.s/3,p.s,p.s*.66);ctx.restore();}
     else if(p.t==='dust'){p.x+=p.vx;p.y+=p.vy;p.r*=1.02;ctx.globalCompositeOperation='source-over';ctx.fillStyle=`rgba(220,210,220,${.35*(1-k)})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();}
+    else if(p.t==='tw'){const a=Math.sin(k*Math.PI);ctx.globalCompositeOperation='lighter';ctx.globalAlpha=a*.9;ctx.fillStyle=p.c;star(p.x,p.y,p.r*(.6+.4*a));ctx.globalAlpha=1;}
     else if(p.t==='star'){p.vx*=p.drag;p.vy*=p.drag;p.x+=p.vx;p.y+=p.vy;const a=Math.sin(k*Math.PI)*(.6+.4*Math.sin(p.life*.4));
       ctx.globalCompositeOperation='lighter';ctx.globalAlpha=Math.max(0,a);ctx.fillStyle=p.c;star(p.x,p.y,p.r);ctx.globalAlpha=1;}
   }
@@ -442,12 +566,51 @@ requestAnimationFrame(loop);
 /* ===== 연출 도우미 ===== */
 function shake(big){if(reduce)return;const c=$('cam');c.classList.remove('shake','shakeBig');void c.offsetWidth;c.classList.add(big?'shakeBig':'shake');}
 function sfx(text,x,y,color){const s=h('div','sfx');s.textContent=text;s.style.left=x+'%';s.style.top=y+'%';s.style.color=color;$('kb').appendChild(s);setTimeout(()=>s.remove(),1700);}
-function flash(gold){const f=$('flash');f.classList.toggle('gold',!!gold);restart(f,'go');}
+function flash(gold){if(reduce)return;const f=$('flash');f.classList.toggle('gold',!!gold);restart(f,'go');}
 function dark(v){$('dark').style.opacity=v;}
 function tomb(v){$('tomb').style.opacity=v;}
 function sin(state){const s=$('sin');s.classList.remove('on','big');if(state==='on')s.classList.add('on');if(state==='big')s.classList.add('on','big');}
 function cross(cls){const g=$('crossGlow');g.className='ov';if(cls)cls.split(' ').forEach(c=>g.classList.add(c));}
-async function cap(title,sub){const c=$('caption');c.classList.add('fade');await wait(220);$('capTitle').textContent=title||'';$('capSub').textContent=sub||'';c.classList.remove('fade');}
+async function cap(title,sub){const c=$('caption'),same=title&&title===capLast;capLast=title||'';narrStop();c.classList.add('fade');await wait(220);
+  $('capTitle').textContent=title||'';$('capSub').textContent=sub||'';c.classList.remove('fade');
+  /* 제목이 그대로면 아래 글만 읽음 */
+  sayAll([same?null:[$('capTitle'),title],[$('capSub'),sub]]);}
+let capLast='';
+
+/* ===== v14: 나레이션 (타입캐스트 · 한영) =====
+   voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
+   파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
+const VOICE_VER='5';
+let NARR=null,narrOn=true,narrUser=false,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
+fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
+const narrBlob={};
+function narrUrl(f){return narrBlob[f]||(narrBlob[f]=fetch('voice/'+f).then(r=>{if(!r.ok)throw 0;return r.blob();}).then(b=>URL.createObjectURL(b)).catch(()=>{delete narrBlob[f];return null;}));}
+function narrHas(text){return !!(NARR&&text&&NARR[text]&&soundOn&&narrOn);}
+function narrStop(){narrTok++;if(narrA){try{narrA.pause();}catch(_){}narrA=null;}cancelAnimationFrame(narrRaf);
+  document.querySelectorAll('.nr').forEach(e=>{e.classList.remove('nr');e.querySelectorAll('span').forEach(x=>x.classList.add('on'));});narrP=Promise.resolve(false);}
+/* 한 줄 읽기: el 의 글자를 span 으로 나눠, 읽는 자리까지 밝힘. 다 읽으면 풀림 */
+function say1(el,text,tok){
+  const L=NARR[text];
+  return Promise.race([narrUrl(L.f),wait(8000).then(()=>null)]).then(url=>new Promise(res=>{  /* 소리를 8초 안에 못 받으면 글만 */
+    if(!url||tok!==narrTok)return res(false);
+    el.textContent='';const sp=text.split('').map(ch=>{const s=document.createElement('span');s.textContent=ch;el.appendChild(s);return s;});el.classList.add('nr');
+    const a=new Audio(url);narrA=a;a.volume=.95;let i=0,fin=false;
+    const end=ok=>{if(fin)return;fin=true;cancelAnimationFrame(narrRaf);sp.forEach(s=>s.classList.add('on'));el.classList.remove('nr');if(narrA===a)narrA=null;res(ok);};
+    const tick=()=>{if(tok!==narrTok)return end(false);const t=a.currentTime*100;while(i<sp.length&&L.t[i]<=t)sp[i++].classList.add('on');narrRaf=requestAnimationFrame(tick);};
+    a.addEventListener('ended',()=>end(true));a.addEventListener('pause',()=>{if(!a.ended)end(false);});a.addEventListener('error',()=>end(false));
+    setTimeout(()=>{end(true);try{a.pause();}catch(_){}},L.d*10+4000);
+    a.play().then(()=>{narrRaf=requestAnimationFrame(tick);}).catch(()=>end(false));
+  }));
+}
+/* 여러 줄을 차례로. 지금 읽는 것이 끝나면 풀리는 narrP 를 남김(true = 실제로 읽었음) */
+function sayAll(list){
+  const tok=narrTok,items=list.filter(x=>x&&x[0]&&narrHas(x[1]));
+  if(!items.length)return narrP=Promise.resolve(false);
+  return narrP=(async()=>{let any=false;for(const [el,t] of items){if(tok!==narrTok)break;any=(await say1(el,t,tok))||any;}return any;})();
+}
+function say(el,text){narrStop();return sayAll([[el,text]]);}
+function paintNarr(){const b=$('narrBtn');b.classList.toggle('off',!narrOn);b.setAttribute('aria-label',narrOn?'나레이션 끄기':'나레이션 켜기');b.title=b.getAttribute('aria-label');}
+$('narrBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();narrOn=!narrOn;narrUser=true;paintNarr();if(!narrOn)narrStop();toast(narrOn?'나레이션을 켰어요':'나레이션을 껐어요');restartAuto();});
 const gauge=$('gauge'),gFill=$('gFill'),gPct=$('gPct');
 function gaugeSet(v){gFill.style.width=v+'%';gPct.textContent=Math.round(v)+'%';}
 function gaugeInit(l,r,color){$('gL').textContent=l;$('gR').textContent=r;gFill.style.background=color;gauge.classList.remove('broke','wobble','leak');gaugeSet(0);}
@@ -495,16 +658,43 @@ document.querySelectorAll('.card.drag').forEach(card=>{
 });
 
 /* ===== 화면 누르기 기다림 ===== */
-let tapWait=null;
-function waitTap(){$('tap').classList.add('show');return new Promise(res=>{tapWait=res;});}
-function doTap(){if(!tapWait)return;ensureAudio();const r=tapWait;tapWait=null;$('tap').classList.remove('show');snd.pick();r();}
-app.addEventListener('click',e=>{if(e.target.closest('button,.sheet,.pop,#knob'))return;doTap();});
+let tapWait=null,tapTimer=null;
+/* 혼자 보기: 지금 자막 길이만큼 읽을 시간을 준 뒤 저절로 넘어감(눌러도 됨) */
+function readMs(){const t=($('capTitle').textContent+$('capSub').textContent+($('prayer').classList.contains('show')?$('prayer').textContent:'')+($('vs').classList.contains('show')?$('vsLead').textContent+$('vsText').textContent:'')).length;return Math.max(2600,1400+t*95);}
+function waitTap(){$('tap').classList.add('show');restartAuto();return new Promise(res=>{tapWait=res;});}
+/* 혼자 보기 저절로 넘김: 나레이션이 있으면 다 읽은 뒤 1.2초, 없으면 글 길이만큼 */
+let autoTok=0;
+function restartAuto(){clearTimeout(tapTimer);const my=++autoTok;if(VIEW!=='alone'||moreOpen||CH===0||$('chlist').classList.contains('show'))return;  /* 표지는 눌러야 시작(소리 허락), 장 목록이 열려 있으면 멈춤 */
+  narrP.then(read=>{if(my!==autoTok||!tapWait)return;tapTimer=setTimeout(()=>doTap(true),read?($('vs').classList.contains('show')?2200:1200):readMs());});}
+function doTap(auto){if(!tapWait)return;clearTimeout(tapTimer);if(!auto)ensureAudio();const r=tapWait;tapWait=null;$('tap').classList.remove('show');if(!auto)snd.pick();r();}
+app.addEventListener('click',e=>{if(e.target.closest('button,.sheet,#knob,.chlist'))return;if(holdWait||swipeWait)return;doTap();});
 app.addEventListener('scroll',()=>{app.scrollTop=0;app.scrollLeft=0;});
 
-/* ===== 말씀 팝업 (2장) ===== */
-let popWait=null;
-function showPopup(item){$('popcard').innerHTML=`<h2>${item.head}</h2><div>${item.text}</div><div class="ref">${item.ref}</div>`;$('pop').classList.add('show');snd.flip(true);vib(10);return new Promise(res=>{popWait=res;});}
-$('pop').addEventListener('click',()=>{if(!popWait)return;const r=popWait;popWait=null;$('pop').classList.remove('show');r();});
+/* ===== v14: 말씀 장면 — 장면 안에 말씀을 크게 띄우고 읽어 줌 =====
+   o.lead = 위에 한 줄(2장 머리말 등), o.more = 「말씀 더 보기」로 접어 둔 말씀.
+   혼자 보기는 다 읽은 뒤 저절로, 함께 보기는 화면을 눌러 넘김 */
+let moreOpen=false;
+function verseShow(v,o={}){
+  const vt=$('vsText');$('vsLead').textContent=o.lead||'';$('vsRef').textContent=v.ref||'';
+  vt.textContent='';const sp=[...v.text].map(ch=>{const e=document.createElement('span');e.textContent=ch;vt.appendChild(e);return e;});vt.scrollTop=0;
+  const mb=$('vsMore');mb.hidden=!(o.more&&o.more.length);mb.textContent='📚 '+T.more;
+  mb.onclick=e=>{e.stopPropagation();ensureAudio();openMore(o.more);};
+  $('vs').classList.add('show');app.classList.add('vson');snd.flip(true);vib(10);
+  /* 긴 말씀이 위 자막에 닿으면 자막을 잠시 숨김 */
+  {const top=($('vsLead').textContent?$('vsLead'):vt).getBoundingClientRect().top;app.classList.toggle('vsfull',top<$('caption').getBoundingClientRect().bottom+8);}
+  narrStop();
+  if(narrHas(v.text)){sayAll([o.lead?[$('vsLead'),o.lead]:null,[vt,v.text]]);return;}
+  /* 소리 파일이 없으면 머리말만 읽고, 말씀 글자는 읽는 빠르기로 밝힘 */
+  vt.classList.add('nr');const tok=narrTok;
+  const lit=(async()=>{if(o.lead)await sayAll([[$('vsLead'),o.lead]]);
+    for(let i=0;i<sp.length;i++){if(tok!==narrTok)return false;sp[i].classList.add('on');if(!reduce)await wait(70);}
+    vt.classList.remove('nr');return true;})();
+  narrP=lit;
+}
+function verseHide(){$('vs').classList.remove('show');app.classList.remove('vson','vsfull');}
+async function verse(c,v,o){await c.until(narrP);verseShow(v,o);await c.tap();narrStop();verseHide();await c.w(350);}
+function openMore(list){clearTimeout(tapTimer);moreOpen=true;
+  openSheet(list,[{k:'close',label:T.close,cls:'soft'}]).then(()=>{moreOpen=false;restartAuto();});}
 
 /* ===== 말씀 창 ===== */
 let sheetWait=null,vIdx=0;
@@ -515,7 +705,8 @@ function openSheet(list,buttons){
   list.forEach((v,i)=>{
     const f=h('button','flip');f.setAttribute('aria-label',`말씀 카드 ${i+1} 뒤집기`);
     f.innerHTML=`<div class="flip-inner"><div class="face front" style="background:${grads[i%grads.length]}"><b>${T.verseFront}</b><span>${T.verseHint}</span>${n>1?`<small>${i+1} / ${n}${i===0?' · '+T.swipe:''}</small>`:''}</div><div class="face back"><div class="txt">${v.text}</div><div class="ref">${v.ref}</div></div></div>`;
-    f.addEventListener('click',()=>{ensureAudio();f.classList.toggle('flipped');snd.flip(f.classList.contains('flipped'));vib(10);});
+    f.addEventListener('click',()=>{ensureAudio();f.classList.toggle('flipped');const up=f.classList.contains('flipped');snd.flip(up);vib(10);
+      if(up)say(f.querySelector('.txt'),v.text);else narrStop();});
     vs.appendChild(f);if(n>1)vd.appendChild(h('i',i===0?'on':''));
   });
   bs.style.gridTemplateColumns=buttons.length>1?'1fr 1.5fr':'1fr';
@@ -523,10 +714,9 @@ function openSheet(list,buttons){
   panel(null);$('sheet').classList.add('show');$('sheet').setAttribute('aria-hidden','false');
   return new Promise(res=>{sheetWait=res;});
 }
-function closeSheet(){$('sheet').classList.remove('show');$('sheet').setAttribute('aria-hidden','true');}
+function closeSheet(){if($('sheet').classList.contains('show'))narrStop();$('sheet').classList.remove('show');$('sheet').setAttribute('aria-hidden','true');}
 $('verses').addEventListener('scroll',()=>{const vs=$('verses'),i=Math.round(vs.scrollLeft/(vs.clientWidth+12));
   if(i!==vIdx){vIdx=i;[...$('vdots').children].forEach((d,k)=>d.classList.toggle('on',k===i));tone(740,.05,'triangle',.05);}},{passive:true});
-const NEXT={k:'next',label:BTN.next,cls:'main'};
 
 /* ===== 6장 문손잡이 ===== */
 let knobWait=null,knockTimer=null;
@@ -545,34 +735,122 @@ knob.addEventListener('pointerdown',e=>{
 });
 knob.addEventListener('click',e=>e.stopPropagation());
 
+/* ===== v14: 보기 방식 (함께 보기 · 혼자 보기) =====
+   앱 안에서 「보여 주기」로 열면 함께 보기(보여 주는 사람이 넘김), 링크로 받은 사람은 혼자 보기. 위 단추로 바꿈 */
+let VIEW='alone',toastT=null;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👥':'👤';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
+$('modeBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();VIEW=VIEW==='together'?'alone':'together';paintView();toast(VIEW==='together'?T.view.together:T.view.alone);
+  if(NARR&&!narrUser){narrOn=VIEW==='alone';paintNarr();if(!narrOn)narrStop();}  /* 나레이션을 직접 켜고 끈 뒤에는 그 선택을 따름 */
+  if(tapWait)restartAuto();});
+
+/* ===== v14: 장 고르기 (위 장 이름을 누르면) ===== */
+$('chHd').textContent=T.view.chapters;
+function openChList(){clearTimeout(tapTimer);autoTok++;const ol=$('chOl');ol.innerHTML='';
+  for(let i=1;i<=7;i++){const li=h('li'),b=h('button',i<CH?'done':'',STEPS[i]);b.type='button';if(i===CH)b.setAttribute('aria-current','step');
+    b.addEventListener('click',e=>{e.stopPropagation();closeChList();ensureAudio();start(i);});li.appendChild(b);ol.appendChild(li);}
+  $('chlist').classList.add('show');setTimeout(()=>{const c=ol.querySelector('[aria-current]')||ol.querySelector('button');if(c)c.focus();},50);}
+function closeChList(){const was=$('chlist').classList.contains('show');$('chlist').classList.remove('show');if(was&&tapWait)restartAuto();}
+$('stepLabel').addEventListener('click',e=>{e.stopPropagation();if(CH>0)openChList();});
+$('chClose').addEventListener('click',e=>{e.stopPropagation();closeChList();});
+$('chlist').addEventListener('click',e=>{e.stopPropagation();if(e.target===$('chlist'))closeChList();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeChList();});
+
+/* ===== v14: 4장 길게 누르기 — 누르는 동안 빛이 차오르고, 떼면 줄어듦 ===== */
+let holdWait=null;
+function waitHold(ms=1500){
+  const box=$('hold'),fg=$('holdFg');box.classList.add('show');let p=0,on=false,last=0,raf=0,buzz=0;
+  const paint=()=>{fg.style.strokeDashoffset=264*(1-p);$('crossGlow').style.opacity=p*.9;$('crossGlow').style.transform=`translate(-50%,-50%) scale(${.6+p*.4})`;};
+  return new Promise(res=>{
+    const step=now=>{const dt=last?now-last:16;last=now;p=Math.max(0,Math.min(1,p+(on?dt/ms:-dt/500)));paint();
+      if(on&&now-buzz>220){buzz=now;vib(8+Math.round(p*30));tone(180+p*420,.18,'sine',.04+p*.05);}
+      if(p>=1){done();return;}raf=requestAnimationFrame(step);};
+    const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();on=true;box.classList.add('on');};
+    const up=()=>{on=false;box.classList.remove('on');};
+    const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();p=1;}};
+    const done=()=>{cancelAnimationFrame(raf);app.removeEventListener('pointerdown',down);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);document.removeEventListener('keydown',key);
+      box.classList.remove('show','on');fg.style.strokeDashoffset=264;$('crossGlow').style.opacity='';$('crossGlow').style.transform='';holdWait=null;res();};
+    holdWait=done;app.addEventListener('pointerdown',down);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);document.addEventListener('keydown',key);
+    raf=requestAnimationFrame(step);});
+}
+
+/* ===== v14: 5장 위로 밀어 건너기 — 미는 만큼 다리 위로 걸어감(발소리). 한 번 누르면 저절로 ===== */
+let swipeWait=null;
+function waitSwipe(){
+  const box=$('swipe');box.classList.add('show');
+  return new Promise(res=>{
+    let sy=0,p=0,steps=0,drag=false,fin=false;
+    const set=v=>{p=Math.max(p,Math.min(1,v));zoom(1.05+p*.11,120);const n=Math.floor(p*6);while(steps<n){steps++;tone(steps%2?150:130,.09,'triangle',.07);noise(.05,.12,700,'lowpass');vib(6);}};
+    const done=()=>{if(fin)return;fin=true;cleanup();box.classList.remove('show','on');swipeWait=null;res();};
+    const auto=()=>{box.classList.add('on');animate(1600,t=>{if(!fin)set(p+(1-p)*t);}).then(done);};
+    const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();sy=e.clientY;drag=false;box.classList.add('on');
+      document.addEventListener('pointermove',move);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);};
+    const move=e=>{const d=sy-e.clientY;if(Math.abs(d)>8)drag=true;if(d>0)set(d/170);if(p>=1)done();};
+    const up=()=>{document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);
+      if(fin)return;if(!drag||p>.35)auto();else box.classList.remove('on');};
+    const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();auto();}};
+    const cleanup=()=>{app.removeEventListener('pointerdown',down);document.removeEventListener('keydown',key);document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);};
+    swipeWait=done;app.addEventListener('pointerdown',down);document.addEventListener('keydown',key);
+  });
+}
+
+/* ===== v14: 6장 조용한 기도 시간 — 숨 고르는 빛과 함께 40초, 끝나면 맑은 소리. 그 뒤 화면을 누름 ===== */
+const QUIET_MS=40000;
+async function quietPrayer(c){
+  const q=$('quiet'),bar=$('quietBar');$('quietTxt').textContent=T.c6x.quiet;$('quietEnd').textContent=T.c6x.quietWait;bar.style.width='0';q.classList.add('show');
+  let skip=false;const sk=()=>{skip=true;};
+  q.addEventListener('click',sk,{once:true});await c.until(say($('quietTxt'),T.c6x.quiet));
+  const t0=performance.now();
+  while(!skip&&performance.now()-t0<QUIET_MS){await c.w(250);bar.style.width=Math.min(100,(performance.now()-t0)/QUIET_MS*100)+'%';}
+  q.removeEventListener('click',sk);bar.style.width='100%';
+  if(!skip){[523,784].forEach((f,i)=>tone(f,1.6,'sine',.05,null,i*.25));vib(15);$('quietEnd').textContent=T.c6x.quietEnd;await c.tap();}
+  narrStop();q.classList.remove('show');
+}
+
+/* ===== v14: 7장 「다음 걸음」 — 건너갔다고 고른 분께. 앱 안이면 앱의 그 화면으로 ===== */
+function nextSteps(){
+  const box=$('nextSteps');box.innerHTML='';box.appendChild(h('b','',T.c7x.next));
+  if(IN_APP){[['hubm',T.c7x.app1],['medi',T.c7x.app2]].forEach(([to,label])=>{const b=h('button','',label);b.type='button';
+      b.addEventListener('click',e=>{e.stopPropagation();try{parent.postMessage({navfest:'tract-go',to},location.origin);}catch(_){}});box.appendChild(b);});}
+  else{const a=h('a','',T.c7x.web);a.href='../';box.appendChild(a);}
+  box.hidden=false;
+}
+
 /* ===== 장 진행 관리 ===== */
 let RUN=0,CH=0;const CANCEL={};
 function ctl(my){const alive=()=>my===RUN;return{alive,
   w:ms=>wait(ms).then(()=>{if(!alive())throw CANCEL;}),
   until:p=>p.then(v=>{if(!alive())throw CANCEL;return v;}),
-  tap:()=>waitTap().then(()=>{if(!alive())throw CANCEL;})};}
+  tap:()=>waitTap().then(()=>{if(!alive())throw CANCEL;}),
+  /* ms 와 나레이션 중 긴 쪽만큼 기다림 */
+  hold:ms=>Promise.all([wait(ms),narrP]).then(()=>{if(!alive())throw CANCEL;})};}
 function resetUI(){
-  choiceWait=null;tapWait=null;popWait=null;sheetWait=null;knobWait=null;knocking(false);
-  $('tap').classList.remove('show');$('pop').classList.remove('show');closeSheet();panel(null);
+  narrStop();capLast='';choiceWait=null;tapWait=null;sheetWait=null;knobWait=null;moreOpen=false;knocking(false);
+  $('tap').classList.remove('show');verseHide();closeSheet();panel(null);
   gauge.classList.remove('show','broke','wobble','leak');$('chips').innerHTML='';$('prayer').classList.remove('show');
   knob.classList.remove('show');knob.style.transform='';$('doorLight').style.opacity=0;
   dark(0);tomb(0);cross(null);sin(null);zoom(1,0);$('beam').classList.remove('drop');P.length=0;
   document.querySelectorAll('.sfx').forEach(s=>s.remove());
+  clearTimeout(tapTimer);if(holdWait)holdWait();if(swipeWait)swipeWait();$('quiet').classList.remove('show');$('nextSteps').hidden=true;closeChList();
 }
 const prog=$('prog');
-for(let i=1;i<=7;i++){const b=h('button');b.setAttribute('aria-label',STEPS[i]);b.addEventListener('click',e=>{e.stopPropagation();start(i);});prog.appendChild(b);}
-function setStep(n){$('stepLabel').textContent=STEPS[n]||'';[...prog.children].forEach((b,i)=>{b.classList.toggle('cur',i+1===n);b.classList.toggle('done',i+1<n);});app.classList.toggle('cover',n===0);}
-function start(ch,sub){RUN++;const my=RUN;CH=ch;resetUI();setStep(ch);CHAPTERS[ch](ctl(my),sub).catch(e=>{if(e!==CANCEL)console.error(e);});}
+for(let i=1;i<=7;i++){const b=h('button');b.type='button';b.setAttribute('aria-label',STEPS[i]);b.addEventListener('click',e=>{e.stopPropagation();start(i);});prog.appendChild(b);}
+prog.appendChild(h('span','walker','🚶'));
+/* 다리 길 진행 표시: 사람이 1장(이편)에서 7장(건너편)으로 걸어감 */
+function setStep(n){$('stepLabel').textContent=STEPS[n]||'';prog.querySelectorAll('button').forEach((b,i)=>{b.classList.toggle('cur',i+1===n);b.classList.toggle('done',i+1<n);});
+  prog.style.setProperty('--pf',Math.max(0,n-1)/6);app.classList.toggle('cover',n===0);}
+function start(ch,sub){RUN++;const my=RUN;CH=ch;resetUI();setStep(ch);if(bgmReady)bgmTo(bgmFor(Math.max(1,ch)));CHAPTERS[ch](ctl(my),sub).catch(e=>{if(e!==CANCEL)console.error(e);});}
 
 /* ===== 표지 ===== */
 async function ch0(c){
-  $('coverTitle').textContent=TITLE;show('base',500);cap('','');
+  const ct=$('coverTitle');ct.textContent='';[...TITLE].forEach((ch,i)=>{const e=h('span');e.textContent=ch;e.style.animationDelay=(300+i*110)+'ms';ct.appendChild(e);});ct.setAttribute('aria-label',TITLE);
+  show('t0_1',500);cap('','');
   await c.tap();start(1);
 }
 
 /* ===== 1장 하나님의 선물인 영생 ===== */
 async function ch1(c){
-  show('empty',700);await cap(T.c1.title,T.c1.sub);
+  show('t1_1',900,'in');await cap(T.c1.title,T.c1.sub);
   resetPanel('p1');panel('p1');gaugeInit('🙁','😊','#ffc94d');
   const peaks=[40,56,72,88],lows=[14,20,26,0];let cur=0;
   for(let i=0;i<4;i++){
@@ -584,113 +862,122 @@ async function ch1(c){
     cur=lows[i];gauge.classList.remove('leak');
   }
   panel(null);await c.w(300);gauge.classList.remove('show');
-  await cap(T.c1.empty,'');await c.tap();
-  show('fellow',1400);await cap(T.c1.fellow,'');await c.tap();
-  show('crack',160);snd.rumble();snd.crash();shake(true);vib([60,40,100]);debris(330,820,['#6b5a55','#8a7a70','#5b4d4a','#9c8f83']);
-  await cap(T.c1.crack,'');await c.w(2000);
-  show('base',1500);await c.w(900);sin('on');restart($('sin'),'pulse');snd.low();
-  await cap(T.c1.crack,T.c1.gap);await c.w(1200);
-  await c.until(openSheet([V.mk836],[NEXT]));start(2);
+  show('t1_2',1100,'in');await cap(T.c1.empty,'');await c.hold(700);
+  await verse(c,V.mk836);
+  show('t1_3',1600,'up');await cap(T.c1.fellow,'');await c.tap();
+  show('t1_4',160);snd.rumble();snd.crash();shake(true);vib([60,40,100]);debris(384,700,['#6b5a55','#8a7a70','#5b4d4a','#9c8f83']);
+  await cap(T.c1.crack,'');await c.hold(2000);
+  show('t1_5',1800,'in');await c.w(900);sin('on');restart($('sin'),'pulse');snd.low();
+  await cap(T.c1.crack,T.c1.gap);await c.hold(1200);await c.tap();start(2);
 }
 
 /* ===== 2장 당신의 상태 ===== */
 async function ch2(c){
-  show('sad',900);sin('on');await cap(T.c2.title,T.c2.sub);
-  resetPanel('p2');panel('p2');
+  show('t2_1',1100,'in');sin('on');await cap(T.c2.title,T.c2.sub);
+  resetPanel('p2');panel('p2');const cuts=['t2_2','t2_3','t2_4'],cams=['down','up','in'];
   for(let i=0;i<3;i++){
-    enableOnly('p2',i);const key=await c.until(waitChoice('p2'));markUsed('p2',key);
-    await c.until(showPopup(C2[i]));
-    dark((i+1)*.3);snd.low();restart($('sin'),'pulse');vib(30);await c.w(500);
+    enableOnly('p2',i);const key=await c.until(waitChoice('p2'));markUsed('p2',key);panel(null);
+    show(cuts[i],900,cams[i]);dark((i+1)*.22);snd.low();restart($('sin'),'pulse');vib(30);
+    await verse(c,C2[i],{lead:C2[i].head});
+    if(i<2)panel('p2');
   }
-  panel(null);sin('big');await cap(T.c2.end,'');await c.w(900);
-  await c.until(openSheet([],[NEXT]));start(3);
+  sin('big');await cap(T.c2.end,'');await c.hold(900);await c.tap();start(3);
 }
 
-/* ===== 3장 인간의 힘으로 구원받지 못함 ===== */
+/* ===== 3장 인간의 힘으로 구원받지 못함 — 무너질 때마다 그 길에 맞는 말씀 ===== */
 async function ch3(c){
-  show('base',800);sin('on');await cap(T.c3.title,T.c3.sub);
+  show('t3_0',900,'in');sin('on');await cap(T.c3.title,T.c3.sub);
   resetPanel('p3');[...$('p3dots').children].forEach(d=>d.classList.remove('on'));panel('p3');
   for(let i=0;i<4;i++){
     const key=await c.until(waitChoice('p3'));markUsed('p3',key);const d=C3[key];
     cap(d.q,T.c3.building);gaugeInit('🧍','🚪',d.color);await c.w(250);gauge.classList.add('show');
     let tk=0;await c.until(animate(1800,t=>{const v=d.pct*easeOut(t);gaugeSet(v);const n=Math.floor(v/8);if(n>tk){tk=n;snd.tick(n);vib(6);puff();}}));
-    await c.w(250);gauge.classList.add('wobble');snd.creak();vib([15,40,15,40,15]);await c.w(800);
+    await c.w(250);gauge.classList.add('wobble');snd.creak();vib([15,40,15,40,15]);await c.hold(800);
     gauge.classList.remove('wobble');gauge.classList.add('broke');
-    show(d.img,140);snd.crash();vib([50,30,90]);shake(true);debris(d.brk[0],d.brk[1],d.cols);restart($('sin'),'pulse');
+    show(d.img,140);snd.crash();vib([50,30,90]);shake(true);debris(250,880,d.cols);restart($('sin'),'pulse');
     setTimeout(()=>{if(CH===3)sfx(SFX.collapse,36,48,'#ffb36b');},120);
     [...$('p3dots').children].forEach((dt,k)=>dt.classList.toggle('on',k<=i));
-    await c.w(350);cap(d.fail,i<3?T.c3.tryOther:'');await c.w(1900);
-    gauge.classList.remove('show','broke');show('base',800);await c.w(i<3?300:900);
+    await c.w(350);panel(null);await cap(d.fail,'');await c.hold(1400);
+    gauge.classList.remove('show','broke');
+    await verse(c,V[d.vk]);
+    if(i<3){show('t3_0',800);await cap(T.c3.title,T.c3.tryOther);panel('p3');}
   }
-  panel(null);sin('big');await cap(T.c3.endTitle,T.c3.endSub);snd.chord();await c.w(600);
-  const r=await c.until(openSheet([V.is646,V.ep289,V.je179,V.co121,V.pr1412],[{k:'again',label:BTN.again,cls:'soft'},NEXT]));
-  start(r==='again'?3:4);
+  show('t3_5',1200,'down');sin('big');await cap(T.c3.endTitle,T.c3.endSub);snd.chord();await c.hold(600);
+  await verse(c,V.ep289);start(4);
 }
 
 /* ===== 4장 하나님께서 당신을 위해 해주신 일 ===== */
 async function ch4(c){
-  show('base',0);sin('big');show('dawn',2600);await cap(T.c4.title,'');snd.swell();
-  await c.w(2800);snd.rumble();shake(false);await c.w(1000);
+  show('t4_1',2600,'up');sin('big');await cap(T.c4.title,'');snd.swell();
+  await c.hold(2200);await cap(T.c4.title,T.c4x.hold);await c.until(waitHold());snd.rumble();shake(false);await c.w(700);
   snd.whoosh();restart($('beam'),'drop');await c.w(420);
-  flash();show('cross',0);$('beam').classList.remove('drop');sin(null);snd.boom();vib([90,40,140]);shake(true);burst();cross('show');
+  flash();show('t4_2',0);$('beam').classList.remove('drop');sin(null);snd.boom();vib([90,40,140]);shake(true);burst();cross('show');
   setTimeout(()=>{if(CH===4)sfx(SFX.impact,58,34,'#ff6b81');},80);
-  await c.w(1500);restart($('crossGlow'),'surge');snd.swell();sfx(SFX.glow,64,60,'#ffc2d1');await c.w(1500);
+  await c.w(1500);restart($('crossGlow'),'surge');snd.swell();sfx(SFX.glow,64,60,'#ffc2d1');await c.w(1200);
+  cross('soft');await cap(T.c4.bridge,'');await c.hold(600);
+  await verse(c,V.ro58);
   await cap(T.c4.bridge,T.c4.sub);resetPanel('p4');panel('p4');
   for(let i=0;i<3;i++){
     enableOnly('p4',i);const key=await c.until(waitChoice('p4'));markUsed('p4',key);
-    if(i===0){cross('show red');restart($('crossGlow'),'surge');snd.bell();vib([80]);await c.w(1600);}
-    if(i===1){tomb(.86);snd.low();await c.w(1800);}
-    if(i===2){tomb(0);flash(true);show('rise',0);cross('show gold');burst(CROSS.x,CROSS.y,['#fff1b8','#ffe0a0','#ffffff']);snd.chime();vib([30,50,30]);await c.w(1800);}
+    if(i===0){cross(null);show('t4_3',900,'in');snd.bell();vib([80]);await c.w(1800);}
+    if(i===1){show('t4_4',1400,'down');snd.low();await c.w(1900);}
+    if(i===2){flash(true);show('t4_5',0);burst(228,724,['#fff1b8','#ffe0a0','#ffffff']);snd.chime();vib([30,50,30]);await c.w(1800);}
   }
-  panel(null);await cap(T.c4.end,'');await c.w(900);
-  await c.until(openSheet([V.ro58,V.co1534,V.jn146],[NEXT]));start(5);
+  panel(null);await cap(T.c4.end,'');await c.hold(900);
+  await verse(c,V.co1534,{more:[V.jn146]});start(5);
 }
 
 /* ===== 5장 어떻게 당신이 영생을 얻을 수 있는가? ===== */
 async function ch5(c){
-  show('rise',800);cross('soft gold');await cap(T.c5.title,T.c5.sub);
+  show('t5_1',1000,'in');await cap(T.c5.title,T.c5.sub);
   resetPanel('p5');panel('p5');
   enableOnly('p5',0);let key=await c.until(waitChoice('p5'));markUsed('p5',key);
-  cross(null);show('walk',900);zoom(1.05,1600);[523,659].forEach((f,i)=>tone(f,.8,'sine',.07,null,i*.12));vib(15);
-  await c.w(900);enableOnly('p5',1);key=await c.until(waitChoice('p5'));markUsed('p5',key);
-  sfx(SFX.sparkle,36,27,'#fff3b0');snd.chime();zoom(1.16,2400);vib([20,40,20]);await c.w(2300);
-  panel(null);flash(true);zoom(1,0);show('arrive',0);
+  [523,659].forEach((f,i)=>tone(f,.8,'sine',.07,null,i*.12));vib(15);
+  await c.w(700);enableOnly('p5',1);key=await c.until(waitChoice('p5'));markUsed('p5',key);
+  show('t5_2',700,'in');tone(392,1,'sine',.07);vib(20);await c.w(1300);
+  panel(null);show('t5_3',900,'up');await cap(T.c5.title,T.c5x.swipe);await c.until(waitSwipe());
+  sfx(SFX.sparkle,36,27,'#fff3b0');snd.chime();vib([20,40,20]);await c.w(900);
+  flash(true);zoom(1,0);show('t5_4',0);
   await cap(T.c5.promise,'');
   for(let i=0;i<3;i++){await c.w(550);$('chips').appendChild(h('div','chip',PROMISES[i]));snd.ping(i);vib(10);}
-  await c.w(1500);
-  await c.until(openSheet([V.jn524],[NEXT]));start(6);
+  await c.hold(1500);
+  await verse(c,V.jn524);$('chips').innerHTML='';start(6);
 }
 
-/* ===== 6장 믿음이란? ===== */
+/* ===== 6장 믿음이란? — 문 두드리는 소리와 함께 요한계시록 3:20 ===== */
 async function ch6(c,sub){
   if(sub!=='prayer'){
-    show('door',800);await cap(T.c6.title,T.c6.sub);
-    knocking(true);await c.until(waitKnob());knocking(false);
-    snd.open();flash(true);show('dooropen',900);vib([20,40,60]);$('doorLight').style.opacity=0;
-    await c.w(700);snd.chime();await cap(T.c6.open,'');await c.w(600);await c.tap();
+    show('t6_1',1000,'in');await cap(T.c6.title,'');
+    knocking(true);await verse(c,V.re320);
+    await cap(T.c6.title,T.c6.sub);await c.until(waitKnob());knocking(false);
+    snd.open();flash(true);show('t6_2',900,'in');vib([20,40,60]);$('doorLight').style.opacity=0;
+    await c.w(700);snd.chime();await cap(T.c6.open,'');await c.hold(600);
+    await verse(c,V.jn112);
   }
-  show('pray',900);await cap(T.c6.pray,'');
-  await c.w(500);$('prayer').textContent=PRAYER;$('prayer').classList.add('show');snd.swell();
-  await c.w(800);await c.tap();$('prayer').classList.remove('show');
-  await c.until(openSheet([V.jn112,V.re320],[NEXT]));start(7);
+  show('t6_3',1100,'in');await cap(T.c6.pray,'');
+  await c.hold(500);$('prayer').textContent=PRAYER;$('prayer').classList.add('show');snd.swell();
+  await c.w(800);say($('prayer'),PRAYER);await c.tap();narrStop();$('prayer').classList.remove('show');
+  await quietPrayer(c);
+  start(7);
 }
 
 /* ===== 7장 당신은 선택해야 합니다 ===== */
 async function ch7(c){
-  show('base',900);await cap(T.c7.title,'');resetPanel('p7');panel('p7');
-  const key=await c.until(waitChoice('p7'));panel(null);let list;
-  if(key==='here'){dark(.35);snd.low();await cap(T.c7.here,'');list=[V.jn336,V.ro245];}
-  if(key==='think'){show('cross',900);cross('soft');snd.swell();await cap(T.c7.think,'');list=[V.jn336];}
-  if(key==='there'){show('arrive',900);snd.chime();vib([20,40,20]);await cap(T.c7.there,'');list=[V.jo51113];}
-  await c.w(1100);
-  const r=await c.until(openSheet(list,[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]));
+  show('t7_1',1200,'in');await cap(T.c7.title,'');resetPanel('p7');panel('p7');
+  const key=await c.until(waitChoice('p7'));panel(null);
+  if(key==='here'){show('t7_2',1000,'down');dark(.35);snd.low();await cap(T.c7.here,'');await c.hold(800);await verse(c,V.jn336,{more:[V.ro245]});}
+  if(key==='think'){show('t7_3',1000,'up');snd.swell();await cap(T.c7.think,'');await c.hold(800);await verse(c,V.jn336);}
+  if(key==='there'){show('t7_4',1000,'in');snd.chime();vib([20,40,20]);await cap(T.c7.there,'');await c.hold(800);await verse(c,V.jo51113);}
+  const sh=openSheet([],[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]);
+  if(key==='there')nextSteps();
+  const r=await c.until(sh);
   if(r==='restart')start(0);else start(6,'prayer');
 }
 
 const CHAPTERS=[ch0,ch1,ch2,ch3,ch4,ch5,ch6,ch7];
 
 $('resetBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();start(CH);});
-$('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soundOn=!soundOn;$('muteBtn').textContent=soundOn?'🔊':'🔇';$('muteBtn').setAttribute('aria-label',soundOn?'소리 끄기':'소리 켜기');});
+$('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soundOn=!soundOn;if(!soundOn)narrStop();$('muteBtn').textContent=soundOn?'🔊':'🔇';$('muteBtn').setAttribute('aria-label',soundOn?'소리 끄기':'소리 켜기');});
 
 /* ===== 암송 Festival 에서 덧붙인 것 =====
    ?from=이름 : 링크를 보낸 사람 — 표지에 「○○ 님이 보내 드려요」
@@ -698,7 +985,8 @@ $('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soun
 const QS=new URLSearchParams(location.search);
 const FROM=(QS.get('from')||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,20);
 if(FROM){$('coverFrom').textContent=FROM+' 님이 보내 드려요';$('coverFrom').hidden=false;}
-if(QS.get('in')==='app'){
+const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';narrOn=VIEW==='alone';paintView();
+if(IN_APP){
   const cb=$('closeBtn');cb.hidden=false;
   cb.addEventListener('click',e=>{
     e.stopPropagation();RUN++;resetUI();knocking(false);
