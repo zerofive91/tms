@@ -357,7 +357,7 @@ const T={
   c7x:{next:'다음 걸음',app1:'구원의 확신 말씀 외우기',app2:'오늘 말씀 묵상하기',web:'말씀의 손에서 시작하기'},
   view:{together:'함께 보기 · 화면을 눌러 넘겨요',alone:'혼자 보기 · 읽을 시간이 지나면 저절로 넘어가요',chapters:'장 고르기'},
   verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요',
-  /* v14 전도지 개편 새 문구 (사용자 확인 전 초안) */
+  /* v14 전도지 개편 새 문구 (10/29 사용자 확인) */
   more:'말씀 더 보기',close:'닫기'
 };
 const SFX={collapse:'와르르!',impact:'콰광!',glow:'화악!',sparkle:'반짝반짝'};
@@ -554,7 +554,7 @@ let capLast='';
 /* ===== v14: 나레이션 (타입캐스트 · 한영) =====
    voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
    파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
-const VOICE_VER='2';
+const VOICE_VER='5';
 let NARR=null,narrOn=true,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
 fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
 const narrBlob={};
