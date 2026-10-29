@@ -1310,6 +1310,7 @@ html[data-fz="120"] .rdmc,html[data-fz="130"] .rdmc{grid-column:2;grid-row:1}
 /* ── 전도지 ── */
 .trcover{position:relative;display:flex;flex-direction:column;justify-content:flex-end;height:176px;margin:-4px -2px 14px;
   padding:14px 16px;border-radius:13px;overflow:hidden;color:#fff;background:#2b2f4d url(bridge/img/base.webp) center 24%/cover}
+.trcover.adult{background:#2a2320 url(https://i.ytimg.com/vi/lKvWHc7s1fY/hqdefault.jpg) center/cover}
 .trcover::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,22,45,.85),rgba(20,22,45,.05) 62%)}
 .trcover b,.trcover span{position:relative}
 .trcover b{font-family:var(--f-head);font-size:calc(23px * var(--fz));font-weight:700;letter-spacing:-.01em;line-height:1.3}
@@ -3277,8 +3278,8 @@ section[id^="st-"]{scroll-margin-top:8px}
   <!-- ===== 전도지 ===== -->
   <div id="tract" hidden>
     <div class="panel">
-      <div class="trcover"><b>하나님께 가는 다리</b><span>눌러 보고 끌어 보며 따라가는 일곱 장의 이야기</span></div>
-      <p class="rmeta" style="margin:0 0 14px">내 폰으로 함께 보거나, 상대방 폰으로 링크나 QR을 보냅니다. 소리가 나니 조용한 곳에서는
+      <div class="trcover" id="trcover"><b id="trtitle">하나님께 가는 다리</b><span id="trsub">눌러 보고 끌어 보며 따라가는 일곱 장의 이야기</span></div>
+      <p class="rmeta" style="margin:0 0 14px" id="trhow">내 폰으로 함께 보거나, 상대방 폰으로 링크나 QR을 보냅니다. 소리가 나니 조용한 곳에서는
         전도지 오른쪽 위 🔊 를 눌러 끄세요.</p>
       <button type="button" class="go" id="trshow">함께 보기</button>
       <p class="fixednote" id="troff"></p>
@@ -4377,7 +4378,7 @@ var MODES=[
   {k:"hubm",   icon:"mine",   n:"암송", d:"암송지갑 · 암송카드 찾기 · 리사이팅 · 타이핑 · 복습 카드 · 암송 대회", count:"minecount"},
   {k:"study",  icon:"bible",  n:"공부", d:"관주 · 원어 · 사전 · 인물 · 지명이 구절마다 이어진 성경"},
   {k:"hubr",   icon:"plan",   n:"읽기", d:"성경읽기표 · 성경순서로", count:"readcount"},
-  {k:"hubl",   icon:"listen", n:"듣기", d:"전도지 「하나님께 가는 다리」 · 말씀 듣기는 준비 중", count:"tractcount"}
+  {k:"hubl",   icon:"listen", n:"듣기", d:"학생용 · 어른용 전도지 · 말씀 듣기는 준비 중", count:"tractcount"}
 ];
 /* 2단계 메뉴 화면 머리 — 그림과 큰 제목 */
 var HUB_HEAD={
@@ -4404,7 +4405,8 @@ var HUBS={
   ],
   hubl:[
     {n:"듣고 나누기", subs:[
-      {k:"tract",   icon:"bridge",  n:"전도지",    d:"「하나님께 가는 다리」"},
+      {k:"tract",   icon:"bridge",  n:"학생용 전도지", d:"「하나님께 가는 다리」"},
+      {k:"tract2",  icon:"listen",  n:"어른용 전도지", d:"「끝까지 사랑하신 예수님」 · 4분 영상"},
       {k:"listen",  icon:"listen",  n:"말씀 듣기", d:"준비 중", off:true}]}
   ]
 };
@@ -4449,7 +4451,7 @@ function backOnline(){
   paintOff();
   setSync("다시 연결되었습니다 · 기록을 이어 보냅니다");
   flushSave(); fFlush(); saveDays(); myFlush(); rdFlush(); odFlush(); plFlush(); vnFlush();
-  if(screenNow==="tract" && !TR.preOk) trPrefetch();
+  if(screenNow==="tract" && trKind()==="kid" && !TR.preOk) trPrefetch();
   if(!state.me){ if(poll.job) poll.job(true); return; }
   if(screenNow==="me"){ loadProgress(true).then(paintMe).catch(function(){}); return; }
   if(screenNow==="fsrs"||screenNow==="fcard"){
@@ -13085,6 +13087,17 @@ function initAuth(){
    상대방 폰에 보냅니다(받는 사람에게는 암송 앱 없이 전도지만 열림, ?from=이름 이면 표지에 한 줄).
    전도 대상자 기도 명단은 로그인하면 계정(prayer_list 표)에, 아니면 이 기기에 둡니다.      */
 var TRACT_DIR="bridge/";
+/* v14: 전도지 두 가지 — 학생용(bridge/, 손으로 따라가는 일곱 장) · 어른용(love/, 영상 「끝까지 사랑하신 예수님」 + 영상에 나온 말씀).
+   전도지 화면 하나를 같이 쓰고 TR.kind 로 제목 · 링크 · 보내는 글만 바꿉니다. 기도 명단은 같음 */
+var TR_KINDS={
+  kid:{dir:"bridge/", head:"학생용 전도지", title:"하나님께 가는 다리", sub:"눌러 보고 끌어 보며 따라가는 일곱 장의 이야기",
+       how:"내 폰으로 함께 보거나, 상대방 폰으로 링크나 QR을 보냅니다. 소리가 나니 조용한 곳에서는 전도지 오른쪽 위 🔊 를 눌러 끄세요."},
+  adult:{dir:"love/", head:"어른용 전도지", title:"끝까지 사랑하신 예수님", sub:"4분 25초 영상으로 듣는 복음 이야기",
+       how:"내 폰으로 함께 보거나, 상대방 폰으로 링크나 QR을 보냅니다. 영상은 인터넷이 있어야 나옵니다. 영상에 나온 말씀은 아래에 글로도 있습니다."}
+};
+var TR_KIND_KEY="navfest.trkind";
+function trKind(){ return TR_KINDS[TR.kind] ? TR.kind : "kid"; }
+function trK(){ return TR_KINDS[trKind()]; }
 /* v14 전도지 개편: 새 그림 32컷(장면표 번호 t장_번) + 듣기 카드 바탕 base. 움직이는 장면 · 배경 음악 · 나레이션은 인터넷이 있을 때만 */
 var TRACT_CUTS=["0_1","1_1","1_2","1_3","1_4","1_5","2_1","2_2","2_3","2_4","3_0","3_1","3_2","3_3","3_4","3_5",
   "4_1","4_2","4_3","4_4","4_5","5_1","5_2","5_3","5_4","6_1","6_2","6_3","7_1","7_2","7_3","7_4"];
@@ -13093,22 +13106,24 @@ var TRACT_FONTS=["https://fonts.googleapis.com/css2?family=Jua&display=swap",
   "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"];
 var TR_NAME_KEY="navfest.trname";
 var TR_SEND_NOTE="받는 사람에게는 암송 앱 없이 전도지만 열립니다.";
-var TR={inited:false, who:"", qr:false, pre:null, preOk:false, preFail:false};
+var TR={inited:false, who:"", qr:false, pre:null, preOk:false, preFail:false, kind:"kid"};
+try{ if(localStorage.getItem(TR_KIND_KEY)==="adult") TR.kind="adult"; }catch(e){}
 
 function clean20(s){ return String(s||"").replace(/[\u0000-\u001f\u007f<>]/g,"").trim().slice(0,20); }
 function trNameVal(){ return clean20($("trname").value); }
 function trLink(){
-  var u=new URL(TRACT_DIR, BASE_URL).href, n=trNameVal();
+  var u=new URL(trK().dir, BASE_URL).href, n=trNameVal();
   return n ? u+"?from="+encodeURIComponent(n) : u;
 }
 function mdText(d){
   var y=+d.slice(0,4), now=+fToday().slice(0,4);
   return (y!==now ? y+"년 " : "")+(+d.slice(5,7))+"월 "+(+d.slice(8,10))+"일";
 }
-function openTract(){
+function openTract(kind){
+  if(kind){ TR.kind=TR_KINDS[kind] ? kind : "kid"; try{ localStorage.setItem(TR_KIND_KEY,TR.kind); }catch(e){} }
   paintTract();
   show("tract");
-  trPrefetch();
+  if(trKind()==="kid") trPrefetch();
   if(state.me) plLoad();
 }
 function paintTract(){
@@ -13117,6 +13132,10 @@ function paintTract(){
     var v=""; try{ v=localStorage.getItem(TR_NAME_KEY)||""; }catch(e){}
     $("trname").value=v;
   }
+  var k=trK();
+  SCREEN_NAME.tract=k.head; SCREEN_NAME.tview=k.title;
+  $("trcover").classList.toggle("adult", trKind()==="adult");
+  $("trtitle").textContent=k.title; $("trsub").textContent=k.sub; $("trhow").textContent=k.how;
   trPaintLink(); trPaintWho(); trPaintOff(); plPaint();
 }
 /* 칸에는 한글 그대로 보이게(보낼 때 · 복사할 때 · QR 은 주소 규칙대로 바꾼 것) */
@@ -13160,6 +13179,7 @@ function trPrefetch(){
 }
 function trPaintOff(busy){
   var el=$("troff"); if(!el) return;
+  if(trKind()!=="kid"){ el.textContent=""; return; }
   var sw=!!(navigator.serviceWorker && navigator.serviceWorker.controller);
   el.textContent = TR.preOk ? "그림까지 받아 두었습니다 · 인터넷이 없어도 함께 볼 수 있습니다"
     : busy ? "인터넷 없이도 보여 줄 수 있게 그림을 받는 중입니다 (약 1.6MB, 한 번만)"
@@ -13172,9 +13192,10 @@ function trPaintOff(busy){
 function trOpenFrame(){
   var host=$("tview"); if(host.querySelector("iframe")) return;
   var f=document.createElement("iframe");
-  f.title="하나님께 가는 다리";
-  f.setAttribute("allow","autoplay");
-  f.src=TRACT_DIR+"?in=app";
+  f.title=trK().title;
+  f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");
+  f.setAttribute("allowfullscreen","");
+  f.src=trK().dir+"?in=app";
   host.appendChild(f);
   try{ f.focus(); }catch(e){}
 }
@@ -13210,8 +13231,9 @@ function trDrawQr(){
 }
 function trSend(){
   var url=trLink(), n=trNameVal();
-  var data={title:"하나님께 가는 다리",
-            text:(n ? n+" 님이 보내 드리는 " : "")+"「하나님께 가는 다리」 — 눌러 보고 끌어 보며 따라가는 일곱 장의 이야기",
+  var k=trK();
+  var data={title:k.title,
+            text:(n ? n+" 님이 보내 드리는 " : "")+"「"+k.title+"」 — "+k.sub,
             url:url};
   if(navigator.share){
     navigator.share(data).then(function(){
@@ -13400,6 +13422,7 @@ var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"�
                  order:"성경순서로", oday:"하루 분량", bible:"공부", bchap:"장 고르기", btext:"성경 본문",
                  sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", slex:"원어 사전", sdict:"성경 사전", sunit:"도량형", smap:"성경 지도", speople:"성경 인물", person:"인물",
                  tract:"전도지", tview:"하나님께 가는 다리", qt:"경건의 시간"};
+SCREEN_NAME.tract=trK().head; SCREEN_NAME.tview=trK().title;   /* v14: 학생용 · 어른용 */
 var screenNow="home", screenLog=["home"], depth=0;
 
 /* 리사이팅 화면은 로그인하기 전에는 로그인 화면입니다 */
@@ -13671,7 +13694,8 @@ function modeClick(e){
   if(m==="contest"){ openLobby(); return; }
   if(m==="fsrs"){ openFsrs(); return; }
   if(m==="crop"){ openCrop(); return; }
-  if(m==="tract"){ openTract(); return; }
+  if(m==="tract"){ openTract("kid"); return; }
+  if(m==="tract2"){ openTract("adult"); return; }
   if(m==="coop"){ openCoop(); return; }
   setMode(m);
   show("setup");
