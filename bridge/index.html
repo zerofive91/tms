@@ -514,7 +514,7 @@ let capLast='';
 /* ===== v14: 나레이션 (타입캐스트 · 한영) =====
    voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
    파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
-const VOICE_VER='1';
+const VOICE_VER='2';
 let NARR=null,narrOn=true,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
 fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
 const narrBlob={};
