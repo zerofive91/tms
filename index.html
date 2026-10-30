@@ -268,7 +268,7 @@ ul.dtl>li:not(.open) .dtlbody{display:none}
 /* ── 입력 ── */
 label{display:block;font-size:calc(12.5px * var(--fz));font-weight:600;color:var(--ink-soft);margin:0 0 7px}
 label .opt{font-weight:400}
-input[type=text],input[type=number],input[type=datetime-local]{
+input[type=text],input[type=tel],input[type=number],input[type=datetime-local]{
   width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);
   border-radius:10px;background:var(--bg);color:var(--ink)}
 input[type=datetime-local]{-webkit-appearance:none;appearance:none;min-height:50px;
@@ -909,6 +909,7 @@ ul.partbars li.done .pc{color:var(--brand)}
 .linkrow{display:flex;gap:7px}
 .linkrow input{flex:1;min-width:0;font-size:calc(12.5px * var(--fz));padding:10px 11px;color:var(--ink-soft)}
 .linkrow input.codein{font-size:calc(18px * var(--fz));color:var(--ink);padding:12px 13px}
+#trphone{color:var(--ink);font-size:calc(14.5px * var(--fz))}
 .linkrow button{flex:0 0 auto;padding:0 15px;border:1.5px solid var(--brand);background:var(--surface);
   border-radius:9px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;color:var(--brand);cursor:pointer}
 .qrwrap{display:flex;flex-direction:column;align-items:center;gap:9px;margin:16px 0 4px}
@@ -1319,7 +1320,7 @@ label .lsub{display:block;margin-top:2px;font-weight:400;line-height:1.45}
 .trqr{display:flex;flex-direction:column;align-items:center;gap:9px;margin:16px 0 2px}
 .trqr[hidden]{display:none}
 .trqr .qrbox{line-height:0;padding:12px;background:#fff;border:1px solid var(--line);border-radius:12px}
-.trqr .qrbox img,.trqr .qrbox canvas{display:block}
+.trqr .qrbox img,.trqr .qrbox canvas,.trqr .qrbox svg{display:block}
 .tview{position:fixed;inset:0;z-index:60;background:#23263f}
 .tview iframe{display:block;width:100%;height:100%;border:0}
 body.tviewing{overflow:hidden}
@@ -3305,6 +3306,20 @@ section[id^="st-"]{scroll-margin-top:8px}
       </div>
       <div class="trqr" id="trqrwrap" hidden><div class="qrbox" id="trqr"></div><p class="qrnote" id="trqrnote"></p></div>
       <p class="fixednote" id="trsendnote">받는 사람에게는 암송 앱 없이 전도지만 열립니다.</p>
+      <!-- v15: 바빠서 지금 못 보는 분께 — 문자로 보내기 · 「나중에 보기」 알림 QR(찍으면 상대 폰 캘린더에 남음) -->
+      <div class="field" style="margin-top:16px">
+        <label for="trphone">받는 사람 휴대폰 번호</label>
+        <div class="linkrow"><input type="tel" id="trphone" inputmode="tel" maxlength="20" autocomplete="off" placeholder="010-0000-0000"><button type="button" id="trsms">문자로 보내기</button></div>
+      </div>
+      <div class="mpact"><button type="button" id="trlaterbtn" aria-pressed="false">나중에 보기 QR</button></div>
+      <div id="trlaterwrap" hidden>
+        <div class="themepick" id="trwhen" role="group" aria-label="알림 시간" style="margin-top:10px">
+          <button type="button" data-when="today">오늘 저녁 9시</button>
+          <button type="button" data-when="tomorrow">내일 저녁 9시</button>
+          <button type="button" data-when="weekend">이번 주말</button>
+        </div>
+        <div class="trqr"><div class="qrbox" id="trlaterqr"></div><p class="qrnote" id="trlaternote"></p></div>
+      </div>
     </div>
     <div class="panel">
       <div class="phead"><p class="eyebrow" id="plhead">전도 대상자 · 기도 명단</p></div>
@@ -13140,7 +13155,7 @@ function paintTract(){
 }
 /* 칸에는 한글 그대로 보이게(보낼 때 · 복사할 때 · QR 은 주소 규칙대로 바꾼 것) */
 function trShowLink(){ var u=trLink(); try{ return decodeURI(u); }catch(e){ return u; } }
-function trPaintLink(){ $("trlink").value=trShowLink(); if(TR.qr) trDrawQr(); }
+function trPaintLink(){ $("trlink").value=trShowLink(); if(TR.qr) trDrawQr(); if(TR.later) trDrawLater(); }
 function trPaintWho(){
   var sel=$("trwho"), rows=plList();
   if(TR.who && !PL.rows[TR.who]){ TR.who=""; $("trwhonote").textContent=""; }
@@ -14747,6 +14762,18 @@ function needQr(cb){
   sc.onerror=function(){ var w=qrWaiters; qrWaiters=null; sc.remove(); w.forEach(function(f){ f(false); }); };
   document.head.appendChild(sc);
 }
+/* v15: 「나중에 보기」 QR 전용(qrcode-generator, 처음 쓸 때 한 번) */
+var qrGenWaiters=null;
+function needQrGen(cb){
+  if(typeof qrcode!=="undefined"){ cb(true); return; }
+  if(qrGenWaiters){ qrGenWaiters.push(cb); return; }
+  qrGenWaiters=[cb];
+  var sc=document.createElement("script");
+  sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
+  sc.onload=function(){ var w=qrGenWaiters; qrGenWaiters=null; w.forEach(function(f){ f(typeof qrcode!=="undefined"); }); };
+  sc.onerror=function(){ var w=qrGenWaiters; qrGenWaiters=null; sc.remove(); w.forEach(function(f){ f(false); }); };
+  document.head.appendChild(sc);
+}
 var qrLoading=false;
 function drawShare(){
   $("plink").value=participantLink();
@@ -14865,6 +14892,69 @@ $("trwho").addEventListener("change",function(){
 });
 $("trcopy").addEventListener("click",trCopy);
 $("trsend").addEventListener("click",trSend);
+/* v15: 문자로 보내기 — 내 폰 문자 앱이 받는 번호 · 글로 열림(번호는 어디에도 저장하지 않음) */
+function trSmsText(){
+  var n=trNameVal(), k=trK();
+  return (n ? n+" 님이 보내 드리는 " : "")+"「"+k.title+"」예요. 시간 날 때 5분만 열어 보세요. "+trLink();
+}
+$("trsms").addEventListener("click",function(){
+  var num=String($("trphone").value||"").replace(/[^0-9+]/g,"");
+  if(num.length<8){ trNote("받는 사람 휴대폰 번호를 넣어 주세요."); $("trphone").focus(); return; }
+  trMarkShared();
+  location.href="sms:"+num+"?&body="+encodeURIComponent(trSmsText());
+});
+/* v15: 「나중에 보기」 QR — 일정(VEVENT)을 담아, 상대가 카메라로 찍으면 캘린더에 알림이 저장됨 */
+TR.later=false; TR.when="today";
+function trWhenDate(w){
+  var d=new Date(), now=d.getTime();
+  if(w==="tomorrow"){ d.setDate(d.getDate()+1); d.setHours(21,0,0,0); }
+  else if(w==="weekend"){ var add=(6-d.getDay()+7)%7; if(add===0 && d.getHours()>=10) add=7; d.setDate(d.getDate()+add); d.setHours(10,0,0,0); }
+  else { d.setHours(21,0,0,0); if(d.getTime()<now) d.setDate(d.getDate()+1); }
+  return d;
+}
+function icsTime(d){ function p(x){ return (x<10?"0":"")+x; } return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+"T"+p(d.getHours())+p(d.getMinutes())+"00"; }
+function icsEsc(t){ return String(t).replace(/\\/g,"\\\\").replace(/([,;])/g,"\\$1").replace(/\n/g,"\\n"); }
+function trLaterText(){
+  var d=trWhenDate(TR.when), e=new Date(d.getTime()+10*60000), n=trNameVal(), k=trK(), url=trLink();
+  var memo=(n ? n+" 님이 보내 드린 " : "보내 드린 ")+"전도지예요. 눌러서 열어 보세요. "+url;
+  return "BEGIN:VEVENT\nSUMMARY:"+icsEsc(k.title+" (5분)")+"\nDTSTART:"+icsTime(d)+"\nDTEND:"+icsTime(e)+
+         "\nDESCRIPTION:"+icsEsc(memo)+"\nURL:"+url+"\nEND:VEVENT";
+}
+function trPaintWhen(){
+  var past=trWhenDate("today").getDate()!==new Date().getDate();
+  if(past && TR.when==="today") TR.when="tomorrow";
+  document.querySelectorAll("#trwhen button").forEach(function(b){
+    b.setAttribute("aria-pressed",String(b.dataset.when===TR.when));
+    if(b.dataset.when==="today") b.disabled=past;
+  });
+}
+function trDrawLater(){
+  trPaintWhen();
+  var box=$("trlaterqr"), note=$("trlaternote");
+  if(typeof qrcode==="undefined"){
+    note.textContent="QR을 만드는 중…";
+    needQrGen(function(ok){ if(!ok){ note.textContent="QR을 만들지 못했습니다 · 인터넷을 확인하거나 「문자로 보내기」를 써 주세요."; return; } if(TR.later) trDrawLater(); });
+    return;
+  }
+  /* 한글이 섞인 긴 글은 qrcodejs 가 크기를 잘못 골라 깨져서, 이 QR만 qrcode-generator(UTF-8)로 그림 */
+  qrcode.stringToBytes=qrcode.stringToBytesFuncs["UTF-8"];
+  var q=qrcode(0,"L"); q.addData(trLaterText(),"Byte"); q.make();
+  box.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});
+  var sv=box.querySelector("svg"); if(sv){ sv.setAttribute("width","220"); sv.setAttribute("height","220"); sv.setAttribute("role","img"); sv.setAttribute("aria-label","나중에 보기 QR"); }
+  var d=trWhenDate(TR.when);
+  note.textContent="상대방이 카메라로 찍으면 캘린더에 알림이 저장돼요 · "+(d.getMonth()+1)+"월 "+d.getDate()+"일 "+["일","월","화","수","목","금","토"][d.getDay()]+"요일 "+(d.getHours()<12?"오전 ":"저녁 ")+(d.getHours()%12||12)+"시";
+}
+$("trlaterbtn").addEventListener("click",function(){
+  TR.later=!TR.later;
+  $("trlaterwrap").hidden=!TR.later;
+  this.setAttribute("aria-pressed",String(TR.later));
+  this.textContent = TR.later ? "나중에 보기 QR 숨기기" : "나중에 보기 QR";
+  if(TR.later){ trDrawLater(); trMarkShared(); }
+});
+$("trwhen").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-when]"); if(!b || b.disabled) return;
+  TR.when=b.dataset.when; trDrawLater();
+});
 $("trqrbtn").addEventListener("click",function(){
   TR.qr=!TR.qr;
   $("trqrwrap").hidden=!TR.qr;
