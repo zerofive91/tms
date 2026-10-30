@@ -372,6 +372,9 @@ const T={
   c5x:{swipe:'위로 밀어 다리를 건너 보세요.'},
   c6x:{quiet:'이제 잠시, 하고 싶은 말을 하나님께 직접 드려 보세요.',quietWait:'천천히 기도하셔도 괜찮아요.',quietEnd:'다 드렸으면 화면을 눌러 주세요.',sent:'기도가 하나님께 전해졌어요'},  /* sent: v15 10/30 사용자 확인 */
   c7x:{next:'다음 걸음',app1:'구원의 확신 말씀 외우기',app2:'오늘 말씀 묵상하기',web:'말씀의 손에서 시작하기'},
+  /* v15 새 문구 (10/30 사용자 확인) */
+  c6y:{easy:'어렵지 않아요. 믿기만 하면 돼요.',pray:'기도하기'},
+  c7y:{cong:'축하해요! 이제 당신은 하나님의 자녀가 되었어요.',joy:'하나님께서 당신이 돌아온 것을 누구보다 기뻐하세요.'},
   view:{together:'조작 모드 · 화면을 눌러 넘기고 직접 해 봐요',alone:'재생 모드 · 영상처럼 저절로 넘어가요',chapters:'장 고르기'},
   verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요',
   /* v14 전도지 개편 새 문구 (10/29 사용자 확인) */
@@ -412,6 +415,7 @@ const V={
   re320:{ref:'요한계시록 3:20',text:'볼지어다. 내가 문밖에 서서 두드리노니, 누구든지 내 음성을 듣고 문을 열면 내가 그에게로 들어가 그로 더불어 먹고 그는 나로 더불어 먹으리라'},
   jn336:{ref:'요한복음 3:36',text:'아들을 믿는 자는 영생이 있고, 아들을 순종치 아니하는 자는 영생을 보지 못하고 도리어 하나님의 진노가 그 위에 머물러 있느니라'},
   ro245:{ref:'로마서 2:4-5',text:'혹 네가 하나님의 인자하심이 너를 인도하여 회개케 하심을 알지 못하여 그의 인자하심과 용납하심과 길이 참으심의 풍성함을 멸시하느뇨? 다만 네 고집과 회개치 아니한 마음을 따라 진노의 날 곧 하나님의 의로우신 판단이 나타나는 그날에 임할 진노를 네게 쌓는도다'},
+  zp317:{ref:'스바냐 3:17',text:'너의 하나님 여호와가 너의 가운데 계시니 그는 구원을 베푸실 전능자시라 그가 너로 인하여 기쁨을 이기지 못하여 하시며 너를 잠잠히 사랑하시며 너로 인하여 즐거이 부르며 기뻐하시리라 하리라'},
   jo51113:{ref:'요한일서 5:11-13',text:'또 증거는 이것이니 하나님이 우리에게 영생을 주신 것과 이 생명이 그의 아들 안에 있는 그것이니라. 아들이 있는 자에게는 생명이 있고 하나님의 아들이 없는 자에게는 생명이 없느니라. 내가 하나님의 아들의 이름을 믿는 너희에게 이것을 쓴 것은 너희로 하여금 너희에게 영생이 있음을 알게 하려 함이라'}
 };
 
@@ -553,6 +557,10 @@ function debris(x,y,cols){
   for(let i=0;i<10;i++)P.push({t:'dust',x:x+rand(-60,60),y:y+rand(-40,40),vx:rand(-.6,.6),vy:rand(-.6,.2),r:rand(18,34),life:0,max:rand(60,100)});
 }
 function puff(){for(let i=0;i<3;i++)P.push({t:'dust',x:EDGE.x+rand(-30,30),y:EDGE.y+rand(-10,10),vx:rand(-.8,.3),vy:rand(-.9,-.2),r:rand(8,14),life:0,max:50});}
+/* v15: 축하 꽃가루 — 화면 위 여러 곳에서 금빛 · 분홍 알갱이가 터짐 */
+function celebrate(){const cols=['#fff1b8','#ffd6e0','#ffe3a3','#ffffff','#b8f0d0'];
+  [[200,420],[560,360],[384,620],[150,820],[620,780]].forEach(([x,y],i)=>setTimeout(()=>{if(CH===7){burst(x,y,cols);snd.ping(i%3);}},i*380));
+  setTimeout(()=>{if(CH===7)sfx('🎉',50,30,'#ffe3a3');},300);}
 function burst(cx=CROSS.x,cy=CROSS.y,cols=['#ffd6e0','#fff1b8']){for(let i=0;i<(reduce?15:60);i++){const a=rand(0,Math.PI*2),v=rand(2,9);P.push({t:'star',x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,r:rand(4,10),life:0,max:rand(50,90),c:cols[i%cols.length],drag:.94});}}
 function spark(x,y,c){P.push({t:'star',x,y,vx:rand(-.3,.3),vy:rand(-1.4,-.5),r:rand(3,8),life:0,max:rand(70,130),c,drag:1});}
 function star(x,y,r){ctx.beginPath();ctx.moveTo(x,y-r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.quadraticCurveTo(x,y,x,y+r);ctx.quadraticCurveTo(x,y,x-r,y);ctx.quadraticCurveTo(x,y,x,y-r);ctx.fill();}
@@ -597,7 +605,7 @@ let capLast='';
 /* ===== v14: 나레이션 (타입캐스트 · 한영) =====
    voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
    파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
-const VOICE_VER='6';
+const VOICE_VER='8';
 let NARR=null,narrOn=true,narrUser=false,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
 fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
 const narrBlob={};
@@ -993,7 +1001,10 @@ async function ch6(c,sub){
     await c.w(700);snd.chime();await cap(T.c6.open,'');await c.hold(600);
     await verse(c,V.jn112);
   }
-  show('t6_3',1100,'in');await cap(T.c6.pray,'');
+  if(sub==='prayer'){
+    /* v15: 7장에서 돌아왔을 때는 같은 물음을 되풀이하지 않고, 쉬운 말 한 줄 + 「기도하기」 단추 */
+    show('t6_3',1100,'in');await cap(T.c6y.easy,'');await c.hold(1200);await c.until(openSheet([],[{k:'pray',label:'🙏 '+T.c6y.pray,cls:'main'}]));
+  }else{show('t6_3',1100,'in');await cap(T.c6.pray,'');}
   await c.hold(500);$('prayer').textContent=PRAYER;$('prayer').classList.add('show');snd.swell();
   await c.w(800);say($('prayer'),PRAYER);await c.tap();narrStop();$('prayer').classList.remove('show');
   await quietPrayer(c);
@@ -1006,9 +1017,12 @@ async function ch7(c){
   const key=await c.until(waitChoice('p7'));panel(null);
   if(key==='here'){show('t7_2',1000,'down');dark(.35);snd.low();await cap(T.c7.here,'');await c.hold(800);await verse(c,V.jn336,{more:[V.ro245]});}
   if(key==='think'){show('t7_3',1000,'up');snd.swell();await cap(T.c7.think,'');await c.hold(800);await verse(c,V.jn336);}
-  if(key==='there'){show('t7_4',1000,'in');snd.chime();vib([20,40,20]);await cap(T.c7.there,'');await c.hold(800);await verse(c,V.jo51113);}
-  const sh=openSheet([],[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]);
-  if(key==='there')nextSteps();
+  if(key==='there'){show('t7_4',1000,'in');snd.chime();vib([20,40,20]);await cap(T.c7.there,'');await c.hold(800);await verse(c,V.jo51113);
+    /* v15: 하나님의 자녀가 된 것을 축하 — 금빛 번쩍임 · 꽃가루 · 말씀(스바냐 3:17) */
+    flash(true);snd.swell();vib([30,50,30,50,60]);celebrate();
+    await cap(T.c7y.cong,T.c7y.joy);await c.hold(1600);
+    await verse(c,V.zp317);}
+  const sh=openSheet([],key==='there'?[{k:'restart',label:BTN.restart,cls:'soft'}]:[{k:'restart',label:BTN.restart,cls:'soft'},{k:'prayer',label:BTN.prayer,cls:'main'}]);
   const r=await c.until(sh);
   if(r==='restart')start(0);else start(6,'prayer');
 }
