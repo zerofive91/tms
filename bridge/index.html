@@ -91,6 +91,7 @@ button{font:inherit;color:inherit}
 .topui{position:absolute;left:0;right:0;top:0;z-index:20;padding:12px 16px 56px;background:linear-gradient(to bottom,rgba(22,24,48,.8),rgba(22,24,48,.42) 62%,transparent);pointer-events:none;transition:opacity .4s}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .step{font-size:13px;font-weight:700;opacity:.88;border:0;background:none;color:inherit;padding:6px 0;text-align:left;cursor:pointer;pointer-events:auto;min-width:0}
+.step{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;line-height:1.3;padding:0;margin:6px 0}  /* v15: 단추가 많고 글이 길면(영어 · 큰 글씨) 두 줄까지 — 그래도 넘치면 「3 / 7」(setStep), 전체 이름은 장 고르기 창에 */
 .step:not(:empty)::after{content:' ▾';opacity:.7}
 .tools{display:flex;gap:8px;pointer-events:auto}
 .icon-btn{width:38px;height:38px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;font-size:16px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
@@ -264,6 +265,17 @@ button{font:inherit;color:inherit}
 
 /* 암송 Festival 에서 덧붙인 것 — 보낸 사람 이름 한 줄 · 앱 안에서 닫기 */
 .cover-title .from{display:block;margin-top:16px;font-size:16px;font-weight:700;opacity:.95;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.langs{position:absolute;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:19;display:none;text-align:center}
+.app.cover .langs{display:block;animation:rise 1s .6s both}
+.lbtns,.langrow{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.lbtns button{border:1.5px solid rgba(255,255,255,.5);background:rgba(20,22,44,.5);color:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700;cursor:pointer}
+.lbtns button.on{background:#fff;color:#23263f;border-color:#fff}
+.langs .credit{margin-top:8px;font-size:10px;line-height:1.35;opacity:.75;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.langrow{justify-content:flex-start;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.langrow button{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
+.langrow button.on{border-color:var(--pink)}
+.chbox .credit{margin-top:8px;font-size:11px;line-height:1.4;opacity:.7}
+.credit[hidden]{display:none}
 .cover-title .from[hidden],.icon-btn[hidden]{display:none}
 /* v14 나레이션: 읽는 자리를 따라 글자가 밝아짐 */
 .nr span{opacity:.5;transition:opacity .12s}.nr span.on{opacity:1}
@@ -312,6 +324,7 @@ button{font:inherit;color:inherit}
   </div>
 
   <div class="cover-title"><b id="coverTitle"></b><span class="from" id="coverFrom" hidden></span></div>
+  <div class="langs" id="langs" role="group"><div class="lbtns" id="langBtns"></div><p class="credit" id="coverCredit" hidden></p></div>
 
   <div class="gauge" id="gauge" aria-hidden="true">
     <span class="ic" id="gL"></span>
@@ -326,7 +339,7 @@ button{font:inherit;color:inherit}
   <div class="swipe" id="swipe" aria-hidden="true"><span class="rail"></span><span class="fill" id="swipeFill"></span><span class="hand">👆</span></div>
   <div class="quiet" id="quiet" aria-live="polite"><div class="breath"></div><p id="quietTxt"></p><div class="mail" aria-hidden="true"><span class="trail" id="quietBar"></span><span class="env" id="quietEnv">✉️</span><span class="sky">✨</span></div><small id="quietEnd"></small></div>
   <div class="toast" id="toast" role="status"></div>
-  <div class="chlist" id="chlist" role="dialog" aria-modal="true" aria-labelledby="chHd"><div class="chbox"><div class="hd"><span id="chHd"></span><button type="button" id="chClose" aria-label="닫기">✕</button></div><ol id="chOl"></ol></div></div>
+  <div class="chlist" id="chlist" role="dialog" aria-modal="true" aria-labelledby="chHd"><div class="chbox"><div class="hd"><span id="chHd"></span><button type="button" id="chClose" aria-label="닫기">✕</button></div><ol id="chOl"></ol><div class="langrow" id="langRow" role="group"></div><p class="credit" id="chCredit" hidden></p></div></div>
 
   <div class="botui hide" id="botui">
     <div class="panel" id="p1"><div class="grid g4" id="p1g"></div></div>
@@ -355,7 +368,7 @@ const $=id=>document.getElementById(id);
 /* =====================================================
    화면 문구 (확정본) — 문구를 고칠 때는 여기만 바꾸세요
    ===================================================== */
-const TITLE='하나님께 가는 다리';
+let TITLE='하나님께 가는 다리';
 const STEPS=['','1. 하나님의 선물인 영생','2. 당신의 상태','3. 인간의 힘으로 구원받지 못함','4. 하나님께서 당신을 위해 해주신 일','5. 어떻게 당신이 영생을 얻을 수 있는가?','6. 믿음이란?','7. 당신은 선택해야 합니다'];
 const T={
   c1:{title:'당신에게 가장 소중한 것은 무엇인가요?',sub:'카드를 눌러 행복을 채워 보세요.',empty:'모든 것을 가져도 여전히 공허해요. 왜 그럴까요?',
@@ -397,7 +410,7 @@ const C4=[{k:'d1',label:'당신의 죄를 위해 죽으심'},{k:'d2',label:'장�
 const C5=[{k:'hear',label:'듣고'},{k:'believe',label:'믿음'}];
 const PROMISES=['영생을 얻었고(현재)','심판에 이르지 아니하나니(미래)','사망에서 생명으로 옮겼느니라(과거)'];
 const C7=[{k:'here',label:'아직 이편이에요'},{k:'think',label:'고민 중이에요'},{k:'there',label:'건너갔어요'}];
-const PRAYER='하나님, 저는 죄인임을 시인합니다. 그리고 예수님께서 저를 사랑하셔서 저의 죄를 대신 지고 십자가에 못 박혀 죽으시고 부활하신 사실을 믿고 감사드립니다. 이제 예수님을 저의 구주로 믿고 제 마음에 모셔 들입니다. 제 마음에 들어오셔서 제 삶을 인도해 주옵소서. 예수님의 이름으로 기도합니다. 아멘.';
+let PRAYER='하나님, 저는 죄인임을 시인합니다. 그리고 예수님께서 저를 사랑하셔서 저의 죄를 대신 지고 십자가에 못 박혀 죽으시고 부활하신 사실을 믿고 감사드립니다. 이제 예수님을 저의 구주로 믿고 제 마음에 모셔 들입니다. 제 마음에 들어오셔서 제 삶을 인도해 주옵소서. 예수님의 이름으로 기도합니다. 아멘.';
 
 /* 말씀 (전도지 본문 그대로, 개역한글) */
 const V={
@@ -419,7 +432,83 @@ const V={
   jo51113:{ref:'요한일서 5:11-13',text:'또 증거는 이것이니 하나님이 우리에게 영생을 주신 것과 이 생명이 그의 아들 안에 있는 그것이니라. 아들이 있는 자에게는 생명이 있고 하나님의 아들이 없는 자에게는 생명이 없느니라. 내가 하나님의 아들의 이름을 믿는 너희에게 이것을 쓴 것은 너희로 하여금 너희에게 영생이 있음을 알게 하려 함이라'}
 };
 
+/* v15 4단계: 다른 나라 말 — 주소에 ?lang=en 이면 위 한국어 문구를 아래 묶음으로 덮어씀(없는 칸은 한국어 그대로).
+   U = 단추 이름 같은 작은 글, U.credit = 그 말 성경의 출처 한 줄(표지 · 장 고르기 아래).
+   말씀: 영어 NIV(500절까지 출처만 적으면 됨) — 5단계에서 중국어 和合本 · 베트남어 Biblica 당대역 · 일본어 新改訳2017 */
+const U={narrOff:'나레이션 끄기',narrOn:'나레이션 켜기',narrOnT:'나레이션을 켰어요',narrOffT:'나레이션을 껐어요',sndOff:'소리 끄기',sndOn:'소리 켜기',
+  from:'{n} 님이 보내 드려요',flip:'말씀 카드 {n} 뒤집기',mode:'보기 방식',reset:'이 장 다시 보기',close:'닫기',knob:'문손잡이',lang:'언어',credit:''};
+const LANG_NAMES={ko:'한국어',en:'English'};
+const PACK={
+  en:{
+    TITLE:'The Bridge to God',
+    STEPS:['','1. God’s gift: eternal life','2. Your condition','3. Human effort cannot save','4. What God has done for you','5. How can you have eternal life?','6. What is faith?','7. You must choose'],
+    T:{
+      c1:{title:'What matters most to you?',sub:'Tap the cards to fill up your happiness.',empty:'Even with everything, you still feel empty. Why is that?',
+          fellow:'God created people to have a close relationship with Him.',crack:'But because we sinned, sin came in and cut us off from God.',gap:'Now there is a deep gap between people and God.'},
+      c2:{title:'God shows us our condition like this.',sub:'Tap the three cards in order.',end:'This is the condition of people separated from God.'},
+      c3:{title:'Can I reach God on my own?',sub:'Drag a card into the gap between the cliffs. You can also just tap it.',building:'Building a bridge...',tryOther:'Try another card too.',
+          endTitle:'Human effort can never cross this gap.',endSub:'So is there no way at all?'},
+      c4:{title:'Here is God’s answer for you.',bridge:'Jesus Christ became the bridge to God.',sub:'Tap each thing Jesus did.',end:'Now the way to God is open.'},
+      c5:{title:'The bridge is built, and God has made a promise.',sub:'Tap ‘Hear’ and then ‘Believe’ to cross the bridge.',promise:'God made this promise to everyone who believes.'},
+      c6:{title:'So what does it mean to believe?',sub:'Do you hear knocking? Pull the handle to open the door.',open:'Right now you can open the door of your heart and welcome Jesus Christ in.',pray:'Shall we pray together from the heart?'},
+      c7:{title:'Which side are you on right now?',here:'Only you can decide where you will spend eternity.',think:'The bridge is already there. All it takes is one step.',there:'Have you welcomed Jesus into your heart? If so, where is He right now?'},
+      c4x:{hold:'Press and hold the screen.'},
+      c5x:{swipe:'Swipe up to cross the bridge.'},
+      c6x:{quiet:'Now take a moment to tell God what is on your heart.',quietWait:'Take your time as you pray.',quietEnd:'When you are done, tap the screen.',sent:'Your prayer has reached God'},
+      c7x:{next:'Next steps',app1:'Memorize verses on the assurance of salvation',app2:'Reflect on today’s verse',web:'Start with Word in Hand'},
+      c6y:{easy:'It’s not hard. All you need to do is believe.',pray:'Pray'},
+      c7y:{cong:'Congratulations! You are now a child of God.',joy:'God rejoices more than anyone that you have come back to Him.'},
+      view:{together:'Interactive mode · Tap to move on and try things yourself',alone:'Play mode · Moves on by itself like a video',chapters:'Chapters'},
+      verseFront:'See it in the Bible',verseHint:'Tap the card to flip it',swipe:'Swipe sideways',
+      more:'More verses',close:'Close'
+    },
+    SFX:{collapse:'Crash!',impact:'Boom!',glow:'Whoosh!',sparkle:'Sparkle'},
+    BTN:{next:'Next step',again:'Try again',restart:'Start over',prayer:'See the prayer again'},
+    C1:[{nm:'Money'},{nm:'Fame'},{nm:'Learning'},{nm:'Pleasure'}],
+    C2:[
+      {label:'1. Sinner',head:'1. You are a sinner',text:'For all have sinned and fall short of the glory of God.',ref:'Romans 3:23'},
+      {label:'2. Judgment',head:'2. You will face judgment',text:'Just as people are destined to die once, and after that to face judgment.',ref:'Hebrews 9:27'},
+      {label:'3. Death',head:'3. The penalty is death, which is hell',text:'But the cowardly, the unbelieving, the vile, the murderers, the sexually immoral, those who practice magic arts, the idolaters and all liars—they will be consigned to the fiery lake of burning sulfur. This is the second death.',ref:'Revelation 21:8'}],
+    C3:{
+      good:{name:'Good deeds',q:'If I do lots of good deeds, can I reach God?',fail:'Good deeds are precious, but they cannot fill the gap of sin.'},
+      religion:{name:'Religion',q:'If I work hard at religion, can I reach God?',fail:'Religion cannot fill the gap of sin either.'},
+      moral:{name:'Moral effort',q:'If I try hard to live right, can I reach God?',fail:'This got the closest, but it still falls short.'},
+      edu:{name:'Education',q:'If I learn a lot and think deeply, can I reach God?',fail:'Human wisdom cannot come to know God.'}},
+    C4:[{label:'Died for your sins'},{label:'Was buried'},{label:'Rose on the third day'}],
+    C5:[{label:'Hear'},{label:'Believe'}],
+    PROMISES:['has eternal life (present)','will not be judged (future)','has crossed over from death to life (past)'],
+    C7:[{label:'Still on this side'},{label:'Still thinking'},{label:'I crossed over'}],
+    PRAYER:'God, I admit that I am a sinner. I believe and thank You that Jesus loved me, took my sins upon Himself, died on the cross, and rose again. Now I trust Jesus as my Savior and welcome Him into my heart. Please come into my heart and lead my life. In Jesus’ name I pray. Amen.',
+    V:{
+      mk836:{ref:'Mark 8:36',text:'What good is it for someone to gain the whole world, yet forfeit their soul?'},
+      is646:{ref:'Isaiah 64:6',text:'All our righteous acts are like filthy rags.'},
+      ep289:{ref:'Ephesians 2:8-9',text:'For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God—not by works, so that no one can boast.'},
+      je179:{ref:'Jeremiah 17:9',text:'The heart is deceitful above all things and beyond cure.'},
+      co121:{ref:'1 Corinthians 1:21',text:'The world through its wisdom did not know him.'},
+      pr1412:{ref:'Proverbs 14:12',text:'There is a way that appears to be right, but in the end it leads to death.'},
+      ro58:{ref:'Romans 5:8',text:'But God demonstrates his own love for us in this: While we were still sinners, Christ died for us.'},
+      co1534:{ref:'1 Corinthians 15:3-4',text:'For what I received I passed on to you as of first importance: that Christ died for our sins according to the Scriptures, that he was buried, that he was raised on the third day according to the Scriptures.'},
+      jn146:{ref:'John 14:6',text:'I am the way and the truth and the life. No one comes to the Father except through me.'},
+      jn524:{ref:'John 5:24',text:'Very truly I tell you, whoever hears my word and believes him who sent me has eternal life and will not be judged but has crossed over from death to life.'},
+      jn112:{ref:'John 1:12',text:'Yet to all who did receive him, to those who believed in his name, he gave the right to become children of God.'},
+      re320:{ref:'Revelation 3:20',text:'Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in and eat with that person, and they with me.'},
+      jn336:{ref:'John 3:36',text:'Whoever believes in the Son has eternal life, but whoever rejects the Son will not see life, for God’s wrath remains on them.'},
+      ro245:{ref:'Romans 2:4-5',text:'Or do you show contempt for the riches of his kindness, forbearance and patience, not realizing that God’s kindness is intended to lead you to repentance? But because of your stubbornness and your unrepentant heart, you are storing up wrath against yourself for the day of God’s wrath, when his righteous judgment will be revealed.'},
+      zp317:{ref:'Zephaniah 3:17',text:'The LORD your God is with you, the Mighty Warrior who saves. He will take great delight in you; in his love he will no longer rebuke you, but will rejoice over you with singing.'},
+      jo51113:{ref:'1 John 5:11-13',text:'And this is the testimony: God has given us eternal life, and this life is in his Son. Whoever has the Son has life; whoever does not have the Son of God does not have life. I write these things to you who believe in the name of the Son of God so that you may know that you have eternal life.'}},
+    U:{narrOff:'Turn narration off',narrOn:'Turn narration on',narrOnT:'Narration on',narrOffT:'Narration off',sndOff:'Turn sound off',sndOn:'Turn sound on',
+       from:'Sent to you by {n}',flip:'Flip verse card {n}',mode:'View mode',reset:'Replay this chapter',close:'Close',knob:'Door handle',lang:'Language',
+       credit:'Scripture quotations taken from The Holy Bible, New International Version® NIV®. Copyright © 1973, 1978, 1984, 2011 by Biblica, Inc.™ Used by permission. All rights reserved worldwide.'}
+  }
+};
+
 /* ===== 기본 도구 ===== */
+const LANG=(()=>{const q=new URLSearchParams(location.search).get('lang');return PACK[q]?q:'ko';})();
+function over(a,b){for(const k in b){const v=b[k];if(v&&typeof v==='object'&&a[k]&&typeof a[k]==='object')over(a[k],v);else a[k]=v;}}
+if(LANG!=='ko'){const P=PACK[LANG];[[T,P.T],[SFX,P.SFX],[BTN,P.BTN],[C1,P.C1],[C2,P.C2],[C3,P.C3],[C4,P.C4],[C5,P.C5],[C7,P.C7],[V,P.V],[U,P.U]].forEach(([a,b])=>b&&over(a,b));
+  STEPS.splice(0,STEPS.length,...P.STEPS);PROMISES.splice(0,PROMISES.length,...P.PROMISES);TITLE=P.TITLE;PRAYER=P.PRAYER;
+  document.documentElement.lang=LANG;document.title=TITLE;}
+const fmt=(s,n)=>s.replace('{n}',n);
 const IW=768,IH=1376,FX=.5,FY=.5;
 /* v14 새 그림(장면표 번호 t장_번). door=빛나는 문 자리(그림 좌표, 빛 알갱이가 나옴), gap=「죄」 글자 자리, fx=알갱이 모양,
    mov=움직이는 장면(mov/이름.mp4, 그림 위에 겹쳐 되풀이 재생, 'once'=한 번만 재생하고 마지막 모습에 멈춤), ray=빛줄기가 나오는 자리, stars=반짝이는 별 */
@@ -605,9 +694,9 @@ let capLast='';
 /* ===== v14: 나레이션 (타입캐스트 · 한영) =====
    voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
    파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
-const VOICE_VER='8';
+const VOICE_VER='10';
 let NARR=null,narrOn=true,narrUser=false,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
-fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
+fetch('voice/'+(LANG==='ko'?'index':LANG)+'.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
 const narrBlob={};
 function narrUrl(f){return narrBlob[f]||(narrBlob[f]=fetch('voice/'+f).then(r=>{if(!r.ok)throw 0;return r.blob();}).then(b=>URL.createObjectURL(b)).catch(()=>{delete narrBlob[f];return null;}));}
 function narrHas(text){return !!(NARR&&text&&NARR[text]&&soundOn&&narrOn);}
@@ -634,8 +723,8 @@ function sayAll(list){
   return narrP=(async()=>{let any=false;for(const [el,t] of items){if(tok!==narrTok)break;any=(await say1(el,t,tok))||any;}return any;})();
 }
 function say(el,text){narrStop();return sayAll([[el,text]]);}
-function paintNarr(){const b=$('narrBtn');b.classList.toggle('off',!narrOn);b.setAttribute('aria-label',narrOn?'나레이션 끄기':'나레이션 켜기');b.title=b.getAttribute('aria-label');}
-$('narrBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();narrOn=!narrOn;narrUser=true;paintNarr();if(!narrOn)narrStop();toast(narrOn?'나레이션을 켰어요':'나레이션을 껐어요');restartAuto();});
+function paintNarr(){const b=$('narrBtn');b.classList.toggle('off',!narrOn);b.setAttribute('aria-label',narrOn?U.narrOff:U.narrOn);b.title=b.getAttribute('aria-label');}
+$('narrBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();narrOn=!narrOn;narrUser=true;paintNarr();if(!narrOn)narrStop();toast(narrOn?U.narrOnT:U.narrOffT);restartAuto();});
 const gauge=$('gauge'),gFill=$('gFill'),gPct=$('gPct');
 function gaugeSet(v){gFill.style.width=v+'%';gPct.textContent=Math.round(v)+'%';}
 function gaugeInit(l,r,color){$('gL').textContent=l;$('gR').textContent=r;gFill.style.background=color;gauge.classList.remove('broke','wobble','leak');gaugeSet(0);}
@@ -741,7 +830,7 @@ function openSheet(list,buttons){
   const n=list.length;vs.style.display=n?'flex':'none';vd.style.display=n>1?'flex':'none';
   const grads=['linear-gradient(140deg,#8a9cf0,#6a64c9)','linear-gradient(140deg,#c6a0e8,#9670c8)','linear-gradient(140deg,#ffb1a8,#ff7f8f 55%,#e8607a)','linear-gradient(140deg,#7cc6c0,#4f93a8)','linear-gradient(140deg,#f3c47a,#e0914a)'];
   list.forEach((v,i)=>{
-    const f=h('button','flip');f.setAttribute('aria-label',`말씀 카드 ${i+1} 뒤집기`);
+    const f=h('button','flip');f.setAttribute('aria-label',fmt(U.flip,i+1));
     f.innerHTML=`<div class="flip-inner"><div class="face front" style="background:${grads[i%grads.length]}"><b>${T.verseFront}</b><span>${T.verseHint}</span>${n>1?`<small>${i+1} / ${n}${i===0?' · '+T.swipe:''}</small>`:''}</div><div class="face back"><div class="txt">${v.text}</div><div class="ref">${v.ref}</div></div></div>`;
     f.addEventListener('click',()=>{ensureAudio();f.classList.toggle('flipped');const up=f.classList.contains('flipped');snd.flip(up);vib(10);
       if(up)say(f.querySelector('.txt'),v.text);else narrStop();});
@@ -884,13 +973,13 @@ const prog=$('prog');
 for(let i=1;i<=7;i++){const b=h('button');b.type='button';b.setAttribute('aria-label',STEPS[i]);b.addEventListener('click',e=>{e.stopPropagation();start(i);});prog.appendChild(b);}
 prog.appendChild(h('span','walker','🚶'));
 /* 다리 길 진행 표시: 사람이 1장(이편)에서 7장(건너편)으로 걸어감 */
-function setStep(n){$('stepLabel').textContent=STEPS[n]||'';prog.querySelectorAll('button').forEach((b,i)=>{b.classList.toggle('cur',i+1===n);b.classList.toggle('done',i+1<n);});
+function setStep(n){const sl=$('stepLabel');sl.textContent=STEPS[n]||'';if(n&&sl.scrollHeight>sl.clientHeight+2)sl.textContent=n+' / 7';sl.setAttribute('aria-label',STEPS[n]||'');prog.querySelectorAll('button').forEach((b,i)=>{b.classList.toggle('cur',i+1===n);b.classList.toggle('done',i+1<n);});
   prog.style.setProperty('--pf',Math.max(0,n-1)/6);app.classList.toggle('cover',n===0);}
 function start(ch,sub){RUN++;const my=RUN;CH=ch;resetUI();setStep(ch);if(bgmReady)bgmTo(bgmFor(Math.max(1,ch)));CHAPTERS[ch](ctl(my),sub).catch(e=>{if(e!==CANCEL)console.error(e);});}
 
 /* ===== 표지 ===== */
 async function ch0(c){
-  const ct=$('coverTitle');ct.textContent='';[...TITLE].forEach((ch,i)=>{const e=h('span');e.textContent=ch;e.style.animationDelay=(300+i*110)+'ms';ct.appendChild(e);});ct.setAttribute('aria-label',TITLE);
+  const ct=$('coverTitle');ct.textContent='';const bits=LANG==='en'?TITLE.split(/( )/):[...TITLE];bits.forEach((ch,i)=>{if(ch===' '&&LANG==='en')return ct.append(' ');const e=h('span');e.textContent=ch;e.style.animationDelay=(300+i*(LANG==='en'?160:110))+'ms';ct.appendChild(e);});ct.setAttribute('aria-label',TITLE);
   show('t0_1',500);cap('','');
   await c.tap();start(1);
 }
@@ -1030,14 +1119,22 @@ async function ch7(c){
 const CHAPTERS=[ch0,ch1,ch2,ch3,ch4,ch5,ch6,ch7];
 
 $('resetBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();start(CH);});
-$('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soundOn=!soundOn;if(!soundOn)narrStop();$('muteBtn').textContent=soundOn?'🔊':'🔇';$('muteBtn').setAttribute('aria-label',soundOn?'소리 끄기':'소리 켜기');});
+$('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soundOn=!soundOn;if(!soundOn)narrStop();$('muteBtn').textContent=soundOn?'🔊':'🔇';$('muteBtn').setAttribute('aria-label',soundOn?U.sndOff:U.sndOn);});
 
 /* ===== 암송 Festival 에서 덧붙인 것 =====
    ?from=이름 : 링크를 보낸 사람 — 표지에 「○○ 님이 보내 드려요」
    ?in=app    : 암송 Festival 앱 안에서 열었을 때 — 오른쪽 위 ✕ 로 닫고 앱으로 돌아갑니다 */
 const QS=new URLSearchParams(location.search);
 const FROM=(QS.get('from')||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,20);
-if(FROM){$('coverFrom').textContent=FROM+' 님이 보내 드려요';$('coverFrom').hidden=false;}
+if(FROM){$('coverFrom').textContent=fmt(U.from,FROM);$('coverFrom').hidden=false;}
+/* v15 4단계: 작은 글 · 언어 고르기(표지 아래 · 장 고르기 창 아래). 고르면 같은 주소에 lang 만 바꿔 다시 엶 */
+[['modeBtn',U.mode],['muteBtn',U.sndOff],['resetBtn',U.reset],['closeBtn',U.close],['chClose',U.close],['knob',U.knob]].forEach(([id,t])=>{$(id).setAttribute('aria-label',t);});
+$('langs').setAttribute('aria-label',U.lang);$('langRow').setAttribute('aria-label',U.lang);
+function langUrl(k){const q=new URLSearchParams(location.search);if(k==='ko')q.delete('lang');else q.set('lang',k);const s=q.toString();return location.pathname+(s?'?'+s:'');}
+function paintLangs(box){for(const k of Object.keys(LANG_NAMES)){const b=h('button',k===LANG?'on':'',LANG_NAMES[k]);b.type='button';b.lang=k;if(k===LANG)b.setAttribute('aria-current','true');
+  b.addEventListener('click',e=>{e.stopPropagation();if(k!==LANG)location.replace(langUrl(k));});box.appendChild(b);}}
+paintLangs($('langBtns'));paintLangs($('langRow'));
+for(const id of ['coverCredit','chCredit']){$(id).textContent=U.credit;$(id).hidden=!U.credit;}
 const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';narrOn=true;paintView();  /* v15: 나레이션은 두 모드 모두 켜고 시작(🗣️ 로 끔) */
 if(IN_APP){
   const cb=$('closeBtn');cb.hidden=false;
