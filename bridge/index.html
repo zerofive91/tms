@@ -133,14 +133,22 @@ button{font:inherit;color:inherit}
 .swipe .hand{position:absolute;left:50%;bottom:0;font-size:40px;transform:translateX(-50%);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));animation:swipeUp 1.6s ease-in-out infinite}
 @keyframes swipeUp{0%{bottom:0;opacity:0}15%{opacity:1}80%{bottom:96px;opacity:1}100%{bottom:110px;opacity:0}}
 .swipe.on .hand{animation:none;opacity:1}
+.swipe .fill{position:absolute;left:50%;bottom:0;width:10px;margin-left:-5px;height:0;border-radius:5px;background:linear-gradient(to top,#fff1b8,#ffd6e0);box-shadow:0 0 14px rgba(255,236,170,.9)}
 .quiet{position:absolute;left:16px;right:16px;top:24%;z-index:16;background:rgba(20,22,44,.78);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:22px;padding:22px 20px 18px;text-align:center;display:none;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .quiet.show{display:block;animation:rise .8s both}
 .quiet p{font-size:16px;line-height:1.7;font-weight:600}
 .quiet small{display:block;margin-top:12px;font-size:13px;opacity:.8;min-height:1.4em}
 .quiet .breath{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle,rgba(255,241,184,.9),rgba(255,214,224,.35) 55%,transparent 70%);animation:breath 6s ease-in-out infinite}
 @keyframes breath{50%{transform:scale(1.35);opacity:.65}}
-.quiet .bar{height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:14px;overflow:hidden}
-.quiet .bar i{display:block;height:100%;width:0;background:#fff1b8}
+.quiet .mail{position:relative;height:46px;margin-top:12px}
+.quiet .mail::before{content:"";position:absolute;left:14px;right:22px;top:50%;border-top:2px dashed rgba(255,255,255,.28)}
+.quiet .trail{position:absolute;left:14px;top:50%;height:2px;margin-top:-1px;width:0;max-width:calc(100% - 36px);background:linear-gradient(to right,rgba(255,241,184,0),#fff1b8);box-shadow:0 0 8px #fff1b8}
+.quiet .env{position:absolute;top:50%;left:0;font-size:24px;transform:translate(0,-50%) rotate(-8deg);transition:left .25s linear;filter:drop-shadow(0 0 6px rgba(255,241,184,.7))}
+.quiet .env.fly{transition:left .9s cubic-bezier(.5,0,.3,1),transform .9s,opacity .9s .5s;transform:translate(0,-80%) scale(.4) rotate(10deg);opacity:0}
+.quiet .sky{position:absolute;right:0;top:50%;font-size:26px;transform:translateY(-50%);animation:pulse2 2.4s ease-in-out infinite}
+.quiet .sky.got{animation:got .9s ease-out}
+@keyframes pulse2{50%{transform:translateY(-50%) scale(1.25)}}
+@keyframes got{40%{transform:translateY(-50%) scale(2.1);filter:brightness(1.6)}}
 .nextsteps{display:grid;gap:8px}
 .nextsteps b{font-size:13px;opacity:.75;margin:2px 2px 0}
 .nextsteps a,.nextsteps button{display:block;text-align:center;text-decoration:none;border:2px solid var(--pink);background:var(--card);color:var(--ink);border-radius:16px;padding:13px 10px;font-weight:800;font-size:15px;cursor:pointer}
@@ -201,6 +209,12 @@ button{font:inherit;color:inherit}
 .card.drag{touch-action:none;cursor:grab}
 .card .sw{width:6px;height:22px;border-radius:3px}
 .opt{font-family:'Jua','Pretendard',sans-serif;font-size:17px;line-height:1.25;padding:14px 8px;min-height:54px}
+.ripple{position:absolute;z-index:30;pointer-events:none;border-radius:50%;border:3px solid rgba(255,236,170,.9);transform:translate(-50%,-50%) scale(.2);opacity:.95;animation:ripple 1.3s ease-out forwards}
+@keyframes ripple{to{transform:translate(-50%,-50%) scale(1.9);opacity:0}}
+.floatem{position:absolute;z-index:31;pointer-events:none;font-size:34px;transform:translate(-50%,-50%);animation:floatem 1.5s ease-out forwards;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45))}
+@keyframes floatem{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-70%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-260%) scale(1)}}
+.opt.lit{box-shadow:0 0 0 3px #ffe3a3,0 0 22px rgba(255,227,163,.85)}
+@media (prefers-reduced-motion: reduce){.ripple,.floatem{animation-duration:.01s}}
 .card.auto,.opt.auto{transform:scale(.95);box-shadow:0 0 0 3px #ffe3a3}
 .card.used,.opt.used{opacity:.42;filter:grayscale(1);pointer-events:none}
 .opt:disabled{opacity:.42;pointer-events:none}
@@ -309,8 +323,8 @@ button{font:inherit;color:inherit}
   <div class="prayer" id="prayer"></div>
   <div class="tap" id="tap" aria-hidden="true">👆</div>
   <div class="hold" id="hold" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" id="holdFg" cx="50" cy="50" r="42"/></svg><span class="hand">👆</span></div>
-  <div class="swipe" id="swipe" aria-hidden="true"><span class="rail"></span><span class="hand">👆</span></div>
-  <div class="quiet" id="quiet" aria-live="polite"><div class="breath"></div><p id="quietTxt"></p><div class="bar"><i id="quietBar"></i></div><small id="quietEnd"></small></div>
+  <div class="swipe" id="swipe" aria-hidden="true"><span class="rail"></span><span class="fill" id="swipeFill"></span><span class="hand">👆</span></div>
+  <div class="quiet" id="quiet" aria-live="polite"><div class="breath"></div><p id="quietTxt"></p><div class="mail" aria-hidden="true"><span class="trail" id="quietBar"></span><span class="env" id="quietEnv">✉️</span><span class="sky">✨</span></div><small id="quietEnd"></small></div>
   <div class="toast" id="toast" role="status"></div>
   <div class="chlist" id="chlist" role="dialog" aria-modal="true" aria-labelledby="chHd"><div class="chbox"><div class="hd"><span id="chHd"></span><button type="button" id="chClose" aria-label="닫기">✕</button></div><ol id="chOl"></ol></div></div>
 
@@ -345,7 +359,7 @@ const TITLE='하나님께 가는 다리';
 const STEPS=['','1. 하나님의 선물인 영생','2. 당신의 상태','3. 인간의 힘으로 구원받지 못함','4. 하나님께서 당신을 위해 해주신 일','5. 어떻게 당신이 영생을 얻을 수 있는가?','6. 믿음이란?','7. 당신은 선택해야 합니다'];
 const T={
   c1:{title:'당신에게 가장 소중한 것은 무엇인가요?',sub:'카드를 눌러 행복을 채워 보세요.',empty:'모든 것을 가져도 여전히 공허해요. 왜 그럴까요?',
-      fellow:'하나님은 본래 우리와 교제하시려고 사람을 지으셨어요.',crack:'죄가 들어와 하나님과의 사이가 끊어졌어요.',gap:'이제 사람과 하나님 사이에 깊은 간격이 생겼어요.'},
+      fellow:'하나님은 본래 우리와 교제하시려고 사람을 지으셨어요.',crack:'그런데 우리가 범죄함으로 죄가 들어와 하나님과의 사이가 끊어졌어요.',gap:'이제 사람과 하나님 사이에 깊은 간격이 생겼어요.'},
   c2:{title:'하나님은 우리의 상태를 이렇게 보여 주세요.',sub:'세 가지를 차례로 눌러 확인해 보세요.',end:'이것이 하나님과 떨어진 사람의 상태예요.'},
   c3:{title:'내 힘으로 하나님께 갈 수 있을까요?',sub:'카드를 절벽 사이로 끌어다 놓아 보세요. 눌러도 돼요.',building:'다리를 놓는 중이에요...',tryOther:'다른 카드도 시도해 보세요.',
       endTitle:'사람의 힘으로는 이 간격을 건널 수 없어요.',endSub:'그렇다면 방법이 없는 걸까요?'},
@@ -356,7 +370,7 @@ const T={
   /* v14 새 문구 (사용자 확인 전 초안) */
   c4x:{hold:'화면을 길게 눌러 보세요.'},
   c5x:{swipe:'위로 밀어 다리를 건너 보세요.'},
-  c6x:{quiet:'이제 잠시, 하고 싶은 말을 하나님께 직접 드려 보세요.',quietWait:'천천히 기도하셔도 괜찮아요.',quietEnd:'다 드렸으면 화면을 눌러 주세요.'},
+  c6x:{quiet:'이제 잠시, 하고 싶은 말을 하나님께 직접 드려 보세요.',quietWait:'천천히 기도하셔도 괜찮아요.',quietEnd:'다 드렸으면 화면을 눌러 주세요.',sent:'기도가 하나님께 전해졌어요'},  /* sent: v15 10/30 사용자 확인 */
   c7x:{next:'다음 걸음',app1:'구원의 확신 말씀 외우기',app2:'오늘 말씀 묵상하기',web:'말씀의 손에서 시작하기'},
   view:{together:'조작 모드 · 화면을 눌러 넘기고 직접 해 봐요',alone:'재생 모드 · 영상처럼 저절로 넘어가요',chapters:'장 고르기'},
   verseFront:'말씀으로 확인하기',verseHint:'카드를 눌러 뒤집어 보세요',swipe:'옆으로 넘겨 보세요',
@@ -583,7 +597,7 @@ let capLast='';
 /* ===== v14: 나레이션 (타입캐스트 · 한영) =====
    voice/index.json = { lines: { "화면 글": { f:"소리 파일", d:길이(1/100초), t:[글자마다 밝아지는 때(1/100초)] } } }
    파일이 없거나 못 받으면 조용히 건너뜀(글만 보임). 함께 보기에서는 끔이 기본(보여 주는 사람이 설명) */
-const VOICE_VER='5';
+const VOICE_VER='6';
 let NARR=null,narrOn=true,narrUser=false,narrA=null,narrRaf=0,narrTok=0,narrP=Promise.resolve(false);
 fetch('voice/index.json?v='+VOICE_VER).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.lines){NARR=j.lines;$('narrBtn').hidden=false;paintNarr();}}).catch(()=>{});
 const narrBlob={};
@@ -634,6 +648,12 @@ function armAuto(){clearTimeout(pendTimer);const my=++pendTok,p=pend;if(!p||VIEW
 function waitChoice(id){return new Promise(res=>{choiceWait={id,res};
   if(id!=='p7')autoWait(()=>{const b=btnsOf(id).find(b=>!b.disabled&&!b.classList.contains('used'));if(!b)return;b.classList.add('auto');setTimeout(()=>{b.classList.remove('auto');pick(id,b.dataset.key);},450);},1600);});}
 function pick(id,key){if(!choiceWait||choiceWait.id!==id)return;const r=choiceWait.res;choiceWait=null;autoClear();ensureAudio();r(key);}
+/* v15: 누른 단추에서 물결이 퍼지고 그림 글자(👂 등)가 떠오름 */
+function btnFx(id,key,em){const b=btnsOf(id).find(x=>x.dataset.key===key);if(!b)return;const a=app.getBoundingClientRect(),r=b.getBoundingClientRect();
+  const x=r.left-a.left+r.width/2,y=r.top-a.top+r.height/2;
+  [0,260,520].forEach(d=>setTimeout(()=>{const g=h('span','ripple');const w=Math.max(r.width,r.height);Object.assign(g.style,{left:x+'px',top:y+'px',width:w+'px',height:w+'px'});app.appendChild(g);setTimeout(()=>g.remove(),1400);},d));
+  if(em){const f=h('span','floatem');f.textContent=em;Object.assign(f.style,{left:x+'px',top:y+'px'});app.appendChild(f);setTimeout(()=>f.remove(),1600);}
+  b.classList.add('lit');setTimeout(()=>b.classList.remove('lit'),1400);}
 function mkBtn(parent,id,item,cls,inner){const b=h('button',cls,inner);b.dataset.key=item.k;b.addEventListener('click',()=>{if(!b.classList.contains('drag'))pick(id,item.k);});parent.appendChild(b);return b;}
 C1.forEach(c=>mkBtn($('p1g'),'p1',c,'card',`<span class="em">${c.em}</span><span class="nm">${c.nm}</span>`));
 C2.forEach(c=>mkBtn($('p2g'),'p2',c,'opt',c.label));
@@ -753,7 +773,6 @@ let VIEW='alone',toastT=null;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
 function paintView(){const b=$('modeBtn');b.textContent=VIEW==='together'?'👆':'▶️';b.setAttribute('aria-label',VIEW==='together'?T.view.together:T.view.alone);b.title=b.getAttribute('aria-label');}
 $('modeBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();VIEW=VIEW==='together'?'alone':'together';paintView();toast(VIEW==='together'?T.view.together:T.view.alone);
-  if(NARR&&!narrUser){narrOn=VIEW==='alone';paintNarr();if(!narrOn)narrStop();}  /* 나레이션을 직접 켜고 끈 뒤에는 그 선택을 따름 */
   if(tapWait)restartAuto();armAuto();});
 
 /* ===== v14: 장 고르기 (위 장 이름을 누르면) ===== */
@@ -791,15 +810,15 @@ let swipeWait=null;
 function waitSwipe(){
   const box=$('swipe');box.classList.add('show');
   return new Promise(res=>{
-    let sy=0,p=0,steps=0,drag=false,fin=false;
-    const set=v=>{p=Math.max(p,Math.min(1,v));zoom(1.05+p*.11,120);const n=Math.floor(p*6);while(steps<n){steps++;tone(steps%2?150:130,.09,'triangle',.07);noise(.05,.12,700,'lowpass');vib(6);}};
-    const done=()=>{if(fin)return;fin=true;autoClear();cleanup();box.classList.remove('show','on');swipeWait=null;res();};
+    let sx=0,sy=0,p=0,steps=0,drag=false,fin=false;
+    const set=v=>{p=Math.max(p,Math.min(1,v));zoom(1.05+p*.11,120);$('swipeFill').style.height=(p*100)+'%';box.querySelector('.hand').style.bottom=(p*110)+'px';const n=Math.floor(p*6);while(steps<n){steps++;tone(steps%2?150:130,.09,'triangle',.07);noise(.05,.12,700,'lowpass');vib(6);}};
+    const done=()=>{if(fin)return;fin=true;autoClear();cleanup();box.classList.remove('show','on');$('swipeFill').style.height='0';box.querySelector('.hand').style.bottom='';swipeWait=null;res();};
     const auto=()=>{box.classList.add('on');animate(1600,t=>{if(!fin)set(p+(1-p)*t);}).then(done);};
-    const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();sy=e.clientY;drag=false;box.classList.add('on');
+    const down=e=>{if(e.target.closest('button,.sheet,.chlist'))return;e.preventDefault();ensureAudio();sx=e.clientX;sy=e.clientY;drag=false;box.classList.add('on');set(p+.05);
       document.addEventListener('pointermove',move);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);};
-    const move=e=>{const d=sy-e.clientY;if(Math.abs(d)>8)drag=true;if(d>0)set(d/170);if(p>=1)done();};
+    const move=e=>{const dy=sy-e.clientY,dx=e.clientX-sx,d=Math.max(dy,Math.hypot(dx,dy)*.8);if(d>8)drag=true;set(d/150);if(p>=1)done();};  /* v15: 비스듬히 · 옆으로 끌어도 앞으로 */
     const up=()=>{document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);
-      if(fin)return;if(!drag||p>.35)auto();else box.classList.remove('on');};
+      if(fin)return;auto();};  /* v15: 손을 떼면 남은 길은 저절로 */
     const key=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();auto();}};
     const cleanup=()=>{app.removeEventListener('pointerdown',down);document.removeEventListener('keydown',key);document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);};
     swipeWait=done;autoWait(()=>{if(!fin)auto();},1200);app.addEventListener('pointerdown',down);document.addEventListener('keydown',key);
@@ -809,14 +828,22 @@ function waitSwipe(){
 /* ===== v14: 6장 조용한 기도 시간 — 숨 고르는 빛과 함께 40초, 끝나면 맑은 소리. 그 뒤 화면을 누름 ===== */
 const QUIET_MS=40000;
 async function quietPrayer(c){
-  const q=$('quiet'),bar=$('quietBar');$('quietTxt').textContent=T.c6x.quiet;$('quietEnd').textContent=T.c6x.quietWait;bar.style.width='0';q.classList.add('show');
-  let skip=false;const sk=()=>{skip=true;};
-  q.addEventListener('click',sk,{once:true});await c.until(say($('quietTxt'),T.c6x.quiet));
-  const t0=performance.now();
-  while(!skip&&performance.now()-t0<QUIET_MS){await c.w(250);bar.style.width=Math.min(100,(performance.now()-t0)/QUIET_MS*100)+'%';}
-  q.removeEventListener('click',sk);bar.style.width='100%';
-  if(!skip){[523,784].forEach((f,i)=>tone(f,1.6,'sine',.05,null,i*.25));vib(15);$('quietEnd').textContent=T.c6x.quietEnd;await c.tap();}
-  narrStop();q.classList.remove('show');
+  const q=$('quiet'),bar=$('quietBar'),env=$('quietEnv'),sky=q.querySelector('.sky');
+  $('quietTxt').textContent=T.c6x.quiet;$('quietEnd').textContent=T.c6x.quietWait;bar.style.width='0';env.classList.remove('fly');env.style.left='0';q.classList.add('show');
+  /* v15: 편지 배달 — 기도하는 동안 편지가 빛 쪽으로 날아감. 2초 뒤부터 화면 어디를 눌러도 하나님께 닿고 넘어감 */
+  const t0=performance.now();let skip=false;
+  const sk=e=>{if(performance.now()-t0<2000)return;if(e){e.stopPropagation();e.preventDefault();}skip=true;};
+  app.addEventListener('click',sk,true);
+  const pos=f=>{const w=q.querySelector('.mail').clientWidth-60;env.style.left=(f*w)+'px';bar.style.width=(f*w)+'px';};
+  say($('quietTxt'),T.c6x.quiet);
+  let ended=false;
+  while(!skip){await c.w(200);const f=Math.min(1,(performance.now()-t0)/QUIET_MS);pos(f*.9);
+    if(f>=1&&!ended){ended=true;[523,784].forEach((x,i)=>tone(x,1.6,'sine',.05,null,i*.25));vib(15);$('quietEnd').textContent=T.c6x.quietEnd;
+      autoWait(()=>{skip=true;},2500);}}
+  app.removeEventListener('click',sk,true);autoClear();narrStop();
+  pos(1);env.classList.add('fly');restart(sky,'got');snd.chime();vib([20,40,20]);
+  await c.w(500);$('quietEnd').textContent=T.c6x.sent;await c.w(1700);
+  q.classList.remove('show');
 }
 
 /* ===== v14: 7장 「다음 걸음」 — 건너갔다고 고른 분께. 앱 안이면 앱의 그 화면으로 ===== */
@@ -943,9 +970,9 @@ async function ch4(c){
 async function ch5(c){
   show('t5_1',1000,'in');await cap(T.c5.title,T.c5.sub);
   resetPanel('p5');panel('p5');
-  enableOnly('p5',0);let key=await c.until(waitChoice('p5'));markUsed('p5',key);
-  [523,659].forEach((f,i)=>tone(f,.8,'sine',.07,null,i*.12));vib(15);
-  await c.w(700);enableOnly('p5',1);key=await c.until(waitChoice('p5'));markUsed('p5',key);
+  enableOnly('p5',0);let key=await c.until(waitChoice('p5'));btnFx('p5',key,'👂');
+  [523,659,784].forEach((f,i)=>tone(f,.8,'sine',.07,null,i*.14));vib([15,60,15]);await c.w(1100);markUsed('p5',key);
+  await c.w(300);enableOnly('p5',1);key=await c.until(waitChoice('p5'));btnFx('p5',key,'💛');markUsed('p5',key);
   show('t5_2',700,'in');tone(392,1,'sine',.07);vib(20);await c.w(1300);
   panel(null);show('t5_3',900,'up');await cap(T.c5.title,T.c5x.swipe);await c.until(waitSwipe());
   sfx(SFX.sparkle,36,27,'#fff3b0');snd.chime();vib([20,40,20]);await c.w(900);
@@ -997,7 +1024,7 @@ $('muteBtn').addEventListener('click',e=>{e.stopPropagation();ensureAudio();soun
 const QS=new URLSearchParams(location.search);
 const FROM=(QS.get('from')||'').replace(/[\u0000-\u001f\u007f<>]/g,'').trim().slice(0,20);
 if(FROM){$('coverFrom').textContent=FROM+' 님이 보내 드려요';$('coverFrom').hidden=false;}
-const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';narrOn=VIEW==='alone';paintView();
+const IN_APP=QS.get('in')==='app';VIEW=IN_APP?'together':'alone';narrOn=true;paintView();  /* v15: 나레이션은 두 모드 모두 켜고 시작(🗣️ 로 끔) */
 if(IN_APP){
   const cb=$('closeBtn');cb.hidden=false;
   cb.addEventListener('click',e=>{
