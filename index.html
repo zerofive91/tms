@@ -268,7 +268,7 @@ ul.dtl>li:not(.open) .dtlbody{display:none}
 /* ── 입력 ── */
 label{display:block;font-size:calc(12.5px * var(--fz));font-weight:600;color:var(--ink-soft);margin:0 0 7px}
 label .opt{font-weight:400}
-input[type=text],input[type=number],input[type=datetime-local]{
+input[type=text],input[type=tel],input[type=number],input[type=datetime-local]{
   width:100%;padding:13px 14px;font:inherit;border:1.5px solid var(--line);
   border-radius:10px;background:var(--bg);color:var(--ink)}
 input[type=datetime-local]{-webkit-appearance:none;appearance:none;min-height:50px;
@@ -909,6 +909,7 @@ ul.partbars li.done .pc{color:var(--brand)}
 .linkrow{display:flex;gap:7px}
 .linkrow input{flex:1;min-width:0;font-size:calc(12.5px * var(--fz));padding:10px 11px;color:var(--ink-soft)}
 .linkrow input.codein{font-size:calc(18px * var(--fz));color:var(--ink);padding:12px 13px}
+#trphone{color:var(--ink);font-size:calc(14.5px * var(--fz))}
 .linkrow button{flex:0 0 auto;padding:0 15px;border:1.5px solid var(--brand);background:var(--surface);
   border-radius:9px;font:inherit;font-size:calc(13px * var(--fz));font-weight:700;color:var(--brand);cursor:pointer}
 .qrwrap{display:flex;flex-direction:column;align-items:center;gap:9px;margin:16px 0 4px}
@@ -1319,7 +1320,7 @@ label .lsub{display:block;margin-top:2px;font-weight:400;line-height:1.45}
 .trqr{display:flex;flex-direction:column;align-items:center;gap:9px;margin:16px 0 2px}
 .trqr[hidden]{display:none}
 .trqr .qrbox{line-height:0;padding:12px;background:#fff;border:1px solid var(--line);border-radius:12px}
-.trqr .qrbox img,.trqr .qrbox canvas{display:block}
+.trqr .qrbox img,.trqr .qrbox canvas,.trqr .qrbox svg{display:block}
 .tview{position:fixed;inset:0;z-index:60;background:#23263f}
 .tview iframe{display:block;width:100%;height:100%;border:0}
 body.tviewing{overflow:hidden}
@@ -3290,6 +3291,11 @@ section[id^="st-"]{scroll-margin-top:8px}
         <label for="trname">보내는 사람 이름<span class="lsub">표지에 「○○ 님이 보내 드려요」로 나옵니다 · 비워 두면 이름 없이</span></label>
         <input type="text" id="trname" maxlength="20" autocomplete="off" placeholder="예: 홍길동">
       </div>
+      <!-- v15 4단계: 학생용 전도지는 받는 사람 말로 보낼 수 있음(링크에 ?lang=) -->
+      <div class="field" id="trlangfield">
+        <label>전도지 언어<span class="lsub">받는 사람이 읽을 말 · 표지에서도 바꿀 수 있어요</span></label>
+        <div class="themepick" id="trlang" role="group" aria-label="전도지 언어"></div>
+      </div>
       <div class="field">
         <label for="trwho">누구에게<span class="lsub">기도 명단에서 고르면 보낸 날을 그 분의 「나눈 날」로 적어 둡니다</span></label>
         <select id="trwho"></select>
@@ -3305,6 +3311,20 @@ section[id^="st-"]{scroll-margin-top:8px}
       </div>
       <div class="trqr" id="trqrwrap" hidden><div class="qrbox" id="trqr"></div><p class="qrnote" id="trqrnote"></p></div>
       <p class="fixednote" id="trsendnote">받는 사람에게는 암송 앱 없이 전도지만 열립니다.</p>
+      <!-- v15: 바빠서 지금 못 보는 분께 — 문자로 보내기 · 「나중에 보기」 알림 QR(찍으면 상대 폰 캘린더에 남음) -->
+      <div class="field" style="margin-top:16px">
+        <label for="trphone">받는 사람 휴대폰 번호</label>
+        <div class="linkrow"><input type="tel" id="trphone" inputmode="tel" maxlength="20" autocomplete="off" placeholder="010-0000-0000"><button type="button" id="trsms">문자로 보내기</button></div>
+      </div>
+      <div class="mpact"><button type="button" id="trlaterbtn" aria-pressed="false">나중에 보기 QR</button></div>
+      <div id="trlaterwrap" hidden>
+        <div class="themepick" id="trwhen" role="group" aria-label="알림 시간" style="margin-top:10px">
+          <button type="button" data-when="today">오늘 저녁 9시</button>
+          <button type="button" data-when="tomorrow">내일 저녁 9시</button>
+          <button type="button" data-when="weekend">이번 주말</button>
+        </div>
+        <div class="trqr"><div class="qrbox" id="trlaterqr"></div><p class="qrnote" id="trlaternote"></p></div>
+      </div>
     </div>
     <div class="panel">
       <div class="phead"><p class="eyebrow" id="plhead">전도 대상자 · 기도 명단</p></div>
@@ -13096,6 +13116,23 @@ var TR_KINDS={
        how:"내 폰으로 함께 보거나, 상대방 폰으로 링크나 QR을 보냅니다. 영상은 인터넷이 있어야 나옵니다. 영상에 나온 말씀은 아래에 글로도 있습니다."}
 };
 var TR_KIND_KEY="navfest.trkind";
+/* v15 4단계: 학생용 전도지 언어 — 전도지(bridge/index.html)의 PACK 과 같은 이름. 보내는 글 · 캘린더 제목도 그 말로 */
+var TR_LANGS={
+  ko:{nm:"한국어"},
+  en:{nm:"English", title:"The Bridge to God", sub:"A story in seven chapters to tap, drag and follow",
+      from:"From {n}: ", sms:"“{t}”. When you have 5 minutes, please open it. {u}", min:" (5 min)",
+      memo:"A gospel tract{n}. Tap to open. {u}", memoFrom:" from {n}"},
+  zh:{nm:"中文", title:"通往神的桥", sub:"点一点、拖一拖，跟着走完七章的故事",
+      from:"{n} 送给你：", sms:"“{t}”。有空时花5分钟打开看看吧。{u}", min:"（5分钟）",
+      memo:"这是{n}送你的福音单张，点开就能看。{u}", memoFrom:"{n} "},
+  vi:{nm:"Tiếng Việt", title:"Cây cầu đến với Đức Chúa Trời", sub:"Câu chuyện bảy chương để chạm, kéo và đi theo",
+      from:"{n} gửi bạn: ", sms:"“{t}”. Khi có 5 phút, bạn hãy mở xem nhé. {u}", min:" (5 phút)",
+      memo:"Truyền đạo đơn{n} gửi bạn. Chạm để mở. {u}", memoFrom:" của {n}"},
+  ja:{nm:"日本語", title:"神へとつづく橋", sub:"タップしたりドラッグしたりしながら進む7章の物語",
+      from:"{n}さんから：", sms:"「{t}」です。5分ほど時間のあるときに開いてみてください。{u}", min:"（5分）",
+      memo:"{n}届いたトラクトです。タップして開いてください。{u}", memoFrom:"{n}さんから"}
+};
+var TR_LANG_KEY="navfest.trlang";
 function trKind(){ return TR_KINDS[TR.kind] ? TR.kind : "kid"; }
 function trK(){ return TR_KINDS[trKind()]; }
 /* v14 전도지 개편: 새 그림 32컷(장면표 번호 t장_번) + 듣기 카드 바탕 base. 움직이는 장면 · 배경 음악 · 나레이션은 인터넷이 있을 때만 */
@@ -13106,14 +13143,28 @@ var TRACT_FONTS=["https://fonts.googleapis.com/css2?family=Jua&display=swap",
   "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"];
 var TR_NAME_KEY="navfest.trname";
 var TR_SEND_NOTE="받는 사람에게는 암송 앱 없이 전도지만 열립니다.";
-var TR={inited:false, who:"", qr:false, pre:null, preOk:false, preFail:false, kind:"kid"};
+var TR={inited:false, who:"", qr:false, pre:null, preOk:false, preFail:false, kind:"kid", lang:"ko"};
+try{ var tl=localStorage.getItem(TR_LANG_KEY); if(TR_LANGS[tl]) TR.lang=tl; }catch(e){}
+/* 어른용(영상)은 한국어만 */
+function trLang(){ return trKind()==="kid" && TR_LANGS[TR.lang] ? TR.lang : "ko"; }
+function trL(){ return TR_LANGS[trLang()]; }
 try{ if(localStorage.getItem(TR_KIND_KEY)==="adult") TR.kind="adult"; }catch(e){}
 
 function clean20(s){ return String(s||"").replace(/[\u0000-\u001f\u007f<>]/g,"").trim().slice(0,20); }
 function trNameVal(){ return clean20($("trname").value); }
 function trLink(){
-  var u=new URL(trK().dir, BASE_URL).href, n=trNameVal();
-  return n ? u+"?from="+encodeURIComponent(n) : u;
+  var u=new URL(trK().dir, BASE_URL).href, n=trNameVal(), q=[];
+  if(n) q.push("from="+encodeURIComponent(n));
+  if(trLang()!=="ko") q.push("lang="+trLang());
+  return q.length ? u+"?"+q.join("&") : u;
+}
+function trPaintLang(){
+  var box=$("trlang");
+  $("trlangfield").hidden = trKind()!=="kid";
+  if(!box.firstChild) Object.keys(TR_LANGS).forEach(function(k){
+    var b=document.createElement("button"); b.type="button"; b.dataset.lang=k; b.lang=k; b.textContent=TR_LANGS[k].nm; box.appendChild(b);
+  });
+  box.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed",String(b.dataset.lang===TR.lang)); });
 }
 function mdText(d){
   var y=+d.slice(0,4), now=+fToday().slice(0,4);
@@ -13136,11 +13187,11 @@ function paintTract(){
   SCREEN_NAME.tract=k.head; SCREEN_NAME.tview=k.title;
   $("trcover").classList.toggle("adult", trKind()==="adult");
   $("trtitle").textContent=k.title; $("trsub").textContent=k.sub; $("trhow").textContent=k.how;
-  trPaintLink(); trPaintWho(); trPaintOff(); plPaint();
+  trPaintLang(); trPaintLink(); trPaintWho(); trPaintOff(); plPaint();
 }
 /* 칸에는 한글 그대로 보이게(보낼 때 · 복사할 때 · QR 은 주소 규칙대로 바꾼 것) */
 function trShowLink(){ var u=trLink(); try{ return decodeURI(u); }catch(e){ return u; } }
-function trPaintLink(){ $("trlink").value=trShowLink(); if(TR.qr) trDrawQr(); }
+function trPaintLink(){ $("trlink").value=trShowLink(); if(TR.qr) trDrawQr(); if(TR.later) trDrawLater(); }
 function trPaintWho(){
   var sel=$("trwho"), rows=plList();
   if(TR.who && !PL.rows[TR.who]){ TR.who=""; $("trwhonote").textContent=""; }
@@ -13195,7 +13246,7 @@ function trOpenFrame(){
   f.title=trK().title;
   f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");
   f.setAttribute("allowfullscreen","");
-  f.src=trK().dir+"?in=app";
+  f.src=trK().dir+"?in=app"+(trLang()!=="ko" ? "&lang="+trLang() : "");
   host.appendChild(f);
   try{ f.focus(); }catch(e){}
 }
@@ -13232,7 +13283,9 @@ function trDrawQr(){
 function trSend(){
   var url=trLink(), n=trNameVal();
   var k=trK();
-  var data={title:k.title,
+  var L=trL(), data=trLang()!=="ko"
+    ? {title:L.title, text:(n ? L.from.replace("{n}",n) : "")+"“"+L.title+"” — "+L.sub, url:url}
+    : {title:k.title,
             text:(n ? n+" 님이 보내 드리는 " : "")+"「"+k.title+"」 — "+k.sub,
             url:url};
   if(navigator.share){
@@ -14747,6 +14800,18 @@ function needQr(cb){
   sc.onerror=function(){ var w=qrWaiters; qrWaiters=null; sc.remove(); w.forEach(function(f){ f(false); }); };
   document.head.appendChild(sc);
 }
+/* v15: 「나중에 보기」 QR 전용(qrcode-generator, 처음 쓸 때 한 번) */
+var qrGenWaiters=null;
+function needQrGen(cb){
+  if(typeof qrcode!=="undefined"){ cb(true); return; }
+  if(qrGenWaiters){ qrGenWaiters.push(cb); return; }
+  qrGenWaiters=[cb];
+  var sc=document.createElement("script");
+  sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
+  sc.onload=function(){ var w=qrGenWaiters; qrGenWaiters=null; w.forEach(function(f){ f(typeof qrcode!=="undefined"); }); };
+  sc.onerror=function(){ var w=qrGenWaiters; qrGenWaiters=null; sc.remove(); w.forEach(function(f){ f(false); }); };
+  document.head.appendChild(sc);
+}
 var qrLoading=false;
 function drawShare(){
   $("plink").value=participantLink();
@@ -14865,6 +14930,76 @@ $("trwho").addEventListener("change",function(){
 });
 $("trcopy").addEventListener("click",trCopy);
 $("trsend").addEventListener("click",trSend);
+/* v15: 문자로 보내기 — 내 폰 문자 앱이 받는 번호 · 글로 열림(번호는 어디에도 저장하지 않음) */
+function trSmsText(){
+  var n=trNameVal(), k=trK(), L=trL();
+  if(trLang()!=="ko") return (n ? L.from.replace("{n}",n) : "")+L.sms.replace("{t}",L.title).replace("{u}",trLink());
+  return (n ? n+" 님이 보내 드리는 " : "")+"「"+k.title+"」예요. 시간 날 때 5분만 열어 보세요. "+trLink();
+}
+$("trsms").addEventListener("click",function(){
+  var num=String($("trphone").value||"").replace(/[^0-9+]/g,"");
+  if(num.length<8){ trNote("받는 사람 휴대폰 번호를 넣어 주세요."); $("trphone").focus(); return; }
+  trMarkShared();
+  location.href="sms:"+num+"?&body="+encodeURIComponent(trSmsText());
+});
+/* v15: 「나중에 보기」 QR — 일정(VEVENT)을 담아, 상대가 카메라로 찍으면 캘린더에 알림이 저장됨 */
+TR.later=false; TR.when="today";
+function trWhenDate(w){
+  var d=new Date(), now=d.getTime();
+  if(w==="tomorrow"){ d.setDate(d.getDate()+1); d.setHours(21,0,0,0); }
+  else if(w==="weekend"){ var add=(6-d.getDay()+7)%7; if(add===0 && d.getHours()>=10) add=7; d.setDate(d.getDate()+add); d.setHours(10,0,0,0); }
+  else { d.setHours(21,0,0,0); if(d.getTime()<now) d.setDate(d.getDate()+1); }
+  return d;
+}
+function icsTime(d){ function p(x){ return (x<10?"0":"")+x; } return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+"T"+p(d.getHours())+p(d.getMinutes())+"00"; }
+function icsEsc(t){ return String(t).replace(/\\/g,"\\\\").replace(/([,;])/g,"\\$1").replace(/\n/g,"\\n"); }
+function trLaterText(){
+  var d=trWhenDate(TR.when), e=new Date(d.getTime()+10*60000), n=trNameVal(), k=trK(), url=trLink();
+  var L=trL(), memo=(n ? n+" 님이 보내 드린 " : "보내 드린 ")+"전도지예요. 눌러서 열어 보세요. "+url, sum=k.title+" (5분)";
+  if(trLang()!=="ko"){ memo=L.memo.replace("{n}", n ? L.memoFrom.replace("{n}",n) : "").replace("{u}",url); sum=L.title+L.min; }
+  return "BEGIN:VEVENT\nSUMMARY:"+icsEsc(sum)+"\nDTSTART:"+icsTime(d)+"\nDTEND:"+icsTime(e)+
+         "\nDESCRIPTION:"+icsEsc(memo)+"\nURL:"+url+"\nEND:VEVENT";
+}
+function trPaintWhen(){
+  var past=trWhenDate("today").getDate()!==new Date().getDate();
+  if(past && TR.when==="today") TR.when="tomorrow";
+  document.querySelectorAll("#trwhen button").forEach(function(b){
+    b.setAttribute("aria-pressed",String(b.dataset.when===TR.when));
+    if(b.dataset.when==="today") b.disabled=past;
+  });
+}
+function trDrawLater(){
+  trPaintWhen();
+  var box=$("trlaterqr"), note=$("trlaternote");
+  if(typeof qrcode==="undefined"){
+    note.textContent="QR을 만드는 중…";
+    needQrGen(function(ok){ if(!ok){ note.textContent="QR을 만들지 못했습니다 · 인터넷을 확인하거나 「문자로 보내기」를 써 주세요."; return; } if(TR.later) trDrawLater(); });
+    return;
+  }
+  /* 한글이 섞인 긴 글은 qrcodejs 가 크기를 잘못 골라 깨져서, 이 QR만 qrcode-generator(UTF-8)로 그림 */
+  qrcode.stringToBytes=qrcode.stringToBytesFuncs["UTF-8"];
+  var q=qrcode(0,"L"); q.addData(trLaterText(),"Byte"); q.make();
+  box.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});
+  var sv=box.querySelector("svg"); if(sv){ sv.setAttribute("width","220"); sv.setAttribute("height","220"); sv.setAttribute("role","img"); sv.setAttribute("aria-label","나중에 보기 QR"); }
+  var d=trWhenDate(TR.when);
+  note.textContent="상대방이 카메라로 찍으면 캘린더에 알림이 저장돼요 · "+(d.getMonth()+1)+"월 "+d.getDate()+"일 "+["일","월","화","수","목","금","토"][d.getDay()]+"요일 "+(d.getHours()<12?"오전 ":"저녁 ")+(d.getHours()%12||12)+"시";
+}
+$("trlaterbtn").addEventListener("click",function(){
+  TR.later=!TR.later;
+  $("trlaterwrap").hidden=!TR.later;
+  this.setAttribute("aria-pressed",String(TR.later));
+  this.textContent = TR.later ? "나중에 보기 QR 숨기기" : "나중에 보기 QR";
+  if(TR.later){ trDrawLater(); trMarkShared(); }
+});
+$("trlang").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-lang]"); if(!b) return;
+  TR.lang=b.dataset.lang; try{ localStorage.setItem(TR_LANG_KEY,TR.lang); }catch(err){}
+  trPaintLang(); trPaintLink();
+});
+$("trwhen").addEventListener("click",function(e){
+  var b=e.target.closest("button[data-when]"); if(!b || b.disabled) return;
+  TR.when=b.dataset.when; trDrawLater();
+});
 $("trqrbtn").addEventListener("click",function(){
   TR.qr=!TR.qr;
   $("trqrwrap").hidden=!TR.qr;
