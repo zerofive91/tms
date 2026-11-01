@@ -13449,6 +13449,7 @@ function afterAuth(u){
   if(u){ setMe(u); prefPull(u); }
   else { PREF_FOR=""; PREF_LAST=""; state.me=null; state.progress={}; pending={}; mineLoaded=false; shReset(); }
   if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); qtLoad(); shLoadMine(); }
+  if(screenNow==="share"){ paintShare(); if(u) shLoadAll(true); }
   if(screenNow==="mine") paintMy();
   paintAcct(); paintPrefWhere();
   if(screenNow==="my") paintMy2(true);
@@ -14008,7 +14009,7 @@ window.addEventListener("popstate",function(e){
    새로고침하면 그대로 다시 엽니다. 대회 · 채점처럼 이어 갈 수 없는 화면은 그 앞 화면까지만 엽니다. */
 var NAV_SS="navfest.nav";
 var NAV_OK={home:1,my:1,hubm:1,hubr:1,hubl:1,fsrs:1,crop:1,mine:1,glance:1,read:1,rday:1,rnotes:1,order:1,oday:1,
-            bible:1,bchap:1,btext:1,smemo:1,tract:1,vcard:1,tlist:1,qt:1};
+            bible:1,bchap:1,btext:1,smemo:1,tract:1,vcard:1,tlist:1,qt:1,share:1};
 function navSave(){
   try{
     var ys=scrollLog.slice(0,depth); ys[depth]=window.scrollY||0;
