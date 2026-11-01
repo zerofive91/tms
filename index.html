@@ -9084,17 +9084,17 @@ function shLoadMine(){
   if(!state.me || !online()) return Promise.resolve();
   if(SH.busy) return SH.busy;
   var owner=state.me.owner;
-  SH.busy=sbAll(function(){ return SB.from("shared_meditations").select("id,src_kind,src_id,line,name").eq("owner",owner).order("id"); }).then(function(r){
+  SH.busy=sbAll(function(){ return SB.from("shared_meditations").select("id,src_kind,src_id,line,name,content,medi,apply,prayer").eq("owner",owner).order("id"); }).then(function(r){
     if(r.error) throw r.error;
     if(!state.me || state.me.owner!==owner) return;
-    var m={}; (r.data||[]).forEach(function(x){ m[shKey(x.src_kind,x.src_id)]={id:x.id, line:x.line, name:x.name}; });
+    var m={}; (r.data||[]).forEach(function(x){ m[shKey(x.src_kind,x.src_id)]={id:x.id, line:x.line, name:x.name, f:{content:!!x.content, medi:!!x.medi, apply:!!x.apply, prayer:!!x.prayer}}; });
     SH.mine=m; SH.owner=owner; SH.noTable=false;
     if(screenNow==="rnotes") paintReadNotes();
   }).catch(function(e){ if(myNoTable(e)) SH.noTable=true; }).then(function(){ SH.busy=null; });
   return SH.busy;
 }
 function shReset(){ SH.mine={}; SH.owner=""; SH.all=null; SH.likes={}; SH.liked={}; SH.at=0; SH.err=""; }
-function shNamePref(){ try{ var o=JSON.parse(localStorage.getItem(SH_NAME_KEY)||"null"); if(o && /^(me|nick|anon)$/.test(o.how)) return o; }catch(e){} return {how:"me", nick:""}; }
+function shNamePref(){ try{ var o=JSON.parse(localStorage.getItem(SH_NAME_KEY)||"null"); if(o) return {how:"anon", nick:o.nick||""}; }catch(e){}   /* v18: 처음 고름은 늘 익명 · 별명만 기억 */ return {how:"anon", nick:""}; }
 function shCut(s,n){ s=String(s||"").replace(/\s+/g," ").trim(); return s.length>n ? s.slice(0,n-1)+"…" : s; }
 function shFirst(s){ s=String(s||"").replace(/\s+/g," ").trim(); var m=/^(.+?[.!?。])(\s|$)/.exec(s); return shCut(m?m[1]:s,80); }
 /* 공유할 묵상 → 표 한 줄(본문 · 주소 · 칸). 못 찾으면 null */
@@ -9120,16 +9120,19 @@ function shOpen(kind,id){
   var line=was&&was.line ? was.line : s.line;
   if(was && was.name!==undefined){ np.how = !was.name ? "anon" : was.name===state.me.name ? "me" : "nick"; if(np.how==="nick") np.nick=was.name; }
   var fields=SH_FIELDS.filter(function(f){ return (s.f[f[0]]||"").trim(); });
+  /* 처음엔 묵상 칸만(v18 사용자 요청) · 묵상이 비었으면 첫 칸 · 이미 올린 것은 그때 고른 대로 */
+  var dflt=fields.some(function(f){ return f[0]==="medi"; }) ? "medi" : (fields[0]||[""])[0];
+  function on(k){ return was&&was.f ? !!was.f[k] : k===dflt; }
   var h='<h3 class="shtitle">🌍 묵상 공유'+(was?' · 올려 둠':'')+'</h3>'+
     '<p class="shsub">'+esc(s.ref||"말씀 주소 없음")+' · 로그인한 사람에게만 보입니다</p>'+
     '<div class="field"><label for="shline">한 줄 핵심 <span class="shcnt" id="shcnt"></span></label>'+
       '<input type="text" id="shline" maxlength="80" value="'+esc(line)+'" placeholder="말풍선에 크게 보일 한 문장"></div>'+
     '<div class="field"><label>보일 이름</label><div class="counts" id="shhow" role="group" aria-label="보일 이름">'+
-      [["me",shCut(state.me.name,10)],["nick","별명"],["anon","익명"]].map(function(o){
+      [["anon","익명"],["nick","별명"],["me",shCut(state.me.name,10)]].map(function(o){
         return '<button type="button" class="cbtn" data-shhow="'+o[0]+'" aria-pressed="'+(np.how===o[0])+'">'+esc(o[1])+'</button>'; }).join("")+'</div>'+
       '<input type="text" id="shnick" maxlength="20" value="'+esc(np.nick||"")+'" placeholder="별명 (20자까지)"'+(np.how==="nick"?'':' hidden')+'></div>'+
-    (fields.length>1?'<div class="field"><label>함께 보일 칸</label><div class="shfields">'+fields.map(function(f){
-      return '<label class="shchk"><input type="checkbox" data-shf="'+f[0]+'" checked> '+esc(f[1])+'</label>'; }).join("")+'</div></div>':'')+
+    (fields.length>1?'<div class="field"><label>함께 보일 칸 <span class="shcnt">필요하면 더 고르세요</span></label><div class="shfields">'+fields.map(function(f){
+      return '<label class="shchk"><input type="checkbox" data-shf="'+f[0]+'"'+(on(f[0])?' checked':'')+'> '+esc(f[1])+'</label>'; }).join("")+'</div></div>':'')+
     '<div class="rndelbtns shbtns"><button type="button" class="go" data-shok="1">🌍 '+(was?'고쳐 올리기':'공유하기')+'</button>'+
     (was?'<button type="button" class="go soft" data-shoff="1">🙈 공유 그만두기</button>':'')+
     '<button type="button" class="go soft" data-shno="1">닫기</button></div>';
@@ -9148,6 +9151,8 @@ function shOpen(kind,id){
     if(!ln){ setSync("한 줄 핵심을 적어 주세요",true); $("shline").focus(); return; }
     if(how==="nick" && !nick){ setSync("별명을 적어 주세요",true); $("shnick").focus(); return; }
     var keep={}; $("sheetbody").querySelectorAll("[data-shf]").forEach(function(c){ keep[c.dataset.shf]=c.checked; });
+    var boxes=$("sheetbody").querySelectorAll("[data-shf]");
+    if(boxes.length && !Array.prototype.some.call(boxes,function(c){ return c.checked; })){ setSync("함께 보일 칸을 하나 이상 골라 주세요",true); return; }
     try{ localStorage.setItem(SH_NAME_KEY,JSON.stringify({how:how, nick:nick||np.nick||""})); }catch(_){}
     var name=how==="anon"?"":how==="nick"?shCut(nick,20):shCut(state.me.name,20);
     sheetThen(function(){ shPut(s,ln,name,keep); });
@@ -9163,7 +9168,7 @@ function shPut(s,line,name,keep){
   SB.from("shared_meditations").upsert(row,{onConflict:"owner,src_kind,src_id"}).select("id").then(function(r){
     if(r.error) throw r.error;
     var id=r.data&&r.data[0]&&r.data[0].id;
-    SH.mine[shKey(s.kind,s.id)]={id:id, line:row.line, name:name}; SH.all=null;
+    SH.mine[shKey(s.kind,s.id)]={id:id, line:row.line, name:name, f:{content:!!row.content, medi:!!row.medi, apply:!!row.apply, prayer:!!row.prayer}}; SH.all=null;
     setSync(was?"공유한 묵상을 고쳤습니다":"묵상을 공유했습니다 · 듣기 → 묵상 공유에서 보입니다");
     if(screenNow==="rnotes") paintReadNotes();
     if(screenNow==="qt") qtShBtn();
