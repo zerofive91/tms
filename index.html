@@ -2265,6 +2265,15 @@ body{background:
 .modeicon,.hubic{box-shadow:var(--halo);border:1px solid var(--edge)}
 .go:not(:disabled){box-shadow:0 6px 18px color-mix(in srgb,var(--brand) 22%,transparent)}
 .backbtn,.homebtn,.acctbtn{border-color:var(--edge);box-shadow:var(--shadow),var(--halo)}
+/* v17 3단계 — 화면별 머리. 다른 화면 위 머리는 조금 낮게, 화면 이름(navhere)은 제목 글꼴로 또렷하게,
+   2단계 메뉴 큰 머리(hubhead)도 제목 글꼴. 작은 머리말(eyebrow)은 테마 색을 살짝 섞음 */
+body.compact header{padding:14px 0 10px}
+.navbar{flex-wrap:nowrap}
+.navhere{flex:1 1 auto;min-width:0;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-family:var(--f-head);font-size:calc(18px * min(var(--fz),1.15));font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.hubhead h2{font-family:var(--f-head)}
+.eyebrow{color:color-mix(in srgb,var(--brand) 55%,var(--ink-soft))}
+.ctabs button[aria-selected="true"],.themepick button[aria-pressed="true"],.skinpick button[aria-pressed="true"],.fzpick button[aria-pressed="true"]{box-shadow:var(--halo)}
 </style>
 </head>
 <body>
