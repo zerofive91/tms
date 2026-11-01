@@ -1422,6 +1422,51 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtshare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .qtshare .go{padding:13px 8px;font-size:calc(14px * var(--fz))}
 .qtshare .qtwide{grid-column:1 / -1}
+/* 묵상 공유 화면 — 말풍선 (v18) */
+.shsort,.shtesta{margin-top:12px}
+.shsort{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+html[data-fz="120"] .shsort,html[data-fz="130"] .shsort{grid-template-columns:repeat(2,minmax(0,1fr))}
+.shsort .cbtn,.shtesta .cbtn{min-width:0;padding:9px 4px;font-size:calc(13px * var(--fz));white-space:nowrap}
+.shtesta select{flex:1 1 100%;padding:10px 12px}
+.shfeed{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+.shday{display:flex;align-items:center;gap:10px;font-size:calc(12px * var(--fz));font-weight:700;color:var(--ink-soft);margin-top:6px}
+.shday::before,.shday::after{content:"";flex:1;height:1px;background:var(--line)}
+.shrow{display:flex;gap:9px;align-items:flex-start;min-width:0}
+.shrow.shme{justify-content:flex-end}
+.shav{flex:0 0 auto;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:calc(14px * var(--fz));
+  color:#23453A;background:#E9C5AB;box-shadow:0 0 0 2px var(--surface)}
+.shav.sav1{background:#A9DCC6}.shav.sav2{background:#CACAF0}.shav.sav3{background:#AED7EC}.shav.sav4{background:#F2C9D2}
+.shav.savx{background:var(--tint);color:var(--ink)}
+.shbub{min-width:0;max-width:calc(100% - 45px);background:var(--surface);border:1.5px solid var(--line);border-radius:6px 20px 20px 20px;padding:12px 14px 10px;
+  box-shadow:var(--card,0 1px 2px rgba(0,0,0,.05))}
+.shrow.shme .shbub{border-radius:20px 6px 20px 20px;background:color-mix(in srgb,var(--brand) 12%,var(--surface));border-color:color-mix(in srgb,var(--brand) 40%,var(--line))}
+.shbub.open{max-width:100%;flex:1 1 auto}
+.shtap{display:block;width:100%;text-align:left;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+.shref{display:inline-block;font-size:calc(11.5px * var(--fz));font-weight:700;color:var(--brand);background:color-mix(in srgb,var(--brand) 12%,transparent);
+  border-radius:8px;padding:3px 8px;margin-bottom:6px;overflow-wrap:anywhere}
+.shline{display:block;font-size:calc(17px * var(--fz));font-weight:700;line-height:1.45;color:var(--ink);overflow-wrap:anywhere;word-break:keep-all}
+.shmore{margin-top:10px;display:grid;gap:10px;border-top:1px dashed var(--line);padding-top:10px}
+.shmore .rnact{justify-self:start}
+.shverse{margin:0;font-size:calc(14px * var(--fz));line-height:1.65;color:var(--ink);background:color-mix(in srgb,var(--accent) 22%,transparent);border-radius:10px;padding:8px 10px}
+.shverse sup{color:var(--ink-soft);margin-right:2px}
+.shkrv{font-size:calc(11px * var(--fz));color:var(--ink-soft)}
+.shfield b{display:block;font-size:calc(12.5px * var(--fz));color:var(--ink-soft);margin-bottom:2px}
+.shfield p{margin:0;font-size:calc(14.5px * var(--fz));line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+.shfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;flex-wrap:wrap}
+.shwho{font-size:calc(12px * var(--fz));color:var(--ink-soft);min-width:0;overflow-wrap:anywhere}
+.shlike{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:999px;
+  padding:5px 12px 5px 9px;min-height:34px;font:inherit;font-size:calc(12.5px * var(--fz));cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.shlike b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.shlike .shheart{font-size:calc(15px * var(--fz));line-height:1;display:inline-block}
+.shlike.on{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 16%,var(--bg));color:var(--brand);font-weight:700}
+.shlike.on b{color:var(--brand)}
+.shlike{position:relative}
+.shlike.pop .shheart{animation:shpop .45s cubic-bezier(.3,1.6,.5,1)}
+.shlike.pop::after{content:"";position:absolute;inset:-3px;border-radius:999px;border:2px solid var(--brand);animation:shring .5s ease-out forwards;pointer-events:none}
+@keyframes shpop{0%{transform:scale(.6)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes shring{from{opacity:.7;transform:scale(1)}to{opacity:0;transform:scale(1.25)}}
+@media (prefers-reduced-motion:reduce){.shlike.pop .shheart,.shlike.pop::after{animation:none}}
+.shempty{margin-top:14px}
 /* 묵상 공유 (v18) */
 .shact.on{border-color:var(--brand);color:var(--brand);font-weight:700;background:color-mix(in srgb,var(--brand) 10%,var(--bg))}
 .qtshare .shpub.on{border-color:var(--brand);color:var(--brand)}
@@ -3030,6 +3075,14 @@ body.compact header{padding:14px 0 10px}
     <div id="rnotelist"></div>
   </div>
 
+  <!-- ===== 묵상 공유 (v18) ===== -->
+  <div id="share" hidden>
+    <div class="panel" id="shpanel"><div id="shhead"></div>
+      <div id="shtools" hidden><div class="counts shsort" id="shsort" role="group" aria-label="정렬"></div>
+        <div class="counts shtesta" id="shtesta" role="group" aria-label="나누어 보기"></div></div></div>
+    <div id="shlist"></div>
+  </div>
+
   <!-- ===== 경건의 시간 쓰기 ===== -->
   <div id="qt" hidden>
     <div class="panel qted">
@@ -4477,7 +4530,7 @@ var MODES=[
   {k:"hubm",   icon:"mine",   n:"암송", d:"암송지갑 · 암송카드 찾기 · 리사이팅 · 타이핑 · 복습 카드 · 암송 대회", count:"minecount"},
   {k:"study",  icon:"bible",  n:"공부", d:"관주 · 원어 · 사전 · 인물 · 지명이 구절마다 이어진 성경"},
   {k:"hubr",   icon:"plan",   n:"읽기", d:"성경읽기표 · 성경순서로", count:"readcount"},
-  {k:"hubl",   icon:"listen", n:"듣기", d:"학생용 · 어른용 전도지 · 말씀 듣기는 준비 중", count:"tractcount"},
+  {k:"hubl",   icon:"listen", n:"듣기", d:"학생용 · 어른용 전도지 · 묵상 공유", count:"tractcount"},
   /* v16: 읽기 · 듣기 아래 긴 단추 — 바깥 사이트(같은 탭으로 이동) */
   {k:"cafe",   icon:"cafe",   n:"Wheel Life Cafe", wide:true}
 ];
@@ -4509,6 +4562,7 @@ var HUBS={
     {n:"듣고 나누기", subs:[
       {k:"tract",   icon:"bridge",  n:"학생용 전도지", d:"「하나님께 가는 다리」"},
       {k:"tract2",  icon:"listen",  n:"어른용 전도지", d:"「끝까지 사랑하신 예수님」 · 4분 영상"},
+      {k:"share",   icon:"medi",    n:"묵상 공유", d:"함께 받은 말씀 · 말풍선으로"},
       {k:"listen",  icon:"listen",  n:"말씀 듣기", d:"준비 중", off:true}]}
   ]
 };
@@ -9022,7 +9076,8 @@ function qtListHtml(){
 /* ═══ 묵상 공유 (v18) ═══ 묵상에서 「공유하기」를 누르면 그 묵상을 shared_meditations 에 복사해 둡니다.
    로그인한 사람만 보고(듣기 → 묵상 공유), 고치기 · 내리기는 본인 것만. 원래 묵상을 고쳐도 공유본은 그대로, 다시 올리면 덮어씁니다.
    SH.mine — 내가 올린 것 'qt:노트번호' · 'verse:절키' → {id, line, name} */
-var SH={mine:{}, owner:"", busy:null, noTable:false, all:null, likes:{}, liked:{}, sort:"new", book:-1, testa:"", open:"", loading:null, at:0};
+var SH={mine:{}, owner:"", busy:null, noTable:false, all:null, likes:{}, liked:{}, sort:"new", book:-1, testa:"", open:"", loading:null, at:0, show:30, err:""};
+try{ (function(){ var o=localStorage.getItem("navfest.shsort"); if(/^(new|old|bible|like)$/.test(o||"")) SH.sort=o; })(); }catch(e){}
 var SH_NAME_KEY="navfest.shname";
 function shKey(kind,id){ return kind+":"+id; }
 function shIs(kind,id){ return !!SH.mine[shKey(kind,id)]; }
@@ -9039,7 +9094,7 @@ function shLoadMine(){
   }).catch(function(e){ if(myNoTable(e)) SH.noTable=true; }).then(function(){ SH.busy=null; });
   return SH.busy;
 }
-function shReset(){ SH.mine={}; SH.owner=""; SH.all=null; SH.likes={}; SH.liked={}; }
+function shReset(){ SH.mine={}; SH.owner=""; SH.all=null; SH.likes={}; SH.liked={}; SH.at=0; SH.err=""; }
 function shNamePref(){ try{ var o=JSON.parse(localStorage.getItem(SH_NAME_KEY)||"null"); if(o && /^(me|nick|anon)$/.test(o.how)) return o; }catch(e){} return {how:"me", nick:""}; }
 function shCut(s,n){ s=String(s||"").replace(/\s+/g," ").trim(); return s.length>n ? s.slice(0,n-1)+"…" : s; }
 function shFirst(s){ s=String(s||"").replace(/\s+/g," ").trim(); var m=/^(.+?[.!?。])(\s|$)/.exec(s); return shCut(m?m[1]:s,80); }
@@ -9130,6 +9185,124 @@ function shBtn(kind,id,attr){
   return '<button type="button" class="rnact shact'+(on?' on':'')+'" '+attr+'="'+esc(id)+'">🌍 '+(on?'공유됨':'공유')+'</button>';
 }
 function qtShBtn(){ var b=$("qtpub"); if(!b) return; var on=QT.id && shIs("qt",QT.id); b.textContent=on?"🌍 공유됨 · 고쳐 올리기":"🌍 묵상 공유에 올리기"; b.classList.toggle("on",!!on); }
+/* ── 듣기 → 묵상 공유 화면(v18) ── 말풍선으로. 정렬: 최신 · 오래된 · 성경 순서 · 공감순, 나누기: 구약 · 신약 · 책.
+   공감은 shared_likes 한 사람 한 번. 누가 올렸는지(owner)는 받지 않고, 내 것은 SH.mine 으로만 알아봅니다. */
+var SH_SORTS=[["new","최신순"],["old","오래된 순"],["bible","성경 순서"],["like","공감순"]];
+function shMineIds(){ var o={}; Object.keys(SH.mine).forEach(function(k){ if(SH.mine[k].id) o[SH.mine[k].id]=1; }); return o; }
+function shLoadAll(force){
+  if(!state.me || !online()) return Promise.resolve();
+  if(SH.loading) return SH.loading;
+  if(SH.all && !force && Date.now()-SH.at<60000) return Promise.resolve();
+  var owner=state.me.owner;
+  SH.loading=Promise.all([
+    sbAll(function(){ return SB.from("shared_meditations").select("id,name,ref,book,chap,verse,verse2,line,content,medi,apply,prayer,written_on,shared_at").order("shared_at",{ascending:false}); }),
+    sbAll(function(){ return SB.from("shared_likes").select("med_id").order("med_id"); }),
+    SB.from("shared_likes").select("med_id").eq("owner",owner),
+    shLoadMine()
+  ]).then(function(rs){
+    [0,1,2].forEach(function(i){ if(rs[i].error) throw rs[i].error; });
+    if(!state.me || state.me.owner!==owner) return;
+    var likes={}, liked={};
+    (rs[1].data||[]).forEach(function(x){ likes[x.med_id]=(likes[x.med_id]||0)+1; });
+    (rs[2].data||[]).forEach(function(x){ liked[x.med_id]=1; });
+    SH.all=rs[0].data||[]; SH.likes=likes; SH.liked=liked; SH.at=Date.now(); SH.noTable=false; SH.err="";
+  }).catch(function(e){ if(myNoTable(e)) SH.noTable=true; SH.err=netOff()?"인터넷이 없어 공유된 묵상을 불러오지 못했습니다":"공유된 묵상을 불러오지 못했습니다 · "+failText(e); })
+    .then(function(){ SH.loading=null; if(screenNow==="share") paintShare(); });
+  return SH.loading;
+}
+function openShare(){ SH.show=30; SH.open=""; paintShare(); show("share"); shLoadAll(); }
+function shDateText(d){ var t=fToday(); if(d===t) return "오늘"; var y=new Date(t+"T12:00:00"); y.setDate(y.getDate()-1);
+  if(d===y.toISOString().slice(0,10)) return "어제"; return (d.slice(0,4)!==t.slice(0,4)?(+d.slice(0,4))+"년 ":"")+qtDateText(d); }
+function shList(){
+  var L=(SH.all||[]).filter(function(x){
+    if(SH.book>=0) return x.book===SH.book;
+    if(SH.testa==="ot") return x.book!==null && x.book<39;
+    if(SH.testa==="nt") return x.book!==null && x.book>=39;
+    return true; });
+  var lk=SH.likes;
+  function bib(a,b){ return (a.book===null?99:a.book)-(b.book===null?99:b.book) || (a.chap||0)-(b.chap||0) || (a.verse||0)-(b.verse||0); }
+  function nw(a,b){ return String(b.written_on).localeCompare(String(a.written_on)) || String(b.shared_at).localeCompare(String(a.shared_at)); }
+  L.sort(SH.sort==="old" ? function(a,b){ return -nw(a,b); } : SH.sort==="bible" ? function(a,b){ return bib(a,b)||nw(a,b); } :
+    SH.sort==="like" ? function(a,b){ return (lk[b.id]||0)-(lk[a.id]||0) || nw(a,b); } : nw);
+  return L;
+}
+function shGroup(x){
+  if(SH.sort==="bible") return x.book===null ? "주소 없는 묵상" : BOOK_ORDER[x.book]+" "+x.chap+chWord(x.book);
+  if(SH.sort==="like") return "";
+  return shDateText(String(x.written_on));
+}
+var SH_AV=5;
+function shAvatar(name){ var n=name||"", h=0; for(var i=0;i<n.length;i++) h=(h*31+n.charCodeAt(i))>>>0;
+  return '<span class="shav sav'+(n?h%SH_AV:"x")+'" aria-hidden="true">'+esc(n?n.charAt(0):"🕊")+'</span>'; }
+function shBubble(x,mine){
+  var open=SH.open===x.id, n=SH.likes[x.id]||0, on=!!SH.liked[x.id];
+  var h='<li class="shrow'+(mine?' shme':'')+'">'+(mine?'':shAvatar(x.name))+
+    '<div class="shbub'+(open?' open':'')+'"><button type="button" class="shtap" data-shopen="'+esc(x.id)+'" aria-expanded="'+open+'">'+
+      (x.ref?'<span class="shref">📖 '+esc(x.ref)+'</span>':'')+
+      '<span class="shline">'+esc(x.line||"")+'</span></button>';
+  if(open){
+    h+='<div class="shmore">';
+    if(x.book!==null && x.verse) h+='<p class="shverse" data-shv="'+x.book+'|'+x.chap+'|'+x.verse+'|'+(x.verse2||x.verse)+'"><em>본문을 불러오는 중…</em></p>';
+    SH_FIELDS.forEach(function(f){ if(x[f[0]]) h+='<div class="shfield"><b>'+esc(f[1])+'</b><p>'+esc(x[f[0]])+'</p></div>'; });
+    if(x.book!==null) h+='<button type="button" class="rnact" data-shgo="'+x.book+'|'+x.chap+'|'+(x.verse||1)+'|'+(x.verse2||0)+'">성경에서 보기 &#8250;</button>';
+    h+='</div>';
+  }
+  h+='<div class="shfoot"><span class="shwho">'+(mine?'나':esc(x.name||"익명"))+' · '+esc(shDateText(String(x.written_on)))+'</span>'+
+    '<button type="button" class="shlike'+(on?' on':'')+'" data-shlike="'+esc(x.id)+'" aria-pressed="'+on+'" aria-label="공감 '+n+'">'+
+      '<span class="shheart" aria-hidden="true">'+(on?'💚':'🤍')+'</span><span>공감</span><b>'+n+'</b></button></div></div></li>';
+  return h;
+}
+function paintShare(){
+  var host=$("shlist"), head=$("shhead"); if(!host) return;
+  if(!state.me){
+    head.innerHTML='<p class="eyebrow">묵상 공유</p><p class="rmeta" style="margin:0">함께 받은 말씀을 말풍선으로 나눕니다. 로그인한 사람만 볼 수 있어요.</p>'+
+      '<button type="button" class="go" data-shlogin="1" style="margin-top:12px">로그인하고 보기</button>';
+    host.innerHTML=""; $("shtools").hidden=true; return;
+  }
+  var L=SH.all?shList():[], total=(SH.all||[]).length;
+  head.innerHTML='<p class="eyebrow">묵상 공유</p><p class="rmeta" style="margin:0">'+
+    (SH.err?esc(SH.err):SH.noTable?"묵상 공유를 아직 쓸 수 없습니다":!SH.all?"불러오는 중…":
+      total?"함께 받은 말씀 "+total+"개 · 말풍선을 누르면 다 보입니다":"아직 공유된 묵상이 없습니다. 묵상 화면에서 「🌍 공유」를 눌러 첫 나눔을 올려 보세요.")+'</p>';
+  $("shtools").hidden=!total;
+  $("shsort").innerHTML=SH_SORTS.map(function(o){ return '<button type="button" class="cbtn" data-shsort="'+o[0]+'" aria-pressed="'+(SH.sort===o[0])+'">'+o[1]+'</button>'; }).join("");
+  var books={}; (SH.all||[]).forEach(function(x){ if(x.book!==null) books[x.book]=(books[x.book]||0)+1; });
+  $("shtesta").innerHTML=[["","전체"],["ot","구약"],["nt","신약"]].map(function(o){
+    return '<button type="button" class="cbtn" data-shtesta="'+o[0]+'" aria-pressed="'+(SH.book<0 && SH.testa===o[0])+'">'+o[1]+'</button>'; }).join("")+
+    '<select id="shbook" aria-label="책 고르기"><option value="-1">책 고르기</option>'+Object.keys(books).map(Number).sort(function(a,b){return a-b;}).map(function(b){
+      return '<option value="'+b+'"'+(SH.book===b?' selected':'')+'>'+esc(BOOK_ORDER[b])+' ('+books[b]+')</option>'; }).join("")+'</select>';
+  if(!SH.all){ host.innerHTML=""; return; }
+  if(total && !L.length){ host.innerHTML='<p class="fixednote shempty">고른 범위에 공유된 묵상이 없습니다</p>'; return; }
+  var mine=shMineIds(), last=null, h='<ul class="shfeed">';
+  L.slice(0,SH.show).forEach(function(x){
+    var g=shGroup(x); if(g && g!==last){ h+='<li class="shday"><span>'+esc(g)+'</span></li>'; last=g; }
+    h+=shBubble(x,!!mine[x.id]);
+  });
+  h+='</ul>';
+  if(L.length>SH.show) h+='<button type="button" class="go soft" data-shmore="1" style="margin-top:10px">더 보기 ('+(L.length-SH.show)+'개 남음)</button>';
+  host.innerHTML=h;
+  shVersePaint();
+}
+function shVersePaint(){
+  var el=document.querySelector("#shlist [data-shv]"); if(!el) return;
+  var p=el.dataset.shv.split("|").map(Number), bi=p[0];
+  bibBook(bi).then(function(){
+    if(!el.isConnected) return; var out=[];
+    for(var v=p[2]; v<=Math.min(p[3],p[2]+9); v++){ var t=bibVerse(bi,p[1],v); if(t) out.push('<sup>'+v+'</sup>'+esc(t)); }
+    el.innerHTML=out.join(" ")+(p[3]>p[2]+9?' …':'')+' <span class="shkrv">개역한글</span>';
+  },function(){ if(el.isConnected) el.innerHTML='<em>'+(netOff()?'인터넷이 없어 본문을 불러오지 못했습니다':'본문을 불러오지 못했습니다')+'</em>'; });
+}
+function shLike(id,btn){
+  if(!state.me || !canSave()){ setSync("인터넷이 없어 공감하지 못했습니다",true); return; }
+  var on=!SH.liked[id], owner=state.me.owner;
+  if(on){ SH.liked[id]=1; SH.likes[id]=(SH.likes[id]||0)+1; } else { delete SH.liked[id]; SH.likes[id]=Math.max(0,(SH.likes[id]||1)-1); }
+  if(btn){ btn.classList.toggle("on",on); btn.setAttribute("aria-pressed",on); btn.querySelector(".shheart").textContent=on?"💚":"🤍";
+    btn.querySelector("b").textContent=SH.likes[id]; btn.classList.remove("pop"); void btn.offsetWidth; if(on) btn.classList.add("pop"); }
+  var q=on ? SB.from("shared_likes").insert({med_id:id, owner:owner}) : SB.from("shared_likes").delete().eq("med_id",id).eq("owner",owner);
+  q.then(function(r){ if(r.error && !(on && r.error.code==="23505")) throw r.error; }).catch(function(e){
+    if(on){ delete SH.liked[id]; SH.likes[id]=Math.max(0,(SH.likes[id]||1)-1); } else { SH.liked[id]=1; SH.likes[id]=(SH.likes[id]||0)+1; }
+    setSync("공감을 남기지 못했습니다 · "+failText(e),true); if(screenNow==="share") paintShare();
+  });
+}
 /* 공유할 글 — 빈 칸은 뺍니다 (v13: 이모지 머리 모양) */
 var QT_EMO={c:"📝", m:"💭", a:"✅", g:"🙏"};
 function qtRefLong(x){   /* 「요 3:16-17」 → 「요한복음 3:16-17」, 못 읽으면 쓴 그대로 */
@@ -13661,7 +13834,7 @@ function plNoteFlush(){
   if(ta) plSetNote(ta.dataset.plnote, ta.value);
 }
 
-var SCREENS=["home","my","hubm","hubr","hubl","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview","qt"];
+var SCREENS=["home","my","hubm","hubr","hubl","lobby","setup","result","done","rank","me","detail","tlist","type","fsrs","fcard","crop","coop","field","partv","vcard","mine","mypick","mtyp","glance","read","rday","rnotes","order","oday","bible","bchap","btext","sverse","smemo","sxref","slex","sdict","sunit","smap","speople","person","tract","tview","qt","share"];
 var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"읽기",hubl:"듣기",lobby:"대회",setup:"구절 뽑기",result:"채점",done:"채점 결과",
                  rank:"순위표",me:"리사이팅",detail:"구절별 기록",
                  tlist:"타이핑할 구절",mtyp:"외우며 치기",type:"타이핑",fsrs:"복습 카드",fcard:"카드 복습",
@@ -13671,7 +13844,7 @@ var SCREEN_NAME={home:"처음 화면",my:"마이페이지",hubm:"암송",hubr:"�
                  read:"성경읽기표", rday:"오늘 분량", rnotes:"묵상",
                  order:"성경순서로", oday:"하루 분량", bible:"공부", bchap:"장 고르기", btext:"성경 본문",
                  sverse:"성경 구절 찾기", smemo:"암송 카드 찾기", sxref:"관주", slex:"원어 사전", sdict:"성경 사전", sunit:"도량형", smap:"성경 지도", speople:"성경 인물", person:"인물",
-                 tract:"전도지", tview:"하나님께 가는 다리", qt:"경건의 시간"};
+                 tract:"전도지", tview:"하나님께 가는 다리", qt:"경건의 시간", share:"묵상 공유"};
 SCREEN_NAME.tract=trK().head; SCREEN_NAME.tview=trK().title;   /* v14: 학생용 · 어른용 */
 var screenNow="home", screenLog=["home"], depth=0;
 
@@ -13736,6 +13909,7 @@ function applyScreen(which,restoreY){
   if(which==="rnotes") paintReadNotes();
   setTimeout(function(){ foldNotes($(which)); },60);   /* 그려진 긴 안내 글 접기 */
   if(which==="qt") paintQt();
+  if(which==="share"){ paintShare(); shLoadAll(); }
   if(which==="mine"){                 /* 암송지갑에 올 때마다 지금 셈으로 */
     paintMy();
     if(state.me && (!mineLoaded || Date.now()-mineAt>60000)) mineLoad();
@@ -13948,6 +14122,7 @@ function modeClick(e){
   if(m==="crop"){ openCrop(); return; }
   if(m==="tract"){ openTract("kid"); return; }
   if(m==="tract2"){ openTract("adult"); return; }
+  if(m==="share"){ openShare(); return; }
   if(m==="coop"){ openCoop(); return; }
   setMode(m);
   show("setup");
@@ -14163,6 +14338,17 @@ $("qtdone").addEventListener("click",function(){ qtKeep(true); goBack(); });
 $("qtshare").addEventListener("click",function(){ qtShare(false); });
 $("qtcopy").addEventListener("click",function(){ qtShare(true); });
 $("qtimg").addEventListener("click",qtShareImg);
+$("share").addEventListener("click",function(e){
+  if(e.target.closest("[data-shlogin]")){ show("my"); return; }
+  var so=e.target.closest("[data-shsort]"); if(so){ SH.sort=so.dataset.shsort; SH.show=30; try{ localStorage.setItem("navfest.shsort",SH.sort); }catch(_){} paintShare(); return; }
+  var te=e.target.closest("[data-shtesta]"); if(te){ SH.testa=te.dataset.shtesta; SH.book=-1; SH.show=30; paintShare(); return; }
+  if(e.target.closest("[data-shmore]")){ SH.show+=30; paintShare(); return; }
+  var lk=e.target.closest("[data-shlike]"); if(lk){ shLike(lk.dataset.shlike,lk); return; }
+  var go=e.target.closest("[data-shgo]"); if(go){ goRef(go.dataset.shgo); return; }
+  var op=e.target.closest("[data-shopen]"); if(op){ SH.open=SH.open===op.dataset.shopen?"":op.dataset.shopen; paintShare(); }
+});
+$("share").addEventListener("change",function(e){ if(e.target.id==="shbook"){ SH.book=+e.target.value; SH.testa=""; SH.show=30; paintShare(); } });
+
 $("qtpub").addEventListener("click",function(){
   var x=qtFromDom(); if(qtEmpty(x)){ setSync("아직 쓴 내용이 없습니다",true); return; }
   qtKeep(true); if(QT.id && QT.map[QT.id]) shOpen("qt",QT.id);
