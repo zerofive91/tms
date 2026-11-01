@@ -2556,7 +2556,7 @@ section[id^="st-"]{scroll-margin-top:8px}
       </div>
     </div>
     <div class="panel" id="mysettings">
-      <p class="eyebrow">설정 · 이 기기에만 기억합니다</p>
+      <p class="eyebrow" id="mysetwhere">설정 · 이 기기에만 기억합니다</p>
       <p class="eyebrow" style="margin-top:6px">성경 본문</p>
       <div class="vertoggle verpick" id="verpick" role="group" aria-label="성경 역본">
         <button type="button" data-ver="gae">개역개정</button>
@@ -4170,6 +4170,35 @@ function paintThemePick(){
   document.querySelectorAll("#themepick button").forEach(function(b){
     b.setAttribute("aria-pressed", String(b.dataset.theme===cur));
   });
+}
+
+/* 화면 설정 계정에 저장(v17) — 성경 역본 · 글씨 크기 · 밝기 · 테마 · 글꼴을 로그인 계정(Supabase auth user_metadata.prefs)에 둡니다.
+   표를 새로 만들지 않습니다. 로그인하지 않았으면 지금처럼 이 기기에만 남습니다.
+   로그인할 때: 계정에 저장된 것이 있으면 그것을 이 기기에 씌우고, 없으면 이 기기 설정을 계정에 올립니다. */
+var PREF_LAST="", PREF_T=0, PREF_FOR="";
+function prefNow(){ return {ver:state.ver,fz:fzNow(),theme:themeNow(),skin:skinNow(),fui:fontNow("fui"),fhd:fontNow("fhd"),fbv:fontNow("fbv")}; }
+function prefPush(){
+  if(!online() || !state.me) return;
+  clearTimeout(PREF_T);
+  PREF_T=setTimeout(function(){
+    var p=prefNow(), j=JSON.stringify(p);
+    if(j===PREF_LAST) return;
+    PREF_LAST=j;
+    SB.auth.updateUser({data:{prefs:p}}).then(function(r){ if(r&&r.error) PREF_LAST=""; }).catch(function(){ PREF_LAST=""; });
+  },800);
+}
+function paintPrefWhere(){
+  var el=$("mysetwhere"); if(el) el.textContent = state.me ? "설정 · 계정에 저장됩니다" : "설정 · 이 기기에만 기억합니다 · 로그인하면 계정에 저장";
+}
+function prefPull(u){
+  if(!u || PREF_FOR===u.id) return;      /* 로그인 한 번에 한 번만(토큰 갱신 때 옛 값으로 되돌리지 않도록) */
+  PREF_FOR=u.id;
+  var p=u.user_metadata && u.user_metadata.prefs;
+  if(!p || typeof p!=="object"){ PREF_LAST=""; prefPush(); return; }
+  if(p.ver) setVer(p.ver);
+  setFz(p.fz); setTheme(p.theme); setSkin(p.skin);
+  ["fui","fhd","fbv"].forEach(function(k){ setFont(k,p[k]); });
+  PREF_LAST=JSON.stringify(prefNow());
 }
 
 /* ═══ 마이페이지 ═══
@@ -13093,11 +13122,11 @@ function signIn(provider){
 }
 function afterAuth(u){
   authReady=true;
-  if(u) setMe(u);
-  else { state.me=null; state.progress={}; pending={}; mineLoaded=false; }
+  if(u){ setMe(u); prefPull(u); }
+  else { PREF_FOR=""; PREF_LAST=""; state.me=null; state.progress={}; pending={}; mineLoaded=false; }
   if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); qtLoad(); }
   if(screenNow==="mine") paintMy();
-  paintAcct();
+  paintAcct(); paintPrefWhere();
   if(screenNow==="my") paintMy2(true);
   if(!$("me").hidden){
     paintMe();
@@ -13726,13 +13755,13 @@ buildCounts();
 
 $("verpick").addEventListener("click",function(e){
   var b=e.target.closest("button[data-ver]"); if(!b) return;
-  setVer(b.dataset.ver);
+  setVer(b.dataset.ver); prefPush();
   if(screenNow==="result") paintList();
 });
 $("brand").addEventListener("click",goHome);
 $("fzpick").addEventListener("click",function(e){
   var b=e.target.closest("button[data-fz]"); if(!b) return;
-  setFz(b.dataset.fz);
+  setFz(b.dataset.fz); prefPush();
 });
 $("backbtn").addEventListener("click",goBack);
 $("homebtn").addEventListener("click",goHome);
@@ -13873,7 +13902,7 @@ $("rlist").addEventListener("click",function(e){
   }
   var vt=e.target.closest(".vertoggle button");
   if(vt){
-    setVer(vt.dataset.ver);
+    setVer(vt.dataset.ver); prefPush();
     var openIdx=[];
     document.querySelectorAll("#rlist li.open").forEach(function(x){ openIdx.push(+x.dataset.i); });
     paintList();
@@ -14346,17 +14375,17 @@ foldNotes(document);
 document.body.classList.toggle("nolk",!LK.on);
 $("themepick").addEventListener("click",function(e){
   var b=e.target.closest("button[data-theme]"); if(!b) return;
-  setTheme(b.dataset.theme);
+  setTheme(b.dataset.theme); prefPush();
 });
 ["fui","fhd","fbv"].forEach(function(k){
   $(k+"pick").addEventListener("click",function(e){
     var b=e.target.closest("button[data-f]"); if(!b) return;
-    setFont(k,b.dataset.f);
+    setFont(k,b.dataset.f); prefPush();
   });
 });
 $("skinpick").addEventListener("click",function(e){
   var b=e.target.closest("button[data-skin]"); if(!b) return;
-  setSkin(b.dataset.skin);
+  setSkin(b.dataset.skin); prefPush();
 });
 $("mystats").addEventListener("click",function(e){
   var b=e.target.closest("[data-mygo]"); if(!b) return;
