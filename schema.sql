@@ -452,6 +452,47 @@ create policy "본인 경건의 시간만" on public.qt_notes
   with check (owner = 'g:' || auth.uid()::text);
 
 
+-- ── 3-7-1c. 묵상 공유 · 공감 (v18) ───────────────────────────
+-- 듣기 → 「묵상 공유」. 묵상에서 「공유하기」를 누르면 그 묵상을 복사해 둡니다.
+-- 로그인한 사람만 보고, 올리기 · 고치기 · 내리기는 본인 것만. 공감은 한 사람이 한 번.
+create table if not exists public.shared_meditations (
+  id         uuid primary key default gen_random_uuid(),
+  owner      text not null,                 -- 'g:' || auth.uid()
+  src_kind   text not null check (src_kind in ('qt','verse')),
+  src_id     text not null,                 -- qt_notes.id 또는 verse_notes.vkey
+  name       text not null default '' check (char_length(name) <= 20),   -- 보일 이름, '' = 익명
+  book       smallint check (book between 0 and 65),
+  chap       smallint, verse smallint, verse2 smallint,
+  ref        text not null default '' check (char_length(ref) <= 40),
+  line       text not null default '' check (char_length(line) <= 80),   -- 한 줄 핵심
+  content    text not null default '' check (char_length(content) <= 3000),
+  medi       text not null default '' check (char_length(medi) <= 3000),
+  apply      text not null default '' check (char_length(apply) <= 2000),
+  prayer     text not null default '' check (char_length(prayer) <= 2000),
+  written_on date not null default current_date,
+  shared_at  timestamptz not null default now(),
+  unique (owner, src_kind, src_id)
+);
+alter table public.shared_meditations enable row level security;
+create policy "공유 묵상 로그인하면 보기" on public.shared_meditations for select to authenticated using (true);
+create policy "본인 공유만 올리기" on public.shared_meditations for insert to authenticated with check (owner = 'g:' || auth.uid()::text);
+create policy "본인 공유만 고치기" on public.shared_meditations for update to authenticated using (owner = 'g:' || auth.uid()::text) with check (owner = 'g:' || auth.uid()::text);
+create policy "본인 공유만 내리기" on public.shared_meditations for delete to authenticated using (owner = 'g:' || auth.uid()::text);
+create index if not exists shared_meditations_at on public.shared_meditations (shared_at desc);
+create index if not exists shared_meditations_bible on public.shared_meditations (book, chap, verse);
+
+create table if not exists public.shared_likes (
+  med_id     uuid not null references public.shared_meditations(id) on delete cascade,
+  owner      text not null,                 -- 공감한 사람 'g:' || auth.uid()
+  created_at timestamptz not null default now(),
+  primary key (med_id, owner)
+);
+alter table public.shared_likes enable row level security;
+create policy "공감 로그인하면 보기" on public.shared_likes for select to authenticated using (true);
+create policy "본인 공감만 누르기" on public.shared_likes for insert to authenticated with check (owner = 'g:' || auth.uid()::text);
+create policy "본인 공감만 거두기" on public.shared_likes for delete to authenticated using (owner = 'g:' || auth.uid()::text);
+
+
 -- ── 3-7-2. 성경순서로 ──────────────────────────────────────────
 -- 성경 순서대로 장 단위로 읽는 계획표입니다. 한 사람에 한 줄(지금 계획).
 --   plan : 계획 설정 {id, scope(all·ot·nt), unit(m·y), num, rounds, rest(none·sun·weekend), start, end, pre}
@@ -590,6 +631,8 @@ revoke all on public.reading_checks   from anon, authenticated;
 revoke all on public.reading_notes    from anon, authenticated;
 revoke all on public.verse_notes      from anon, authenticated;
 revoke all on public.qt_notes         from anon, authenticated;
+revoke all on public.shared_meditations from anon, authenticated;
+revoke all on public.shared_likes     from anon, authenticated;
 revoke all on public.order_plans      from anon, authenticated;
 revoke all on public.prayer_list      from anon, authenticated;
 revoke all on public.harvest_rooms    from anon, authenticated;
@@ -634,6 +677,8 @@ grant select, insert, update, delete on public.reading_checks   to authenticated
 grant select, insert, update, delete on public.reading_notes    to authenticated;
 grant select, insert, update, delete on public.verse_notes      to authenticated;
 grant select, insert, update, delete on public.qt_notes         to authenticated;
+grant select, insert, update, delete on public.shared_meditations to authenticated;
+grant select, insert, delete on public.shared_likes to authenticated;
 grant select, insert, update, delete on public.order_plans      to authenticated;
 grant select, insert, update, delete on public.prayer_list      to authenticated;
 
