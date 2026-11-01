@@ -1422,6 +1422,15 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtshare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .qtshare .go{padding:13px 8px;font-size:calc(14px * var(--fz))}
 .qtshare .qtwide{grid-column:1 / -1}
+/* 묵상 공유 (v18) */
+.shact.on{border-color:var(--brand);color:var(--brand);font-weight:700;background:color-mix(in srgb,var(--brand) 10%,var(--bg))}
+.qtshare .shpub.on{border-color:var(--brand);color:var(--brand)}
+.shcnt{float:right;font-weight:400;font-size:calc(11.5px * var(--fz));color:var(--ink-soft)}
+#shnick{margin-top:8px}
+.shfields{display:flex;flex-wrap:wrap;gap:6px 14px}
+.shchk{display:inline-flex;align-items:center;gap:6px;font-size:calc(14px * var(--fz));color:var(--ink);cursor:pointer}
+.shchk input{width:18px;height:18px;accent-color:var(--brand)}
+.shbtns{margin-top:16px}
 .qtdel{border:0;background:none;color:var(--ink-soft);font:inherit;font-size:calc(13px * var(--fz));text-decoration:underline;text-underline-offset:3px;padding:8px;cursor:pointer;justify-self:center}
 /* 함께 읽기 (v12) */
 body.nolk .lkrow{display:none}
@@ -3037,7 +3046,7 @@ body.compact header{padding:14px 0 10px}
       <div class="field"><label for="qtg">기도</label><textarea id="qtg" rows="3" maxlength="2000"></textarea></div>
       <p class="fixednote" id="qtsave"></p>
       <div class="qtacts"><button type="button" class="go" id="qtdone">다 썼습니다</button>
-        <div class="qtshare"><button type="button" class="go soft" id="qtshare">📝 글로 공유</button><button type="button" class="go soft" id="qtimg">🖼️ 이미지로 공유</button><button type="button" class="go soft qtwide" id="qtcopy">📋 글로 복사</button></div>
+        <div class="qtshare"><button type="button" class="go soft" id="qtshare">📝 글로 공유</button><button type="button" class="go soft" id="qtimg">🖼️ 이미지로 공유</button><button type="button" class="go soft qtwide" id="qtcopy">📋 글로 복사</button><button type="button" class="go soft qtwide shpub" id="qtpub">🌍 묵상 공유에 올리기</button></div>
         <button type="button" class="qtdel" id="qtdel">🗑️ 이 노트 지우기</button></div>
     </div>
   </div>
@@ -8819,6 +8828,7 @@ function rnMemoBox(key,n){
     '<div class="rnacts"><button type="button" class="go" data-rnsave="'+esc(key)+'">저장</button><button type="button" class="go soft" data-rncancel="1">그만두기</button></div></div>';
   return (n?'<p class="rnmemo">'+esc(n)+'</p>':'')+
     '<div class="rnacts"><button type="button" class="rnact" data-rned="'+esc(key)+'">✏️ '+(n?'고치기':'묵상 쓰기')+'</button>'+
+    (n&&key.indexOf("v:")===0?shBtn("verse",key.slice(2),"data-rnsh"):'')+
     '<button type="button" class="rnact" data-rndel="'+esc(key)+'">🗑️ 지우기</button></div>';
 }
 /* 지울 것 — {n:묵상 글, mk:형광펜(절) · 밑줄(날) 있음, mkName, label} */
@@ -8857,6 +8867,8 @@ function rnDoDel(key,how){
   var kind=key.slice(0,1), id=key.slice(2);
   if(kind==="v"){ var p={}; if(how!=="c") p.n=""; if(how!=="n") p.c=""; vnSet(id,p); }
   else if(kind==="d"){ var d=RD.notes[id]||{note:"",marks:[]}; rdSetNoteId(id,{note:how==="c"?d.note:"", marks:how==="n"?d.marks:[]}); }
+  if(kind==="q") shUnshare("qt",id,true);
+  else if(kind==="v" && how!=="c") shUnshare("verse",id,true);
   else if(kind==="q"){ if(QT.id===id){ clearTimeout(QT.timer); QT.timer=null; QT.cur=null; QT.id=""; } qtSet(id,{}); }
   if(RN.edit===key) RN.edit="";
   setSync(how==="nc"?"묵상과 표시를 지웠습니다":how==="c"?"표시를 지웠습니다":kind==="q"?"경건의 시간 노트를 지웠습니다":"묵상을 지웠습니다");
@@ -9001,12 +9013,123 @@ function qtListHtml(){
       var x=QT.map[id], first=String(x.m||x.c||x.a||x.g||"").split("\n")[0];
       return '<li><button type="button" data-qt="'+esc(id)+'"><span class="qtrd">'+esc(qtDateText(x.d))+'</span>'+
         '<b>'+esc(x.ti||x.r||"제목 없음")+'</b>'+(x.ti&&x.r?'<em>'+esc(x.r)+'</em>':'')+(first?'<span class="qtrm">'+esc(first)+'</span>':'')+'</button>'+
-        '<span class="qtrowacts"><button type="button" class="rnact" data-qt="'+esc(id)+'">✏️ 고치기</button><button type="button" class="rnact" data-qtdel="'+esc(id)+'">🗑️ 지우기</button></span></li>';
+        '<span class="qtrowacts"><button type="button" class="rnact" data-qt="'+esc(id)+'">✏️ 고치기</button>'+shBtn("qt",id,"data-qtsh")+'<button type="button" class="rnact" data-qtdel="'+esc(id)+'">🗑️ 지우기</button></span></li>';
     }).join("")+'</ul>';
     if(ids.length>QT.show) h+='<button type="button" class="go soft" data-qtmore="1" style="margin-top:10px">더 보기 ('+(ids.length-QT.show)+'개 남음)</button>';
   }
   return h+'</div>';
 }
+/* ═══ 묵상 공유 (v18) ═══ 묵상에서 「공유하기」를 누르면 그 묵상을 shared_meditations 에 복사해 둡니다.
+   로그인한 사람만 보고(듣기 → 묵상 공유), 고치기 · 내리기는 본인 것만. 원래 묵상을 고쳐도 공유본은 그대로, 다시 올리면 덮어씁니다.
+   SH.mine — 내가 올린 것 'qt:노트번호' · 'verse:절키' → {id, line, name} */
+var SH={mine:{}, owner:"", busy:null, noTable:false, all:null, likes:{}, liked:{}, sort:"new", book:-1, testa:"", open:"", loading:null, at:0};
+var SH_NAME_KEY="navfest.shname";
+function shKey(kind,id){ return kind+":"+id; }
+function shIs(kind,id){ return !!SH.mine[shKey(kind,id)]; }
+function shLoadMine(){
+  if(!state.me || !online()) return Promise.resolve();
+  if(SH.busy) return SH.busy;
+  var owner=state.me.owner;
+  SH.busy=sbAll(function(){ return SB.from("shared_meditations").select("id,src_kind,src_id,line,name").eq("owner",owner).order("id"); }).then(function(r){
+    if(r.error) throw r.error;
+    if(!state.me || state.me.owner!==owner) return;
+    var m={}; (r.data||[]).forEach(function(x){ m[shKey(x.src_kind,x.src_id)]={id:x.id, line:x.line, name:x.name}; });
+    SH.mine=m; SH.owner=owner; SH.noTable=false;
+    if(screenNow==="rnotes") paintReadNotes();
+  }).catch(function(e){ if(myNoTable(e)) SH.noTable=true; }).then(function(){ SH.busy=null; });
+  return SH.busy;
+}
+function shReset(){ SH.mine={}; SH.owner=""; SH.all=null; SH.likes={}; SH.liked={}; }
+function shNamePref(){ try{ var o=JSON.parse(localStorage.getItem(SH_NAME_KEY)||"null"); if(o && /^(me|nick|anon)$/.test(o.how)) return o; }catch(e){} return {how:"me", nick:""}; }
+function shCut(s,n){ s=String(s||"").replace(/\s+/g," ").trim(); return s.length>n ? s.slice(0,n-1)+"…" : s; }
+function shFirst(s){ s=String(s||"").replace(/\s+/g," ").trim(); var m=/^(.+?[.!?。])(\s|$)/.exec(s); return shCut(m?m[1]:s,80); }
+/* 공유할 묵상 → 표 한 줄(본문 · 주소 · 칸). 못 찾으면 null */
+function shSource(kind,id){
+  if(kind==="qt"){
+    var x=QT.map[id]; if(!x) return null;
+    var a=parseAddr(x.r||"");
+    return {kind:kind, id:id, ref:shCut(a?qtRefLong(x):(x.r||""),40), a:a, d:x.d||fToday(), ti:x.ti||"",
+      f:{content:x.c||"", medi:x.m||"", apply:x.a||"", prayer:x.g||""},
+      line:x.ti||shFirst(x.m||x.c||x.a||x.g||"")};
+  }
+  var v=VN.map[id]; if(!v || !(v.n||"").trim()) return null;
+  var p=String(id).split("|"), bi=BOOK_ORDER.indexOf(p[0]), vs=String(p[2]||"").split("-");
+  return {kind:kind, id:id, ref:shCut(rnRefLabel(id),40), a:bi>=0?{bi:bi, c:+p[1]||1, v:+vs[0]||0, v2:+vs[1]||0}:null,
+    d:String(v.t||"").slice(0,10)||fToday(), ti:"", f:{medi:v.n||""}, line:shFirst(v.n)};
+}
+var SH_FIELDS=[["content","📝 내용"],["medi","💭 묵상"],["apply","✅ 적용"],["prayer","🙏 기도"]];
+function shOpen(kind,id){
+  if(!state.me){ setSync("로그인해야 묵상을 공유할 수 있습니다",true); show("my"); return; }
+  if(SH.noTable){ setSync("묵상 공유를 아직 쓸 수 없습니다 · 잠시 뒤 다시 해 주세요",true); return; }
+  var s=shSource(kind,id); if(!s){ setSync("공유할 묵상 글이 없습니다",true); return; }
+  var was=SH.mine[shKey(kind,id)], np=shNamePref();
+  var line=was&&was.line ? was.line : s.line;
+  if(was && was.name!==undefined){ np.how = !was.name ? "anon" : was.name===state.me.name ? "me" : "nick"; if(np.how==="nick") np.nick=was.name; }
+  var fields=SH_FIELDS.filter(function(f){ return (s.f[f[0]]||"").trim(); });
+  var h='<h3 class="shtitle">🌍 묵상 공유'+(was?' · 올려 둠':'')+'</h3>'+
+    '<p class="shsub">'+esc(s.ref||"말씀 주소 없음")+' · 로그인한 사람에게만 보입니다</p>'+
+    '<div class="field"><label for="shline">한 줄 핵심 <span class="shcnt" id="shcnt"></span></label>'+
+      '<input type="text" id="shline" maxlength="80" value="'+esc(line)+'" placeholder="말풍선에 크게 보일 한 문장"></div>'+
+    '<div class="field"><label>보일 이름</label><div class="counts" id="shhow" role="group" aria-label="보일 이름">'+
+      [["me",shCut(state.me.name,10)],["nick","별명"],["anon","익명"]].map(function(o){
+        return '<button type="button" class="cbtn" data-shhow="'+o[0]+'" aria-pressed="'+(np.how===o[0])+'">'+esc(o[1])+'</button>'; }).join("")+'</div>'+
+      '<input type="text" id="shnick" maxlength="20" value="'+esc(np.nick||"")+'" placeholder="별명 (20자까지)"'+(np.how==="nick"?'':' hidden')+'></div>'+
+    (fields.length>1?'<div class="field"><label>함께 보일 칸</label><div class="shfields">'+fields.map(function(f){
+      return '<label class="shchk"><input type="checkbox" data-shf="'+f[0]+'" checked> '+esc(f[1])+'</label>'; }).join("")+'</div></div>':'')+
+    '<div class="rndelbtns shbtns"><button type="button" class="go" data-shok="1">🌍 '+(was?'고쳐 올리기':'공유하기')+'</button>'+
+    (was?'<button type="button" class="go soft" data-shoff="1">🙈 공유 그만두기</button>':'')+
+    '<button type="button" class="go soft" data-shno="1">닫기</button></div>';
+  openSheet(h);
+  var how=np.how;
+  function cnt(){ var el=$("shline"); if(el) $("shcnt").textContent=el.value.length+"/80"; }
+  cnt(); $("shline").addEventListener("input",cnt);
+  $("sheetbody").onclick=function(e){
+    var hb=e.target.closest("[data-shhow]");
+    if(hb){ how=hb.dataset.shhow; $("shhow").querySelectorAll("[data-shhow]").forEach(function(b){ b.setAttribute("aria-pressed",b===hb?"true":"false"); });
+      $("shnick").hidden=how!=="nick"; if(how==="nick") $("shnick").focus(); return; }
+    if(e.target.closest("[data-shno]")){ closeSheet(); return; }
+    if(e.target.closest("[data-shoff]")){ sheetThen(function(){ shUnshare(kind,id); }); return; }
+    if(!e.target.closest("[data-shok]")) return;
+    var ln=$("shline").value.replace(/\s+/g," ").trim(), nick=$("shnick").value.replace(/\s+/g," ").trim();
+    if(!ln){ setSync("한 줄 핵심을 적어 주세요",true); $("shline").focus(); return; }
+    if(how==="nick" && !nick){ setSync("별명을 적어 주세요",true); $("shnick").focus(); return; }
+    var keep={}; $("sheetbody").querySelectorAll("[data-shf]").forEach(function(c){ keep[c.dataset.shf]=c.checked; });
+    try{ localStorage.setItem(SH_NAME_KEY,JSON.stringify({how:how, nick:nick||np.nick||""})); }catch(_){}
+    var name=how==="anon"?"":how==="nick"?shCut(nick,20):shCut(state.me.name,20);
+    sheetThen(function(){ shPut(s,ln,name,keep); });
+  };
+}
+function shPut(s,line,name,keep){
+  if(!state.me || !canSave()){ setSync("인터넷이 없어 공유하지 못했습니다",true); return; }
+  var a=s.a, row={owner:state.me.owner, src_kind:s.kind, src_id:s.id, name:name, line:shCut(line,80), ref:s.ref,
+    book:a?a.bi:null, chap:a?a.c:null, verse:a&&a.v?a.v:null, verse2:a&&a.v2&&a.v2!==a.v?a.v2:null, written_on:s.d,
+    content:"", medi:"", apply:"", prayer:""};
+  SH_FIELDS.forEach(function(f){ if(keep[f[0]]!==false) row[f[0]]=String(s.f[f[0]]||"").slice(0,f[0]==="apply"||f[0]==="prayer"?2000:3000); });
+  var was=!!SH.mine[shKey(s.kind,s.id)];
+  SB.from("shared_meditations").upsert(row,{onConflict:"owner,src_kind,src_id"}).select("id").then(function(r){
+    if(r.error) throw r.error;
+    var id=r.data&&r.data[0]&&r.data[0].id;
+    SH.mine[shKey(s.kind,s.id)]={id:id, line:row.line, name:name}; SH.all=null;
+    setSync(was?"공유한 묵상을 고쳤습니다":"묵상을 공유했습니다 · 듣기 → 묵상 공유에서 보입니다");
+    if(screenNow==="rnotes") paintReadNotes();
+    if(screenNow==="qt") qtShBtn();
+  }).catch(function(e){ if(myNoTable(e)) SH.noTable=true; setSync("공유하지 못했습니다 · "+failText(e),true); });
+}
+function shUnshare(kind,id,quiet){
+  var k=shKey(kind,id); if(!SH.mine[k] || !state.me) return;
+  SB.from("shared_meditations").delete().eq("owner",state.me.owner).eq("src_kind",kind).eq("src_id",id).then(function(r){
+    if(r.error) throw r.error;
+    delete SH.mine[k]; SH.all=null;
+    if(!quiet) setSync("공유를 그만두었습니다 · 다른 사람에게 더는 보이지 않습니다");
+    if(screenNow==="rnotes") paintReadNotes();
+    if(screenNow==="qt") qtShBtn();
+  }).catch(function(e){ setSync("공유를 내리지 못했습니다 · "+failText(e),true); });
+}
+function shBtn(kind,id,attr){
+  var on=shIs(kind,id);
+  return '<button type="button" class="rnact shact'+(on?' on':'')+'" '+attr+'="'+esc(id)+'">🌍 '+(on?'공유됨':'공유')+'</button>';
+}
+function qtShBtn(){ var b=$("qtpub"); if(!b) return; var on=QT.id && shIs("qt",QT.id); b.textContent=on?"🌍 공유됨 · 고쳐 올리기":"🌍 묵상 공유에 올리기"; b.classList.toggle("on",!!on); }
 /* 공유할 글 — 빈 칸은 뺍니다 (v13: 이모지 머리 모양) */
 var QT_EMO={c:"📝", m:"💭", a:"✅", g:"🙏"};
 function qtRefLong(x){   /* 「요 3:16-17」 → 「요한복음 3:16-17」, 못 읽으면 쓴 그대로 */
@@ -9149,6 +9272,7 @@ function paintQt(){
   $("qtplanbtn").setAttribute("aria-pressed",QT.plan?"true":"false");
   $("qtplan").hidden=!QT.plan;
   $("qtdel").hidden=!QT.map[QT.id];
+  qtShBtn();
   $("qtsave").textContent="쓰는 대로 저장됩니다"+(state.me?"":" · 로그인 전에는 이 기기에만");
   qtPassagePaint();
 }
@@ -13150,8 +13274,8 @@ function signIn(provider){
 function afterAuth(u){
   authReady=true;
   if(u){ setMe(u); prefPull(u); }
-  else { PREF_FOR=""; PREF_LAST=""; state.me=null; state.progress={}; pending={}; mineLoaded=false; }
-  if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); qtLoad(); }
+  else { PREF_FOR=""; PREF_LAST=""; state.me=null; state.progress={}; pending={}; mineLoaded=false; shReset(); }
+  if(u){ mineLoad(); myLoad(); rdLoad(); odLoad(); plLoad(); vnLoad(); qtLoad(); shLoadMine(); }
   if(screenNow==="mine") paintMy();
   paintAcct(); paintPrefWhere();
   if(screenNow==="my") paintMy2(true);
@@ -13802,7 +13926,7 @@ function modeClick(e){
     if(netOff()){ setSync("인터넷이 없어 Wheel Life Cafe에 들어갈 수 없습니다 · 연결된 뒤 다시 눌러 주세요",true); return; }
     location.href=CAFE_URL; return;
   }
-  if(m==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); qtLoad(); } paintReadNotes(); show("rnotes"); return; }
+  if(m==="medi"){ RN.from="read"; if(state.me){ rdLoad(); vnLoad(); qtLoad(); shLoadMine(); } paintReadNotes(); show("rnotes"); return; }
   if(m==="mine"){ openMine(); return; }
   if(m==="read"){ openRead(); return; }
   if(m==="order"){ openOrder(); return; }
@@ -14003,6 +14127,7 @@ $("rnsort").addEventListener("click",function(e){ var b=e.target.closest("[data-
 $("qthost").addEventListener("click",function(e){
   if(e.target.closest("[data-qtnew]")){ openQt(""); return; }
   if(e.target.closest("[data-qtmore]")){ QT.show+=20; $("qthost").innerHTML=qtListHtml(); return; }
+  var sh=e.target.closest("[data-qtsh]"); if(sh){ shOpen("qt",sh.dataset.qtsh); return; }
   var dl=e.target.closest("[data-qtdel]"); if(dl){ rnAskDel("q:"+dl.dataset.qtdel); return; }
   var b=e.target.closest("[data-qt]"); if(b) openQt(b.dataset.qt);
 });
@@ -14038,6 +14163,10 @@ $("qtdone").addEventListener("click",function(){ qtKeep(true); goBack(); });
 $("qtshare").addEventListener("click",function(){ qtShare(false); });
 $("qtcopy").addEventListener("click",function(){ qtShare(true); });
 $("qtimg").addEventListener("click",qtShareImg);
+$("qtpub").addEventListener("click",function(){
+  var x=qtFromDom(); if(qtEmpty(x)){ setSync("아직 쓴 내용이 없습니다",true); return; }
+  qtKeep(true); if(QT.id && QT.map[QT.id]) shOpen("qt",QT.id);
+});
 $("qtdel").addEventListener("click",function(){
   if(!QT.id || !QT.map[QT.id]) return;
   qtKeep(true); rnAskDel("q:"+QT.id,function(){ goBack(); });
@@ -14046,6 +14175,7 @@ $("rnotelist").addEventListener("click",function(e){
   var ed=e.target.closest("[data-rned]"); if(ed){ RN.edit=ed.dataset.rned; paintReadNotes(); var t=$("rnedit"); if(t){ t.focus(); t.setSelectionRange(t.value.length,t.value.length); } return; }
   if(e.target.closest("[data-rncancel]")){ RN.edit=""; paintReadNotes(); return; }
   var sv=e.target.closest("[data-rnsave]"); if(sv){ rnSaveEdit(sv.dataset.rnsave); return; }
+  var rs=e.target.closest("[data-rnsh]"); if(rs){ shOpen("verse",rs.dataset.rnsh); return; }
   var dl=e.target.closest("[data-rndel]"); if(dl){ rnAskDel(dl.dataset.rndel); return; }
   var r=e.target.closest("[data-rgo]"); if(r){ goRef(r.dataset.rgo); return; }
   var o=e.target.closest("[data-ogo2]"); if(o){ openOrderDay(+o.dataset.ogo2); return; }
@@ -14368,7 +14498,7 @@ $("tygrade").addEventListener("click",function(e){
 });
 function signOutAll(){
   if(online()) SB.auth.signOut();
-  state.me=null; state.progress={}; pending={};
+  state.me=null; state.progress={}; pending={}; shReset();
   myReset(); paintHomeCount(); rdReset(); odReset(); paintReadCount(); plReset(); paintTractCount(); vnReset(); qtReset();
   setSync(""); pollStop();
   paintMe(); paintAcct();
