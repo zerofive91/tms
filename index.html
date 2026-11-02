@@ -1405,6 +1405,8 @@ html[data-fz="120"] .plhead .chev,html[data-fz="130"] .plhead .chev{grid-column:
 .qtsrc{margin:0}
 .qttip{margin:0;padding:8px 11px;border-radius:10px;background:var(--bg);color:var(--ink-soft);font-size:calc(12.5px * var(--fz));line-height:1.5}
 .qttip.on{background:var(--tint);color:var(--accent-ink)}
+.qtselm .cbtn{min-width:0;padding:7px 6px}
+.qtpgap{margin:0 0 4px;color:var(--ink-soft);font-size:calc(13px * var(--fz));line-height:1;letter-spacing:2px}
 .qtpick{display:flex;gap:6px;align-items:center}
 .qtpick select{flex:1 1 0;min-width:0;padding:10px 8px}
 .qtpick #qtpb{flex-grow:1.6}
@@ -8998,13 +9000,13 @@ function paintReadNotes(){
    말씀 주소를 쓰면 개역한글 본문이 붙고, 「읽기표 함께 보기」를 켜면 그날 읽기표의 시가서 → 복음서 칸이 노트 위에 뜹니다.
    로그인 전에는 이 기기에만 두고, 로그인하면 계정으로 올립니다(묵상 · 형광펜과 같은 방식). */
 var QT_KEY="navfest.qt";
-var QT={map:{}, owner:"", pend:{}, noTable:false, busy:null, flushing:null, again:false, id:"", timer:null, plan:false, day:-1, show:5,
+var QT={map:{}, owner:"", pend:{}, noTable:false, busy:null, flushing:null, again:false, id:"", timer:null, plan:false, day:-1, show:5, selm:"range",
   tab:"plan", slot:2, pick:null};   /* 위 칸: tab plan 읽기표 · pick 내가 고른 본문, slot 2 시가서 · 0 복음서, pick [책, 장] (v13) */
 var QT_FIELDS=[["c","내용","말씀이 무엇을 말하는지 — 사건 · 인물 · 반복되는 말"],["m","묵상","하나님은 어떤 분이신가, 나에게 무엇을 말씀하시는가"],["a","적용","오늘 구체적으로 할 한 가지"],["g","기도","이 말씀으로 드리는 기도"]];
 (function(){
-  try{ var o=JSON.parse(localStorage.getItem(QT_KEY)||"null"); if(o){ QT.map=o.map||{}; QT.owner=o.owner||""; QT.pend=o.pend||{}; QT.plan=!!o.plan; if(o.tab==="pick") QT.tab="pick"; if(o.slot===0) QT.slot=0; if(Array.isArray(o.pick)) QT.pick=o.pick; } }catch(e){}
+  try{ var o=JSON.parse(localStorage.getItem(QT_KEY)||"null"); if(o){ QT.map=o.map||{}; QT.owner=o.owner||""; QT.pend=o.pend||{}; QT.plan=!!o.plan; if(o.tab==="pick") QT.tab="pick"; if(o.slot===0) QT.slot=0; if(Array.isArray(o.pick)) QT.pick=o.pick; if(o.selm==="each") QT.selm="each"; } }catch(e){}
 })();
-function qtSave(){ try{ localStorage.setItem(QT_KEY,JSON.stringify({map:QT.map,owner:QT.owner,pend:QT.pend,plan:QT.plan,tab:QT.tab,slot:QT.slot,pick:QT.pick})); }catch(e){} }
+function qtSave(){ try{ localStorage.setItem(QT_KEY,JSON.stringify({map:QT.map,owner:QT.owner,pend:QT.pend,plan:QT.plan,tab:QT.tab,slot:QT.slot,pick:QT.pick,selm:QT.selm})); }catch(e){} }
 function qtEmpty(x){ return !x || !(x.ti||x.r||x.c||x.m||x.a||x.g); }
 function qtSet(id,x){
   var empty=qtEmpty(x);
@@ -9253,7 +9255,8 @@ function shBubble(x,mine){
       '<span class="shline">'+esc(x.line||"")+'</span></button>';
   if(open){
     h+='<div class="shmore">';
-    if(x.book!==null && x.verse) h+='<p class="shverse" data-shv="'+x.book+'|'+x.chap+'|'+x.verse+'|'+(x.verse2||x.verse)+'"><em>본문을 불러오는 중…</em></p>';
+    var pa=x.book!==null && x.verse ? parseAddr(x.ref||"") : null, shl=pa && pa.vs && pa.bi===x.book && pa.c===x.chap ? pa.vs.join(",") : "";   /* v20: 떨어진 절 */
+    if(x.book!==null && x.verse) h+='<p class="shverse" data-shv="'+x.book+'|'+x.chap+'|'+x.verse+'|'+(x.verse2||x.verse)+'"'+(shl?' data-shl="'+shl+'"':'')+'><em>본문을 불러오는 중…</em></p>';
     SH_FIELDS.forEach(function(f){ if(x[f[0]]) h+='<div class="shfield"><b>'+esc(f[1])+'</b><p>'+esc(x[f[0]])+'</p></div>'; });
     if(x.book!==null) h+='<button type="button" class="rnact" data-shgo="'+x.book+'|'+x.chap+'|'+(x.verse||1)+'|'+(x.verse2||0)+'">성경에서 보기 &#8250;</button>';
     h+='</div>';
@@ -9297,9 +9300,10 @@ function shVersePaint(){
   var el=document.querySelector("#shlist [data-shv]"); if(!el) return;
   var p=el.dataset.shv.split("|").map(Number), bi=p[0];
   bibBook(bi).then(function(){
-    if(!el.isConnected) return; var out=[];
-    for(var v=p[2]; v<=Math.min(p[3],p[2]+9); v++){ var t=bibVerse(bi,p[1],v); if(t) out.push('<sup>'+v+'</sup>'+esc(t)); }
-    el.innerHTML=out.join(" ")+(p[3]>p[2]+9?' …':'')+' <span class="shkrv">개역한글</span>';
+    if(!el.isConnected) return; var out=[], vs=[];
+    if(el.dataset.shl) vs=el.dataset.shl.split(",").map(Number); else for(var v=p[2]; v<=p[3]; v++) vs.push(v);
+    vs.slice(0,10).forEach(function(v,j){ var t=bibVerse(bi,p[1],v); if(t) out.push((j&&v!==vs[j-1]+1?'⋯ ':'')+'<sup>'+v+'</sup>'+esc(t)); });
+    el.innerHTML=out.join(" ")+(vs.length>10?' …':'')+' <span class="shkrv">개역한글</span>';
   },function(){ if(el.isConnected) el.innerHTML='<em>'+(netOff()?'인터넷이 없어 본문을 불러오지 못했습니다':'본문을 불러오지 못했습니다')+'</em>'; });
 }
 function shLike(id,btn){
@@ -9318,7 +9322,7 @@ function shLike(id,btn){
 var QT_EMO={c:"📝", m:"💭", a:"✅", g:"🙏"};
 function qtRefLong(x){   /* 「요 3:16-17」 → 「요한복음 3:16-17」, 못 읽으면 쓴 그대로 */
   var a=parseAddr(x.r||""); if(!a) return x.r||"";
-  return BOOK_ORDER[a.bi]+" "+a.c+(a.v?":"+a.v+(a.v2&&a.v2!==a.v?"-"+a.v2:""):chWord(a.bi));
+  return BOOK_ORDER[a.bi]+" "+a.c+(a.v?":"+addrVText(a):chWord(a.bi));
 }
 function qtText(x){
   var d=x.d||fToday(), out=["🌅 경건의 시간 · "+(+d.slice(0,4))+"년 "+qtDateText(d)];
@@ -9464,16 +9468,15 @@ function paintQt(){
 function qtParse(){ var a=parseAddr(($("qtr")||{}).value||""); return a; }
 function qtPassagePaint(){
   var host=$("qtp"), note=$("qtrnote"), q=$("qtr").value.trim(), a=qtParse(), x=QT.cur||{};
-  if(!q){ host.innerHTML=""; note.textContent="예: 요 3:16-21 · 시 23 — 쓰면 본문이 아래에 들어갑니다"; x.p=""; return; }
-  if(!a){ host.innerHTML=""; note.textContent="주소를 알아보지 못했습니다 · 「책 장:절-절」로 써 주세요"; return; }
+  if(!q){ host.innerHTML=""; note.textContent="예: 요 3:16-21 · 요 3:1-3, 14 · 시 23 — 쓰면 본문이 아래에 들어갑니다"; x.p=""; return; }
+  if(!a){ host.innerHTML=""; note.textContent="주소를 알아보지 못했습니다 · 「책 장:절-절, 절」로 써 주세요"; return; }
   note.textContent="";
   bibBook(a.bi).then(function(){
     if(qtParse()===null || $("qtr").value.trim()!==q) return;
-    var n=CH_V[a.bi][a.c-1], v1=a.v||1, v2=a.v?(a.v2||a.v):n, lines=[];
-    for(var v=v1; v<=v2; v++) lines.push(v+" "+(bibVerse(a.bi,a.c,v)||""));
+    var vs=addrVerses(a), lines=vs.map(function(v){ return v+" "+(bibVerse(a.bi,a.c,v)||""); });
     x.p=lines.join("\n");
-    host.innerHTML='<p class="qtph"><b>'+esc(BOOK_ORDER[a.bi]+" "+a.c+chWord(a.bi)+(a.v?" "+v1+(v2!==v1?"-"+v2:"")+"절":""))+'</b><span>개역한글</span></p>'+
-      lines.map(function(l,j){ return '<p class="qtpv"><sup>'+(v1+j)+'</sup>'+esc(l.replace(/^\d+ /,""))+'</p>'; }).join("");
+    host.innerHTML='<p class="qtph"><b>'+esc(BOOK_ORDER[a.bi]+" "+a.c+chWord(a.bi)+(a.v?" "+addrVText(a)+"절":""))+'</b><span>개역한글</span></p>'+
+      lines.map(function(l,j){ return (j&&vs[j]!==vs[j-1]+1?'<p class="qtpgap" aria-hidden="true">⋯</p>':'')+'<p class="qtpv"><sup>'+vs[j]+'</sup>'+esc(l.replace(/^\d+ /,""))+'</p>'; }).join("");
     qtPlanMark();
     if(!qtEmpty(qtFromDom())) qtKeep();
   },function(){ note.textContent=netOff()?"인터넷이 없어 본문을 불러오지 못했습니다":"본문을 불러오지 못했습니다"; });
@@ -9494,7 +9497,7 @@ function qtPlanPaint(){
   var host=$("qtplan"); if(!host) return;
   var tabs='<div class="counts qttabs" role="group" aria-label="위에 띄울 본문">'+[["plan","📅 읽기표"],["pick","📖 내가 고른 본문"]].map(function(t){
     return '<button type="button" class="cbtn" data-qttab="'+t[0]+'" aria-pressed="'+(QT.tab===t[0])+'">'+t[1]+'</button>'; }).join("")+'</div>';
-  var tip='<p class="qttip" id="qttip">절을 누르면 말씀 주소에 들어갑니다 · 같은 장에서 한 절을 더 누르면 그 사이까지</p>';
+  var tip=qtSelHtml();
   if(QT.tab==="pick"){ host.innerHTML=tabs+qtPickHead()+tip+'<div class="qtpv2 rdv"><p class="fixednote">본문을 불러오는 중…</p></div>'; qtPickBody(); return; }
   if(QT.day<0) QT.day=qtPlanDefault();
   var i=QT.day, mo="", da="";
@@ -9556,21 +9559,40 @@ function qtPlanMark(){
   var a=qtParse(), host=$("qtplan"); if(!host) return;
   host.querySelectorAll("p.v.qton").forEach(function(p){ p.classList.remove("qton"); });
   if(!a) return;
-  var v1=a.v||1, v2=a.v?(a.v2||a.v):CH_V[a.bi][a.c-1];
-  for(var v=v1; v<=v2; v++){ var p=host.querySelector('p.v[data-k="'+BOOK_ORDER[a.bi]+"|"+a.c+"|"+v+'"]'); if(p) p.classList.add("qton"); }
+  addrVerses(a).forEach(function(v){ var p=host.querySelector('p.v[data-k="'+BOOK_ORDER[a.bi]+"|"+a.c+"|"+v+'"]'); if(p) p.classList.add("qton"); });
 }
-/* 절을 누르면 주소로 — 같은 장에서 한 절을 더 누르면 그 사이를 범위로 */
+/* 절을 누르면 주소로.
+   「↔ 사이까지」(처음): 같은 장에서 한 절을 더 누르면 그 사이를 범위로, 그다음엔 새로 한 절.
+   「☝ 한 절씩」(v20): 누르는 절마다 따로 더하고, 고른 절을 다시 누르면 뺍니다 → 「요 3:1-3, 14」 */
+var QT_TIP={range:"절을 누르면 말씀 주소에 들어갑니다 · 같은 장에서 한 절을 더 누르면 그 사이까지",
+  each:"누르는 절마다 따로 더해집니다 (예: 1, 14) · 고른 절을 다시 누르면 빠집니다"};
+function qtSelHtml(){
+  return '<div class="counts qtselm" role="group" aria-label="절 고르는 방식">'+[["range","↔ 사이까지"],["each","☝ 한 절씩"]].map(function(t){
+    return '<button type="button" class="cbtn" data-qtselm="'+t[0]+'" aria-pressed="'+(QT.selm===t[0])+'">'+t[1]+'</button>'; }).join("")+'</div>'+
+    '<p class="qttip" id="qttip">'+QT_TIP[QT.selm]+'</p>';
+}
 function qtPickVerse(k){
   var p=String(k).split("|"), bi=BOOK_ORDER.indexOf(p[0]), c=+p[1], v=+p[2]; if(bi<0) return;
-  var a=qtParse(), ref;
-  if(a && a.bi===bi && a.c===c && a.v && !a.v2 && v!==a.v) ref=shortRef(bi,c,Math.min(a.v,v),Math.max(a.v,v));
+  var a=qtParse(), same=!!(a && a.bi===bi && a.c===c && a.v), ref, off=false;
+  if(QT.selm==="each" && same){
+    var vs=addrVerses(a), i=vs.indexOf(v);
+    if(i>=0){ vs.splice(i,1); off=true; } else vs.push(v);
+    vs.sort(function(x,y){ return x-y; });
+    ref=vs.length ? BOOK_SHORT[bi]+" "+c+":"+selRange(vs) : "";
+  }
+  else if(same && !a.v2 && !a.vs && v!==a.v) ref=shortRef(bi,c,Math.min(a.v,v),Math.max(a.v,v));
   else ref=shortRef(bi,c,v);
   $("qtr").value=ref;
   if(QT.cur) QT.cur.pd=(QT.tab==="plan")?QT.day:-1;
   qtPassagePaint(); qtKeep();
-  var tip=$("qttip"), one=!/-/.test(ref);
-  if(tip){ tip.innerHTML='✅ <b>'+esc(ref)+'</b> 말씀 주소에 넣었습니다'+(one?' · 같은 장에서 한 절을 더 누르면 그 사이까지':''); tip.classList.add("on"); }
-  setSync(ref+" · 말씀 주소에 넣었습니다");
+  if(!ref) qtPlanMark();
+  var tip=$("qttip"), one=!/[-,]/.test(ref);
+  if(tip){
+    tip.innerHTML=!ref ? '고른 절을 모두 뺐습니다 · 절을 누르면 다시 들어갑니다'
+      : '✅ <b>'+esc(ref)+'</b> '+(off?'· '+v+'절을 뺐습니다':'말씀 주소에 넣었습니다')+(QT.selm==="each"?' · 다시 누르면 빠집니다':(one?' · 같은 장에서 한 절을 더 누르면 그 사이까지':''));
+    tip.classList.add("on");
+  }
+  setSync(ref ? ref+" · 말씀 주소에 넣었습니다" : "말씀 주소를 비웠습니다");
 }
 
 /* ═══ 성경 본문 (책별 파일) ═══
@@ -9648,7 +9670,7 @@ var BOOK_ALIAS=(function(){
 })();
 function parseAddr(q){
   q=String(q||"").replace(/\s+/g," ").trim();
-  var mm=/^([1-3]?\s?[가-힣]+)\s*(\d+)\s*(?:[:장편]\s*(\d+)?(?:\s*[-~]\s*(\d+))?)?\s*(?:절)?$/.exec(q);
+  var mm=/^([1-3]?\s?[가-힣]+)\s*(\d+)\s*(?:[:장편]\s*(\d+)?(?:\s*[-~]\s*(\d+))?((?:\s*[,，]\s*\d+(?:\s*[-~]\s*\d+)?)*))?\s*(?:절)?$/.exec(q);
   if(!mm) return null;
   var name=mm[1].replace(/\s/g,""), bi=BOOK_ALIAS[name];
   if(bi===undefined) return null;
@@ -9657,8 +9679,23 @@ function parseAddr(q){
   var n=CH_V[bi][c-1];
   if(v>n) v=n;
   if(v2 && (v2<v || v2>n)) v2=0;
-  return {bi:bi, c:c, v:v, v2:v2};
+  if(!v || !mm[5] || !/\d/.test(mm[5])) return {bi:bi, c:c, v:v, v2:v2};
+  /* v20: 떨어진 절 「요 3:1-3, 14」 — vs 에 고른 절을 모두(차례대로). v · v2 는 처음 · 끝 절 */
+  var set={}, add=function(a,b){ a=Math.max(1,Math.min(n,a)); b=b?Math.max(a,Math.min(n,b)):a; for(var k=a;k<=b;k++) set[k]=1; };
+  add(v,v2);
+  mm[5].split(/[,，]/).forEach(function(t){ var r=/(\d+)(?:\s*[-~]\s*(\d+))?/.exec(t); if(r) add(+r[1],r[2]?+r[2]:0); });
+  var vs=Object.keys(set).map(Number).sort(function(x,y){ return x-y; }), lo=vs[0], hi=vs[vs.length-1];
+  if(hi-lo+1===vs.length) return {bi:bi, c:c, v:lo, v2:hi>lo?hi:0};
+  return {bi:bi, c:c, v:lo, v2:hi, vs:vs};
 }
+/* 주소의 절 목록 · 절 글자(「1-3, 14」) — 장만 쓴 주소는 장 전체 */
+function addrVerses(a){
+  if(a.vs) return a.vs.slice();
+  var v1=a.v||1, v2=a.v?(a.v2||a.v):CH_V[a.bi][a.c-1], out=[];
+  for(var v=v1; v<=v2; v++) out.push(v);
+  return out;
+}
+function addrVText(a){ return a.vs ? selRange(a.vs) : (a.v ? a.v+(a.v2&&a.v2!==a.v?"-"+a.v2:"") : ""); }
 
 /* ── 절 그리기 (읽기표 · 순서로 · 성경보기 같은 모양) ──
    key 는 "책이름|장|절". 암송 구절이 시작되는 절 끝에는 꼬리표를 붙입니다. */
@@ -10714,7 +10751,7 @@ function svRun(){
   if(!q){ host.innerHTML=""; return; }
   var ad=parseAddr(q), jump="";
   if(ad) jump='<button type="button" class="sjump" data-svgo="'+ad.bi+'|'+ad.c+'|'+(ad.v||0)+'|'+(ad.v2||0)+'">'+svg("bible")+
-    '<span><b>'+esc(BOOK_ORDER[ad.bi]+" "+ad.c+(ad.v?":"+ad.v+(ad.v2?"-"+ad.v2:""):chWord(ad.bi)))+' 바로 가기</b><span>주소로 찾았습니다</span></span></button>';
+    '<span><b>'+esc(BOOK_ORDER[ad.bi]+" "+ad.c+(ad.v?":"+addrVText(ad):chWord(ad.bi)))+' 바로 가기</b><span>주소로 찾았습니다</span></span></button>';
   var books=svBooks(SV.scope);
   var words=(SV.mode==="phrase") ? [q.replace(/\s/g,"")] : q.split(" ").filter(String);
   if(ad){
@@ -14345,6 +14382,10 @@ $("qtplan").addEventListener("click",function(e){
   if(tb){ QT.tab=tb.dataset.qttab; qtSave(); qtPlanPaint(); return; }
   var sl=e.target.closest("[data-qtslot]");
   if(sl){ QT.slot=+sl.dataset.qtslot; qtSave(); qtPlanPaint(); return; }
+  var sm=e.target.closest("[data-qtselm]");
+  if(sm){ QT.selm=sm.dataset.qtselm==="each"?"each":"range"; qtSave();
+    $("qtplan").querySelectorAll("[data-qtselm]").forEach(function(b){ b.setAttribute("aria-pressed",b.dataset.qtselm===QT.selm); });
+    var tp=$("qttip"); if(tp){ tp.textContent=QT_TIP[QT.selm]; tp.classList.remove("on"); } return; }
   var qc=e.target.closest("[data-qtch]");
   if(qc){ qtPickStep(+qc.dataset.qtch); return; }
   if(st){ QT.src="고른 날"; QT.day=Math.max(0,Math.min(299,(QT.day<0?0:QT.day)+(+st.dataset.qtstep))); qtPlanPaint(); return; }
