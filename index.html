@@ -2687,6 +2687,12 @@ body.compact header{padding:14px 0 10px}
         <button type="button" data-f="head">제목 글꼴</button>
       </div>
       <p class="fixednote">새 글꼴은 처음 고를 때 한 번 받아 둡니다. 이 기기에 기억해 둡니다.</p>
+      <p class="eyebrow" style="margin-top:20px">앱을 열 때</p>
+      <div class="themepick two" id="openpick" role="group" aria-label="앱을 열 때 처음 보일 화면">
+        <button type="button" data-open="">처음 화면</button>
+        <button type="button" data-open="glance">한눈에</button>
+      </div>
+      <p class="fixednote">「한눈에」를 고르면 앱을 열 때 내 구절 한눈에부터 보입니다. 넣어 둔 구절이 없으면 처음 화면이 열립니다.</p>
       <p class="eyebrow" style="margin-top:20px">함께 읽기</p>
       <div class="themepick" id="lkpick" role="group" aria-label="함께 읽기">
         <button type="button" data-lk="on">보기</button>
@@ -4265,7 +4271,7 @@ function paintThemePick(){
    표를 새로 만들지 않습니다. 로그인하지 않았으면 지금처럼 이 기기에만 남습니다.
    로그인할 때: 계정에 저장된 것이 있으면 그것을 이 기기에 씌우고, 없으면 이 기기 설정을 계정에 올립니다. */
 var PREF_LAST="", PREF_T=0, PREF_FOR="";
-function prefNow(){ return {ver:state.ver,fz:fzNow(),theme:themeNow(),skin:skinNow(),fui:fontNow("fui"),fhd:fontNow("fhd"),fbv:fontNow("fbv")}; }
+function prefNow(){ return {ver:state.ver,fz:fzNow(),theme:themeNow(),skin:skinNow(),fui:fontNow("fui"),fhd:fontNow("fhd"),fbv:fontNow("fbv"),start:startPref()}; }
 function prefPush(){
   if(!online() || !state.me) return;
   clearTimeout(PREF_T);
@@ -4287,6 +4293,7 @@ function prefPull(u){
   if(p.ver) setVer(p.ver);
   setFz(p.fz); setTheme(p.theme); setSkin(p.skin);
   ["fui","fhd","fbv"].forEach(function(k){ setFont(k,p[k]); });
+  if(typeof p.start==="string"){ setStartPref(p.start==="glance"?"glance":""); paintOpenPick(); }   /* v19: 처음 보일 화면도 계정에 */
   PREF_LAST=JSON.stringify(prefNow());
 }
 
@@ -4353,7 +4360,7 @@ function paintMy2(fetch){
   var signed=!!state.me;
   $("mysignin").hidden=signed;
   $("myPanels").hidden=!signed;
-  paintVerPick(); paintFzPick(); paintThemePick(); paintSkinPick(); paintFontPick(); paintLkPick();
+  paintVerPick(); paintFzPick(); paintThemePick(); paintSkinPick(); paintFontPick(); paintLkPick(); paintOpenPick();
   if(!signed){
     $("mysignnote").textContent = !online() ? DB_MSG
       : (authErrText() || "기록은 로그인한 계정에 묶입니다. 구글과 카카오는 서로 다른 계정이라 기록도 따로 쌓입니다.");
@@ -13386,6 +13393,18 @@ function typeFromList(list,label){
 var START_KEY="navfest.start", GL={hide:false, open:{}};
 function startPref(){ try{ return localStorage.getItem(START_KEY)||""; }catch(e){ return ""; } }
 function setStartPref(v){ try{ if(v) localStorage.setItem(START_KEY,v); else localStorage.removeItem(START_KEY); }catch(e){} }
+/* v19: 마이페이지 설정 「앱을 열 때」 · 한눈에 화면의 체크와 같은 값 */
+function paintOpenPick(){
+  var cur=startPref()==="glance"?"glance":"";
+  document.querySelectorAll("#openpick button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.open===cur)); });
+  var c=$("glstart"); if(c) c.checked=(cur==="glance");
+}
+function changeStartPref(v){
+  setStartPref(v); paintOpenPick(); prefPush();
+  setSync(v ? "이제 앱을 열면 「한눈에」부터 보입니다" : "앱을 열면 처음 화면부터 보입니다");
+}
+/* 넣어 둔 구절이 하나라도 있는가 — 없으면 앱을 열 때 빈 「한눈에」 대신 처음 화면 */
+function glanceHasAny(){ return MY_SLOTS.some(function(s){ return myList(s.k).length>0; }); }
 function openGlance(){
   GL.open={};
   paintGlance();
@@ -14500,10 +14519,8 @@ $("glbody").addEventListener("click",function(e){
   if(GL.open[k]) delete GL.open[k]; else GL.open[k]=1;
   paintGlance();
 });
-$("glstart").addEventListener("change",function(){
-  setStartPref(this.checked?"glance":"");
-  setSync(this.checked ? "이제 앱을 열면 「한눈에」부터 보입니다" : "앱을 열면 처음 화면부터 보입니다");
-});
+$("glstart").addEventListener("change",function(){ changeStartPref(this.checked?"glance":""); });
+$("openpick").addEventListener("click",function(e){ var b=e.target.closest("[data-open]"); if(b) changeStartPref(b.dataset.open); });
 /* ── 구절 카드 · 가리기 · 암송지갑에 두기 · 밀어서 넘기기 ── */
 $("vcvn").addEventListener("click",function(e){ vnEditorClick(e,"memo"); });
 $("vchide").addEventListener("click",function(){ PV.hide=!PV.hide; PV.shown=false; paintVerseCard(); });
@@ -15491,7 +15508,7 @@ if(!NAV_BACK) applyScreen("home");
 if(URL_CODE) joinContest(URL_CODE,{fromUrl:true});
 /* 바로가기로 열었거나, 「앱을 열면 한눈에부터」를 켜 둔 경우 (로그인에서 돌아온 때는 빼고) */
 if(!NAV_BACK && !URL_CODE && URL_FIELD.length!==4 && !AUTH_ERR &&
-   !/[?&#](code|access_token)=/.test(location.href) && (URL_VIEW || startPref()==="glance")){
+   !/[?&#](code|access_token)=/.test(location.href) && (URL_VIEW || (startPref()==="glance" && glanceHasAny()))){
   try{ if(URL_VIEW) history.replaceState(hst({nav:0}),"",BASE_URL); }catch(e){}
   var v0=URL_VIEW||"glance";
   if(v0==="mine") openMine(); else if(v0==="cards") openFsrs(); else if(v0==="tract") openTract();
