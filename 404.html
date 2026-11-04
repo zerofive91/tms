@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wheel Life · 새 주소로 옮겼어요</title>
+<style>
+:root{--bg:#EDF3E7;--ink:#1d2b22;--soft:#5b6b60;--brand:#2f6b4f;--card:#fff;--line:#d5dfd0}
+@media (prefers-color-scheme:dark){:root{--bg:#10201a;--ink:#e8f0ea;--soft:#a9b8ad;--brand:#7fd1a8;--card:#18291f;--line:#2b3f33}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+main{max-width:440px;margin:0 auto;padding:40px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+h1{font-size:1.4em;margin:0 0 8px}p{margin:0 0 14px;color:var(--soft)}
+a.btn,button{display:block;width:100%;text-align:center;padding:14px;border-radius:12px;font:inherit;font-weight:700;text-decoration:none;margin-top:10px;cursor:pointer}
+.main{background:var(--brand);color:var(--card);border:0}.sub{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+b.addr{color:var(--ink);word-break:break-all}
+</style>
+</head>
+<body>
+<main><div class="card">
+<h1>Wheel Life가 새 주소로 옮겼어요</h1>
+<p>새 주소: <b class="addr">wheellife.mjunav.com</b><br>홈 화면에 앱을 두셨다면 새 주소에서 다시 「홈 화면에 추가」해 주세요.</p>
+<p id="hasdata" hidden>이 기기에 읽던 자리 · 설정 · 기록이 있어요. 아래 단추로 새 주소에 함께 가져갈 수 있어요. (로그인해서 쓰던 기록은 계정에 있어서 그냥 이어집니다)</p>
+<button type="button" class="main" id="move" hidden>내 기기 자료 가져가기</button>
+<a class="btn sub" id="go" href="https://wheellife.mjunav.com/">새 주소로 가기</a>
+</div></main>
+<script>
+/* 옛 주소 안내 장 — 옛 앱의 서비스 워커 · 캐시를 지우고, 이 기기의 navfest.* 자료를 새 주소로 넘김(#nfimport=). 로그인 정보 · 본문 캐시는 넘기지 않음 */
+(function(){
+  var NEW="https://wheellife.mjunav.com/";
+  try{ if(navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ if(r.scope.indexOf("/tms/")>=0) r.unregister(); }); }); }catch(e){}
+  try{ if(window.caches) caches.keys().then(function(ks){ ks.forEach(function(k){ if(k.indexOf("navfest")===0) caches.delete(k); }); }); }catch(e){}
+  var d={}, n=0;
+  try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k && k.indexOf("navfest.")===0 && k!=="navfest.auth" && k!=="navfest.vt"){ d[k]=localStorage.getItem(k); n++; } } }catch(e){}
+  /* 하위 주소(전도지 등)로 왔으면 같은 자리로 */
+  var rest=location.pathname.replace(/^\/tms\/?/,"").replace(/^index\.html$/,"")+location.search+location.hash;
+  document.getElementById("go").href=NEW+rest;
+  if(!n){ location.replace(NEW+rest); return; }
+  document.getElementById("hasdata").hidden=false;
+  var b=document.getElementById("move"); b.hidden=false;
+  b.addEventListener("click",function(){
+    var s=btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+    location.href=NEW+"#nfimport="+s;
+  });
+})();
+</script>
+</body>
+</html>
